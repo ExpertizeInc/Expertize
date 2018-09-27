@@ -1,11 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      
+
     }
   }
   render() {
@@ -15,4 +17,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+render(<App/>, document.getElementById('app'));
