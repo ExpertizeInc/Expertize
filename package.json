@@ -20,6 +20,7 @@
     "dotenv": "^6.0.0",
     "express-graphql": "^0.6.12",
     "graphql": "^14.0.2",
+    "graphql-tag": "^2.9.2",
     "graphql-tools": "^4.0.0",
     "pg": "^7.4.3",
     "react": "^16.5.2",
