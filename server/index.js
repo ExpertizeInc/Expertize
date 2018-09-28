@@ -3,21 +3,13 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config()
 const path = require('path');
 const cors = require('cors')
+const schema = require('../database/schema.js')
+const root = require('../database/resolvers.js')
 const graphqlHTTP = require('express-graphql');
-const { buildSchema } = require('graphql');
-
-var schema = buildSchema(`
-  type Query {
-    hello: String
-  }
-`);
-
-var root = { hello: () => 'Hello world~~!' };
 
 var app = express();
 
-app.use(express.static(path.join(__dirname + '/../../client/dist')));
-app.use(express.static(path.join(__dirname, '/../../node_modules')));
+app.use(express.static(path.join(__dirname + '/../client/dist')));
 app.use(bodyParser.json())
 app.use(cors())
 
