@@ -1,13 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
+import { HashRouter as Router, Link, Route } from 'react-router-dom';
 import SignIn from './components/SignIn.jsx';
 import Home from './components/Home.jsx';
+import Signup from './components/Signup.jsx';
+import NavBar from './components/NavBar.jsx';
 
 const Routes = () => (
     <Router>
         <div>
-            <Route path="/" strict exact component={Home}></Route>
-            <Route path="/signin" strict exact component={SignIn}></Route>
+            <NavBar/>
+            <Route path="/" exact component={Home}></Route>
+            <Route path="/signin" component={SignIn}></Route>
+            <Route path="/signup" component={Signup}></Route>
         </div>
     </Router>
 )
