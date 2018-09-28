@@ -16,8 +16,8 @@ var root = { hello: () => 'Hello world~~!' };
 
 var app = express();
 
-app.use(express.static(path.join(__dirname + '/../../client/dist')));
-app.use(express.static(path.join(__dirname, '/../../node_modules')));
+app.use(express.static(path.join(__dirname + '/../client/dist')));
+// app.use(express.static(path.join(__dirname, '/../../node_modules')));
 app.use(bodyParser.json())
 app.use(cors())
 
