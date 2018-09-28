@@ -3,6 +3,8 @@ import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider, Query } from 'react-apollo';
 import gql from "graphql-tag";
+import NavBar from './components/NavBar.jsx'
+import Home from './components/Home.jsx'
 
 
 const client = new ApolloClient({
@@ -27,6 +29,8 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
+        <NavBar />
+        <Home />
         <Query query={user}>
           {({ loading, error, data }) => {
             if (loading) return <div>Fetching</div>
