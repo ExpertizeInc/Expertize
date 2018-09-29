@@ -17,7 +17,7 @@ class NavBar extends Component {
   </Navbar.Header>
   <Nav>
     <NavItem eventKey={1}>
-      Link
+      Demo
     </NavItem>
     <NavItem eventKey={2}>
       Link
