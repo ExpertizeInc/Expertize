@@ -21,20 +21,47 @@ const userTags = [
 ]
 
 // will replace with db model
+// FIX RESOLVERS!!!
 const resolvers = {
   Query: {
-    user: (_, { id }) => find(users, { id }),
-    tags: () => tags
+    user: async (parent, args, context, info) => {
+      return await context.db.query.user({}, info);
+    },
+    tags: async (parent, args, context, info) =>  {
+      return await context.db.query.user({}, info.tags)
+    } 
   },
 
   User: {
-    tags: user => filter(userTags, { userId: user.id }),
+    tags: async (parent, args, context, info) =>  {
+      return await context.db.query.tags({ where: { user: parent.id}}, info)
+    } 
   },
   
   UserTag: {
-    user: user => find(users, { id: user.id }),
-    tag: tag => find(tags, { id: tag.id})
+    // user: user => find(users, { id: user.id }),
+    user: async (parent, args, context, info) =>  {
+      return await context.db.query.usertag({ where: { id: }}, info)
+    }, 
+    tag: async (parent, args, context, info) =>  {
+      return await context.db.query.usertag({ where: {id: args.id}}, info)
+    } 
   }
 }
 
 module.exports = resolvers
+
+
+// const user = gql`
+// {
+//  user(id:1) {
+//    username
+//    email
+//    tags {
+//        tag {
+//            name
+//        }
+//    }
+//  }
+// }
+// `;
