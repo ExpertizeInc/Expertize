@@ -1,23 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider, Query } from 'react-apollo';
-import gql from "graphql-tag";
-import NavBar from './components/NavBar.jsx'
-import Home from './components/Home.jsx'
+import { ApolloProvider } from 'react-apollo';
 
+import Routes from './Routes.jsx';
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql"
 });
 
-const user = gql`
-{
-  user(id:1) {
-    username
-  }
-}
-`;
 
 class App extends React.Component {
   constructor(props) {
@@ -29,20 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <NavBar />
-        <Home />
-        <Query query={user}>
-          {({ loading, error, data }) => {
-            if (loading) return <div>Fetching</div>
-            if (error) return <div>Error</div>
-            return (
-              <div>
-                Hi, {data.user.username}.
-            </div>
-            )
-          }}
-        </Query>
-        <div>Hello World!!</div>
+          <Routes />
       </ApolloProvider>
     )
   }
