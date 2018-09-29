@@ -30,7 +30,6 @@ class App extends React.Component {
     return (
       <ApolloProvider client={client}>
         <NavBar />
-        <Home />
         <Query query={user}>
           {({ loading, error, data }) => {
             if (loading) return <div>Fetching</div>
