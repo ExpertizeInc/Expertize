@@ -7,6 +7,12 @@ const user = gql`
 {
   user(id:1) {
     username
+    email
+    tags {
+        tag {
+            name
+        }
+    }
   }
 }
 `;
@@ -35,7 +41,8 @@ class Home extends Component {
                     if (error) return <div>Error</div>
                     return (
                     <div>
-                        Hi, {data.user.username}.
+                        {console.log(data.user)}
+                        Hi, 
                     </div>
                     )
                 }}
