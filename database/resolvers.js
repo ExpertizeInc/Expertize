@@ -21,10 +21,11 @@ const userTags = [
 ]
 
 // will replace with db model
+// FIX RESOLVERS!!!
 const resolvers = {
   Query: {
     user: (_, { id }) => find(users, { id }),
-    tags: () => tags
+    tags: () => tags 
   },
 
   User: {

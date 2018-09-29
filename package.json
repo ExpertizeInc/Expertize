@@ -7,7 +7,7 @@
     "test": "",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "start": "nodemon server/index.js webpack -d"
+    "start": "nodemon server/index.js webpack -d --watch"
   },
   "author": "Alon, Paul, Shirley",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "graphql-tag": "^2.9.2",
     "graphql-tools": "^4.0.0",
     "lodash": "^4.17.11",
+    "nodemon": "^1.18.4",
     "pg": "^7.4.3",
     "react": "^16.5.2",
     "react-apollo": "^2.2.1",
