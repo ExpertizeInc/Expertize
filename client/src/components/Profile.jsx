@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Well } from 'react-bootstrap';
+
 
 class Profile extends Component {
   constructor(props) {
@@ -7,7 +9,9 @@ class Profile extends Component {
   }
   render() { 
     return (
-      <div></div>
+      <Well>
+        user
+      </Well>
     )
   }
 }

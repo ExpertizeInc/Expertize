@@ -23,7 +23,7 @@ class Signup extends Component {
   </FormGroup>
 
   <FormGroup controlId="formHorizontalEmail">
-    <Col componentClass={ControlLabel} sm={4}>
+    <Col componentClass={ControlLabel} sm={5}>
       Email
     </Col>
     <Col sm={3}>
