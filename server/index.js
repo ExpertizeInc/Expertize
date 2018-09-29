@@ -18,7 +18,9 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true
 }))
-
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+});
 var port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
