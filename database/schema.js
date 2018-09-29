@@ -12,11 +12,10 @@ const typeDefs = `
     linkedEmail: String
     linkedId: String
     tags: [UserTag]
-    coins: Int
   }
 
   type UserTag {
-    id: Int!
+    id: Int! 
     user: User
     tag: Tag
   }

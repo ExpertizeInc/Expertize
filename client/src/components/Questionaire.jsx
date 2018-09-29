@@ -6,7 +6,7 @@ class Questionaire extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
+      username: '',
       key: 1,
       value: []
     }
@@ -17,9 +17,9 @@ class Questionaire extends Component {
   }
 
   getValidationState () {
-    const length = this.state.input.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
+    const length = this.state.username.length;
+    if (length > 12) return 'success';
+    else if (length > 3) return 'warning';
     else if (length > 0) return 'error';
   }
 
@@ -36,7 +36,7 @@ class Questionaire extends Component {
 
   handleInput(e) {
     this.setState({
-      input: e.target.value
+      username: e.target.value
     })
   }
 
@@ -80,7 +80,7 @@ class Questionaire extends Component {
             <ToggleButton value="Programming">Programming</ToggleButton>
           </ToggleButtonGroup>
           <div>
-            {/* submit compiled user details to database. create user's profile */}
+            {/* submit compiled user details to database. render user's profile complete w/ details */}
             <Button type="submit" onClick={this.handleSelect}>
               DONE
             </Button>

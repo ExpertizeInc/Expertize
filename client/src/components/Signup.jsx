@@ -14,7 +14,7 @@ class Signup extends Component {
 <Form className="form-panel-signup" horizontal>
 
   <FormGroup controlId="formHorizontalUsername">
-    <Col componentClass={ControlLabel} sm={4}>
+    <Col componentClass={ControlLabel} sm={5}>
       Username
     </Col>
     <Col sm={3}>
@@ -32,7 +32,7 @@ class Signup extends Component {
   </FormGroup>
 
   <FormGroup controlId="formHorizontalPassword">
-    <Col componentClass={ControlLabel} sm={4}>
+    <Col componentClass={ControlLabel} sm={5}>
       Password
     </Col>
     <Col sm={3}>
