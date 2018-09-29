@@ -7,23 +7,22 @@ services:
     - "4466:4466"
     environment:
       PRISMA_CONFIG: |
-        managementApiSecret: my-server-secret-123
         port: 4466
+        # uncomment the next line and provide the env var PRISMA_MANAGEMENT_API_SECRET=my-secret to activate cluster security
+        # managementApiSecret: my-secret
         databases:
           default:
             connector: postgres
-            host: postgres
-            port: 5432
-            user: root
-            password: prisma
+            host: expertize.ci9qe7nyvmjd.us-east-2.rds.amazonaws.com
+            port: 3088
+            user: expertizeroot
+            password: expert123
             migrations: true
-            managementSchema: management
-            database: root
   postgres:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: root
+      POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
     volumes:
       - postgres:/var/lib/postgresql/data
