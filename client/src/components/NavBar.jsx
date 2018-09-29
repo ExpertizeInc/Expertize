@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
   constructor(props) {
@@ -11,23 +12,23 @@ class NavBar extends Component {
       <Navbar>
   <Navbar.Header>
     <Navbar.Brand>
-      <a href="#home">Expertize</a>
+      <Link to="/">Expertize</Link>
     </Navbar.Brand>
   </Navbar.Header>
   <Nav>
-    <NavItem eventKey={1} href="#">
-      Link
+    <NavItem eventKey={1}>
+      Demo
     </NavItem>
-    <NavItem eventKey={2} href="#">
+    <NavItem eventKey={2}>
       Link
     </NavItem>
   </Nav>
   <Nav pullRight>
-      <NavItem eventKey={1} href="#">
-        Log In
+      <NavItem eventKey={1}>
+        <Link to="/signin">Log In</Link>
       </NavItem>
-      <NavItem eventKey={2} href="#">
-        Sign Up
+      <NavItem eventKey={2}>
+        <Link to="/signup">Sign Up</Link>
       </NavItem>
     </Nav>
 </Navbar>
