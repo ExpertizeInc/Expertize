@@ -1,0 +1,9 @@
+# The HTTP endpoint for your Prisma API
+endpoint: 'https://eu1.prisma.sh/alon-bibring-d051d8/database/dev'
+
+# Points to the file that holds your data model
+datamodel: datamodel.graphql
+
+# You can only access the API when providing JWTs that are signed with this secret 
+# JWTs need to be included in Header
+secret: my-server-secret-123

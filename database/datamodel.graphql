@@ -1,0 +1,20 @@
+  type User {
+    id: ID! @unique 
+    username: String!
+    email: String!
+    firebaseId: String
+    linkedEmail: String
+    linkedId: String
+    tags: [UserTag!]!
+  }
+
+  type UserTag {
+    id: ID! @unique
+    user: User!
+    tag: Tag!
+  }
+
+  type Tag {
+    id: ID! @unique
+    name: String!
+  }
