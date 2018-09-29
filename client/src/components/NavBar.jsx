@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
   constructor(props) {
