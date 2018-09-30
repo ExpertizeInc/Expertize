@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv').config()
+const dotenv = require('dotenv').config();
 const path = require('path');
 const cors = require('cors')
 const schema = require('../database/schema.js')
@@ -18,6 +18,7 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true
 }))
+
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
