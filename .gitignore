@@ -2,5 +2,7 @@ node_modules/
 build/
 package-lock.json
 bundle.js
+logfile
+docker-compose.yml
 .env
 .DS_Store

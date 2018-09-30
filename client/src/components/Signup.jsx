@@ -5,9 +5,26 @@ class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      username: '',
+      password: '',
+      email: ''
     }
+    this.onChange = this.onChange.bind(this)
+    this.submitSignUp = this.submitSignUp.bind(this)
   }
+
+  onChange(e, type) {
+    e.preventDefault()
+    this.setState({
+      [type]: e.target.value
+    })
+  }
+
+  submitSignUp() {
+    // send to server
+    console.log(this.state)
+  }
+
   render() { 
     return (
 
@@ -18,7 +35,7 @@ class Signup extends Component {
       Username
     </Col>
     <Col sm={3}>
-      <FormControl type="username" placeholder="Username" />
+      <FormControl value={this.state.username} onChange={(e) => this.onChange(e, 'username')} type="username" placeholder="Username" />
     </Col>
   </FormGroup>
 
@@ -27,7 +44,7 @@ class Signup extends Component {
       Email
     </Col>
     <Col sm={3}>
-      <FormControl type="email" placeholder="Email" />
+      <FormControl value={this.state.email} onChange={(e) => this.onChange(e, 'email')} type="email" placeholder="Email" />
     </Col>
   </FormGroup>
 
@@ -36,14 +53,14 @@ class Signup extends Component {
       Password
     </Col>
     <Col sm={3}>
-      <FormControl type="password" placeholder="Password" />
+      <FormControl password={this.state.password} onChange={(e) => this.onChange(e, 'password')} type="password" placeholder="Password" />
     </Col>
   </FormGroup>
 
   <FormGroup>
     <Col smOffset={6} sm={3}>
     {/* todo: hook up to firebase/linkedin Oauth */}
-      <Button type="submit">Create an account</Button>
+      <Button onClick={this.submitSignUp} type="submit">Create an account</Button>
     </Col>
   </FormGroup>
 
