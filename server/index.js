@@ -18,6 +18,7 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true
 }))
+
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
 });
