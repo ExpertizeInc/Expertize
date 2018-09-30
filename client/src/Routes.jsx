@@ -16,28 +16,10 @@ class Routes extends React.Component {
         this.signIn = this.signIn.bind(this)
     }
     signIn() {
-        this.setState({authenticated: !this.state.authenticated}, () => console.log(this.state.authenticated))
+        this.setState({authenticated: !this.state.authenticated}, () => IN.API.Raw("/industries?format=json")
+        .result((r) => console.log(r))
+        .error((e) => console.log(e)))
     }
-
-    // onLinkedInLoad() {
-    //     IN.Event.on(IN, "auth", getProfileData);
-    // }
-    // // Handle the successful return from the API call
-    // onSuccess(data) {
-    //     console.log(data);
-    // }
-    // // Handle an error response from the API call
-    // onError(error) {
-    //     console.log(error);
-    // }
-    // // Use the API call wrapper to request the member's basic profile data
-    // getProfileData() {
-    //     IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json").result(onSuccess).error(onError);
-    // }
-    // //Log user out
-    // logOut() {
-    //   IN.User.logout(() => console.log('signed out'))
-    // }
 
     render() {
         return (
@@ -46,7 +28,7 @@ class Routes extends React.Component {
                     <NavBar/>
                     <Switch>
                         <Route exact strict path="/" component={Home}></Route>
-                        <Route exact strict path="/signin" component={SignIn}></Route>
+                        <Route exact strict path="/signin" render={(props) => <SignIn {...props} signIn={this.signIn}/>}></Route>
                         <Route exact strict path="/signup" component={Signup}></Route>
                         <Route exact strict path="/*" component={Error}></Route>
                     </Switch>

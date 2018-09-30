@@ -1,13 +1,13 @@
 import React from 'react'
-import LinkedinLogin from './LinkedinLogin'
+import LinkedinLogin from './LinkedinLogin.jsx'
 
-const SignIn = () => {
+const SignIn = ({ signIn }) => {
 
     return (
     <div>
         <h1>Sign In Page</h1>
         <div>hello</div>
-        <LinkedinLogin name="paul" text="SIGN IN"/>
+        <LinkedinLogin text="SIGN IN" signIn={signIn}/>
     </div>
     )
 }

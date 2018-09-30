@@ -1,8 +1,14 @@
-var React = require('react');
+import React from 'react';
 
-var LinkedinLogin = React.createClass({
+class LinkedinLogin extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {}
+        this.callbackFunction = this.callbackFunction.bind(this)
+        this.handleClick = this.handleClick.bind(this)
+    }
 
-    componentDidMount: function() {
+    componentDidMount() {
         var liRoot = document.createElement('div');
         liRoot.id = 'linkedin-root';
 
@@ -20,27 +26,28 @@ var LinkedinLogin = React.createClass({
             js.text = 'api_key: 86vkjzfew3pwlx';
             ljs.parentNode.insertBefore(js, ljs);
         }(document, 'script', 'linkedin-sdk'));
-    },
+    }
 
-    callbackFunction: function() {
-        winodw.IN.API.Profile("me").result(function(r) {
-            console.log(r);
-        });
-    },
+    callbackFunction() {
+        IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
+        .result((r) => console.log(r))
+        .error((e) => console.log(e))
+    }
 
-    handleClick: function(e) {
+    handleClick(e) {
         e.preventDefault();
         window.IN.User.authorize(this.callbackFunction, '');
-    },
+        this.props.signIn()
+    }
 
-    render: function() {
+    render() {
         return ( 
             <div>
-            < button onClick = { this.handleClick }
-            className = { "button social " + this.props.name.toLowerCase() + " " + this.props.visibility } > { this.props.text } < i className = { "fi-social-" + this.props.name.toLowerCase() }
-            /></button >
+            < button onClick = { this.handleClick }> { this.props.text }</button >
             </div>
         );
     }
-});
-module.exports = LinkedinLogin;
+};
+
+export default LinkedinLogin
+
