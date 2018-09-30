@@ -67,3 +67,7 @@
 2018-09-29 16:22:49.940 EDT [15797] STATEMENT:  psql expertize expertizeroot
 	;
 2018-09-29 16:23:03.240 EDT [46489] FATAL:  role "expertizeroot" does not exist
+2018-09-30 13:36:20.808 EDT [52676] LOG:  incomplete startup packet
+2018-09-30 13:36:20.808 EDT [52677] LOG:  incomplete startup packet
+2018-09-30 13:36:20.810 EDT [52678] LOG:  incomplete startup packet
+2018-09-30 13:36:38.623 EDT [52935] FATAL:  database "alon_bibring" does not exist
