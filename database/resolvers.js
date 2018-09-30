@@ -41,7 +41,7 @@ const resolvers = {
   UserTag: {
     // user: user => find(users, { id: user.id }),
     user: async (parent, args, context, info) =>  {
-      return await context.db.query.usertag({ where: { id: }}, info)
+      return await context.db.query.usertag({ where: { id: args.id}}, info)
     }, 
     tag: async (parent, args, context, info) =>  {
       return await context.db.query.usertag({ where: {id: args.id}}, info)
@@ -50,18 +50,3 @@ const resolvers = {
 }
 
 module.exports = resolvers
-
-
-// const user = gql`
-// {
-//  user(id:1) {
-//    username
-//    email
-//    tags {
-//        tag {
-//            name
-//        }
-//    }
-//  }
-// }
-// `;

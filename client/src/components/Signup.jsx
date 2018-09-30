@@ -42,6 +42,7 @@ class Signup extends Component {
 
   <FormGroup>
     <Col smOffset={6} sm={3}>
+    {/* todo: hook up to firebase/linkedin Oauth */}
       <Button type="submit">Create an account</Button>
     </Col>
   </FormGroup>

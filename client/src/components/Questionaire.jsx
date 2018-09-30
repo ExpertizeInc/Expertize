@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 
 class Questionaire extends Component {
@@ -11,9 +12,11 @@ class Questionaire extends Component {
       value: []
     }
     this.handleSelect = this.handleSelect.bind(this)
+    this.nextStep = this.nextStep.bind(this)
     this.getValidationState = this.getValidationState.bind(this)
     this.handleInput = this.handleInput.bind(this)
     this.handleButtonToggle = this.handleButtonToggle.bind(this)
+    this.handleSubmitInfo = this.handleSubmitInfo.bind(this)
   }
 
   getValidationState () {
@@ -27,11 +30,8 @@ class Questionaire extends Component {
     this.setState({ value: e });
   }
 
-
-  handleSelect(e) {
-    e.preventDefault()
-    this.setState({ key: ++this.state.key });
-    console.log(this.state.key)
+  handleSelect(key) {
+    this.setState({ key });
   }
 
   handleInput(e) {
@@ -40,9 +40,18 @@ class Questionaire extends Component {
     })
   }
 
+  nextStep(e) {
+    e.preventDefault()
+    this.setState({ key: ++this.state.key})
+  }
+
+  handleSubmitInfo() {
+    // save data and render profile
+  }
+
   render() { 
     return (
-      <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={this.state.key} >
+      <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={this.state.key} onSelect={this.handleSelect}>
         <Tab eventKey={1} title="Pick a username">
           <Form className="form-panel-question">
             <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
@@ -55,7 +64,7 @@ class Questionaire extends Component {
             </FormGroup>
             <FormGroup>
               <Col smOffset={5} sm={2}>
-                <Button type="submit" onClick={this.handleSelect}>
+                <Button type="submit" onClick={this.nextStep}>
                   Submit
                 </Button>
               </Col>
@@ -64,13 +73,16 @@ class Questionaire extends Component {
         </Tab>
         <Tab eventKey={2} title="Set up profile">
         {/* only show if user did not select linkedin oauth signup. maybe pick avatar here too */}
-        <Col smOffset={5} sm={2}>
-          <div>Ask to connect LinkedIn if not signing up w/ LinkedIn</div>
+        <Col smOffset={4} sm={3}>
+          <div>We use LinkedIn to tailor the experience for you. Would you like to connect in order to:</div>
+          <div>- Automatically create your profile</div>
+          <div>- Receive recommendations based on your interests</div>
           <div>- or -</div>
-          <a onClick={this.handleSelect}>Skip this step</a>
+          <a onClick={this.nextStep}>Skip this step for now</a>
         </Col>
         </Tab>
         <Tab eventKey={3} title="Expertize">
+        <Col xsOffset={4} sm={4}>
           Select your experience:
           <ToggleButtonGroup type="checkbox" value={this.state.value} onChange={this.handleButtonToggle}>
           {/* todo: pull from linkedin industry list then map tags */}
@@ -79,12 +91,17 @@ class Questionaire extends Component {
             <ToggleButton value="Music">Music</ToggleButton>
             <ToggleButton value="Programming">Programming</ToggleButton>
           </ToggleButtonGroup>
+          <div>What are you interested in?</div>
+          {/* todo: add a search or give some recommendations */}
           <div>
             {/* submit compiled user details to database. render user's profile complete w/ details */}
+            <Link to="/profile">
             <Button type="submit" onClick={this.handleSelect}>
-              DONE
+              LETS GOOOOOOOO
             </Button>
+            </Link>
           </div>
+          </Col>
           {this.state.value}
         </Tab>
       </Tabs>
