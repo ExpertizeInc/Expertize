@@ -39,7 +39,9 @@ class Signin extends Component {
     //send to firebase/server
     e.preventDefault()
     console.log('submitting sign in to firebase')
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    .then(() => this.props.history.push('/restricted'))
+    .catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
