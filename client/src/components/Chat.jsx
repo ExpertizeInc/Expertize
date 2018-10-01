@@ -3,7 +3,7 @@ import { Form, FormControl, Button, Well } from 'react-bootstrap';
 import ChatBox from './ChatBox.jsx'
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:3000');
+const socket = openSocket('http://localhost:3001');
 
 class Chat extends Component {
   constructor(props) {
