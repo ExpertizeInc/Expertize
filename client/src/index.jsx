@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './Routes.jsx';
 
 const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql"
+  uri: "http://localhost:4000"
 });
 
 

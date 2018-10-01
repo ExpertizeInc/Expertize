@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
 import { Jumbotron, Button } from 'react-bootstrap'
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import gql from "graphql-tag";
 
 const user = gql`
-  {
-    user(id: 1) {
-      username
-      email
-      tags {
-        tag {
-          name
-        }
-      }
-    }
+{
+  user(id: "cjmqfh5wr003n0a792xte4941") {
+    username
+    email
   }
+}
 `;
 
 class Home extends Component {
@@ -37,7 +32,7 @@ class Home extends Component {
                     <Button bsStyle="primary">Learn more</Button>
                 </p>
             </Jumbotron>
-            { this.state.authenticated ? 
+            { this.state.authenticated === false ? // REMOVE === false
             (<div>
                 <Query query={user}>
                 {({ loading, error, data }) => {
@@ -45,8 +40,8 @@ class Home extends Component {
                     if (error) return <div>Error</div>
                     return (
                     <div>
-                        {console.log(data.user)}
-                        Hi, 
+                        {console.log(data.user.username)}
+                        Hi, {data.user.username}
                     </div>
                     )
                 }}
