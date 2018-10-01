@@ -23,8 +23,11 @@ class NavBar extends Component {
           <NavItem eventKey={2}>
             <Link to="/questionaire">Questionaire</Link>
           </NavItem>
-          <NavItem eventKey={2}>
+          <NavItem eventKey={3}>
             <Link to="/profile">Profile</Link>
+          </NavItem>
+          <NavItem eventKey={4}>
+            <Link to="/chat">Chat</Link>
           </NavItem>
         </Nav>
         <Nav pullRight>
