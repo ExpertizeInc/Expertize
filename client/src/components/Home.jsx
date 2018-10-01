@@ -4,17 +4,31 @@ import { Query, Mutation } from 'react-apollo';
 import gql from "graphql-tag";
 
 const user = gql`
+<<<<<<< HEAD
 {
   user(id:"cjmqfh5wr003n0a792xte4941") {
     username
+=======
+  {
+    user(id: 1) {
+      username
+      email
+      tags {
+        tag {
+          name
+        }
+      }
+    }
+>>>>>>> dev
   }
-}
 `;
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = { 
+        authenticated: false
+     }
   }
   render() { 
     return (
@@ -29,18 +43,23 @@ class Home extends Component {
                     <Button bsStyle="primary">Learn more</Button>
                 </p>
             </Jumbotron>
-            <Query query={user}>
+            { this.state.authenticated ? 
+            (<div>
+                <Query query={user}>
                 {({ loading, error, data }) => {
                     if (loading) return <div>Fetching</div>
                     if (error) return <div>Error</div>
                     return (
                     <div>
-                        Hi, {data.user.username}.
+                        {console.log(data.user)}
+                        Hi, 
                     </div>
                     )
                 }}
             </Query>
             <div>Hello World!!</div>
+            </div>) : <div>Not Logged In</div>
+            }
         </div>
     );
   }
