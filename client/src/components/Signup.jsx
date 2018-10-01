@@ -20,9 +20,20 @@ class Signup extends Component {
     })
   }
 
-  submitSignUp() {
+  submitSignUp(e) {
     // send to server
-    console.log(this.state)
+    e.preventDefault()
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then(() => {
+      console.log('created user with firebase!!')
+      
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.error('error code:',errorCode, ': ', errorMessage)
+    });
   }
 
   render() { 
