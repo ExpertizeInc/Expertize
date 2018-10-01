@@ -10,6 +10,7 @@ import Questionaire from './components/Questionaire.jsx';
 import Profile from './components/Profile.jsx'
 import Error from './components/Error.jsx';
 import Restricted from './components/Restricted.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx';
 
 // class Routes extends React.Component {
 //     constructor(props) {
@@ -47,7 +48,7 @@ const Routes = ({ authenticated }) => (
             <NavBar authenticated={authenticated}/>
             <Switch>
                 <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/restricted"/> : <Home/>)}></Route>
-                <Route exact strict path="/restricted" component={Restricted}></Route>
+                <PrivateRoute path='/restricted' component={Restricted} authenticated={authenticated}></PrivateRoute>
                 <Route exact strict path="/signin" component={SignIn}></Route>
                 <Route exact strict path="/signup" component={Signup}></Route>
                 <Route exact strict path="/questionaire" component={Questionaire}></Route>
