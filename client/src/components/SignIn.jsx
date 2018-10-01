@@ -1,3 +1,19 @@
+// import React from 'react'
+// import LinkedinLogin from './LinkedinLogin.jsx'
+
+// const SignIn = ({ signIn }) => {
+
+//     return (
+//     <div>
+//         <h1>Sign In Page</h1>
+//         <div>hello</div>
+//         <LinkedinLogin text="SIGN IN" signIn={signIn}/>
+//     </div>
+//     )
+// }
+
+
+
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap';
 
@@ -19,9 +35,17 @@ class Signin extends Component {
     })
   }
 
-  submitSignIn() {
+  submitSignIn(e) {
     //send to firebase/server
-    console.log(this.state)
+    e.preventDefault()
+    console.log('submitting sign in to firebase')
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.error('error code:',errorCode, 'with message: ', errorMessage)
+      window.alert('incorrect username/password')
+    });
   }
 
   render() {

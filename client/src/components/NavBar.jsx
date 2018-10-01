@@ -9,6 +9,12 @@ class NavBar extends Component {
 
     }
   }
+
+  // //for signout button
+  signOutUser() {
+    firebase.auth().signOut()
+  }
+
   render() { 
     return (
     <Navbar>
@@ -32,10 +38,10 @@ class NavBar extends Component {
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1}>
-            <Link to="/signin">Log In</Link>
+            <Link to="/signin">Sign In</Link>
           </NavItem>
           <NavItem eventKey={2}>
-            <Link to="/signup">Sign Up</Link>
+            {this.props.authenticated ? <Link to="/" onClick={this.signOutUser}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
           </NavItem>
         </Nav>
       </Navbar>
