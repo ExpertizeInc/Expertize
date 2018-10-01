@@ -1,4 +1,25 @@
 import React, { Component } from 'react';
+import { Mutation } from 'react-apollo';
+import gql from "graphql-tag";
+
+const addFirebaseUser = gql`
+mutation AddUser($input: String!) {
+    addUser(input: $input) {
+        username
+        email
+        uid
+    }
+}
+`;
+
+const addLinkedInUser = gql`
+  mutation AddUser($input: String!) {
+    addUser(input: $input) {
+      username
+      email
+    }
+  }
+`;
 
 class Signup extends Component {
   constructor(props) {

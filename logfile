@@ -71,3 +71,4 @@
 2018-09-30 13:36:20.808 EDT [52677] LOG:  incomplete startup packet
 2018-09-30 13:36:20.810 EDT [52678] LOG:  incomplete startup packet
 2018-09-30 13:36:38.623 EDT [52935] FATAL:  database "alon_bibring" does not exist
+2018-10-01 10:30:35.824 EDT [12650] FATAL:  role "prisma" does not exist

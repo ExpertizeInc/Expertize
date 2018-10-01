@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Jumbotron, Button } from 'react-bootstrap'
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import gql from "graphql-tag";
 
 const user = gql`
 {
-  user(id:1) {
+  user(id:"cjmqfh5wr003n0a792xte4941") {
     username
   }
 }

@@ -2,10 +2,8 @@
     id: ID! @unique 
     username: String!
     email: String!
-    firebaseId: String
-    linkedEmail: String
-    linkedId: String
-    tags: [UserTag!]!
+    uid: String!
+    tags: [Tag!]!
   }
 
   type UserTag {
@@ -16,5 +14,5 @@
 
   type Tag {
     id: ID! @unique
-    name: String!
+    name: String! @unique
   }

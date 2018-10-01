@@ -1,0 +1,27 @@
+# endpoint: http://localhost:4466
+# datamodel: datamodel.prisma
+
+# generate:
+#   - generator: typescript-client
+#     output: ./generated/prisma
+
+# hooks:
+#   post-deploy:
+#     - prisma generate
+
+endpoint: http://localhost:4466
+datamodel: datamodel.graphql
+
+# generate:
+#   - generator: typescript-client
+#     output: ./src/generated/prisma
+
+# hooks:
+#   post-deploy:
+#     - prisma generate
+#     - graphql get-schema -p prisma
+
+hooks:
+  post-deploy:
+    - graphql get-schema
+    - graphql codegen

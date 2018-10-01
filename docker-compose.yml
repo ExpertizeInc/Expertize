@@ -1,7 +1,7 @@
 version: '3'
 services:
   prisma:
-    image: prismagraphql/prisma:1.14
+    image: prismagraphql/prisma:1.17
     restart: always
     ports:
     - "4466:4466"
@@ -13,11 +13,12 @@ services:
         databases:
           default:
             connector: postgres
-            host: expertize.ci9qe7nyvmjd.us-east-2.rds.amazonaws.com
-            port: 3088
-            user: expertizeroot
-            password: expert123
+            host: postgres
+            port: 5432
+            user: prisma
+            password: prisma
             migrations: true
+            rawAccess: true
   postgres:
     image: postgres
     restart: always
