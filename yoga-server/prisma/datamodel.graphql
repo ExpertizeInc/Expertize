@@ -2,8 +2,8 @@
     id: ID! @unique 
     username: String!
     email: String!
-    uid: String!
-    tags: [Tag!]!
+    uid: String
+    tags: Tag
   }
 
   type UserTag {

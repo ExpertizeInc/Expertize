@@ -16,7 +16,12 @@ var DIST_DIR = path.join(__dirname, '/client/dist');
         query: {
           presets: ['react', 'es2015']
        }
-      }
+      },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader',
+      },
     ]
-  }
+  },
 }; 

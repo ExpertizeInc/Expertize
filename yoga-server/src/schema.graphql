@@ -1,11 +1,22 @@
 type Query {
   user(id: ID!): User
   tags: [String!]!
+  users: [User]!
 }
 
 type User {
   username: String!
   email: String
-  tags: [String!]!
+  tags: [String]!,
+  uid: String!
 }
 
+type LogInPayload {
+  apiKey: String
+  emailError: String
+  passwordError: String
+}
+
+type Mutation {
+   createUser(email: String!, password: String!, uid: String!, username: String!): User
+}

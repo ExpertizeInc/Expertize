@@ -1,7 +1,9 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from 'prisma-binding';
-// import { User } from './generated';
+// import { User } from '../generated';
 // import { prisma } from './generated/prisma';
+import { permissions } from './permissions'; 
+import { createTextChangeRange } from 'typescript';
 
 const resolvers = {
   Query: {
@@ -10,6 +12,9 @@ const resolvers = {
       console.log('1')
       // console.log('2',   prisma)
       return ctx.prisma.query.user({ where: {id} });
+    },
+    users: (_, __, ctx: {prisma: Prisma}, ____) => {
+      return ctx.prisma.query.users();
     }
   },
   User: {
@@ -18,33 +23,19 @@ const resolvers = {
         where: {
           id: user.id
         }
-      }, 
-      // check prisma-binding docs for correct syntax
-      // `{ 
-      //   tags { 
-      //     tag {
-      //       name
-      //     }
-      //   }
-      // }`);
-      )
+      })
       return userWithTags.tags.map(tag => tag.name);
     }
+  },
+  Mutation: {
+      createUser(parent, {username, email, uid}, ctx, info) {
+        console.log(parent, 'SADSASDAS')
+        return ctx.prisma.mutation.createUser({"data": { username, email, uid}})
+      },
+    // signup: (_, args, context, info) => {
+      
+    // }
   }
-  // Mutation: {
-  //   createDraft: (_, args, context, info) => {
-  //     // ...
-  //   },
-  //   publish: (_, args, context, info) => {
-  //     // ...
-  //   },
-  //   deletePost: (_, args, context, info) => {
-  //     // ...
-  //   },
-  //   signup: (_, args, context, info) => {
-  //     // ...
-  //   }
-  // }
 }
 
 const server = new GraphQLServer({
@@ -55,7 +46,7 @@ const server = new GraphQLServer({
     prisma: new Prisma({
       typeDefs: 'yoga-server/src/generated/prisma.graphql',
       endpoint: 'http://localhost:4466',
-    }),
-  }),
+    })
+  })
 })
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`))

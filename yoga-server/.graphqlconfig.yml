@@ -8,14 +8,14 @@ projects:
     schemaPath: src/generated/prisma.graphql
     extensions:
       prisma: prisma.yml
-      # codegen:
-      #   - generator: typegen
-      #     language: typescript
-      #     input: "{binding,prisma}/*.ts"
-      #     output:
-      #       typings: typings.ts
-      #   - generator: prisma-binding
-      #     language: typescript 
-      #     input: schema.graphql
-      #     output:
-      #       binding: prisma/index.ts
+      codegen:
+        - generator: typegen
+          language: typescript
+          input: "{binding,prisma}/*.ts"
+          output:
+            typings: typings.ts
+        - generator: prisma-binding
+          language: typescript 
+          input: schema.graphql
+          output:
+            binding: prisma/index.ts

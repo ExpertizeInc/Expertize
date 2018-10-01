@@ -8,11 +8,8 @@
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "start": "nodemon server/index.js webpack -d --watch",
-<<<<<<< HEAD
-    "graphql-dev": "nodemon -e ts,graphql -x ts-node yoga-server/src/index.ts"
-=======
+    "graphql-dev": "nodemon -e ts,graphql -x ts-node yoga-server/src/index.ts",
     "dockstart": "node server/index.js"
->>>>>>> dev
   },
   "author": "Alon, Paul, Shirley",
   "license": "ISC",
@@ -26,6 +23,7 @@
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "graphql": "^14.0.2",
+    "graphql-shield": "^3.2.4",
     "graphql-tag": "^2.9.2",
     "graphql-tools": "^4.0.0",
     "graphql-yoga": "^1.16.2",
@@ -41,12 +39,9 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "socket.io": "^2.1.1",
-<<<<<<< HEAD
+    "socket.io-client": "^2.1.1",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.1"
-=======
-    "socket.io-client": "^2.1.1"
->>>>>>> dev
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
