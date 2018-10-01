@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import Routes from './Routes.jsx';
 
@@ -24,7 +25,7 @@ class App extends React.Component {
       if (user) {
         this.setState({
           authenticated: true
-        }, () => console.log('user exists'))
+        }, () => console.log(user))
       } else {
         this.setState({
           authenticated: false
@@ -48,4 +49,4 @@ class App extends React.Component {
   }
 }
 
-render(<App/>, document.getElementById('app'));
+render(<Router><App/></Router>, document.getElementById('app'));

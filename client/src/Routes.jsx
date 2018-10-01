@@ -43,7 +43,6 @@ import Restricted from './components/Restricted.jsx';
 
 
 const Routes = ({ authenticated }) => (
-    <Router>
         <div>
             <NavBar authenticated={authenticated}/>
             <Switch>
@@ -57,7 +56,6 @@ const Routes = ({ authenticated }) => (
             </Switch>
             <Footer />
         </div>
-    </Router>
 )
 
 export default Routes;
