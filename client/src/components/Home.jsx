@@ -4,17 +4,17 @@ import { Query } from 'react-apollo';
 import gql from "graphql-tag";
 
 const user = gql`
-{
-  user(id:1) {
-    username
-    email
-    tags {
+  {
+    user(id: 1) {
+      username
+      email
+      tags {
         tag {
-            name
+          name
         }
+      }
     }
   }
-}
 `;
 
 class Home extends Component {

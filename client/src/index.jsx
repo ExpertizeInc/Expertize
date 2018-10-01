@@ -14,13 +14,35 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      authenticated: false
     }
+    // this.toggleAuthenticated = this.toggleAuthenticated.bind(this)
   }
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          authenticated: true
+        }, () => console.log('user exists'))
+      } else {
+        this.setState({
+          authenticated: false
+        })
+      }
+    })
+  }
+
+  // toggleAuthenticated() {
+  //   this.setState({
+  //     authenticated: !this.state.authenticated
+  //   }, () => console.log('toggled authenticated'))
+  // }
+
   render() {
     return (
       <ApolloProvider client={client}>
-          <Routes />
+          <Routes authenticated={this.state.authenticated}/>
       </ApolloProvider>
     )
   }
