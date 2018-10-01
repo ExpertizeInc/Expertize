@@ -5,7 +5,8 @@ import SignIn from './components/SignIn.jsx';
 import Home from './components/Home.jsx';
 import Signup from './components/Signup.jsx';
 import NavBar from './components/NavBar.jsx';
-import Footer from './components/Footer.jsx'
+import Footer from './components/Footer.jsx';
+import Chat from './components/Chat.jsx';
 import Questionaire from './components/Questionaire.jsx';
 import Profile from './components/Profile.jsx'
 import Error from './components/Error.jsx';
