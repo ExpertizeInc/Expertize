@@ -9,7 +9,7 @@
 #   post-deploy:
 #     - prisma generate
 
-endpoint: http://localhost:4466
+endpoint: http://localhost:4467
 datamodel: datamodel.graphql
 
 # generate:
@@ -25,3 +25,4 @@ hooks:
   post-deploy:
     - graphql get-schema
     - graphql codegen
+    - graphql prepare

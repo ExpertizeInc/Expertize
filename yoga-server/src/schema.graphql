@@ -5,18 +5,18 @@ type Query {
 }
 
 type User {
+  id: ID!
   username: String!
-  email: String
-  tags: [String]!,
+  email: String!
   uid: String!
 }
 
-type LogInPayload {
-  apiKey: String
-  emailError: String
-  passwordError: String
+type LoginPayload {
+  token: String
+  error: String
 }
 
 type Mutation {
-   createUser(email: String!, password: String!, uid: String!, username: String!): User
+   createUser(email: String!, uid: String!, username: String!): User
+   login(email: String!, password: String!): LoginPayload!
 }

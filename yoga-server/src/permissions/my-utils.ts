@@ -4,6 +4,7 @@ import * as jwt from "jsonwebtoken";
 import { Prisma } from "prisma-binding";
 
 const APP_SECRET_ENV_NAME = "APP_SECRET";
+const secret = '4234rwefnhfiuewn29d8dj093jd9udnewoifj2093d';
 
 export interface Context {
   db: Prisma,
@@ -17,7 +18,8 @@ export function getUserIdFromRequest(request: any) {
       const token = Authorization.replace("Bearer ", "");
       const { userId } = jwt.verify(
         token,
-        process.env[APP_SECRET_ENV_NAME]
+        // process.env[APP_SECRET_ENV_NAME]
+        secret
       ) as {
         userId: string;
       };
@@ -38,5 +40,5 @@ export function getUserId(ctx: Context) {
 }
 
 export function getAuthToken(user: { id: string }) {
-  return jwt.sign({ userId: user.id }, process.env[APP_SECRET_ENV_NAME]);
+  return jwt.sign({ userId: user.id }, secret);
 }
