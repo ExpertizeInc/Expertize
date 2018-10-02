@@ -4,10 +4,10 @@ services:
     image: prismagraphql/prisma:1.17
     restart: always
     ports:
-    - "4466:4466"
+    - "4467:4467"
     environment:
       PRISMA_CONFIG: |
-        port: 4466
+        port: 4467
         # uncomment the next line and provide the env var PRISMA_MANAGEMENT_API_SECRET=my-secret to activate cluster security
         # managementApiSecret: my-secret
         databases:
@@ -15,6 +15,7 @@ services:
             connector: postgres
             host: postgres
             port: 5432
+            database: expertize
             user: prisma
             password: prisma
             migrations: true
@@ -29,3 +30,7 @@ services:
       - postgres:/var/lib/postgresql/data
 volumes:
   postgres:
+
+
+# docker-compose just for local environment, once push prisma/graphql server on internet, will not be running in docker
+# need to create env variables to represent each endpoint

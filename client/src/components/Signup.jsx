@@ -5,8 +5,8 @@ import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-b
 
 
 const createUser = gql`
-mutation CreateUser($username: String! $email: String!, $password: String!, $uid: String!) {
-    createUser(username: $username, email: $email, password: $password, uid: $uid) {
+mutation CreateUser($username: String! $email: String!, $uid: String!) {
+    createUser(username: $username, email: $email, uid: $uid) {
         username
         email
     }
@@ -100,7 +100,7 @@ class Signup extends Component {
               {(createUser, { data }) => (
                  <Button onClick={e => {
                     this.submitSignUp(e, () => {
-                      createUser({ variables: { username: this.state.username, email: this.state.email, password: this.state.password, uid: this.state.uid }})
+                      createUser({ variables: { username: this.state.username, email: this.state.email, uid: this.state.uid }})
                     });
                  }} type="submit">Create an account</Button>
               )}

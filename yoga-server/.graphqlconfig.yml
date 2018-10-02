@@ -16,6 +16,6 @@ projects:
             typings: typings.ts
         - generator: prisma-binding
           language: typescript 
-          input: schema.graphql
+          # input: src/schema.graphql
           output:
             binding: prisma/index.ts

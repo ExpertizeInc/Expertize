@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 
 const user = gql`
 {
-  user(id: "cjmqfh5wr003n0a792xte4941") {
+  user(id: "cjmrvyujt000i0a18j92v4gof") {
     username
     email
   }
