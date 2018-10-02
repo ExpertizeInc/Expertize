@@ -57,7 +57,6 @@ const server = new GraphQLServer({
     const userId = getUserIdFromRequest(req);
     let user;
     const prisma = new Prisma({
-      // typeDefs: 'yoga-server/src/generated/prisma.graphql',
      endpoint: 'http://localhost:4467',
     })
     if (userId) {
