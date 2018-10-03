@@ -96,14 +96,16 @@ class Signup extends Component {
           <FormGroup>
             <Col smOffset={6} sm={3}>
             {/* todo: hook up to firebase/linkedin Oauth */}
-            <Mutation mutation={createUser}>
-              {(createUser, { data }) => (
+            <Mutation mutation={createUser} fetchPolicy="no-cache" onError={(err) => console.log('ERRRORRRRR', err)} onComplete={(data) => console.log('COMPLETED', data)}>
+              {(createUser, { data }) => {
+                console.log(data) 
+                return (
                  <Button onClick={e => {
                     this.submitSignUp(e, () => {
                       createUser({ variables: { username: this.state.username, email: this.state.email, uid: this.state.uid }})
                     });
                  }} type="submit">Create an account</Button>
-              )}
+                )}}
              
               </Mutation>
             </Col>

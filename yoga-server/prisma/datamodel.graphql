@@ -19,12 +19,11 @@
 
 type Profile {
    id: ID! @unique
-   userId: Int!
+   user: User
    tags: [UserTag!]!
    description: String
-   coins: Int
+   coins: Int @default(value: "3")
    session: [Session!]!
-   question: [Question!]!
  }
 
  type Session {

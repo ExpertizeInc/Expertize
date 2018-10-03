@@ -9,8 +9,6 @@ const resolvers = {
   Query: {
     user: (_, {id}, ctx: {prisma: Prisma}) => {
       // const { prisma } = context;
-      console.log('1')
-      // console.log('2',   prisma)
       return ctx.prisma.query.user({ where: {id} });
     },
     users: (_, __, ctx: {prisma: Prisma}, ____) => {
@@ -31,9 +29,12 @@ const resolvers = {
   //   }
   // },
   Mutation: {
-      createUser(parent, {username, email, uid}, ctx, info) {
-        return ctx.prisma.mutation.createUser({"data": { username, email, uid}})
+      createUser(parent, args, ctx: { prisma: Prisma }, info) {
+        console.log(args, 'args inside createUser mutation')
+        return ctx.prisma.mutation.createUser({data: { username: args.username, email: args.email, uid: args.uid }});
       },
+
+
       // login: async (_, args: { email, password }, ctx: { prisma: Prisma}) => {
       //   const { uid } = getUidForValidCredentials({ email, password });
       //   // need to call firebase and grab private identifier 
@@ -63,7 +64,7 @@ const server = new GraphQLServer({
     const userId = getUserIdFromRequest(req);
     let user;
     const prisma = new Prisma({
-     endpoint: 'http://localhost:4467',
+     endpoint: 'http://localhost:4000',
     })
     if (userId) {
       user = await prisma.query.user({ where: { id: userId }});
