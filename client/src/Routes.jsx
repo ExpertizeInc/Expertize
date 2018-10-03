@@ -12,6 +12,7 @@ import Profile from './components/Profile.jsx'
 import Error from './components/Error.jsx';
 import Restricted from './components/Restricted.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import Video from './components/Video.jsx';
 
 // class Routes extends React.Component {
 //     constructor(props) {
@@ -55,6 +56,7 @@ const Routes = ({ authenticated, signInLI, signOut }) => (
       <Route exact strict path="/questionaire" component={Questionaire}></Route>
       <Route exact strict path="/profile" component={Profile}></Route>
       <Route exact strict path="/chat" component={Chat}></Route>
+      <Route exact strict path="/video" component={Video}></Route>
       <Route exact strict path="/*" component={Error}></Route>
     </Switch>
     <Footer />
