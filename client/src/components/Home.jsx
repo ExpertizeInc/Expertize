@@ -32,23 +32,23 @@ class Home extends Component {
                     <Button bsStyle="primary">Learn more</Button>
                 </p>
             </Jumbotron>
-            { this.state.authenticated === false ? // REMOVE === false
-            (<div>
-                <Query query={user}>
-                {({ loading, error, data }) => {
-                    if (loading) return <div>Fetching</div>
-                    if (error) return <div>Error</div>
-                    return (
-                    <div>
-                        {console.log(data.user.username)}
-                        Hi, {data.user.username}
-                    </div>
-                    )
-                }}
-            </Query>
-            <div>Hello World!!</div>
-            </div>) : <div>Not Logged In</div>
-            }
+            {/* { this.state.authenticated === false ? // REMOVE === false
+            // (<div>
+            //     <Query query={user}>
+            //     {({ loading, error, data }) => {
+            //         if (loading) return <div>Fetching</div>
+            //         if (error) return <div>Error</div>
+            //         return (
+            //         <div>
+            //             {console.log(data.user.username)}
+            //             Hi, {data.user.username}
+            //         </div>
+            //         )
+            //     }}
+            // </Query>
+            // <div>Hello World!!</div>
+            // </div>) : <div>Not Logged In</div>
+            // } */}
         </div>
     );
   }
