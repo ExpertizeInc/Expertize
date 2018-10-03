@@ -52,6 +52,10 @@ class App extends React.Component {
     // this.setState({authenticated: true}, 
     .result((r) => console.log(r))
     .error((e) => console.log(e))
+    IN.API.Raw('/industries?format=json')
+    .result((r) => console.log(r))
+    .error((e) => console.error(e))
+    
   }
 
   signInLI(e, props) {
