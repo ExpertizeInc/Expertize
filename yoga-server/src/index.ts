@@ -33,6 +33,10 @@ const resolvers = {
         console.log(username, 'SADSASDAS')
         return ctx.prisma.mutation.createUser({"data": { username, email, uid}})
       },
+
+      // addTags(parent, { name }, ctx, info) {
+
+      // }
       // login: async (_, args: { email, password }, ctx: { prisma: Prisma}) => {
       //   const { uid } = getUidForValidCredentials({ email, password });
       //   // need to call firebase and grab private identifier 

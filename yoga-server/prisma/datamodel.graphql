@@ -1,9 +1,23 @@
   type User {
     id: ID! @unique 
-    username: String!
+    username: String! @unique
     email: String!
     uid: String
-    tags: Tag
+  }
+
+  type Profile {
+    id: ID! @unique
+    user: User
+    tags: [UserTag!]!
+    description: String
+    coins: Int @default(value: "3")
+    session: [Session!]!
+  }
+
+  type Session {
+    id: ID! @unique
+    type: String!
+    createdAt: DateTime!
   }
 
   type UserTag {

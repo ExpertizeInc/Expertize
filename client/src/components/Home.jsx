@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 
 const user = gql`
 {
-  user(id: "cjmrvyujt000i0a18j92v4gof") {
+  user(id: "cjms2fns900160944d01ffp87") {
     username
     email
   }
@@ -49,6 +49,7 @@ class Home extends Component {
             <div>Hello World!!</div>
             </div>) : <div>Not Logged In</div>
             }
+
         </div>
     );
   }

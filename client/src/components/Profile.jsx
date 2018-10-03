@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Well } from 'react-bootstrap'
+import { Mutation } from 'react-apollo';
 
 
 class Profile extends Component {
@@ -10,6 +11,8 @@ class Profile extends Component {
   render() { 
     return (
       <Well>
+
+        
       User stats, info etc
     </Well>
     )

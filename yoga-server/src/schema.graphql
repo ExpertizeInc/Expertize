@@ -2,6 +2,7 @@ type Query {
   user(id: ID!): User
   tags: [String!]!
   users: [User]!
+  profiles: [Profile]!
 }
 
 type User {
@@ -9,6 +10,21 @@ type User {
   username: String!
   email: String!
   uid: String!
+}
+
+type Profile {
+  id: ID! @unique
+  userId: String!
+  tags: [Tag!]!
+  description: String
+  coins: Int
+  session: [Session!]!
+}
+
+
+type Tag {
+  id: ID!
+  name: String!
 }
 
 type LoginPayload {
@@ -19,4 +35,6 @@ type LoginPayload {
 type Mutation {
    createUser(email: String!, uid: String!, username: String!): User
    login(email: String!, password: String!): LoginPayload!
+   addTag(name: String!): Tag
+   createProfile()
 }
