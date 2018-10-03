@@ -44,13 +44,13 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 // }
 
 
-const Routes = ({ authenticated }) => (
+const Routes = ({ authenticated, signInLI }) => (
     <div>
         <NavBar authenticated={authenticated}/>
         <Switch>
             <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/restricted"/> : <Home/>)}></Route>
             <PrivateRoute path='/restricted' component={Restricted} authenticated={authenticated}></PrivateRoute>
-            <Route exact strict path="/signin" component={SignIn}></Route>
+            <Route exact strict path="/signin" component={SignIn} signInLI={signInLI}></Route>
             <Route exact strict path="/signup" component={Signup}></Route>
             <Route exact strict path="/questionaire" component={Questionaire}></Route>
             <Route exact strict path="/profile" component={Profile}></Route>

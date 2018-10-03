@@ -17,7 +17,8 @@ class App extends React.Component {
     this.state = {
       authenticated: false
     }
-    // this.toggleAuthenticated = this.toggleAuthenticated.bind(this)
+    this.callbackFunction = this.callbackFunction.bind(this)
+    this.signInLI = this.signInLI.bind(this)
   }
 
   componentDidMount() {
@@ -34,6 +35,18 @@ class App extends React.Component {
     })
   }
 
+  callbackFunction() {
+    IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
+    .result((r) => this.setState({authenticated: true}, console.log(r)))
+    .error((e) => console.log(e))
+  }
+
+  signInLI(e) {
+      e.preventDefault();
+      console.log('LINKED IN FKKKKKK')
+      window.IN.User.authorize(this.callbackFunction, '')
+  }
+
   // toggleAuthenticated() {
   //   this.setState({
   //     authenticated: !this.state.authenticated
@@ -43,7 +56,7 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-          <Routes authenticated={this.state.authenticated}/>
+          <Routes authenticated={this.state.authenticated} signInLI={this.signInLI}/>
       </ApolloProvider>
     )
   }
