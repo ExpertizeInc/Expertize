@@ -1,7 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from '../prisma/prisma';
-// import { User } from '../generated/prisma';
-// import { prisma } from './generated/prisma';
+import { User } from '../prisma/prisma';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
@@ -16,6 +15,9 @@ const resolvers = {
     },
     users: (_, __, ctx: {prisma: Prisma}, ____) => {
       return ctx.prisma.query.users({})
+    },
+    questions: (_, __, ctx, ____) => {
+      return ctx.prisma.query.questions({});
     }
   },
   // User: {
@@ -30,7 +32,6 @@ const resolvers = {
   // },
   Mutation: {
       createUser(parent, {username, email, uid}, ctx, info) {
-        console.log(username, 'SADSASDAS')
         return ctx.prisma.mutation.createUser({"data": { username, email, uid}})
       },
       // login: async (_, args: { email, password }, ctx: { prisma: Prisma}) => {
@@ -46,7 +47,12 @@ const resolvers = {
       // }
     // signup: (_, args, context, info) => {
       
-    // }
+    // },
+    createQuestion: async (parent, args, ctx, info) => {
+      console.log(args);
+      // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
+      return ctx.prisma.mutation.createQuestion({"data": { userId: args.userId, tags: args.tag, coins: args.coins, description: args.description, chat: args.chat}})
+    }
   }
 }
 

@@ -2,6 +2,7 @@ type Query {
   user(id: ID!): User
   tags: [String!]!
   users: [User]!
+  questions: [Question]!
 }
 
 type User {
@@ -11,12 +12,44 @@ type User {
   uid: String!
 }
 
+type Profile {
+   id: ID!
+   userId: Int!
+  #  tags: [UserTag!]!
+   description: String
+   coins: Int
+  #  session: [Session!]!
+   question: [Question!]!
+ }
+
 type LoginPayload {
   token: String
   error: String
 }
 
+type Tag {
+    id: ID!
+    name: String!
+}
+
+ type Question {
+   id: ID!
+   userId: String!
+   description: String!
+   tag: [String]!
+   coins: Int!
+   active: Boolean
+   chat: ChatType!
+ }
+
+  enum ChatType {
+    AUDIO
+    VIDEO
+    TEXT
+  }
+
 type Mutation {
    createUser(email: String!, uid: String!, username: String!): User
    login(email: String!, password: String!): LoginPayload!
+   createQuestion(userId: String!, description: String!, tag: String!, coins: Int!, chat: ChatType!): Question
 }
