@@ -78,7 +78,7 @@ class Signin extends Component {
             </Col>
           </FormGroup>
         </Form>
-        <LinkedinLogin signInLI={signInLI} text="LINKEDIN SIGNIN"/>
+        <LinkedinLogin signInLI={(e) => {signInLI(e, this.props.history)}} text="LINKEDIN SIGNIN"/>
       </div>
     );
   }

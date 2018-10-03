@@ -44,20 +44,20 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 // }
 
 
-const Routes = ({ authenticated, signInLI }) => (
-    <div>
-        <NavBar authenticated={authenticated}/>
-        <Switch>
-            <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/restricted"/> : <Home/>)}></Route>
-            <PrivateRoute path='/restricted' component={Restricted} authenticated={authenticated}></PrivateRoute>
-            <Route exact strict path="/signin" component={SignIn} signInLI={signInLI}></Route>
-            <Route exact strict path="/signup" component={Signup}></Route>
-            <Route exact strict path="/questionaire" component={Questionaire}></Route>
-            <Route exact strict path="/profile" component={Profile}></Route>
-            <Route exact strict path="/*" component={Error}></Route>
-        </Switch>
-        <Footer />
-    </div>
+const Routes = ({ authenticated, signInLI, signOut }) => (
+  <div>
+    <NavBar authenticated={authenticated} signOut={signOut}/>
+    <Switch>
+      <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/restricted"/> : <Home/>)}></Route>
+      <PrivateRoute path='/restricted' component={Restricted} authenticated={authenticated}></PrivateRoute>
+      <Route exact strict path="/signin" render={(props) => <SignIn history={props.history} signInLI={signInLI}/>}></Route>
+      <Route exact strict path="/signup" component={Signup}></Route>
+      <Route exact strict path="/questionaire" component={Questionaire}></Route>
+      <Route exact strict path="/profile" component={Profile}></Route>
+      <Route exact strict path="/*" component={Error}></Route>
+    </Switch>
+    <Footer />
+  </div>
 )
 
 export default Routes;

@@ -19,11 +19,12 @@ class App extends React.Component {
     }
     this.callbackFunction = this.callbackFunction.bind(this)
     this.signInLI = this.signInLI.bind(this)
+    this.signOut = this.signOut.bind(this)
   }
-
+  
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+      if (user !== null) {
         this.setState({
           authenticated: true
         }, () => console.log(user))
@@ -33,30 +34,43 @@ class App extends React.Component {
         })
       }
     })
+    
+    IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
+    IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
+    // if (IN.User.isAuthorized()) {
+    //   console.log('in.user',IN.User.isAuthorized())
+    //   this.setState({
+    //     authenticated: true
+    //   }, () => console.log('li user is logged in'))
+    // } else {
+    //   console.log('no linkedin user signed in')
+    // }
   }
 
   callbackFunction() {
     IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
-    .result((r) => this.setState({authenticated: true}, console.log(r)))
+    // this.setState({authenticated: true}, 
+    .result((r) => console.log(r))
     .error((e) => console.log(e))
   }
 
-  signInLI(e) {
+  signInLI(e, props) {
       e.preventDefault();
       console.log('LINKED IN FKKKKKK')
-      window.IN.User.authorize(this.callbackFunction, '')
+      IN.User.authorize(this.callbackFunction, '')
+      props.push('/restricted')
   }
 
-  // toggleAuthenticated() {
-  //   this.setState({
-  //     authenticated: !this.state.authenticated
-  //   }, () => console.log('toggled authenticated'))
-  // }
+  signOut() {
+    this.setState({
+      authenticated: false
+    }, () => console.log('toggled authenticated'))
+  }
 
   render() {
     return (
       <ApolloProvider client={client}>
-          <Routes authenticated={this.state.authenticated} signInLI={this.signInLI}/>
+          <Routes authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}/>
       </ApolloProvider>
     )
   }

@@ -8,11 +8,17 @@ class NavBar extends Component {
     this.state = {
 
     }
+    this.signOutUser = this.signOutUser.bind(this)
   }
 
   // //for signout button
   signOutUser() {
-    firebase.auth().signOut()
+    let { signOut } = this.props
+    if(IN.User.isAuthorized()) {
+      IN.User.logout(signOut,'')
+    } else {
+      firebase.auth().signOut()
+    }
   }
 
   render() { 
