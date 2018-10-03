@@ -16,6 +16,7 @@
 
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap';
+import LinkedinLogin from './LinkedinLogin.jsx';
 
 class Signin extends Component {
   constructor(props) {
@@ -51,30 +52,34 @@ class Signin extends Component {
   }
 
   render() {
+    let { signInLI } = this.props
     return (
-      <Form className="form-panel-signup" horizontal>
-        <FormGroup controlId="formHorizontalEmail">
-          <Col componentClass={ControlLabel} sm={5}>
-            Email
-          </Col>
-          <Col sm={3}>
-            <FormControl onChange={(e) => this.onChange(e, 'email')} type="email" placeholder="Email" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalPassword">
-          <Col componentClass={ControlLabel} sm={5}>
-            Password
-          </Col>
-          <Col sm={3}>
-            <FormControl onChange={(e) => this.onChange(e, 'password')} type="password" placeholder="Password" />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col smOffset={6} sm={3}>
-            <Button onClick={this.submitSignIn} type="submit">Log In</Button>
-          </Col>
-        </FormGroup>
-      </Form>
+      <div>
+        <Form className="form-panel-signup" horizontal>
+          <FormGroup controlId="formHorizontalEmail">
+            <Col componentClass={ControlLabel} sm={5}>
+              Email
+            </Col>
+            <Col sm={3}>
+              <FormControl onChange={(e) => this.onChange(e, 'email')} type="email" placeholder="Email" />
+            </Col>
+          </FormGroup>
+          <FormGroup controlId="formHorizontalPassword">
+            <Col componentClass={ControlLabel} sm={5}>
+              Password
+            </Col>
+            <Col sm={3}>
+              <FormControl onChange={(e) => this.onChange(e, 'password')} type="password" placeholder="Password" />
+            </Col>
+          </FormGroup>
+          <FormGroup>
+            <Col smOffset={6} sm={3}>
+              <Button onClick={this.submitSignIn} type="submit">Log In</Button>
+            </Col>
+          </FormGroup>
+        </Form>
+        <LinkedinLogin signInLI={(e) => {signInLI(e, this.props.history)}} text="LINKEDIN SIGNIN"/>
+      </div>
     );
   }
 }
