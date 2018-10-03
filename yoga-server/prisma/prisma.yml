@@ -9,8 +9,9 @@
 #   post-deploy:
 #     - prisma generate
 
-endpoint: http://localhost:4467
+endpoint: https://eu1.prisma.sh/alon-bibring-d051d8/expertize/dev
 datamodel: datamodel.graphql
+secret: mysecret123
 
 # generate:
 #   - generator: typescript-client
@@ -23,6 +24,7 @@ datamodel: datamodel.graphql
 
 hooks:
   post-deploy:
-    - graphql get-schema
+    # - graphql get-schema
     - graphql codegen
     - graphql prepare
+    - graphql get/schema --project database
