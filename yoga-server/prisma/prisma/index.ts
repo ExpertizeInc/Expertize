@@ -4,83 +4,71 @@ import { Options } from 'graphql-binding'
 import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 
 export interface Query {
-    profiles: <T = Profile[]>(args: { where?: ProfileWhereInput, orderBy?: ProfileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    sessions: <T = Session[]>(args: { where?: SessionWhereInput, orderBy?: SessionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    userTags: <T = UserTag[]>(args: { where?: UserTagWhereInput, orderBy?: UserTagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    tags: <T = Tag[]>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    questions: <T = Question[]>(args: { where?: QuestionWhereInput, orderBy?: QuestionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    profile: <T = Profile | null>(args: { where: ProfileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    session: <T = Session | null>(args: { where: SessionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    userTag: <T = UserTag | null>(args: { where: UserTagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    tag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    question: <T = Question | null>(args: { where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    userTags: <T = UserTag[]>(args: { where?: UserTagWhereInput, orderBy?: UserTagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    questions: <T = Question[]>(args: { where?: QuestionWhereInput, orderBy?: QuestionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    tags: <T = Tag[]>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    sessions: <T = Session[]>(args: { where?: SessionWhereInput, orderBy?: SessionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    profilesConnection: <T = ProfileConnection>(args: { where?: ProfileWhereInput, orderBy?: ProfileOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    sessionsConnection: <T = SessionConnection>(args: { where?: SessionWhereInput, orderBy?: SessionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    userTagsConnection: <T = UserTagConnection>(args: { where?: UserTagWhereInput, orderBy?: UserTagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    tagsConnection: <T = TagConnection>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    questionsConnection: <T = QuestionConnection>(args: { where?: QuestionWhereInput, orderBy?: QuestionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    userTag: <T = UserTag | null>(args: { where: UserTagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    question: <T = Question | null>(args: { where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    tag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    session: <T = Session | null>(args: { where: SessionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    userTagsConnection: <T = UserTagConnection>(args: { where?: UserTagWhereInput, orderBy?: UserTagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    questionsConnection: <T = QuestionConnection>(args: { where?: QuestionWhereInput, orderBy?: QuestionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    tagsConnection: <T = TagConnection>(args: { where?: TagWhereInput, orderBy?: TagOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    sessionsConnection: <T = SessionConnection>(args: { where?: SessionWhereInput, orderBy?: SessionOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Mutation {
-    createProfile: <T = Profile>(args: { data: ProfileCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createSession: <T = Session>(args: { data: SessionCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createUserTag: <T = UserTag>(args: { data: UserTagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createTag: <T = Tag>(args: { data: TagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    createQuestion: <T = Question>(args: { data: QuestionCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateProfile: <T = Profile | null>(args: { data: ProfileUpdateInput, where: ProfileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateSession: <T = Session | null>(args: { data: SessionUpdateInput, where: SessionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateUserTag: <T = UserTag | null>(args: { data: UserTagUpdateInput, where: UserTagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateTag: <T = Tag | null>(args: { data: TagUpdateInput, where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateQuestion: <T = Question | null>(args: { data: QuestionUpdateInput, where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createUserTag: <T = UserTag>(args: { data: UserTagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createQuestion: <T = Question>(args: { data: QuestionCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createTag: <T = Tag>(args: { data: TagCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createSession: <T = Session>(args: { data: SessionCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteProfile: <T = Profile | null>(args: { where: ProfileWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteSession: <T = Session | null>(args: { where: SessionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteUserTag: <T = UserTag | null>(args: { where: UserTagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteTag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteQuestion: <T = Question | null>(args: { where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateUserTag: <T = UserTag | null>(args: { data: UserTagUpdateInput, where: UserTagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateQuestion: <T = Question | null>(args: { data: QuestionUpdateInput, where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateTag: <T = Tag | null>(args: { data: TagUpdateInput, where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateSession: <T = Session | null>(args: { data: SessionUpdateInput, where: SessionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertProfile: <T = Profile>(args: { where: ProfileWhereUniqueInput, create: ProfileCreateInput, update: ProfileUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertSession: <T = Session>(args: { where: SessionWhereUniqueInput, create: SessionCreateInput, update: SessionUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertUserTag: <T = UserTag>(args: { where: UserTagWhereUniqueInput, create: UserTagCreateInput, update: UserTagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertTag: <T = Tag>(args: { where: TagWhereUniqueInput, create: TagCreateInput, update: TagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    upsertQuestion: <T = Question>(args: { where: QuestionWhereUniqueInput, create: QuestionCreateInput, update: QuestionUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteUserTag: <T = UserTag | null>(args: { where: UserTagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteQuestion: <T = Question | null>(args: { where: QuestionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteTag: <T = Tag | null>(args: { where: TagWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteSession: <T = Session | null>(args: { where: SessionWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyProfiles: <T = BatchPayload>(args: { data: ProfileUpdateInput, where?: ProfileWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManySessions: <T = BatchPayload>(args: { data: SessionUpdateInput, where?: SessionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyUserTags: <T = BatchPayload>(args: { data: UserTagUpdateInput, where?: UserTagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateInput, where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    updateManyQuestions: <T = BatchPayload>(args: { data: QuestionUpdateInput, where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertUserTag: <T = UserTag>(args: { where: UserTagWhereUniqueInput, create: UserTagCreateInput, update: UserTagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertQuestion: <T = Question>(args: { where: QuestionWhereUniqueInput, create: QuestionCreateInput, update: QuestionUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertTag: <T = Tag>(args: { where: TagWhereUniqueInput, create: TagCreateInput, update: TagUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertSession: <T = Session>(args: { where: SessionWhereUniqueInput, create: SessionCreateInput, update: SessionUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyProfiles: <T = BatchPayload>(args: { where?: ProfileWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManySessions: <T = BatchPayload>(args: { where?: SessionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyUserTags: <T = BatchPayload>(args: { where?: UserTagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    deleteManyQuestions: <T = BatchPayload>(args: { where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyUserTags: <T = BatchPayload>(args: { data: UserTagUpdateInput, where?: UserTagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyQuestions: <T = BatchPayload>(args: { data: QuestionUpdateInput, where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyTags: <T = BatchPayload>(args: { data: TagUpdateInput, where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManySessions: <T = BatchPayload>(args: { data: SessionUpdateInput, where?: SessionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
-    executeRaw: <T = Json>(args: { database?: PrismaDatabase, query: String }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
+    deleteManyUserTags: <T = BatchPayload>(args: { where?: UserTagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyQuestions: <T = BatchPayload>(args: { where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyTags: <T = BatchPayload>(args: { where?: TagWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManySessions: <T = BatchPayload>(args: { where?: SessionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
-    profile: <T = ProfileSubscriptionPayload | null>(args: { where?: ProfileSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    session: <T = SessionSubscriptionPayload | null>(args: { where?: SessionSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     userTag: <T = UserTagSubscriptionPayload | null>(args: { where?: UserTagSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    tag: <T = TagSubscriptionPayload | null>(args: { where?: TagSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     question: <T = QuestionSubscriptionPayload | null>(args: { where?: QuestionSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
-    user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
+    tag: <T = TagSubscriptionPayload | null>(args: { where?: TagSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    session: <T = SessionSubscriptionPayload | null>(args: { where?: SessionSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
 export interface Exists {
-  Profile: (where?: ProfileWhereInput) => Promise<boolean>
-  Session: (where?: SessionWhereInput) => Promise<boolean>
-  UserTag: (where?: UserTagWhereInput) => Promise<boolean>
-  Tag: (where?: TagWhereInput) => Promise<boolean>
-  Question: (where?: QuestionWhereInput) => Promise<boolean>
   User: (where?: UserWhereInput) => Promise<boolean>
+  UserTag: (where?: UserTagWhereInput) => Promise<boolean>
+  Question: (where?: QuestionWhereInput) => Promise<boolean>
+  Tag: (where?: TagWhereInput) => Promise<boolean>
+  Session: (where?: SessionWhereInput) => Promise<boolean>
 }
 
 export interface Prisma {
@@ -105,11 +93,7 @@ export interface BindingConstructor<T> {
  * Type Defs
 */
 
-const typeDefs = `type AggregateProfile {
-  count: Int!
-}
-
-type AggregateQuestion {
+const typeDefs = `type AggregateQuestion {
   count: Int!
 }
 
@@ -140,11 +124,6 @@ enum ChatType {
   TEXT
 }
 
-scalar DateTime
-
-"""Raw JSON value"""
-scalar Json
-
 """
 The \`Long\` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -152,43 +131,36 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createProfile(data: ProfileCreateInput!): Profile!
-  createSession(data: SessionCreateInput!): Session!
-  createUserTag(data: UserTagCreateInput!): UserTag!
-  createTag(data: TagCreateInput!): Tag!
-  createQuestion(data: QuestionCreateInput!): Question!
   createUser(data: UserCreateInput!): User!
-  updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
-  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
-  updateUserTag(data: UserTagUpdateInput!, where: UserTagWhereUniqueInput!): UserTag
-  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
-  updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
+  createUserTag(data: UserTagCreateInput!): UserTag!
+  createQuestion(data: QuestionCreateInput!): Question!
+  createTag(data: TagCreateInput!): Tag!
+  createSession(data: SessionCreateInput!): Session!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteProfile(where: ProfileWhereUniqueInput!): Profile
-  deleteSession(where: SessionWhereUniqueInput!): Session
-  deleteUserTag(where: UserTagWhereUniqueInput!): UserTag
-  deleteTag(where: TagWhereUniqueInput!): Tag
-  deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  updateUserTag(data: UserTagUpdateInput!, where: UserTagWhereUniqueInput!): UserTag
+  updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
   deleteUser(where: UserWhereUniqueInput!): User
-  upsertProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile!
-  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
-  upsertUserTag(where: UserTagWhereUniqueInput!, create: UserTagCreateInput!, update: UserTagUpdateInput!): UserTag!
-  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
-  upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
+  deleteUserTag(where: UserTagWhereUniqueInput!): UserTag
+  deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteSession(where: SessionWhereUniqueInput!): Session
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyProfiles(data: ProfileUpdateInput!, where: ProfileWhereInput): BatchPayload!
-  updateManySessions(data: SessionUpdateInput!, where: SessionWhereInput): BatchPayload!
-  updateManyUserTags(data: UserTagUpdateInput!, where: UserTagWhereInput): BatchPayload!
-  updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
-  updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
+  upsertUserTag(where: UserTagWhereUniqueInput!, create: UserTagCreateInput!, update: UserTagUpdateInput!): UserTag!
+  upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  deleteManyProfiles(where: ProfileWhereInput): BatchPayload!
-  deleteManySessions(where: SessionWhereInput): BatchPayload!
-  deleteManyUserTags(where: UserTagWhereInput): BatchPayload!
-  deleteManyTags(where: TagWhereInput): BatchPayload!
-  deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  updateManyUserTags(data: UserTagUpdateInput!, where: UserTagWhereInput): BatchPayload!
+  updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
+  updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
+  updateManySessions(data: SessionUpdateInput!, where: SessionWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  executeRaw(database: PrismaDatabase, query: String!): Json!
+  deleteManyUserTags(where: UserTagWhereInput): BatchPayload!
+  deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  deleteManyTags(where: TagWhereInput): BatchPayload!
+  deleteManySessions(where: SessionWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -218,285 +190,22 @@ type PageInfo {
   endCursor: String
 }
 
-enum PrismaDatabase {
-  default
-}
-
-type Profile implements Node {
-  id: ID!
-  userId: Int!
-  tags(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserTag!]
-  description: String
-  coins: Int
-  session(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session!]
-  question(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
-}
-
-"""A connection to a list of items."""
-type ProfileConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [ProfileEdge]!
-  aggregate: AggregateProfile!
-}
-
-input ProfileCreateInput {
-  userId: Int!
-  description: String
-  coins: Int
-  tags: UserTagCreateManyInput
-  session: SessionCreateManyInput
-  question: QuestionCreateManyInput
-}
-
-"""An edge in a connection."""
-type ProfileEdge {
-  """The item at the end of the edge."""
-  node: Profile!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum ProfileOrderByInput {
-  id_ASC
-  id_DESC
-  userId_ASC
-  userId_DESC
-  description_ASC
-  description_DESC
-  coins_ASC
-  coins_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type ProfilePreviousValues {
-  id: ID!
-  userId: Int!
-  description: String
-  coins: Int
-}
-
-type ProfileSubscriptionPayload {
-  mutation: MutationType!
-  node: Profile
-  updatedFields: [String!]
-  previousValues: ProfilePreviousValues
-}
-
-input ProfileSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ProfileSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ProfileSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ProfileSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: ProfileWhereInput
-}
-
-input ProfileUpdateInput {
-  userId: Int
-  description: String
-  coins: Int
-  tags: UserTagUpdateManyInput
-  session: SessionUpdateManyInput
-  question: QuestionUpdateManyInput
-}
-
-input ProfileWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ProfileWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ProfileWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ProfileWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  userId: Int
-
-  """All values that are not equal to given value."""
-  userId_not: Int
-
-  """All values that are contained in given list."""
-  userId_in: [Int!]
-
-  """All values that are not contained in given list."""
-  userId_not_in: [Int!]
-
-  """All values less than the given value."""
-  userId_lt: Int
-
-  """All values less than or equal the given value."""
-  userId_lte: Int
-
-  """All values greater than the given value."""
-  userId_gt: Int
-
-  """All values greater than or equal the given value."""
-  userId_gte: Int
-  description: String
-
-  """All values that are not equal to given value."""
-  description_not: String
-
-  """All values that are contained in given list."""
-  description_in: [String!]
-
-  """All values that are not contained in given list."""
-  description_not_in: [String!]
-
-  """All values less than the given value."""
-  description_lt: String
-
-  """All values less than or equal the given value."""
-  description_lte: String
-
-  """All values greater than the given value."""
-  description_gt: String
-
-  """All values greater than or equal the given value."""
-  description_gte: String
-
-  """All values containing the given string."""
-  description_contains: String
-
-  """All values not containing the given string."""
-  description_not_contains: String
-
-  """All values starting with the given string."""
-  description_starts_with: String
-
-  """All values not starting with the given string."""
-  description_not_starts_with: String
-
-  """All values ending with the given string."""
-  description_ends_with: String
-
-  """All values not ending with the given string."""
-  description_not_ends_with: String
-  coins: Int
-
-  """All values that are not equal to given value."""
-  coins_not: Int
-
-  """All values that are contained in given list."""
-  coins_in: [Int!]
-
-  """All values that are not contained in given list."""
-  coins_not_in: [Int!]
-
-  """All values less than the given value."""
-  coins_lt: Int
-
-  """All values less than or equal the given value."""
-  coins_lte: Int
-
-  """All values greater than the given value."""
-  coins_gt: Int
-
-  """All values greater than or equal the given value."""
-  coins_gte: Int
-  tags_every: UserTagWhereInput
-  tags_some: UserTagWhereInput
-  tags_none: UserTagWhereInput
-  session_every: SessionWhereInput
-  session_some: SessionWhereInput
-  session_none: SessionWhereInput
-  question_every: QuestionWhereInput
-  question_some: QuestionWhereInput
-  question_none: QuestionWhereInput
-}
-
-input ProfileWhereUniqueInput {
-  id: ID
-}
-
 type Query {
-  profiles(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile]!
-  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session]!
-  userTags(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserTag]!
-  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
-  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  profile(where: ProfileWhereUniqueInput!): Profile
-  session(where: SessionWhereUniqueInput!): Session
-  userTag(where: UserTagWhereUniqueInput!): UserTag
-  tag(where: TagWhereUniqueInput!): Tag
-  question(where: QuestionWhereUniqueInput!): Question
+  userTags(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserTag]!
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session]!
   user(where: UserWhereUniqueInput!): User
-  profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
-  sessionsConnection(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SessionConnection!
-  userTagsConnection(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserTagConnection!
-  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
-  questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  userTag(where: UserTagWhereUniqueInput!): UserTag
+  question(where: QuestionWhereUniqueInput!): Question
+  tag(where: TagWhereUniqueInput!): Tag
+  session(where: SessionWhereUniqueInput!): Session
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  userTagsConnection(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserTagConnection!
+  questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
+  sessionsConnection(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SessionConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -508,7 +217,7 @@ type Query {
 type Question implements Node {
   id: ID!
   userId: String!
-  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag!]
+  tags: String!
   coins: Int!
   active: Boolean
   chat: ChatType!
@@ -526,15 +235,10 @@ type QuestionConnection {
 
 input QuestionCreateInput {
   userId: String!
-  coins: Int!
+  tags: String!
+  coins: Int
   active: Boolean
   chat: ChatType!
-  tags: TagCreateManyInput
-}
-
-input QuestionCreateManyInput {
-  create: [QuestionCreateInput!]
-  connect: [QuestionWhereUniqueInput!]
 }
 
 """An edge in a connection."""
@@ -551,6 +255,8 @@ enum QuestionOrderByInput {
   id_DESC
   userId_ASC
   userId_DESC
+  tags_ASC
+  tags_DESC
   coins_ASC
   coins_DESC
   active_ASC
@@ -566,6 +272,7 @@ enum QuestionOrderByInput {
 type QuestionPreviousValues {
   id: ID!
   userId: String!
+  tags: String!
   coins: Int!
   active: Boolean
   chat: ChatType!
@@ -610,40 +317,12 @@ input QuestionSubscriptionWhereInput {
   node: QuestionWhereInput
 }
 
-input QuestionUpdateDataInput {
-  userId: String
-  coins: Int
-  active: Boolean
-  chat: ChatType
-  tags: TagUpdateManyInput
-}
-
 input QuestionUpdateInput {
   userId: String
+  tags: String
   coins: Int
   active: Boolean
   chat: ChatType
-  tags: TagUpdateManyInput
-}
-
-input QuestionUpdateManyInput {
-  create: [QuestionCreateInput!]
-  connect: [QuestionWhereUniqueInput!]
-  disconnect: [QuestionWhereUniqueInput!]
-  delete: [QuestionWhereUniqueInput!]
-  update: [QuestionUpdateWithWhereUniqueNestedInput!]
-  upsert: [QuestionUpsertWithWhereUniqueNestedInput!]
-}
-
-input QuestionUpdateWithWhereUniqueNestedInput {
-  where: QuestionWhereUniqueInput!
-  data: QuestionUpdateDataInput!
-}
-
-input QuestionUpsertWithWhereUniqueNestedInput {
-  where: QuestionWhereUniqueInput!
-  update: QuestionUpdateDataInput!
-  create: QuestionCreateInput!
 }
 
 input QuestionWhereInput {
@@ -735,6 +414,46 @@ input QuestionWhereInput {
 
   """All values not ending with the given string."""
   userId_not_ends_with: String
+  tags: String
+
+  """All values that are not equal to given value."""
+  tags_not: String
+
+  """All values that are contained in given list."""
+  tags_in: [String!]
+
+  """All values that are not contained in given list."""
+  tags_not_in: [String!]
+
+  """All values less than the given value."""
+  tags_lt: String
+
+  """All values less than or equal the given value."""
+  tags_lte: String
+
+  """All values greater than the given value."""
+  tags_gt: String
+
+  """All values greater than or equal the given value."""
+  tags_gte: String
+
+  """All values containing the given string."""
+  tags_contains: String
+
+  """All values not containing the given string."""
+  tags_not_contains: String
+
+  """All values starting with the given string."""
+  tags_starts_with: String
+
+  """All values not starting with the given string."""
+  tags_not_starts_with: String
+
+  """All values ending with the given string."""
+  tags_ends_with: String
+
+  """All values not ending with the given string."""
+  tags_not_ends_with: String
   coins: Int
 
   """All values that are not equal to given value."""
@@ -771,9 +490,6 @@ input QuestionWhereInput {
 
   """All values that are not contained in given list."""
   chat_not_in: [ChatType!]
-  tags_every: TagWhereInput
-  tags_some: TagWhereInput
-  tags_none: TagWhereInput
 }
 
 input QuestionWhereUniqueInput {
@@ -783,7 +499,6 @@ input QuestionWhereUniqueInput {
 type Session implements Node {
   id: ID!
   type: String!
-  createdAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -819,16 +534,15 @@ enum SessionOrderByInput {
   id_DESC
   type_ASC
   type_DESC
-  createdAt_ASC
-  createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type SessionPreviousValues {
   id: ID!
   type: String!
-  createdAt: DateTime!
 }
 
 type SessionSubscriptionPayload {
@@ -987,28 +701,6 @@ input SessionWhereInput {
 
   """All values not ending with the given string."""
   type_not_ends_with: String
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
 }
 
 input SessionWhereUniqueInput {
@@ -1016,12 +708,11 @@ input SessionWhereUniqueInput {
 }
 
 type Subscription {
-  profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
-  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
-  userTag(where: UserTagSubscriptionWhereInput): UserTagSubscriptionPayload
-  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
-  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  userTag(where: UserTagSubscriptionWhereInput): UserTagSubscriptionPayload
+  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
+  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
 }
 
 type Tag implements Node {
@@ -1041,11 +732,6 @@ type TagConnection {
 
 input TagCreateInput {
   name: String!
-}
-
-input TagCreateManyInput {
-  create: [TagCreateInput!]
-  connect: [TagWhereUniqueInput!]
 }
 
 input TagCreateOneInput {
@@ -1125,24 +811,6 @@ input TagUpdateInput {
   name: String
 }
 
-input TagUpdateManyInput {
-  create: [TagCreateInput!]
-  connect: [TagWhereUniqueInput!]
-  disconnect: [TagWhereUniqueInput!]
-  delete: [TagWhereUniqueInput!]
-  update: [TagUpdateWithWhereUniqueNestedInput!]
-  upsert: [TagUpsertWithWhereUniqueNestedInput!]
-}
-
-input TagUpdateOneInput {
-  create: TagCreateInput
-  connect: TagWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: TagUpdateDataInput
-  upsert: TagUpsertNestedInput
-}
-
 input TagUpdateOneRequiredInput {
   create: TagCreateInput
   connect: TagWhereUniqueInput
@@ -1150,18 +818,7 @@ input TagUpdateOneRequiredInput {
   upsert: TagUpsertNestedInput
 }
 
-input TagUpdateWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput!
-  data: TagUpdateDataInput!
-}
-
 input TagUpsertNestedInput {
-  update: TagUpdateDataInput!
-  create: TagCreateInput!
-}
-
-input TagUpsertWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput!
   update: TagUpdateDataInput!
   create: TagCreateInput!
 }
@@ -1267,7 +924,10 @@ type User implements Node {
   username: String!
   email: String!
   uid: String
-  tags(where: TagWhereInput): Tag
+  tags(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserTag!]
+  description: String
+  coins: Int
+  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session!]
 }
 
 """A connection to a list of items."""
@@ -1284,12 +944,24 @@ input UserCreateInput {
   username: String!
   email: String!
   uid: String
-  tags: TagCreateOneInput
+  description: String
+  coins: Int
+  tags: UserTagCreateManyWithoutUserInput
+  sessions: SessionCreateManyInput
 }
 
-input UserCreateOneInput {
-  create: UserCreateInput
+input UserCreateOneWithoutTagsInput {
+  create: UserCreateWithoutTagsInput
   connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutTagsInput {
+  username: String!
+  email: String!
+  uid: String
+  description: String
+  coins: Int
+  sessions: SessionCreateManyInput
 }
 
 """An edge in a connection."""
@@ -1310,6 +982,10 @@ enum UserOrderByInput {
   email_DESC
   uid_ASC
   uid_DESC
+  description_ASC
+  description_DESC
+  coins_ASC
+  coins_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1321,6 +997,8 @@ type UserPreviousValues {
   username: String!
   email: String!
   uid: String
+  description: String
+  coins: Int
 }
 
 type UserSubscriptionPayload {
@@ -1364,8 +1042,8 @@ input UserSubscriptionWhereInput {
 
 type UserTag implements Node {
   id: ID!
-  user(where: UserWhereInput): User!
-  tag(where: TagWhereInput): Tag!
+  user: User!
+  tag: Tag!
 }
 
 """A connection to a list of items."""
@@ -1379,13 +1057,17 @@ type UserTagConnection {
 }
 
 input UserTagCreateInput {
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutTagsInput!
   tag: TagCreateOneInput!
 }
 
-input UserTagCreateManyInput {
-  create: [UserTagCreateInput!]
+input UserTagCreateManyWithoutUserInput {
+  create: [UserTagCreateWithoutUserInput!]
   connect: [UserTagWhereUniqueInput!]
+}
+
+input UserTagCreateWithoutUserInput {
+  tag: TagCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -1449,34 +1131,33 @@ input UserTagSubscriptionWhereInput {
   node: UserTagWhereInput
 }
 
-input UserTagUpdateDataInput {
-  user: UserUpdateOneRequiredInput
-  tag: TagUpdateOneRequiredInput
-}
-
 input UserTagUpdateInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutTagsInput
   tag: TagUpdateOneRequiredInput
 }
 
-input UserTagUpdateManyInput {
-  create: [UserTagCreateInput!]
+input UserTagUpdateManyWithoutUserInput {
+  create: [UserTagCreateWithoutUserInput!]
   connect: [UserTagWhereUniqueInput!]
   disconnect: [UserTagWhereUniqueInput!]
   delete: [UserTagWhereUniqueInput!]
-  update: [UserTagUpdateWithWhereUniqueNestedInput!]
-  upsert: [UserTagUpsertWithWhereUniqueNestedInput!]
+  update: [UserTagUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [UserTagUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input UserTagUpdateWithWhereUniqueNestedInput {
-  where: UserTagWhereUniqueInput!
-  data: UserTagUpdateDataInput!
+input UserTagUpdateWithoutUserDataInput {
+  tag: TagUpdateOneRequiredInput
 }
 
-input UserTagUpsertWithWhereUniqueNestedInput {
+input UserTagUpdateWithWhereUniqueWithoutUserInput {
   where: UserTagWhereUniqueInput!
-  update: UserTagUpdateDataInput!
-  create: UserTagCreateInput!
+  data: UserTagUpdateWithoutUserDataInput!
+}
+
+input UserTagUpsertWithWhereUniqueWithoutUserInput {
+  where: UserTagWhereUniqueInput!
+  update: UserTagUpdateWithoutUserDataInput!
+  create: UserTagCreateWithoutUserInput!
 }
 
 input UserTagWhereInput {
@@ -1536,30 +1217,35 @@ input UserTagWhereUniqueInput {
   id: ID
 }
 
-input UserUpdateDataInput {
-  username: String
-  email: String
-  uid: String
-  tags: TagUpdateOneInput
-}
-
 input UserUpdateInput {
   username: String
   email: String
   uid: String
-  tags: TagUpdateOneInput
+  description: String
+  coins: Int
+  tags: UserTagUpdateManyWithoutUserInput
+  sessions: SessionUpdateManyInput
 }
 
-input UserUpdateOneRequiredInput {
-  create: UserCreateInput
+input UserUpdateOneRequiredWithoutTagsInput {
+  create: UserCreateWithoutTagsInput
   connect: UserWhereUniqueInput
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
+  update: UserUpdateWithoutTagsDataInput
+  upsert: UserUpsertWithoutTagsInput
 }
 
-input UserUpsertNestedInput {
-  update: UserUpdateDataInput!
-  create: UserCreateInput!
+input UserUpdateWithoutTagsDataInput {
+  username: String
+  email: String
+  uid: String
+  description: String
+  coins: Int
+  sessions: SessionUpdateManyInput
+}
+
+input UserUpsertWithoutTagsInput {
+  update: UserUpdateWithoutTagsDataInput!
+  create: UserCreateWithoutTagsInput!
 }
 
 input UserWhereInput {
@@ -1731,11 +1417,79 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   uid_not_ends_with: String
-  tags: TagWhereInput
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  coins: Int
+
+  """All values that are not equal to given value."""
+  coins_not: Int
+
+  """All values that are contained in given list."""
+  coins_in: [Int!]
+
+  """All values that are not contained in given list."""
+  coins_not_in: [Int!]
+
+  """All values less than the given value."""
+  coins_lt: Int
+
+  """All values less than or equal the given value."""
+  coins_lte: Int
+
+  """All values greater than the given value."""
+  coins_gt: Int
+
+  """All values greater than or equal the given value."""
+  coins_gte: Int
+  tags_every: UserTagWhereInput
+  tags_some: UserTagWhereInput
+  tags_none: UserTagWhereInput
+  sessions_every: SessionWhereInput
+  sessions_some: SessionWhereInput
+  sessions_none: SessionWhereInput
 }
 
 input UserWhereUniqueInput {
   id: ID
+  username: String
 }
 `
 
@@ -1745,14 +1499,21 @@ export const Prisma = makePrismaBindingClass<BindingConstructor<Prisma>>({typeDe
  * Types
 */
 
-export type ChatType =   'AUDIO' |
-  'VIDEO' |
-  'TEXT'
-
-export type ProfileOrderByInput =   'id_ASC' |
+export type UserTagOrderByInput =   'id_ASC' |
   'id_DESC' |
-  'userId_ASC' |
-  'userId_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type UserOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'username_ASC' |
+  'username_DESC' |
+  'email_ASC' |
+  'email_DESC' |
+  'uid_ASC' |
+  'uid_DESC' |
   'description_ASC' |
   'description_DESC' |
   'coins_ASC' |
@@ -1762,26 +1523,25 @@ export type ProfileOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type UserTagOrderByInput =   'id_ASC' |
+export type SessionOrderByInput =   'id_ASC' |
   'id_DESC' |
+  'type_ASC' |
+  'type_DESC' |
   'updatedAt_ASC' |
   'updatedAt_DESC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type SessionOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'type_ASC' |
-  'type_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC'
+export type ChatType =   'AUDIO' |
+  'VIDEO' |
+  'TEXT'
 
 export type QuestionOrderByInput =   'id_ASC' |
   'id_DESC' |
   'userId_ASC' |
   'userId_DESC' |
+  'tags_ASC' |
+  'tags_DESC' |
   'coins_ASC' |
   'coins_DESC' |
   'active_ASC' |
@@ -1802,466 +1562,13 @@ export type TagOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
-export type UserOrderByInput =   'id_ASC' |
-  'id_DESC' |
-  'username_ASC' |
-  'username_DESC' |
-  'email_ASC' |
-  'email_DESC' |
-  'uid_ASC' |
-  'uid_DESC' |
-  'updatedAt_ASC' |
-  'updatedAt_DESC' |
-  'createdAt_ASC' |
-  'createdAt_DESC'
-
-export type PrismaDatabase =   'default'
-
 export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
 
-export interface TagCreateInput {
-  name: String
-}
-
-export interface ProfileWhereInput {
-  AND?: ProfileWhereInput[] | ProfileWhereInput
-  OR?: ProfileWhereInput[] | ProfileWhereInput
-  NOT?: ProfileWhereInput[] | ProfileWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  userId?: Int
-  userId_not?: Int
-  userId_in?: Int[] | Int
-  userId_not_in?: Int[] | Int
-  userId_lt?: Int
-  userId_lte?: Int
-  userId_gt?: Int
-  userId_gte?: Int
-  description?: String
-  description_not?: String
-  description_in?: String[] | String
-  description_not_in?: String[] | String
-  description_lt?: String
-  description_lte?: String
-  description_gt?: String
-  description_gte?: String
-  description_contains?: String
-  description_not_contains?: String
-  description_starts_with?: String
-  description_not_starts_with?: String
-  description_ends_with?: String
-  description_not_ends_with?: String
-  coins?: Int
-  coins_not?: Int
-  coins_in?: Int[] | Int
-  coins_not_in?: Int[] | Int
-  coins_lt?: Int
-  coins_lte?: Int
-  coins_gt?: Int
-  coins_gte?: Int
-  tags_every?: UserTagWhereInput
-  tags_some?: UserTagWhereInput
-  tags_none?: UserTagWhereInput
-  session_every?: SessionWhereInput
-  session_some?: SessionWhereInput
-  session_none?: SessionWhereInput
-  question_every?: QuestionWhereInput
-  question_some?: QuestionWhereInput
-  question_none?: QuestionWhereInput
-}
-
-export interface QuestionUpdateWithWhereUniqueNestedInput {
-  where: QuestionWhereUniqueInput
-  data: QuestionUpdateDataInput
-}
-
-export interface TagUpdateOneInput {
-  create?: TagCreateInput
-  connect?: TagWhereUniqueInput
-  disconnect?: Boolean
-  delete?: Boolean
-  update?: TagUpdateDataInput
-  upsert?: TagUpsertNestedInput
-}
-
-export interface QuestionUpdateManyInput {
-  create?: QuestionCreateInput[] | QuestionCreateInput
-  connect?: QuestionWhereUniqueInput[] | QuestionWhereUniqueInput
-  disconnect?: QuestionWhereUniqueInput[] | QuestionWhereUniqueInput
-  delete?: QuestionWhereUniqueInput[] | QuestionWhereUniqueInput
-  update?: QuestionUpdateWithWhereUniqueNestedInput[] | QuestionUpdateWithWhereUniqueNestedInput
-  upsert?: QuestionUpsertWithWhereUniqueNestedInput[] | QuestionUpsertWithWhereUniqueNestedInput
-}
-
-export interface ProfileUpdateInput {
-  userId?: Int
-  description?: String
-  coins?: Int
-  tags?: UserTagUpdateManyInput
-  session?: SessionUpdateManyInput
-  question?: QuestionUpdateManyInput
-}
-
-export interface SessionUpsertWithWhereUniqueNestedInput {
-  where: SessionWhereUniqueInput
-  update: SessionUpdateDataInput
-  create: SessionCreateInput
-}
-
-export interface TagSubscriptionWhereInput {
-  AND?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
-  OR?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
-  NOT?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: TagWhereInput
-}
-
-export interface SessionUpdateDataInput {
-  type?: String
-}
-
-export interface SessionSubscriptionWhereInput {
-  AND?: SessionSubscriptionWhereInput[] | SessionSubscriptionWhereInput
-  OR?: SessionSubscriptionWhereInput[] | SessionSubscriptionWhereInput
-  NOT?: SessionSubscriptionWhereInput[] | SessionSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: SessionWhereInput
-}
-
-export interface SessionUpdateWithWhereUniqueNestedInput {
-  where: SessionWhereUniqueInput
-  data: SessionUpdateDataInput
-}
-
-export interface ProfileSubscriptionWhereInput {
-  AND?: ProfileSubscriptionWhereInput[] | ProfileSubscriptionWhereInput
-  OR?: ProfileSubscriptionWhereInput[] | ProfileSubscriptionWhereInput
-  NOT?: ProfileSubscriptionWhereInput[] | ProfileSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: ProfileWhereInput
-}
-
-export interface SessionUpdateManyInput {
-  create?: SessionCreateInput[] | SessionCreateInput
-  connect?: SessionWhereUniqueInput[] | SessionWhereUniqueInput
-  disconnect?: SessionWhereUniqueInput[] | SessionWhereUniqueInput
-  delete?: SessionWhereUniqueInput[] | SessionWhereUniqueInput
-  update?: SessionUpdateWithWhereUniqueNestedInput[] | SessionUpdateWithWhereUniqueNestedInput
-  upsert?: SessionUpsertWithWhereUniqueNestedInput[] | SessionUpsertWithWhereUniqueNestedInput
-}
-
-export interface UserUpdateInput {
-  username?: String
-  email?: String
-  uid?: String
-  tags?: TagUpdateOneInput
-}
-
-export interface UserTagUpsertWithWhereUniqueNestedInput {
-  where: UserTagWhereUniqueInput
-  update: UserTagUpdateDataInput
-  create: UserTagCreateInput
-}
-
-export interface UserTagWhereInput {
-  AND?: UserTagWhereInput[] | UserTagWhereInput
-  OR?: UserTagWhereInput[] | UserTagWhereInput
-  NOT?: UserTagWhereInput[] | UserTagWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  user?: UserWhereInput
-  tag?: TagWhereInput
-}
-
-export interface TagUpdateOneRequiredInput {
-  create?: TagCreateInput
-  connect?: TagWhereUniqueInput
-  update?: TagUpdateDataInput
-  upsert?: TagUpsertNestedInput
-}
-
-export interface SessionWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput
-  create: UserCreateInput
-}
-
-export interface TagWhereUniqueInput {
-  id?: ID_Input
-  name?: String
-}
-
-export interface TagUpsertNestedInput {
-  update: TagUpdateDataInput
-  create: TagCreateInput
-}
-
-export interface UserWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface ProfileCreateInput {
-  userId: Int
-  description?: String
-  coins?: Int
-  tags?: UserTagCreateManyInput
-  session?: SessionCreateManyInput
-  question?: QuestionCreateManyInput
-}
-
-export interface TagUpdateInput {
-  name?: String
-}
-
-export interface UserTagCreateManyInput {
-  create?: UserTagCreateInput[] | UserTagCreateInput
-  connect?: UserTagWhereUniqueInput[] | UserTagWhereUniqueInput
-}
-
-export interface SessionUpdateInput {
-  type?: String
-}
-
-export interface UserTagCreateInput {
-  user: UserCreateOneInput
-  tag: TagCreateOneInput
-}
-
-export interface TagUpsertWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput
-  update: TagUpdateDataInput
-  create: TagCreateInput
-}
-
-export interface UserCreateOneInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-}
-
-export interface TagUpdateManyInput {
-  create?: TagCreateInput[] | TagCreateInput
-  connect?: TagWhereUniqueInput[] | TagWhereUniqueInput
-  disconnect?: TagWhereUniqueInput[] | TagWhereUniqueInput
-  delete?: TagWhereUniqueInput[] | TagWhereUniqueInput
-  update?: TagUpdateWithWhereUniqueNestedInput[] | TagUpdateWithWhereUniqueNestedInput
-  upsert?: TagUpsertWithWhereUniqueNestedInput[] | TagUpsertWithWhereUniqueNestedInput
-}
-
-export interface UserCreateInput {
-  username: String
-  email: String
-  uid?: String
-  tags?: TagCreateOneInput
-}
-
-export interface UserSubscriptionWhereInput {
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: UserWhereInput
-}
-
 export interface TagCreateOneInput {
   create?: TagCreateInput
   connect?: TagWhereUniqueInput
-}
-
-export interface UserTagSubscriptionWhereInput {
-  AND?: UserTagSubscriptionWhereInput[] | UserTagSubscriptionWhereInput
-  OR?: UserTagSubscriptionWhereInput[] | UserTagSubscriptionWhereInput
-  NOT?: UserTagSubscriptionWhereInput[] | UserTagSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: UserTagWhereInput
-}
-
-export interface TagUpdateDataInput {
-  name?: String
-}
-
-export interface TagWhereInput {
-  AND?: TagWhereInput[] | TagWhereInput
-  OR?: TagWhereInput[] | TagWhereInput
-  NOT?: TagWhereInput[] | TagWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-}
-
-export interface SessionCreateManyInput {
-  create?: SessionCreateInput[] | SessionCreateInput
-  connect?: SessionWhereUniqueInput[] | SessionWhereUniqueInput
-}
-
-export interface ProfileWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface SessionCreateInput {
-  type: String
-}
-
-export interface QuestionWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface QuestionCreateManyInput {
-  create?: QuestionCreateInput[] | QuestionCreateInput
-  connect?: QuestionWhereUniqueInput[] | QuestionWhereUniqueInput
-}
-
-export interface UserTagUpdateInput {
-  user?: UserUpdateOneRequiredInput
-  tag?: TagUpdateOneRequiredInput
-}
-
-export interface QuestionCreateInput {
-  userId: String
-  coins: Int
-  active?: Boolean
-  chat: ChatType
-  tags?: TagCreateManyInput
-}
-
-export interface TagUpdateWithWhereUniqueNestedInput {
-  where: TagWhereUniqueInput
-  data: TagUpdateDataInput
-}
-
-export interface TagCreateManyInput {
-  create?: TagCreateInput[] | TagCreateInput
-  connect?: TagWhereUniqueInput[] | TagWhereUniqueInput
-}
-
-export interface QuestionSubscriptionWhereInput {
-  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: QuestionWhereInput
-}
-
-export interface QuestionWhereInput {
-  AND?: QuestionWhereInput[] | QuestionWhereInput
-  OR?: QuestionWhereInput[] | QuestionWhereInput
-  NOT?: QuestionWhereInput[] | QuestionWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  userId?: String
-  userId_not?: String
-  userId_in?: String[] | String
-  userId_not_in?: String[] | String
-  userId_lt?: String
-  userId_lte?: String
-  userId_gt?: String
-  userId_gte?: String
-  userId_contains?: String
-  userId_not_contains?: String
-  userId_starts_with?: String
-  userId_not_starts_with?: String
-  userId_ends_with?: String
-  userId_not_ends_with?: String
-  coins?: Int
-  coins_not?: Int
-  coins_in?: Int[] | Int
-  coins_not_in?: Int[] | Int
-  coins_lt?: Int
-  coins_lte?: Int
-  coins_gt?: Int
-  coins_gte?: Int
-  active?: Boolean
-  active_not?: Boolean
-  chat?: ChatType
-  chat_not?: ChatType
-  chat_in?: ChatType[] | ChatType
-  chat_not_in?: ChatType[] | ChatType
-  tags_every?: TagWhereInput
-  tags_some?: TagWhereInput
-  tags_none?: TagWhereInput
 }
 
 export interface UserWhereInput {
@@ -2324,58 +1631,206 @@ export interface UserWhereInput {
   uid_not_starts_with?: String
   uid_ends_with?: String
   uid_not_ends_with?: String
-  tags?: TagWhereInput
-}
-
-export interface UserTagUpdateManyInput {
-  create?: UserTagCreateInput[] | UserTagCreateInput
-  connect?: UserTagWhereUniqueInput[] | UserTagWhereUniqueInput
-  disconnect?: UserTagWhereUniqueInput[] | UserTagWhereUniqueInput
-  delete?: UserTagWhereUniqueInput[] | UserTagWhereUniqueInput
-  update?: UserTagUpdateWithWhereUniqueNestedInput[] | UserTagUpdateWithWhereUniqueNestedInput
-  upsert?: UserTagUpsertWithWhereUniqueNestedInput[] | UserTagUpsertWithWhereUniqueNestedInput
-}
-
-export interface QuestionUpdateInput {
-  userId?: String
+  description?: String
+  description_not?: String
+  description_in?: String[] | String
+  description_not_in?: String[] | String
+  description_lt?: String
+  description_lte?: String
+  description_gt?: String
+  description_gte?: String
+  description_contains?: String
+  description_not_contains?: String
+  description_starts_with?: String
+  description_not_starts_with?: String
+  description_ends_with?: String
+  description_not_ends_with?: String
   coins?: Int
-  active?: Boolean
-  chat?: ChatType
-  tags?: TagUpdateManyInput
+  coins_not?: Int
+  coins_in?: Int[] | Int
+  coins_not_in?: Int[] | Int
+  coins_lt?: Int
+  coins_lte?: Int
+  coins_gt?: Int
+  coins_gte?: Int
+  tags_every?: UserTagWhereInput
+  tags_some?: UserTagWhereInput
+  tags_none?: UserTagWhereInput
+  sessions_every?: SessionWhereInput
+  sessions_some?: SessionWhereInput
+  sessions_none?: SessionWhereInput
 }
 
-export interface UserUpdateDataInput {
-  username?: String
-  email?: String
-  uid?: String
-  tags?: TagUpdateOneInput
-}
-
-export interface UserUpdateOneRequiredInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-  update?: UserUpdateDataInput
-  upsert?: UserUpsertNestedInput
-}
-
-export interface UserTagUpdateDataInput {
-  user?: UserUpdateOneRequiredInput
+export interface UserTagUpdateInput {
+  user?: UserUpdateOneRequiredWithoutTagsInput
   tag?: TagUpdateOneRequiredInput
 }
 
-export interface UserTagUpdateWithWhereUniqueNestedInput {
-  where: UserTagWhereUniqueInput
-  data: UserTagUpdateDataInput
+export interface QuestionCreateInput {
+  userId: String
+  tags: String
+  coins?: Int
+  active?: Boolean
+  chat: ChatType
 }
 
-export interface QuestionUpsertWithWhereUniqueNestedInput {
-  where: QuestionWhereUniqueInput
-  update: QuestionUpdateDataInput
-  create: QuestionCreateInput
+export interface SessionUpsertWithWhereUniqueNestedInput {
+  where: SessionWhereUniqueInput
+  update: SessionUpdateDataInput
+  create: SessionCreateInput
+}
+
+export interface UserTagCreateInput {
+  user: UserCreateOneWithoutTagsInput
+  tag: TagCreateOneInput
+}
+
+export interface SessionUpdateDataInput {
+  type?: String
+}
+
+export interface TagSubscriptionWhereInput {
+  AND?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
+  OR?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
+  NOT?: TagSubscriptionWhereInput[] | TagSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: TagWhereInput
+}
+
+export interface SessionUpdateWithWhereUniqueNestedInput {
+  where: SessionWhereUniqueInput
+  data: SessionUpdateDataInput
+}
+
+export interface QuestionSubscriptionWhereInput {
+  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: QuestionWhereInput
+}
+
+export interface SessionUpdateManyInput {
+  create?: SessionCreateInput[] | SessionCreateInput
+  connect?: SessionWhereUniqueInput[] | SessionWhereUniqueInput
+  disconnect?: SessionWhereUniqueInput[] | SessionWhereUniqueInput
+  delete?: SessionWhereUniqueInput[] | SessionWhereUniqueInput
+  update?: SessionUpdateWithWhereUniqueNestedInput[] | SessionUpdateWithWhereUniqueNestedInput
+  upsert?: SessionUpsertWithWhereUniqueNestedInput[] | SessionUpsertWithWhereUniqueNestedInput
+}
+
+export interface UserTagSubscriptionWhereInput {
+  AND?: UserTagSubscriptionWhereInput[] | UserTagSubscriptionWhereInput
+  OR?: UserTagSubscriptionWhereInput[] | UserTagSubscriptionWhereInput
+  NOT?: UserTagSubscriptionWhereInput[] | UserTagSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserTagWhereInput
+}
+
+export interface UserTagUpsertWithWhereUniqueWithoutUserInput {
+  where: UserTagWhereUniqueInput
+  update: UserTagUpdateWithoutUserDataInput
+  create: UserTagCreateWithoutUserInput
+}
+
+export interface UserTagWhereInput {
+  AND?: UserTagWhereInput[] | UserTagWhereInput
+  OR?: UserTagWhereInput[] | UserTagWhereInput
+  NOT?: UserTagWhereInput[] | UserTagWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  user?: UserWhereInput
+  tag?: TagWhereInput
+}
+
+export interface TagUpsertNestedInput {
+  update: TagUpdateDataInput
+  create: TagCreateInput
+}
+
+export interface SessionUpdateInput {
+  type?: String
+}
+
+export interface TagUpdateDataInput {
+  name?: String
 }
 
 export interface UserTagWhereUniqueInput {
   id?: ID_Input
+}
+
+export interface TagUpdateOneRequiredInput {
+  create?: TagCreateInput
+  connect?: TagWhereUniqueInput
+  update?: TagUpdateDataInput
+  upsert?: TagUpsertNestedInput
+}
+
+export interface TagWhereUniqueInput {
+  id?: ID_Input
+  name?: String
+}
+
+export interface UserTagUpdateWithoutUserDataInput {
+  tag?: TagUpdateOneRequiredInput
+}
+
+export interface TagUpdateInput {
+  name?: String
+}
+
+export interface UserTagUpdateWithWhereUniqueWithoutUserInput {
+  where: UserTagWhereUniqueInput
+  data: UserTagUpdateWithoutUserDataInput
+}
+
+export interface UserUpsertWithoutTagsInput {
+  update: UserUpdateWithoutTagsDataInput
+  create: UserCreateWithoutTagsInput
+}
+
+export interface UserCreateInput {
+  username: String
+  email: String
+  uid?: String
+  description?: String
+  coins?: Int
+  tags?: UserTagCreateManyWithoutUserInput
+  sessions?: SessionCreateManyInput
+}
+
+export interface UserUpdateOneRequiredWithoutTagsInput {
+  create?: UserCreateWithoutTagsInput
+  connect?: UserWhereUniqueInput
+  update?: UserUpdateWithoutTagsDataInput
+  upsert?: UserUpsertWithoutTagsInput
+}
+
+export interface UserTagCreateManyWithoutUserInput {
+  create?: UserTagCreateWithoutUserInput[] | UserTagCreateWithoutUserInput
+  connect?: UserTagWhereUniqueInput[] | UserTagWhereUniqueInput
 }
 
 export interface SessionWhereInput {
@@ -2410,22 +1865,204 @@ export interface SessionWhereInput {
   type_not_starts_with?: String
   type_ends_with?: String
   type_not_ends_with?: String
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
 }
 
-export interface QuestionUpdateDataInput {
+export interface UserTagCreateWithoutUserInput {
+  tag: TagCreateOneInput
+}
+
+export interface TagWhereInput {
+  AND?: TagWhereInput[] | TagWhereInput
+  OR?: TagWhereInput[] | TagWhereInput
+  NOT?: TagWhereInput[] | TagWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+}
+
+export interface UserTagUpdateManyWithoutUserInput {
+  create?: UserTagCreateWithoutUserInput[] | UserTagCreateWithoutUserInput
+  connect?: UserTagWhereUniqueInput[] | UserTagWhereUniqueInput
+  disconnect?: UserTagWhereUniqueInput[] | UserTagWhereUniqueInput
+  delete?: UserTagWhereUniqueInput[] | UserTagWhereUniqueInput
+  update?: UserTagUpdateWithWhereUniqueWithoutUserInput[] | UserTagUpdateWithWhereUniqueWithoutUserInput
+  upsert?: UserTagUpsertWithWhereUniqueWithoutUserInput[] | UserTagUpsertWithWhereUniqueWithoutUserInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+  username?: String
+}
+
+export interface TagCreateInput {
+  name: String
+}
+
+export interface SessionWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface SessionCreateManyInput {
+  create?: SessionCreateInput[] | SessionCreateInput
+  connect?: SessionWhereUniqueInput[] | SessionWhereUniqueInput
+}
+
+export interface UserUpdateWithoutTagsDataInput {
+  username?: String
+  email?: String
+  uid?: String
+  description?: String
+  coins?: Int
+  sessions?: SessionUpdateManyInput
+}
+
+export interface QuestionWhereInput {
+  AND?: QuestionWhereInput[] | QuestionWhereInput
+  OR?: QuestionWhereInput[] | QuestionWhereInput
+  NOT?: QuestionWhereInput[] | QuestionWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
   userId?: String
+  userId_not?: String
+  userId_in?: String[] | String
+  userId_not_in?: String[] | String
+  userId_lt?: String
+  userId_lte?: String
+  userId_gt?: String
+  userId_gte?: String
+  userId_contains?: String
+  userId_not_contains?: String
+  userId_starts_with?: String
+  userId_not_starts_with?: String
+  userId_ends_with?: String
+  userId_not_ends_with?: String
+  tags?: String
+  tags_not?: String
+  tags_in?: String[] | String
+  tags_not_in?: String[] | String
+  tags_lt?: String
+  tags_lte?: String
+  tags_gt?: String
+  tags_gte?: String
+  tags_contains?: String
+  tags_not_contains?: String
+  tags_starts_with?: String
+  tags_not_starts_with?: String
+  tags_ends_with?: String
+  tags_not_ends_with?: String
+  coins?: Int
+  coins_not?: Int
+  coins_in?: Int[] | Int
+  coins_not_in?: Int[] | Int
+  coins_lt?: Int
+  coins_lte?: Int
+  coins_gt?: Int
+  coins_gte?: Int
+  active?: Boolean
+  active_not?: Boolean
+  chat?: ChatType
+  chat_not?: ChatType
+  chat_in?: ChatType[] | ChatType
+  chat_not_in?: ChatType[] | ChatType
+}
+
+export interface UserCreateWithoutTagsInput {
+  username: String
+  email: String
+  uid?: String
+  description?: String
+  coins?: Int
+  sessions?: SessionCreateManyInput
+}
+
+export interface UserCreateOneWithoutTagsInput {
+  create?: UserCreateWithoutTagsInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface UserUpdateInput {
+  username?: String
+  email?: String
+  uid?: String
+  description?: String
+  coins?: Int
+  tags?: UserTagUpdateManyWithoutUserInput
+  sessions?: SessionUpdateManyInput
+}
+
+export interface SessionCreateInput {
+  type: String
+}
+
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
+}
+
+export interface SessionSubscriptionWhereInput {
+  AND?: SessionSubscriptionWhereInput[] | SessionSubscriptionWhereInput
+  OR?: SessionSubscriptionWhereInput[] | SessionSubscriptionWhereInput
+  NOT?: SessionSubscriptionWhereInput[] | SessionSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: SessionWhereInput
+}
+
+export interface QuestionUpdateInput {
+  userId?: String
+  tags?: String
   coins?: Int
   active?: Boolean
   chat?: ChatType
-  tags?: TagUpdateManyInput
+}
+
+export interface QuestionWhereUniqueInput {
+  id?: ID_Input
 }
 
 /*
@@ -2436,45 +2073,83 @@ export interface Node {
   id: ID_Output
 }
 
-export interface UserPreviousValues {
+export interface SessionPreviousValues {
+  id: ID_Output
+  type: String
+}
+
+export interface User extends Node {
   id: ID_Output
   username: String
   email: String
   uid?: String
-}
-
-export interface Question extends Node {
-  id: ID_Output
-  userId: String
-  tags?: Tag[]
-  coins: Int
-  active?: Boolean
-  chat: ChatType
-}
-
-export interface QuestionSubscriptionPayload {
-  mutation: MutationType
-  node?: Question
-  updatedFields?: String[]
-  previousValues?: QuestionPreviousValues
+  tags?: UserTag[]
+  description?: String
+  coins?: Int
+  sessions?: Session[]
 }
 
 export interface BatchPayload {
   count: Long
 }
 
+export interface AggregateSession {
+  count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface SessionEdge {
+  node: Session
+  cursor: String
+}
+
+export interface TagSubscriptionPayload {
+  mutation: MutationType
+  node?: Tag
+  updatedFields?: String[]
+  previousValues?: TagPreviousValues
+}
+
+export interface AggregateTag {
+  count: Int
+}
+
 /*
  * A connection to a list of items.
 
  */
-export interface UserConnection {
+export interface SessionConnection {
   pageInfo: PageInfo
-  edges: UserEdge[]
-  aggregate: AggregateUser
+  edges: SessionEdge[]
+  aggregate: AggregateSession
 }
 
-export interface AggregateUser {
-  count: Int
+export interface Question extends Node {
+  id: ID_Output
+  userId: String
+  tags: String
+  coins: Int
+  active?: Boolean
+  chat: ChatType
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface TagConnection {
+  pageInfo: PageInfo
+  edges: TagEdge[]
+  aggregate: AggregateTag
+}
+
+export interface UserTag extends Node {
+  id: ID_Output
+  user: User
+  tag: Tag
 }
 
 /*
@@ -2493,137 +2168,17 @@ export interface UserSubscriptionPayload {
   previousValues?: UserPreviousValues
 }
 
-export interface AggregateTag {
+export interface AggregateUserTag {
   count: Int
 }
 
-export interface Profile extends Node {
-  id: ID_Output
-  userId: Int
-  tags?: UserTag[]
-  description?: String
-  coins?: Int
-  session?: Session[]
-  question?: Question[]
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface TagConnection {
-  pageInfo: PageInfo
-  edges: TagEdge[]
-  aggregate: AggregateTag
-}
-
-export interface Session extends Node {
-  id: ID_Output
-  type: String
-  createdAt: DateTime
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface UserTagEdge {
-  node: UserTag
-  cursor: String
-}
-
-export interface QuestionPreviousValues {
-  id: ID_Output
-  userId: String
-  coins: Int
-  active?: Boolean
-  chat: ChatType
-}
-
-export interface AggregateSession {
-  count: Int
-}
-
-export interface ProfileSubscriptionPayload {
-  mutation: MutationType
-  node?: Profile
-  updatedFields?: String[]
-  previousValues?: ProfilePreviousValues
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface SessionConnection {
-  pageInfo: PageInfo
-  edges: SessionEdge[]
-  aggregate: AggregateSession
-}
-
-export interface ProfilePreviousValues {
-  id: ID_Output
-  userId: Int
-  description?: String
-  coins?: Int
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface ProfileEdge {
-  node: Profile
-  cursor: String
-}
-
-export interface Tag extends Node {
-  id: ID_Output
-  name: String
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface ProfileConnection {
-  pageInfo: PageInfo
-  edges: ProfileEdge[]
-  aggregate: AggregateProfile
-}
-
-export interface SessionSubscriptionPayload {
-  mutation: MutationType
-  node?: Session
-  updatedFields?: String[]
-  previousValues?: SessionPreviousValues
-}
-
-export interface AggregateQuestion {
-  count: Int
-}
-
-export interface SessionPreviousValues {
-  id: ID_Output
-  type: String
-  createdAt: DateTime
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface TagEdge {
-  node: Tag
-  cursor: String
-}
-
-export interface User extends Node {
+export interface UserPreviousValues {
   id: ID_Output
   username: String
   email: String
   uid?: String
-  tags?: Tag
+  description?: String
+  coins?: Int
 }
 
 /*
@@ -2636,6 +2191,20 @@ export interface UserTagConnection {
   aggregate: AggregateUserTag
 }
 
+export interface TagPreviousValues {
+  id: ID_Output
+  name: String
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface UserEdge {
+  node: User
+  cursor: String
+}
+
 export interface UserTagSubscriptionPayload {
   mutation: MutationType
   node?: UserTag
@@ -2643,30 +2212,83 @@ export interface UserTagSubscriptionPayload {
   previousValues?: UserTagPreviousValues
 }
 
-export interface AggregateProfile {
-  count: Int
-}
+/*
+ * A connection to a list of items.
 
-export interface TagPreviousValues {
-  id: ID_Output
-  name: String
-}
-
-export interface TagSubscriptionPayload {
-  mutation: MutationType
-  node?: Tag
-  updatedFields?: String[]
-  previousValues?: TagPreviousValues
-}
-
-export interface UserTag extends Node {
-  id: ID_Output
-  user: User
-  tag: Tag
+ */
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
 }
 
 export interface UserTagPreviousValues {
   id: ID_Output
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface TagEdge {
+  node: Tag
+  cursor: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface QuestionConnection {
+  pageInfo: PageInfo
+  edges: QuestionEdge[]
+  aggregate: AggregateQuestion
+}
+
+export interface Tag extends Node {
+  id: ID_Output
+  name: String
+}
+
+export interface QuestionPreviousValues {
+  id: ID_Output
+  userId: String
+  tags: String
+  coins: Int
+  active?: Boolean
+  chat: ChatType
+}
+
+export interface QuestionSubscriptionPayload {
+  mutation: MutationType
+  node?: Question
+  updatedFields?: String[]
+  previousValues?: QuestionPreviousValues
+}
+
+export interface Session extends Node {
+  id: ID_Output
+  type: String
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface UserTagEdge {
+  node: UserTag
+  cursor: String
+}
+
+export interface AggregateQuestion {
+  count: Int
+}
+
+export interface SessionSubscriptionPayload {
+  mutation: MutationType
+  node?: Session
+  updatedFields?: String[]
+  previousValues?: SessionPreviousValues
 }
 
 /*
@@ -2680,36 +2302,8 @@ export interface PageInfo {
   endCursor?: String
 }
 
-/*
- * An edge in a connection.
-
- */
-export interface SessionEdge {
-  node: Session
-  cursor: String
-}
-
-export interface AggregateUserTag {
+export interface AggregateUser {
   count: Int
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface QuestionConnection {
-  pageInfo: PageInfo
-  edges: QuestionEdge[]
-  aggregate: AggregateQuestion
-}
-
-/*
- * An edge in a connection.
-
- */
-export interface UserEdge {
-  node: User
-  cursor: String
 }
 
 /*
@@ -2719,9 +2313,9 @@ Long can represent values between -(2^63) and 2^63 - 1.
 export type Long = string
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
-export type Boolean = boolean
+export type Int = number
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -2735,13 +2329,6 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string
 
 /*
-Raw JSON value
+The `Boolean` scalar type represents `true` or `false`.
 */
-export type Json = any
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number
-
-export type DateTime = Date | string
+export type Boolean = boolean

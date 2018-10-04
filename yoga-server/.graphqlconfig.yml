@@ -14,8 +14,8 @@ projects:
       #     input: "{binding,prisma}/*.ts"
       #     output:
       #       typings: typings.ts
-        # - generator: prisma-binding
-        #   language: typescript 
-        #   # input: src/schema.graphql
-        #   output:
-        #     binding: prisma/index.ts
+      #   - generator: prisma-binding
+      #     language: typescript 
+      #     # input: src/schema.graphql
+      #     output:
+      #       binding: prisma/index.ts

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { Well, Grid, Col, Row, Panel, PageHeader, Thumbnail, Button } from 'react-bootstrap'
 import { Mutation, Query } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import gql from "graphql-tag";
 
-// const UPDATE_PROFILE = gql`
-// mutation updateProfile($description: String!) {
-//   updateProfile(description: $description) {
-//     description
-//   }
-// }
-// `
-// todo: privacy field 
+const UPDATE_USER = gql`
+mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int) {
+    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins) {
+        id
+        description
+    }
+}
+`;
+
 
 
 class Profile extends Component {
@@ -70,7 +72,15 @@ class Profile extends Component {
           {/* Will show user activity, progress, session history, recently interacted */}
           </Col>
         </Row>
-        <Button>Button to edit</Button>
+        <Row>
+        <Mutation mutation={UPDATE_USER} variables={{ id: 'cjmuxt69x46dr0b28449u4jsz',email:'wssssaaaOOOw@www.com'}}>
+                { updateUser => <Link to="/profile">
+                  <Button type="submit" onClick={updateUser}>
+                    EDIT
+                  </Button>
+                </Link>}
+              </Mutation>
+        </Row>
       </Grid>
     )
   }

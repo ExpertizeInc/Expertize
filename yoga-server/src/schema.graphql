@@ -2,7 +2,6 @@ type Query {
   user(id: ID!): User
   tags: [String!]!
   users: [User]!
-  profiles: [Profile]!
   questions: [Question]!
 }
 
@@ -11,16 +10,12 @@ type User {
   username: String!
   email: String!
   uid: String!
-}
-
-type Profile {
-  id: ID!
-  user: User!
-  tags: [Tag!]!
+  tags: [UserTag!]!
   description: String
-  coins: Int
+  coins: Int 
   session: [Session!]!
 }
+
 
 type Session {
   id: ID!
@@ -30,6 +25,12 @@ type Session {
 type LoginPayload {
   token: String
   error: String
+}
+
+type UserTag {
+  id: ID! 
+  user: User!
+  tag: Tag!
 }
 
 type Tag {
@@ -55,6 +56,7 @@ type Tag {
 
 type Mutation {
    createUser(email: String!, uid: String!, username: String!): User
+   updateUser(id: String!, email: String, uid: String, description: String, coins: Int): User
    login(email: String!, password: String!): LoginPayload!
    addTag(name: String!): Tag
    createQuestion(userId: String!, description: String!, tag: String!, coins: Int!, chat: ChatType!): Question

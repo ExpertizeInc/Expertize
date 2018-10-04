@@ -1,17 +1,12 @@
-  type User {
+ type User {
     id: ID! @unique 
     username: String! @unique
     email: String!
     uid: String
-  }
-
-  type Profile {
-    id: ID! @unique
-    user: User
     tags: [UserTag!]!
     description: String
     coins: Int @default(value: "1")
-    session: [Session!]!
+    sessions: [Session!]!
   }
 
   type Session {
@@ -34,7 +29,7 @@
    id: ID! @unique
    userId: String!
    tags: String!
-   coins: Int!
+   coins: Int! @default(value: "3")
    active: Boolean @default(value: "false")
    chat: ChatType!
  }
@@ -44,4 +39,3 @@
     VIDEO
     TEXT
   }
-
