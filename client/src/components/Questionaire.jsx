@@ -7,7 +7,7 @@ import gql from "graphql-tag";
 
 const CREATE_PROFILE = gql`
 mutation createProfile($userId: Int!, $description: String!, $coins: Int) {
-    createProfile(userId: $userId, description: $description, coins: 3) {
+    createProfile(userId: $userId, description: $description) {
         userId
         description
     }

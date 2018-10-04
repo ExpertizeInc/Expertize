@@ -33,7 +33,6 @@ const resolvers = {
         console.log(username, 'SADSASDAS')
         return ctx.prisma.mutation.createUser({"data": { username, email, uid}})
       },
-
       // addTags(parent, { name }, ctx, info) {
 
       // }

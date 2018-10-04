@@ -10,14 +10,13 @@
     user: User
     tags: [UserTag!]!
     description: String
-    coins: Int @default(value: "3")
+    coins: Int @default(value: "1")
     session: [Session!]!
   }
 
   type Session {
     id: ID! @unique
     type: String!
-    createdAt: DateTime!
   }
 
   type UserTag {

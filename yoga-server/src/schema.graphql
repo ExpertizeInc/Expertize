@@ -13,14 +13,18 @@ type User {
 }
 
 type Profile {
-  id: ID! @unique
-  userId: String!
+  id: ID!
+  user: User!
   tags: [Tag!]!
   description: String
   coins: Int
   session: [Session!]!
 }
 
+type Session {
+  id: ID!
+  type: String!
+}
 
 type Tag {
   id: ID!
@@ -36,5 +40,4 @@ type Mutation {
    createUser(email: String!, uid: String!, username: String!): User
    login(email: String!, password: String!): LoginPayload!
    addTag(name: String!): Tag
-   createProfile()
 }

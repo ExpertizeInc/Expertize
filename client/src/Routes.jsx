@@ -45,7 +45,7 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 
 
 const Routes = ({ authenticated }) => (
-    <div>
+    <React.Fragment>
         <NavBar authenticated={authenticated}/>
         <Switch>
             <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/restricted"/> : <Home/>)}></Route>
@@ -57,7 +57,7 @@ const Routes = ({ authenticated }) => (
             <Route exact strict path="/*" component={Error}></Route>
         </Switch>
         <Footer />
-    </div>
-)
+        </React.Fragment>
+        )
 
 export default Routes;

@@ -46,7 +46,7 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <Particles params={params} style={{
+        {/* <Particles params={params} style={{
           position: 'absolute',
           display: 'block',
           top: 0,
@@ -54,7 +54,7 @@ class App extends React.Component {
           right: 0,
           bottom: 0,
           backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
-        }} />
+        }} /> */}
         <Routes authenticated={this.state.authenticated}>   </Routes>
       </ApolloProvider>
     )

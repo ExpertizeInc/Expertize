@@ -2,13 +2,21 @@
   justify-content: center
 }
 
+.centered {
+  justify-content: center;
+  text-align: center;
+}
 .navbar {
   margin-bottom: 0px;
   background: none;
 }
 
-a, body, .navbar-brand, .navbar-default {
-  color:white
+/* .row {
+  background: green
+} */
+
+a, body {
+  color:black;
 }
 
 #footer {
@@ -95,7 +103,10 @@ a, body, .navbar-brand, .navbar-default {
 
 
 
-
+.profile-nav {
+  background: grey;
+  height: 100%;
+}
 
 
 
