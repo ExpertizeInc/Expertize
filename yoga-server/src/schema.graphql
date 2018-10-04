@@ -10,7 +10,13 @@ type User {
   username: String!
   email: String!
   uid: String!
-  tags: [UserTag!]!
+  user: Profile!
+}
+
+type Profile {
+  id: ID!
+  user: User!
+  tags: [Tag!]!
   description: String
   coins: Int 
   session: [Session!]!
@@ -42,10 +48,11 @@ type Tag {
    id: ID!
    userId: String!
    description: String!
-   tag: [String]!
+   tag: String!
    coins: Int!
    active: Boolean
    chat: ChatType!
+   title: String!
  }
 
   enum ChatType {
@@ -59,5 +66,5 @@ type Mutation {
    updateUser(id: String!, email: String, uid: String, description: String, coins: Int): User
    login(email: String!, password: String!): LoginPayload!
    addTag(name: String!): Tag
-   createQuestion(userId: String!, description: String!, tag: String!, coins: Int!, chat: ChatType!): Question
+   createQuestion(userId: String!, description: String!, tag: String!, coins: Int!, chat: ChatType!, title: String!): Question
 }

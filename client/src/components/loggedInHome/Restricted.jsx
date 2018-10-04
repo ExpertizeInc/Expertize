@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from "graphql-tag";
+import Questions from './Questions.jsx';
 
 
 export default class Restricted extends Component {
@@ -11,7 +12,7 @@ export default class Restricted extends Component {
     render() {
         return (
             <div>
-                
+                <Questions />
             </div>
         )
     }
