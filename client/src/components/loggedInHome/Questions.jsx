@@ -35,7 +35,7 @@ const getQuestions = gql`
 export default class Questions extends Component {
   constructor(props) {
     super(props);
-    this.state = { description: '', userId: '123', tag: '', chat: 'VIDEO', title: '' };
+    this.state = { description: '', userId: '123', tag: '', chat: 'VIDEO', title: '', questions: [] };
     this.onChange = this.onChange.bind(this);
   }
 
@@ -90,7 +90,7 @@ export default class Questions extends Component {
           <Col smOffset={6} sm={3}>
           {/* todo: hook up to firebase/linkedin Oauth */}
 
-          <Mutation mutation={createQuestion} variables={{ userId: 'cjmtrhw9c1v1g0b44h33anq7u', description: this.state.description, tag: this.state.tag, chat: 'VIDEO', coins: 3, title: this.state.title }} onCompleted={(data) => this.setState({})}>
+          <Mutation mutation={createQuestion} variables={{ userId: 'cjmtrhw9c1v1g0b44h33anq7u', description: this.state.description, tag: this.state.tag, chat: 'VIDEO', coins: 3, title: this.state.title }} onCompleted={(data) => console.log(data)}>
             {(createQuestion, { data }) => {
               console.log(data) 
               return (
@@ -103,6 +103,7 @@ export default class Questions extends Component {
           {({ loading, error, data }) => {
                     if (loading) return <div>Fetching</div>
                     if (error) return <div>Error</div>
+                    // if (data) this.setState({ questions: data.questions })
                     return (
                     <div>
                         {console.log(data)}
