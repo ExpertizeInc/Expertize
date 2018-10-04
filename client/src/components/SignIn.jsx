@@ -25,7 +25,8 @@ class Signin extends Component {
     e.preventDefault()
     console.log('submitting sign in to firebase')
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then(() => this.props.history.push('/home'))
+    // .then(() => this.props.history.push('/home'))
+    .then(() => console.log('OK'))
     .catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;

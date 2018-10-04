@@ -51,26 +51,26 @@ export default class Questions extends Component {
       <Form className="form-panel-signup" horizontal>
         <h2>Post a Question</h2>
         
-        <FormGroup controlId="formHorizontalPassword">
+        <FormGroup controlId="formHorizontalTitle">
           <Col componentClass={ControlLabel} sm={5}>
-            Password
+            Title
           </Col>
           <Col sm={3}>
             <FormControl password={this.state.title} onChange={(e) => this.onChange(e, 'title')} type="Title" placeholder="Enter Title" />
           </Col>
         </FormGroup>
         
-        <FormGroup controlId="formHorizontalUsername">
+        {/* <FormGroup controlId="formHorizontalUsername">
           <Col componentClass={ControlLabel} sm={5}>
             Question Name
           </Col>
           <Col sm={3}>
             <FormControl value={this.state.name} onChange={(e) => this.onChange(e, 'name')} type="Name" placeholder="Name" />
           </Col>
-        </FormGroup>
+        </FormGroup> */}
         <FormGroup controlId="formHorizontalUsername">
           <Col componentClass={ControlLabel} sm={5}>
-            Username
+            Description
           </Col>
           <Col sm={3}>
             <FormControl value={this.state.description} onChange={(e) => this.onChange(e, 'description')} type="Description" placeholder="Description" />
@@ -79,7 +79,7 @@ export default class Questions extends Component {
 
         <FormGroup controlId="formHorizontalEmail">
           <Col componentClass={ControlLabel} sm={5}>
-            Email
+            Tag
           </Col>
           <Col sm={3}>
             <FormControl value={this.state.tag} onChange={(e) => this.onChange(e, 'tag')} type="tag" placeholder="Enter Tag" />

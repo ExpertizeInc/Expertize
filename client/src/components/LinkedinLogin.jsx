@@ -45,7 +45,7 @@ class LinkedinLogin extends React.Component {
       let { signInLI } = this.props
       return ( 
         <div>
-        < button onClick = { signInLI }> { this.props.text }</button >
+        <button onClick = { signInLI }> { this.props.text }</button >
         </div>
       );
     }

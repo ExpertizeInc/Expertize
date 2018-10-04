@@ -6,7 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import params from './particles.js'
 
-
 import Routes from './Routes.jsx';
 
 const client = new ApolloClient({
