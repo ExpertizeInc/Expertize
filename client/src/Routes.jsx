@@ -21,7 +21,7 @@ const Routes = ({ authenticated, user, signIn }) => (
             <PrivateRoute path='/home' component={Restricted} authenticated={authenticated}></PrivateRoute>
             <Route exact strict path="/signin" component={SignIn}></Route>
             <Route exact strict path="/signup" render={() => <Signup user={user} signIn={signIn} />}></Route>
-            <Route exact strict path="/questionaire" user={user} component={Questionaire}></Route>
+            <Route exact strict path="/questionaire" render={() => <Questionaire user={user} />}></Route>
             <Route exact strict path="/profile" user={user} component={Profile}></Route>
             <Route exact strict path="/*" component={Error}></Route>
         </Switch>

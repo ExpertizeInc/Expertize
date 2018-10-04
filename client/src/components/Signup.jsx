@@ -48,7 +48,7 @@ class Signup extends Component {
     e.preventDefault()
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(({user}) => {
-      console.log(user, 'created user with firebase!!')
+      console.log('created fb user')
       this.setState({ uid: user.uid}, () => cb())
     })
     .catch((error) => {

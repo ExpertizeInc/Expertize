@@ -117,7 +117,7 @@ class Questionaire extends Component {
         </Tab>
         <Tab eventKey={4} title="Expertize">
           <Col xsOffset={4} sm={4}>
-          <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+            <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
               <div className="hexTop"></div>
               <div className="hexBottom"></div>
             </div>
@@ -131,22 +131,19 @@ class Questionaire extends Component {
               <ToggleButton value="Music">Music</ToggleButton>
               <ToggleButton value="Programming">Programming</ToggleButton>
             </ToggleButtonGroup>
-            <div>{this.state.value.map(tag =>  <div><Label>{tag}</Label>{' '}</div>)}</div>
-
+            <div>{this.state.value.map(tag => <div><Label>{tag}</Label>{' '}</div>)}</div>
             <div>What are you interested in?</div>
             {/* todo: add a search or give some recommendations */}
             <div>
               {/* submit compiled user details to database. render user's profile complete w/ details */}
-
-              <Mutation mutation={UPDATE_USER} variables={{ id: 'cjmuxt69x46dr0b28449u4jsz',email:'wssssaaaOOOw@www.com'}}>
-                { updateUser => <Link to="/profile">
-                  <Button type="submit" onClick={updateUser}>
-                    LETS GOOOOOOOO
+              {this.props.user &&
+                <Mutation mutation={UPDATE_USER} variables={{ id: this.props.user.id, email: 'update@update.com', description, coins }}>
+                  {updateUser => <Link to="/profile">
+                    <Button type="submit" onClick={updateUser}>
+                      LETS GOOOOOOOO
                   </Button>
-                </Link>}
-              </Mutation>
-
-
+                  </Link>}
+                </Mutation>}
             </div>
           </Col>
         </Tab>

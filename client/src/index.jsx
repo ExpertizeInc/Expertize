@@ -32,7 +32,7 @@ class App extends React.Component {
       if (user !== null) {
         this.setState({
           authenticated: true
-        }, () => console.log(user))
+        }, () => console.log('authenticated'))
       } else {
         this.setState({
           authenticated: false
@@ -53,7 +53,7 @@ class App extends React.Component {
   }
 
   signIn(user) {
-    console.log('testing', user)
+    console.log('signed in:', user)
     this.setState({ user: user })
   }
 
