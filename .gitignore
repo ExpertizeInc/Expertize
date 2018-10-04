@@ -6,6 +6,5 @@ docker-compose.yml
 .env
 .DS_Store
 logfile
-webpack.config.js
 docker-compose.yml
 generated
