@@ -24,4 +24,8 @@ var DIST_DIR = path.join(__dirname, '/client/dist');
       },
     ]
   },
+  node: {
+    fs: 'empty',
+    tls: 'empty'
+  }
 }; 

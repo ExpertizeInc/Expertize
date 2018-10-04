@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const path = require('path');
-const cors = require('cors')
+const cors = require('cors');
+// const OpenTok = require('opentok');
 
 var app = express();
 
@@ -27,5 +28,8 @@ io.on('connect', (socket) => {
   })
   socket.on('disconnect', () => {
     console.log('user disconnected');
-  });;
+  });
 });
+
+// const opentok = new OpenTok('46197542', 'b7f3e5f595b2f2e85047e370632074938501d031')
+
