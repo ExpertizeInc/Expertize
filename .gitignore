@@ -8,3 +8,4 @@ docker-compose.yml
 logfile
 webpack.config.js
 docker-compose.yml
+generated
