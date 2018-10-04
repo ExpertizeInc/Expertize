@@ -94,7 +94,7 @@ class Questionaire extends Component {
             <FormGroup controlId="formControlsTextarea">
               <h2>{this.state.username}, </h2>
               <ControlLabel>Let us know a little about yourself</ControlLabel>
-              <FormControl componentClass="textarea" value={this.state.description} onChange={(e) => this.handleInput(e, 'description')} />
+              <FormControl componentclassname="textarea" value={this.state.description} onChange={(e) => this.handleInput(e, 'description')} />
             </FormGroup>
           </Col>
           <FormGroup>

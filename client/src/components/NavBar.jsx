@@ -32,15 +32,22 @@ class NavBar extends Component {
         <Nav>
           <NavItem eventKey={1}>Demo</NavItem>
           {/* for quick access to components during development. */}
-          <NavItem eventKey={2}>
-            <Link to="/questionaire">Questionaire</Link>
-          </NavItem>
-          <NavItem eventKey={3}>
-            <Link to="/profile">Profile</Link>
-          </NavItem>
-          <NavItem eventKey={4}>
-            <Link to="/chat">Chat</Link>
-          </NavItem>
+          {this.props.authenticated ? 
+            <NavItem eventKey={2}>
+              <Link to="/questionaire">Questionaire</Link>
+            </NavItem> : null}
+            {this.props.authenticated ? 
+            <NavItem eventKey={2}>
+              <Link to="/profile">Profile</Link>
+            </NavItem> : null}
+            {this.props.authenticated ? 
+            <NavItem eventKey={2}>
+              <Link to="/chat">Chat</Link>
+            </NavItem> : null}
+            {this.props.authenticated ? 
+            <NavItem eventKey={2}>
+              <Link to="/video">Video</Link>
+            </NavItem> : null}
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1}>

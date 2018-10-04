@@ -12,6 +12,7 @@ import Profile from './components/Profile.jsx'
 import Error from './components/Error.jsx';
 import Restricted from './components/loggedInHome/Restricted.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import Video from './components/Video.jsx';
 
 const Routes = ({ authenticated, user, signIn }) => (
     <React.Fragment>
@@ -19,10 +20,12 @@ const Routes = ({ authenticated, user, signIn }) => (
         <Switch>
             <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/home"/> : <Home/>)}></Route>
             <PrivateRoute path='/home' component={Restricted} authenticated={authenticated}></PrivateRoute>
-            <Route exact strict path="/signin" component={SignIn}></Route>
+            <Route exact strict path="/signin" render={() => <SignIn signInLI={signInLI}/>}></Route>
             <Route exact strict path="/signup" render={() => <Signup user={user} signIn={signIn} />}></Route>
             <Route exact strict path="/questionaire" render={() => <Questionaire user={user} />}></Route>
             <Route exact strict path="/profile" user={user} component={Profile}></Route>
+            <Route exact strict path="/chat" component={Chat}></Route>
+            <Route exact strict path="/video" component={Video}></Route>
             <Route exact strict path="/*" component={Error}></Route>
         </Switch>
         <Footer />
