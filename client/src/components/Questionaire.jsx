@@ -87,14 +87,14 @@ class Questionaire extends Component {
         </Tab>
         <Tab eventKey={2} title="Set up profile">
           <Col smOffset={4} sm={3}>
-            <div class="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-              <div class="hexTop"></div>
-              <div class="hexBottom"></div>
+            <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+              <div className="hexTop"></div>
+              <div className="hexBottom"></div>
             </div>
             <FormGroup controlId="formControlsTextarea">
               <h2>{this.state.username}, </h2>
               <ControlLabel>Let us know a little about yourself</ControlLabel>
-              <FormControl componentClass="textarea" value={this.state.description} onChange={(e) => this.handleInput(e, 'description')} />
+              <FormControl componentclassname="textarea" value={this.state.description} onChange={(e) => this.handleInput(e, 'description')} />
             </FormGroup>
           </Col>
           <FormGroup>
@@ -117,9 +117,9 @@ class Questionaire extends Component {
         </Tab>
         <Tab eventKey={4} title="Expertize">
           <Col xsOffset={4} sm={4}>
-          <div class="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-              <div class="hexTop"></div>
-              <div class="hexBottom"></div>
+          <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+              <div className="hexTop"></div>
+              <div className="hexBottom"></div>
             </div>
             <h2>{this.state.username}</h2>
             <div>{this.state.description}</div>

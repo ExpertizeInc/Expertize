@@ -14,21 +14,21 @@ import Restricted from './components/loggedInHome/Restricted.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
 
-const Routes = ({ authenticated }) => (
+const Routes = ({ authenticated, signInLI }) => (
         <React.Fragment>
-        <NavBar authenticated={authenticated}/>
-        <Switch>
-            <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/home"/> : <Home/>)}></Route>
-            <PrivateRoute path='/home' component={Restricted} authenticated={authenticated}></PrivateRoute>
-            <Route exact strict path="/signin" component={SignIn}></Route>
-            <Route exact strict path="/signup" component={Signup}></Route>
-            <Route exact strict path="/questionaire" component={Questionaire}></Route>
-            <Route exact strict path="/profile" component={Profile}></Route>
-            <Route exact strict path="/chat" component={Chat}></Route>
-            <Route exact strict path="/video" component={Video}></Route>
-            <Route exact strict path="/*" component={Error}></Route>
-        </Switch>
-        <Footer />
+          <NavBar authenticated={authenticated}/>
+          <Switch>
+              <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/home"/> : <Home/>)}></Route>
+              <PrivateRoute path='/home' component={Restricted} authenticated={authenticated}></PrivateRoute>
+              <Route exact strict path="/signin" render={() => <SignIn signInLI={signInLI}/>}></Route>
+              <Route exact strict path="/signup" component={Signup}></Route>
+              <Route exact strict path="/questionaire" component={Questionaire}></Route>
+              <Route exact strict path="/profile" component={Profile}></Route>
+              <Route exact strict path="/chat" component={Chat}></Route>
+              <Route exact strict path="/video" component={Video}></Route>
+              <Route exact strict path="/*" component={Error}></Route>
+          </Switch>
+          <Footer />
         </React.Fragment>
         )
 

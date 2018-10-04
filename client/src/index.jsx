@@ -61,11 +61,11 @@ class App extends React.Component {
     
   }
 
-  signInLI(e, props) {
+  signInLI(e, a) {
       e.preventDefault();
       console.log('LINKED IN FKKKKKK')
       IN.User.authorize(this.callbackFunction, '')
-      props.push('/restricted')
+      // a.history.push('/restricted')
   }
 
   signOut() {
@@ -85,7 +85,7 @@ class App extends React.Component {
           right: 0,
           bottom: 0,
           backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
-        }} /> */}
+        }}/> */}
         <Routes authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}>   </Routes>
       </ApolloProvider>
     )
