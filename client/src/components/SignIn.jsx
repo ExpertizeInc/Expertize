@@ -1,3 +1,19 @@
+// import React from 'react'
+// import LinkedinLogin from './LinkedinLogin.jsx'
+
+// const SignIn = ({ signIn }) => {
+
+//     return (
+//     <div>
+//         <h1>Sign In Page</h1>
+//         <div>hello</div>
+//         <LinkedinLogin text="SIGN IN" signIn={signIn}/>
+//     </div>
+//     )
+// }
+
+
+
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap';
 import LinkedinLogin from './LinkedinLogin.jsx';
@@ -25,8 +41,8 @@ class Signin extends Component {
     e.preventDefault()
     console.log('submitting sign in to firebase')
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    // .then(() => this.props.history.push('/home'))
-    .then(() => console.log('OK'))
+    .then(() => this.props.history.push('/home'))
+    // .then(()=>console.log(this.props))
     .catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -63,7 +79,7 @@ class Signin extends Component {
             </Col>
           </FormGroup>
         </Form>
-        <LinkedinLogin signInLI={(e) => {signInLI(e, this.props.history)}} text="LINKEDIN SIGNIN"/>
+        <LinkedinLogin signInLI={(e) => {signInLI(e)}} text="LINKEDIN SIGNIN"/>
       </div>
     );
   }

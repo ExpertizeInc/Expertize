@@ -3,8 +3,8 @@ import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Particles from 'react-particles-js';
-import params from './particles.js'
+// import Particles from 'react-particles-js';
+// import params from './particles.js'
 
 import Routes from './Routes.jsx';
 
@@ -67,11 +67,11 @@ class App extends React.Component {
     
   }
 
-  signInLI(e, props) {
+  signInLI(e, a) {
       e.preventDefault();
       console.log('LINKED IN FKKKKKK')
       IN.User.authorize(this.callbackFunction, '')
-      props.push('/restricted')
+      // a.history.push('/restricted')
   }
 
   signOut() {
@@ -92,7 +92,7 @@ class App extends React.Component {
           bottom: 0,
           backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
-        <Routes user={this.state.user} signIn={this.signIn} authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}>   </Routes>
+        <Routes user={this.state.user} signIn={this.signIn} authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}/>
       </ApolloProvider>
     )
   }

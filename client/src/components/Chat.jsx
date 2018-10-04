@@ -21,7 +21,9 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    socket.on('connect')
+    socket.on('connect', () => {
+      console.log('user connected to socket on componentdidmount')
+    })
     socket.on('outbound', (message) => {
       console.log('WILL TIS WORK??', message)
       this.setState(state => {
