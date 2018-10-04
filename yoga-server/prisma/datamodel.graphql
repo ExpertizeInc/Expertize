@@ -3,15 +3,10 @@
     username: String! @unique
     email: String!
     uid: String
-  }
-
-  type Profile {
-    id: ID! @unique
-    user: User
     tags: [UserTag!]!
     description: String
     coins: Int @default(value: "1")
-    session: [Session!]!
+    sessions: [Session!]!
   }
 
   type Session {
@@ -33,10 +28,12 @@
  type Question {
    id: ID! @unique
    userId: String!
-   tags: String!
-   coins: Int!
+   tag: String!
+   description: String!
+   coins: Int @default(value: 3)
    active: Boolean @default(value: "false")
    chat: ChatType!
+   title: String!
  }
 
   enum ChatType {

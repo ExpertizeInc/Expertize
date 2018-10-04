@@ -6,8 +6,6 @@ const Footer = () => (
   <div id="footer" className="section container">
     <Grid>
       <Row>
-
-        <h1>Bam</h1>
       </Row>
     </Grid>
   </div>

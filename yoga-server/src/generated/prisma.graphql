@@ -1,9 +1,5 @@
 # source: https://eu1.prisma.sh/alon-bibring-d051d8/expertize/dev
-# timestamp: Thu Oct 04 2018 10:27:00 GMT-0400 (EDT)
-
-type AggregateProfile {
-  count: Int!
-}
+# timestamp: Thu Oct 04 2018 16:19:39 GMT-0400 (EDT)
 
 type AggregateQuestion {
   count: Int!
@@ -43,42 +39,36 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createProfile(data: ProfileCreateInput!): Profile!
-  createQuestion(data: QuestionCreateInput!): Question!
-  createSession(data: SessionCreateInput!): Session!
-  createUserTag(data: UserTagCreateInput!): UserTag!
-  createTag(data: TagCreateInput!): Tag!
   createUser(data: UserCreateInput!): User!
-  updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
-  updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
-  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
-  updateUserTag(data: UserTagUpdateInput!, where: UserTagWhereUniqueInput!): UserTag
-  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  createUserTag(data: UserTagCreateInput!): UserTag!
+  createQuestion(data: QuestionCreateInput!): Question!
+  createTag(data: TagCreateInput!): Tag!
+  createSession(data: SessionCreateInput!): Session!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  deleteProfile(where: ProfileWhereUniqueInput!): Profile
-  deleteQuestion(where: QuestionWhereUniqueInput!): Question
-  deleteSession(where: SessionWhereUniqueInput!): Session
-  deleteUserTag(where: UserTagWhereUniqueInput!): UserTag
-  deleteTag(where: TagWhereUniqueInput!): Tag
+  updateUserTag(data: UserTagUpdateInput!, where: UserTagWhereUniqueInput!): UserTag
+  updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
+  updateTag(data: TagUpdateInput!, where: TagWhereUniqueInput!): Tag
+  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
   deleteUser(where: UserWhereUniqueInput!): User
-  upsertProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile!
-  upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
-  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
-  upsertUserTag(where: UserTagWhereUniqueInput!, create: UserTagCreateInput!, update: UserTagUpdateInput!): UserTag!
-  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  deleteUserTag(where: UserTagWhereUniqueInput!): UserTag
+  deleteQuestion(where: QuestionWhereUniqueInput!): Question
+  deleteTag(where: TagWhereUniqueInput!): Tag
+  deleteSession(where: SessionWhereUniqueInput!): Session
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyProfiles(data: ProfileUpdateInput!, where: ProfileWhereInput): BatchPayload!
-  updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
-  updateManySessions(data: SessionUpdateInput!, where: SessionWhereInput): BatchPayload!
-  updateManyUserTags(data: UserTagUpdateInput!, where: UserTagWhereInput): BatchPayload!
-  updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
+  upsertUserTag(where: UserTagWhereUniqueInput!, create: UserTagCreateInput!, update: UserTagUpdateInput!): UserTag!
+  upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
+  upsertTag(where: TagWhereUniqueInput!, create: TagCreateInput!, update: TagUpdateInput!): Tag!
+  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  deleteManyProfiles(where: ProfileWhereInput): BatchPayload!
-  deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
-  deleteManySessions(where: SessionWhereInput): BatchPayload!
-  deleteManyUserTags(where: UserTagWhereInput): BatchPayload!
-  deleteManyTags(where: TagWhereInput): BatchPayload!
+  updateManyUserTags(data: UserTagUpdateInput!, where: UserTagWhereInput): BatchPayload!
+  updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
+  updateManyTags(data: TagUpdateInput!, where: TagWhereInput): BatchPayload!
+  updateManySessions(data: SessionUpdateInput!, where: SessionWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyUserTags(where: UserTagWhereInput): BatchPayload!
+  deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  deleteManyTags(where: TagWhereInput): BatchPayload!
+  deleteManySessions(where: SessionWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -108,251 +98,22 @@ type PageInfo {
   endCursor: String
 }
 
-type Profile implements Node {
-  id: ID!
-  user: User
-  tags(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserTag!]
-  description: String
-  coins: Int
-  session(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session!]
-}
-
-"""A connection to a list of items."""
-type ProfileConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [ProfileEdge]!
-  aggregate: AggregateProfile!
-}
-
-input ProfileCreateInput {
-  description: String
-  coins: Int
-  user: UserCreateOneInput
-  tags: UserTagCreateManyInput
-  session: SessionCreateManyInput
-}
-
-"""An edge in a connection."""
-type ProfileEdge {
-  """The item at the end of the edge."""
-  node: Profile!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum ProfileOrderByInput {
-  id_ASC
-  id_DESC
-  description_ASC
-  description_DESC
-  coins_ASC
-  coins_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type ProfilePreviousValues {
-  id: ID!
-  description: String
-  coins: Int
-}
-
-type ProfileSubscriptionPayload {
-  mutation: MutationType!
-  node: Profile
-  updatedFields: [String!]
-  previousValues: ProfilePreviousValues
-}
-
-input ProfileSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ProfileSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ProfileSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ProfileSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: ProfileWhereInput
-}
-
-input ProfileUpdateInput {
-  description: String
-  coins: Int
-  user: UserUpdateOneInput
-  tags: UserTagUpdateManyInput
-  session: SessionUpdateManyInput
-}
-
-input ProfileWhereInput {
-  """Logical AND on all given filters."""
-  AND: [ProfileWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [ProfileWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [ProfileWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  description: String
-
-  """All values that are not equal to given value."""
-  description_not: String
-
-  """All values that are contained in given list."""
-  description_in: [String!]
-
-  """All values that are not contained in given list."""
-  description_not_in: [String!]
-
-  """All values less than the given value."""
-  description_lt: String
-
-  """All values less than or equal the given value."""
-  description_lte: String
-
-  """All values greater than the given value."""
-  description_gt: String
-
-  """All values greater than or equal the given value."""
-  description_gte: String
-
-  """All values containing the given string."""
-  description_contains: String
-
-  """All values not containing the given string."""
-  description_not_contains: String
-
-  """All values starting with the given string."""
-  description_starts_with: String
-
-  """All values not starting with the given string."""
-  description_not_starts_with: String
-
-  """All values ending with the given string."""
-  description_ends_with: String
-
-  """All values not ending with the given string."""
-  description_not_ends_with: String
-  coins: Int
-
-  """All values that are not equal to given value."""
-  coins_not: Int
-
-  """All values that are contained in given list."""
-  coins_in: [Int!]
-
-  """All values that are not contained in given list."""
-  coins_not_in: [Int!]
-
-  """All values less than the given value."""
-  coins_lt: Int
-
-  """All values less than or equal the given value."""
-  coins_lte: Int
-
-  """All values greater than the given value."""
-  coins_gt: Int
-
-  """All values greater than or equal the given value."""
-  coins_gte: Int
-  user: UserWhereInput
-  tags_every: UserTagWhereInput
-  tags_some: UserTagWhereInput
-  tags_none: UserTagWhereInput
-  session_every: SessionWhereInput
-  session_some: SessionWhereInput
-  session_none: SessionWhereInput
-}
-
-input ProfileWhereUniqueInput {
-  id: ID
-}
-
 type Query {
-  profiles(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile]!
-  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
-  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session]!
-  userTags(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserTag]!
-  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  profile(where: ProfileWhereUniqueInput!): Profile
-  question(where: QuestionWhereUniqueInput!): Question
-  session(where: SessionWhereUniqueInput!): Session
-  userTag(where: UserTagWhereUniqueInput!): UserTag
-  tag(where: TagWhereUniqueInput!): Tag
+  userTags(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserTag]!
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
+  tags(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tag]!
+  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session]!
   user(where: UserWhereUniqueInput!): User
-  profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
-  questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
-  sessionsConnection(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SessionConnection!
-  userTagsConnection(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserTagConnection!
-  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
+  userTag(where: UserTagWhereUniqueInput!): UserTag
+  question(where: QuestionWhereUniqueInput!): Question
+  tag(where: TagWhereUniqueInput!): Tag
+  session(where: SessionWhereUniqueInput!): Session
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  userTagsConnection(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserTagConnection!
+  questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  tagsConnection(where: TagWhereInput, orderBy: TagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TagConnection!
+  sessionsConnection(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SessionConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -364,10 +125,12 @@ type Query {
 type Question implements Node {
   id: ID!
   userId: String!
-  tags: String!
-  coins: Int!
+  tag: String!
+  description: String!
+  coins: Int
   active: Boolean
   chat: ChatType!
+  title: String!
 }
 
 """A connection to a list of items."""
@@ -382,10 +145,12 @@ type QuestionConnection {
 
 input QuestionCreateInput {
   userId: String!
-  tags: String!
-  coins: Int!
+  tag: String!
+  description: String!
+  coins: Int
   active: Boolean
   chat: ChatType!
+  title: String!
 }
 
 """An edge in a connection."""
@@ -402,14 +167,18 @@ enum QuestionOrderByInput {
   id_DESC
   userId_ASC
   userId_DESC
-  tags_ASC
-  tags_DESC
+  tag_ASC
+  tag_DESC
+  description_ASC
+  description_DESC
   coins_ASC
   coins_DESC
   active_ASC
   active_DESC
   chat_ASC
   chat_DESC
+  title_ASC
+  title_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -419,10 +188,12 @@ enum QuestionOrderByInput {
 type QuestionPreviousValues {
   id: ID!
   userId: String!
-  tags: String!
-  coins: Int!
+  tag: String!
+  description: String!
+  coins: Int
   active: Boolean
   chat: ChatType!
+  title: String!
 }
 
 type QuestionSubscriptionPayload {
@@ -466,10 +237,12 @@ input QuestionSubscriptionWhereInput {
 
 input QuestionUpdateInput {
   userId: String
-  tags: String
+  tag: String
+  description: String
   coins: Int
   active: Boolean
   chat: ChatType
+  title: String
 }
 
 input QuestionWhereInput {
@@ -561,46 +334,86 @@ input QuestionWhereInput {
 
   """All values not ending with the given string."""
   userId_not_ends_with: String
-  tags: String
+  tag: String
 
   """All values that are not equal to given value."""
-  tags_not: String
+  tag_not: String
 
   """All values that are contained in given list."""
-  tags_in: [String!]
+  tag_in: [String!]
 
   """All values that are not contained in given list."""
-  tags_not_in: [String!]
+  tag_not_in: [String!]
 
   """All values less than the given value."""
-  tags_lt: String
+  tag_lt: String
 
   """All values less than or equal the given value."""
-  tags_lte: String
+  tag_lte: String
 
   """All values greater than the given value."""
-  tags_gt: String
+  tag_gt: String
 
   """All values greater than or equal the given value."""
-  tags_gte: String
+  tag_gte: String
 
   """All values containing the given string."""
-  tags_contains: String
+  tag_contains: String
 
   """All values not containing the given string."""
-  tags_not_contains: String
+  tag_not_contains: String
 
   """All values starting with the given string."""
-  tags_starts_with: String
+  tag_starts_with: String
 
   """All values not starting with the given string."""
-  tags_not_starts_with: String
+  tag_not_starts_with: String
 
   """All values ending with the given string."""
-  tags_ends_with: String
+  tag_ends_with: String
 
   """All values not ending with the given string."""
-  tags_not_ends_with: String
+  tag_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
   coins: Int
 
   """All values that are not equal to given value."""
@@ -637,6 +450,46 @@ input QuestionWhereInput {
 
   """All values that are not contained in given list."""
   chat_not_in: [ChatType!]
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
 }
 
 input QuestionWhereUniqueInput {
@@ -855,12 +708,11 @@ input SessionWhereUniqueInput {
 }
 
 type Subscription {
-  profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
-  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
-  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
-  userTag(where: UserTagSubscriptionWhereInput): UserTagSubscriptionPayload
-  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  userTag(where: UserTagSubscriptionWhereInput): UserTagSubscriptionPayload
+  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
+  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
 }
 
 type Tag implements Node {
@@ -1072,6 +924,10 @@ type User implements Node {
   username: String!
   email: String!
   uid: String
+  tags(where: UserTagWhereInput, orderBy: UserTagOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UserTag!]
+  description: String
+  coins: Int
+  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session!]
 }
 
 """A connection to a list of items."""
@@ -1088,11 +944,24 @@ input UserCreateInput {
   username: String!
   email: String!
   uid: String
+  description: String
+  coins: Int
+  tags: UserTagCreateManyWithoutUserInput
+  sessions: SessionCreateManyInput
 }
 
-input UserCreateOneInput {
-  create: UserCreateInput
+input UserCreateOneWithoutTagsInput {
+  create: UserCreateWithoutTagsInput
   connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutTagsInput {
+  username: String!
+  email: String!
+  uid: String
+  description: String
+  coins: Int
+  sessions: SessionCreateManyInput
 }
 
 """An edge in a connection."""
@@ -1113,6 +982,10 @@ enum UserOrderByInput {
   email_DESC
   uid_ASC
   uid_DESC
+  description_ASC
+  description_DESC
+  coins_ASC
+  coins_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1124,6 +997,8 @@ type UserPreviousValues {
   username: String!
   email: String!
   uid: String
+  description: String
+  coins: Int
 }
 
 type UserSubscriptionPayload {
@@ -1182,13 +1057,17 @@ type UserTagConnection {
 }
 
 input UserTagCreateInput {
-  user: UserCreateOneInput!
+  user: UserCreateOneWithoutTagsInput!
   tag: TagCreateOneInput!
 }
 
-input UserTagCreateManyInput {
-  create: [UserTagCreateInput!]
+input UserTagCreateManyWithoutUserInput {
+  create: [UserTagCreateWithoutUserInput!]
   connect: [UserTagWhereUniqueInput!]
+}
+
+input UserTagCreateWithoutUserInput {
+  tag: TagCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -1252,34 +1131,33 @@ input UserTagSubscriptionWhereInput {
   node: UserTagWhereInput
 }
 
-input UserTagUpdateDataInput {
-  user: UserUpdateOneRequiredInput
-  tag: TagUpdateOneRequiredInput
-}
-
 input UserTagUpdateInput {
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutTagsInput
   tag: TagUpdateOneRequiredInput
 }
 
-input UserTagUpdateManyInput {
-  create: [UserTagCreateInput!]
+input UserTagUpdateManyWithoutUserInput {
+  create: [UserTagCreateWithoutUserInput!]
   connect: [UserTagWhereUniqueInput!]
   disconnect: [UserTagWhereUniqueInput!]
   delete: [UserTagWhereUniqueInput!]
-  update: [UserTagUpdateWithWhereUniqueNestedInput!]
-  upsert: [UserTagUpsertWithWhereUniqueNestedInput!]
+  update: [UserTagUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [UserTagUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input UserTagUpdateWithWhereUniqueNestedInput {
-  where: UserTagWhereUniqueInput!
-  data: UserTagUpdateDataInput!
+input UserTagUpdateWithoutUserDataInput {
+  tag: TagUpdateOneRequiredInput
 }
 
-input UserTagUpsertWithWhereUniqueNestedInput {
+input UserTagUpdateWithWhereUniqueWithoutUserInput {
   where: UserTagWhereUniqueInput!
-  update: UserTagUpdateDataInput!
-  create: UserTagCreateInput!
+  data: UserTagUpdateWithoutUserDataInput!
+}
+
+input UserTagUpsertWithWhereUniqueWithoutUserInput {
+  where: UserTagWhereUniqueInput!
+  update: UserTagUpdateWithoutUserDataInput!
+  create: UserTagCreateWithoutUserInput!
 }
 
 input UserTagWhereInput {
@@ -1339,37 +1217,35 @@ input UserTagWhereUniqueInput {
   id: ID
 }
 
-input UserUpdateDataInput {
-  username: String
-  email: String
-  uid: String
-}
-
 input UserUpdateInput {
   username: String
   email: String
   uid: String
+  description: String
+  coins: Int
+  tags: UserTagUpdateManyWithoutUserInput
+  sessions: SessionUpdateManyInput
 }
 
-input UserUpdateOneInput {
-  create: UserCreateInput
+input UserUpdateOneRequiredWithoutTagsInput {
+  create: UserCreateWithoutTagsInput
   connect: UserWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
+  update: UserUpdateWithoutTagsDataInput
+  upsert: UserUpsertWithoutTagsInput
 }
 
-input UserUpdateOneRequiredInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-  update: UserUpdateDataInput
-  upsert: UserUpsertNestedInput
+input UserUpdateWithoutTagsDataInput {
+  username: String
+  email: String
+  uid: String
+  description: String
+  coins: Int
+  sessions: SessionUpdateManyInput
 }
 
-input UserUpsertNestedInput {
-  update: UserUpdateDataInput!
-  create: UserCreateInput!
+input UserUpsertWithoutTagsInput {
+  update: UserUpdateWithoutTagsDataInput!
+  create: UserCreateWithoutTagsInput!
 }
 
 input UserWhereInput {
@@ -1541,6 +1417,74 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   uid_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  coins: Int
+
+  """All values that are not equal to given value."""
+  coins_not: Int
+
+  """All values that are contained in given list."""
+  coins_in: [Int!]
+
+  """All values that are not contained in given list."""
+  coins_not_in: [Int!]
+
+  """All values less than the given value."""
+  coins_lt: Int
+
+  """All values less than or equal the given value."""
+  coins_lte: Int
+
+  """All values greater than the given value."""
+  coins_gt: Int
+
+  """All values greater than or equal the given value."""
+  coins_gte: Int
+  tags_every: UserTagWhereInput
+  tags_some: UserTagWhereInput
+  tags_none: UserTagWhereInput
+  sessions_every: SessionWhereInput
+  sessions_some: SessionWhereInput
+  sessions_none: SessionWhereInput
 }
 
 input UserWhereUniqueInput {
