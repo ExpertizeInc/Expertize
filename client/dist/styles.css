@@ -2,8 +2,21 @@
   justify-content: center
 }
 
+.centered {
+  justify-content: center;
+  text-align: center;
+}
 .navbar {
-  margin-bottom: 0px
+  margin-bottom: 0px;
+  background: none;
+}
+
+/* .row {
+  background: green
+} */
+
+a, body {
+  color:black;
 }
 
 #footer {
@@ -12,3 +25,93 @@
   width:100%;
   height:60px;
 }
+
+.hexagon {
+  position: relative;
+  width: 100px; 
+  height: 57.74px;
+  margin: 28.87px 0;
+  background-size: auto 103.9230px;
+  background-position: center;
+  border-left: solid 5px white;
+  border-right: solid 5px white;
+}
+
+.hexTop,
+.hexBottom {
+  position: absolute;
+  z-index: 1;
+  width: 70.71px;
+  height: 70.71px;
+  overflow: hidden;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background: inherit;
+  left: 9.64px;
+}
+
+.hexTop:after,
+.hexBottom:after {
+  content: "";
+  position: absolute;
+  width: 90.0000px;
+  height: 51.96152422706633px;
+  -webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-25.9808px);
+  -ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-25.9808px);
+  transform:          rotate(45deg) scaleY(1.7321) translateY(-25.9808px);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: inherit;
+
+}
+
+.hexTop {
+  top: -35.3553px;
+  border-top: solid 7.0711px white;
+  border-right: solid 7.0711px white;
+
+}
+
+.hexTop:after {
+  background-position: center top;
+}
+
+.hexBottom {
+  bottom: -35.3553px;
+  border-bottom: solid 7.0711px white;
+  border-left: solid 7.0711px white;
+
+}
+
+.hexBottom:after {
+  background-position: center bottom;
+}
+
+.hexagon:after {
+  border-radius: 10px;
+  content: "";
+  position: absolute;
+  top: 2.8868px;
+  left: 0;
+  width: 90.0000px;
+  height: 51.9615px;
+  z-index: 2;
+  background: inherit;
+}
+
+
+
+.profile-nav {
+  background: grey;
+  height: 100%;
+}
+
+
+
+
+
+
+
+

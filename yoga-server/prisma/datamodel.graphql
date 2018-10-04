@@ -1,9 +1,22 @@
   type User {
     id: ID! @unique 
-    username: String!
+    username: String! @unique
     email: String!
     uid: String
-    tags: Tag
+  }
+
+  type Profile {
+    id: ID! @unique
+    user: User
+    tags: [UserTag!]!
+    description: String
+    coins: Int @default(value: "1")
+    session: [Session!]!
+  }
+
+  type Session {
+    id: ID! @unique
+    type: String!
   }
 
   type UserTag {
@@ -16,21 +29,6 @@
     id: ID! @unique
     name: String! @unique
   }
-
-type Profile {
-   id: ID! @unique
-   user: User
-   tags: [UserTag!]!
-   description: String
-   coins: Int @default(value: "3")
-   session: [Session!]!
- }
-
- type Session {
-   id: ID! @unique
-   type: String!
-   createdAt: DateTime!
- }
 
  type Question {
    id: ID! @unique

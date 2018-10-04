@@ -25,7 +25,7 @@ secret: mysecret123
 
 hooks:
   post-deploy:
-    # - graphql get-schema
     - graphql codegen
-    - graphql prepare
     - graphql get-schema --project database
+    - graphql prepare
+    
