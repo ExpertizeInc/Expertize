@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import gql from "graphql-tag";
 
-const CREATE_PROFILE = gql`
-mutation createProfile($userId: Int!, $description: String!, $coins: Int) {
-    createProfile(userId: $userId, description: $description) {
-        userId
+const UPDATE_USER = gql`
+mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int) {
+    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins) {
+        id
         description
     }
 }
@@ -19,8 +19,8 @@ class Questionaire extends Component {
     super(props);
     this.state = {
       username: 'corgi',
-      userId: 1,
       description: 'i am a corgi',
+      coins: 3,
       key: 1,
       value: []
     }
@@ -63,7 +63,7 @@ class Questionaire extends Component {
   }
 
   render() { 
-    const { description, userId } = this.state
+    const { description, coins } = this.state
     return (
       <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={this.state.key} onSelect={this.handleSelect}>
         <Tab eventKey={1} title="Pick a username">
@@ -87,9 +87,9 @@ class Questionaire extends Component {
         </Tab>
         <Tab eventKey={2} title="Set up profile">
           <Col smOffset={4} sm={3}>
-            <div class="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-              <div class="hexTop"></div>
-              <div class="hexBottom"></div>
+            <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+              <div className="hexTop"></div>
+              <div className="hexBottom"></div>
             </div>
             <FormGroup controlId="formControlsTextarea">
               <h2>{this.state.username}, </h2>
@@ -117,9 +117,9 @@ class Questionaire extends Component {
         </Tab>
         <Tab eventKey={4} title="Expertize">
           <Col xsOffset={4} sm={4}>
-          <div class="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-              <div class="hexTop"></div>
-              <div class="hexBottom"></div>
+          <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+              <div className="hexTop"></div>
+              <div className="hexBottom"></div>
             </div>
             <h2>{this.state.username}</h2>
             <div>{this.state.description}</div>
@@ -138,9 +138,9 @@ class Questionaire extends Component {
             <div>
               {/* submit compiled user details to database. render user's profile complete w/ details */}
 
-              <Mutation mutation={CREATE_PROFILE} variables={{ userId, description }}>
-                { createProfile => <Link to="/profile">
-                  <Button type="submit" onClick={createProfile}>
+              <Mutation mutation={UPDATE_USER} variables={{ id: 'cjmuxt69x46dr0b28449u4jsz',email:'wssssaaaOOOw@www.com'}}>
+                { updateUser => <Link to="/profile">
+                  <Button type="submit" onClick={updateUser}>
                     LETS GOOOOOOOO
                   </Button>
                 </Link>}

@@ -3,14 +3,15 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 
 const Footer = () => (
-  <div id="footer" className="section container">
-    <Grid>
-      <Row>
+  <Grid>
+    <hr />
+  <footer >
+      
 
         <h1>Bam</h1>
-      </Row>
+      
+  </footer>
     </Grid>
-  </div>
 )
 
 export default Footer;
