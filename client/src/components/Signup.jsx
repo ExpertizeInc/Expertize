@@ -7,8 +7,9 @@ import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-b
 const createUser = gql`
 mutation CreateUser($username: String! $email: String!, $uid: String!) {
     createUser(username: $username, email: $email, uid: $uid) {
-        username
-        email
+      id
+      username
+      email
     }
 }
 `;
@@ -33,7 +34,6 @@ class Signup extends Component {
     }
     this.onChange = this.onChange.bind(this)
     this.submitSignUp = this.submitSignUp.bind(this)
-    this.addUser = this.addUser.bind(this);
   }
 
   onChange(e, type) {
@@ -48,7 +48,7 @@ class Signup extends Component {
     e.preventDefault()
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
     .then(({user}) => {
-      console.log(user, 'created user with firebase!!')
+      console.log('created fb user')
       this.setState({ uid: user.uid}, () => cb())
     })
     .catch((error) => {
@@ -59,8 +59,8 @@ class Signup extends Component {
     });
   }
 
-  addUser() {
-  }
+
+
 
   render() { 
     return (
@@ -96,18 +96,20 @@ class Signup extends Component {
           <FormGroup>
             <Col smOffset={6} sm={3}>
             {/* todo: hook up to firebase/linkedin Oauth */}
-            <Mutation mutation={createUser} fetchPolicy="no-cache" onError={(err) => console.log('ERRRORRRRR', err)} onComplete={(data) => console.log('COMPLETED', data)}>
+            <Mutation mutation={createUser} fetchPolicy="no-cache" onError={(err) => console.log('ERRRORRRRR', err)} onCompleted={({createUser}) => this.props.signIn(createUser)}>
               {(createUser, { data }) => {
-                console.log(data) 
                 return (
-                 <Button onClick={e => {
+                  <Button onClick={e => {
                     this.submitSignUp(e, () => {
-                      createUser({ variables: { username: this.state.username, email: this.state.email, uid: this.state.uid }})
+                      createUser({ variables: { username: this.state.username, email: this.state.email, uid: this.state.uid } })
                     });
-                 }} type="submit">Create an account</Button>
-                )}}
-             
-              </Mutation>
+                  }} type="submit">
+                    Create an account
+                 </Button>
+                )
+              }}
+
+            </Mutation>
             </Col>
           </FormGroup>
         

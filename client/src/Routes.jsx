@@ -13,16 +13,16 @@ import Error from './components/Error.jsx';
 import Restricted from './components/loggedInHome/Restricted.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 
-const Routes = ({ authenticated }) => (
+const Routes = ({ authenticated, user, signIn }) => (
     <React.Fragment>
         <NavBar authenticated={authenticated}/>
         <Switch>
             <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/home"/> : <Home/>)}></Route>
             <PrivateRoute path='/home' component={Restricted} authenticated={authenticated}></PrivateRoute>
             <Route exact strict path="/signin" component={SignIn}></Route>
-            <Route exact strict path="/signup" component={Signup}></Route>
-            <Route exact strict path="/questionaire" component={Questionaire}></Route>
-            <Route exact strict path="/profile" component={Profile}></Route>
+            <Route exact strict path="/signup" render={() => <Signup user={user} signIn={signIn} />}></Route>
+            <Route exact strict path="/questionaire" render={() => <Questionaire user={user} />}></Route>
+            <Route exact strict path="/profile" user={user} component={Profile}></Route>
             <Route exact strict path="/*" component={Error}></Route>
         </Switch>
         <Footer />

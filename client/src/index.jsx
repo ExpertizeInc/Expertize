@@ -18,11 +18,13 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      user: null,
       authenticated: false
     }
     this.callbackFunction = this.callbackFunction.bind(this)
     this.signInLI = this.signInLI.bind(this)
     this.signOut = this.signOut.bind(this)
+    this.signIn = this.signIn.bind(this)
   }
   
   componentDidMount() {
@@ -30,7 +32,7 @@ class App extends React.Component {
       if (user !== null) {
         this.setState({
           authenticated: true
-        }, () => console.log(user))
+        }, () => console.log('authenticated'))
       } else {
         this.setState({
           authenticated: false
@@ -48,6 +50,11 @@ class App extends React.Component {
     // } else {
     //   console.log('no linkedin user signed in')
     // }
+  }
+
+  signIn(user) {
+    console.log('signed in:', user)
+    this.setState({ user: user })
   }
 
   callbackFunction() {
@@ -86,7 +93,7 @@ class App extends React.Component {
           bottom: 0,
           backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
-        <Routes authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}>   </Routes>
+        <Routes user={this.state.user} signIn={this.signIn} authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}>   </Routes>
       </ApolloProvider>
     )
   }

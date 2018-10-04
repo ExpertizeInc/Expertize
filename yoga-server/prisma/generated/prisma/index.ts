@@ -469,43 +469,43 @@ input QuestionWhereInput {
   description: String
 
   """All values that are not equal to given value."""
-  description_not: String
+  tags_not: String
 
   """All values that are contained in given list."""
-  description_in: [String!]
+  tags_in: [String!]
 
   """All values that are not contained in given list."""
-  description_not_in: [String!]
+  tags_not_in: [String!]
 
   """All values less than the given value."""
-  description_lt: String
+  tags_lt: String
 
   """All values less than or equal the given value."""
-  description_lte: String
+  tags_lte: String
 
   """All values greater than the given value."""
-  description_gt: String
+  tags_gt: String
 
   """All values greater than or equal the given value."""
-  description_gte: String
+  tags_gte: String
 
   """All values containing the given string."""
-  description_contains: String
+  tags_contains: String
 
   """All values not containing the given string."""
-  description_not_contains: String
+  tags_not_contains: String
 
   """All values starting with the given string."""
-  description_starts_with: String
+  tags_starts_with: String
 
   """All values not starting with the given string."""
-  description_not_starts_with: String
+  tags_not_starts_with: String
 
   """All values ending with the given string."""
-  description_ends_with: String
+  tags_ends_with: String
 
   """All values not ending with the given string."""
-  description_not_ends_with: String
+  tags_not_ends_with: String
   coins: Int
 
   """All values that are not equal to given value."""
@@ -584,217 +584,6 @@ input QuestionWhereInput {
   title_not_ends_with: String
 }
 
-input QuestionWhereUniqueInput {
-  id: ID
-}
-
-type Session implements Node {
-  id: ID!
-  type: String!
-}
-
-"""A connection to a list of items."""
-type SessionConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [SessionEdge]!
-  aggregate: AggregateSession!
-}
-
-input SessionCreateInput {
-  type: String!
-}
-
-input SessionCreateManyInput {
-  create: [SessionCreateInput!]
-  connect: [SessionWhereUniqueInput!]
-}
-
-"""An edge in a connection."""
-type SessionEdge {
-  """The item at the end of the edge."""
-  node: Session!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum SessionOrderByInput {
-  id_ASC
-  id_DESC
-  type_ASC
-  type_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type SessionPreviousValues {
-  id: ID!
-  type: String!
-}
-
-type SessionSubscriptionPayload {
-  mutation: MutationType!
-  node: Session
-  updatedFields: [String!]
-  previousValues: SessionPreviousValues
-}
-
-input SessionSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SessionSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SessionSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SessionSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: SessionWhereInput
-}
-
-input SessionUpdateDataInput {
-  type: String
-}
-
-input SessionUpdateInput {
-  type: String
-}
-
-input SessionUpdateManyInput {
-  create: [SessionCreateInput!]
-  connect: [SessionWhereUniqueInput!]
-  disconnect: [SessionWhereUniqueInput!]
-  delete: [SessionWhereUniqueInput!]
-  update: [SessionUpdateWithWhereUniqueNestedInput!]
-  upsert: [SessionUpsertWithWhereUniqueNestedInput!]
-}
-
-input SessionUpdateWithWhereUniqueNestedInput {
-  where: SessionWhereUniqueInput!
-  data: SessionUpdateDataInput!
-}
-
-input SessionUpsertWithWhereUniqueNestedInput {
-  where: SessionWhereUniqueInput!
-  update: SessionUpdateDataInput!
-  create: SessionCreateInput!
-}
-
-input SessionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SessionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SessionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SessionWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  type: String
-
-  """All values that are not equal to given value."""
-  type_not: String
-
-  """All values that are contained in given list."""
-  type_in: [String!]
-
-  """All values that are not contained in given list."""
-  type_not_in: [String!]
-
-  """All values less than the given value."""
-  type_lt: String
-
-  """All values less than or equal the given value."""
-  type_lte: String
-
-  """All values greater than the given value."""
-  type_gt: String
-
-  """All values greater than or equal the given value."""
-  type_gte: String
-
-  """All values containing the given string."""
-  type_contains: String
-
-  """All values not containing the given string."""
-  type_not_contains: String
-
-  """All values starting with the given string."""
-  type_starts_with: String
-
-  """All values not starting with the given string."""
-  type_not_starts_with: String
-
-  """All values ending with the given string."""
-  type_ends_with: String
-
-  """All values not ending with the given string."""
-  type_not_ends_with: String
-}
-
 input SessionWhereUniqueInput {
   id: ID
 }
@@ -809,7 +598,7 @@ type Subscription {
 
 type Tag implements Node {
   id: ID!
-  name: String!
+  type: String!
 }
 
 """A connection to a list of items."""
@@ -843,8 +632,8 @@ type TagEdge {
 enum TagOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
+  type_ASC
+  type_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -853,7 +642,7 @@ enum TagOrderByInput {
 
 type TagPreviousValues {
   id: ID!
-  name: String!
+  type: String!
 }
 
 type TagSubscriptionPayload {
@@ -968,6 +757,272 @@ input TagWhereInput {
 
   """All values that are not equal to given value."""
   name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  type_not_ends_with: String
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  userTag(where: UserTagSubscriptionWhereInput): UserTagSubscriptionPayload
+  question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  tag(where: TagSubscriptionWhereInput): TagSubscriptionPayload
+  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
+}
+
+type UserPreviousValues {
+  id: ID!
+  username: String!
+  email: String!
+  uid: String
+  description: String
+  coins: Int
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+type UserTag implements Node {
+  id: ID!
+  user: User!
+  tag: Tag!
+}
+
+"""A connection to a list of items."""
+type UserTagConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserTagEdge]!
+  aggregate: AggregateUserTag!
+}
+
+input UserTagCreateInput {
+  user: UserCreateOneWithoutTagsInput!
+  tag: TagCreateOneInput!
+}
+
+input TagCreateOneInput {
+  create: TagCreateInput
+  connect: TagWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type UserTagEdge {
+  """The item at the end of the edge."""
+  node: UserTag!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserTagOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserTagPreviousValues {
+  id: ID!
+}
+
+type UserTagSubscriptionPayload {
+  mutation: MutationType!
+  node: UserTag
+  updatedFields: [String!]
+  previousValues: UserTagPreviousValues
+}
+
+input UserTagSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserTagSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserTagSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserTagSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: TagWhereInput
+}
+
+input TagUpdateDataInput {
+  name: String
+}
+
+input TagUpdateInput {
+  name: String
+}
+
+input TagUpdateOneRequiredInput {
+  create: TagCreateInput
+  connect: TagWhereUniqueInput
+  update: TagUpdateDataInput
+  upsert: TagUpsertNestedInput
+}
+
+input TagUpsertNestedInput {
+  update: TagUpdateDataInput!
+  create: TagCreateInput!
+}
+
+input TagWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserTagWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserTagWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserTagWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  user: UserWhereInput
+  tag: TagWhereInput
+}
+
+input UserTagWhereUniqueInput {
+  id: ID
+}
 
   """All values that are contained in given list."""
   name_in: [String!]
@@ -1895,8 +1950,8 @@ export interface UserTagUpdateWithoutUserDataInput {
   tag?: TagUpdateOneRequiredInput
 }
 
-export interface TagUpdateInput {
-  name?: String
+export interface UserTagWhereUniqueInput {
+  id?: ID_Input
 }
 
 export interface UserTagUpdateWithWhereUniqueWithoutUserInput {
