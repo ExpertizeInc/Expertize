@@ -5,7 +5,6 @@ const path = require('path');
 const cors = require('cors')
 
 var app = express();
-
 app.use(express.static(path.join(__dirname + '/../client/dist')));
 app.use(bodyParser.json())
 app.use(cors())
