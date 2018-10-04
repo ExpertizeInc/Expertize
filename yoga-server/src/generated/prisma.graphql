@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/alon-bibring-d051d8/expertize/dev
-# timestamp: Wed Oct 03 2018 18:25:31 GMT-0400 (EDT)
+# timestamp: Thu Oct 04 2018 10:27:00 GMT-0400 (EDT)
 
 type AggregateProfile {
   count: Int!
@@ -35,8 +35,6 @@ enum ChatType {
   VIDEO
   TEXT
 }
-
-scalar DateTime
 
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -648,7 +646,6 @@ input QuestionWhereUniqueInput {
 type Session implements Node {
   id: ID!
   type: String!
-  createdAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -684,16 +681,15 @@ enum SessionOrderByInput {
   id_DESC
   type_ASC
   type_DESC
-  createdAt_ASC
-  createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type SessionPreviousValues {
   id: ID!
   type: String!
-  createdAt: DateTime!
 }
 
 type SessionSubscriptionPayload {
@@ -852,28 +848,6 @@ input SessionWhereInput {
 
   """All values not ending with the given string."""
   type_not_ends_with: String
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
 }
 
 input SessionWhereUniqueInput {
@@ -983,15 +957,6 @@ input TagUpdateDataInput {
 
 input TagUpdateInput {
   name: String
-}
-
-input TagUpdateOneInput {
-  create: TagCreateInput
-  connect: TagWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: TagUpdateDataInput
-  upsert: TagUpsertNestedInput
 }
 
 input TagUpdateOneRequiredInput {
@@ -1107,7 +1072,6 @@ type User implements Node {
   username: String!
   email: String!
   uid: String
-  tags: Tag
 }
 
 """A connection to a list of items."""
@@ -1124,7 +1088,6 @@ input UserCreateInput {
   username: String!
   email: String!
   uid: String
-  tags: TagCreateOneInput
 }
 
 input UserCreateOneInput {
@@ -1380,14 +1343,12 @@ input UserUpdateDataInput {
   username: String
   email: String
   uid: String
-  tags: TagUpdateOneInput
 }
 
 input UserUpdateInput {
   username: String
   email: String
   uid: String
-  tags: TagUpdateOneInput
 }
 
 input UserUpdateOneInput {
@@ -1580,9 +1541,9 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   uid_not_ends_with: String
-  tags: TagWhereInput
 }
 
 input UserWhereUniqueInput {
   id: ID
+  username: String
 }

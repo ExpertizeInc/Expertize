@@ -40,8 +40,8 @@ class Home extends Component {
                     if (error) return <div>Error</div>
                     return (
                     <div>
-                        {console.log(data.user.username)}
-                        Hi, {data.user.username}
+                        {console.log(data)}
+                        Hi, 
                     </div>
                     )
                 }}
