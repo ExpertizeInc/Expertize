@@ -10,57 +10,26 @@ import Chat from './components/Chat.jsx';
 import Questionaire from './components/Questionaire.jsx';
 import Profile from './components/Profile.jsx'
 import Error from './components/Error.jsx';
-import Restricted from './components/Restricted.jsx';
+import Restricted from './components/loggedInHome/Restricted.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
 
-// class Routes extends React.Component {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             authenticated: false
-//         }
-//         this.signIn = this.signIn.bind(this)
-//     }
-//     signIn() {
-//         this.setState({authenticated: !this.state.authenticated}, () => IN.API.Raw("/industries?format=json")
-//         .result((r) => console.log(r))
-//         .error((e) => console.log(e)))
-//     }
-
-//     render() {
-//         return (
-//             <Router>
-//                 <div>
-//                     <NavBar/>
-//                     <Switch>
-//                         <Route exact strict path="/" component={Home}></Route>
-//                         <Route exact strict path="/signin" render={(props) => <SignIn {...props} signIn={this.signIn}/>}></Route>
-//                         <Route exact strict path="/signup" component={Signup}></Route>
-//                         <Route exact strict path="/*" component={Error}></Route>
-//                     </Switch>
-//                 </div>
-//             </Router>)
-//     }
-// }
-
-
-const Routes = ({ authenticated, signInLI, signOut }) => (
-  <div>
-    <NavBar authenticated={authenticated} signOut={signOut}/>
-    <Switch>
-      <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/restricted"/> : <Home/>)}></Route>
-      <PrivateRoute path='/restricted' component={Restricted} authenticated={authenticated}></PrivateRoute>
-      <Route exact strict path="/signin" render={(props) => <SignIn history={props.history} signInLI={signInLI}/>}></Route>
-      <Route exact strict path="/signup" component={Signup}></Route>
-      <Route exact strict path="/questionaire" component={Questionaire}></Route>
-      <Route exact strict path="/profile" component={Profile}></Route>
-      <Route exact strict path="/chat" component={Chat}></Route>
-      <Route exact strict path="/video" component={Video}></Route>
-      <Route exact strict path="/*" component={Error}></Route>
-    </Switch>
-    <Footer />
-  </div>
-)
+const Routes = ({ authenticated }) => (
+        <React.Fragment>
+        <NavBar authenticated={authenticated}/>
+        <Switch>
+            <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/home"/> : <Home/>)}></Route>
+            <PrivateRoute path='/home' component={Restricted} authenticated={authenticated}></PrivateRoute>
+            <Route exact strict path="/signin" component={SignIn}></Route>
+            <Route exact strict path="/signup" component={Signup}></Route>
+            <Route exact strict path="/questionaire" component={Questionaire}></Route>
+            <Route exact strict path="/profile" component={Profile}></Route>
+            <Route exact strict path="/chat" component={Chat}></Route>
+            <Route exact strict path="/video" component={Video}></Route>
+            <Route exact strict path="/*" component={Error}></Route>
+        </Switch>
+        <Footer />
+        </React.Fragment>
+        )
 
 export default Routes;

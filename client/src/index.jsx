@@ -3,6 +3,9 @@ import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Particles from 'react-particles-js';
+import params from './particles.js'
+
 
 import Routes from './Routes.jsx';
 
@@ -74,7 +77,16 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-          <Routes authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}/>
+        {/* <Particles params={params} style={{
+          position: 'absolute',
+          display: 'block',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
+        }} /> */}
+        <Routes authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}>   </Routes>
       </ApolloProvider>
     )
   }

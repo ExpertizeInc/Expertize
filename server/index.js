@@ -6,7 +6,6 @@ const cors = require('cors');
 // const OpenTok = require('opentok');
 
 var app = express();
-
 app.use(express.static(path.join(__dirname + '/../client/dist')));
 app.use(bodyParser.json())
 app.use(cors())
