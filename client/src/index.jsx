@@ -68,11 +68,11 @@ class App extends React.Component {
     
   }
 
-  signInLI(e, props) {
+  signInLI(e, a) {
       e.preventDefault();
       console.log('LINKED IN FKKKKKK')
       IN.User.authorize(this.callbackFunction, '')
-      props.push('/restricted')
+      // a.history.push('/restricted')
   }
 
   signOut() {
