@@ -16,3 +16,34 @@
     id: ID! @unique
     name: String! @unique
   }
+
+type Profile {
+   id: ID! @unique
+   user: User
+   tags: [UserTag!]!
+   description: String
+   coins: Int @default(value: "3")
+   session: [Session!]!
+ }
+
+ type Session {
+   id: ID! @unique
+   type: String!
+   createdAt: DateTime!
+ }
+
+ type Question {
+   id: ID! @unique
+   userId: String!
+   tags: String!
+   coins: Int!
+   active: Boolean @default(value: "false")
+   chat: ChatType!
+ }
+
+  enum ChatType {
+    AUDIO
+    VIDEO
+    TEXT
+  }
+
