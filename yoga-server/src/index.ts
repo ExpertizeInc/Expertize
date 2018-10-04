@@ -1,6 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../prisma/prisma';
-import { User } from '../prisma/prisma';
+import { Prisma } from '../prisma/generated/prisma';
+// import { User } from '../prisma/prisma';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
@@ -30,14 +30,22 @@ const resolvers = {
   //   }
   // },
   Mutation: {
-      createUser(parent, args, ctx: { prisma: Prisma }, info) {
+      createUser: (parent, args, ctx: { prisma: Prisma }, info) => {
         console.log(args, 'args inside createUser mutation')
         return ctx.prisma.mutation.createUser({data: { username: args.username, email: args.email, uid: args.uid }});
       },
+<<<<<<< HEAD
+      createQuestion: async (parent, args, ctx, info) => {
+        console.log(args);
+        // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
+        return ctx.prisma.mutation.createQuestion({data: { userId: args.userId, tag: args.tag, description: args.description, chat: args.chat, coins: args.coins, title: args.title }})
+      }
+=======
       updateUser(parent, args, ctx: { prisma: Prisma }, info) {
         return ctx.prisma.mutation.updateUser({data: { email: args.email, uid: args.uid, description: args.description, coins:args.coins }, where: { id: args.id}})
       },
 
+>>>>>>> dev
 
       // login: async (_, args: { email, password }, ctx: { prisma: Prisma}) => {
       //   const { uid } = getUidForValidCredentials({ email, password });
@@ -53,11 +61,7 @@ const resolvers = {
     // signup: (_, args, context, info) => {
       
     // },
-    createQuestion: async (parent, args, ctx, info) => {
-      console.log(args);
-      // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
-      return ctx.prisma.mutation.createQuestion({"data": { userId: args.userId, tags: args.tag, coins: args.coins, description: args.description, chat: args.chat}})
-    }
+
   }
 }
 console.log(process.env.PRISMA_SECRET)
@@ -71,6 +75,7 @@ const server = new GraphQLServer({
     let user;
     const prisma = new Prisma({
      endpoint: process.env.PRISMA_ENDPOINT,
+    //  endpoint: 'http://localhost:4467',
      secret: process.env.PRISMA_SECRET
     })
     if (userId) {
