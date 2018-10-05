@@ -13,76 +13,102 @@ mutation updateUser($id: String!, $email: String, $uid: String, $description: St
 }
 `;
 
+const GET_USER_QUESTIONS = gql`
+query questionsByUser($userId: String!) {
+  questionsByUser(userId: $userId) {
+    title
+  }
+}
+`
 
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = {}
   }
-  render() { 
+  render() {
     return (
-      <Grid>
-        <PageHeader style={{ display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
-        <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-          <div className="hexTop"></div>
-          <div className="hexBottom"></div>
-        </div>
-        <Col md={2} className="profile-nav centered">
-          <h2>Username</h2>
-        </Col>
-        <Row >
-          {/* user's key stats on app */}
-          <Col xs={6} md={3}>
-            <Thumbnail className="centered">
-              <h3>11</h3>
-              Posts
+      <React.Fragment>
+        {this.props.user &&
+          <Grid className="fluid">
+            <PageHeader style={{ display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
+            <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+              <div className="hexTop"></div>
+              <div className="hexBottom"></div>
+            </div>
+            <Col md={2} className="profile-nav centered">
+              <h2>{this.props.user.username}</h2>
+            </Col>
+            <Row >
+              {/* user's key stats on app */}
+              <Col xs={6} md={3}>
+                <Thumbnail className="centered">
+                  <h3>11</h3>
+                  Posts
           </Thumbnail>
-          </Col>
-          <Col xs={6} md={3}>
-           <Thumbnail className="centered">
-           {console.log('profile user', this.props.user)}
-             {this.props.user && <h3>{this.props.user.coins}</h3>}
-              Coins
-          </Thumbnail>}
-          </Col>
-          <Col xs={6} md={3}>
-            <Thumbnail className="centered">
-              <h3>7</h3>
-              Fields
+              </Col>
+              <Col xs={6} md={3}>
+                <Thumbnail className="centered">
+                  {console.log('profile user', this.props.user)}
+                  {this.props.user && <h3>{this.props.user.coins}</h3>}
+                  Coins
+          </Thumbnail>
+              </Col>
+              <Col xs={6} md={3}>
+                <Thumbnail className="centered">
+                  <h3>7</h3>
+                  Fields
             </Thumbnail>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-        <Thumbnail className="centered">
-              <h3>Alt stats/graphs</h3>
-              
-          Main body
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Thumbnail className="centered">
+                  <h3>Alt stats/graphs</h3>
+                  Main body
+
+
+            <Query query={GET_USER_QUESTIONS} variables={{userId: this.props.user.id}}>
+              {({ loading, error, data }) => {
+                if (loading) return <div>Fetching</div>
+                if (error) return <div>Error</div>
+                return (
+                  <div>
+                    {console.log('profile questions', data)}
+                    </div>
+                )
+              }}
+            </Query>
+
+
+
+
             </Thumbnail>
-          {/* Will show user activity, progress, session history, recently interacted */}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-        <Thumbnail className="centered">
-              <h3>Interaction History, etc</h3>
-              
-           Map out session history for user
+                {/* Will show user activity, progress, session history, recently interacted */}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Thumbnail className="centered">
+                  <h3>Interaction History, etc</h3>
+                  Map out session history for user
             </Thumbnail>
-          {/* Will show user activity, progress, session history, recently interacted */}
-          </Col>
-        </Row>
-        <Row>
-        <Mutation mutation={UPDATE_USER} variables={{ id: 'cjmuxt69x46dr0b28449u4jsz',email:'wssssaaaOOOw@www.com'}}>
-                { updateUser => <Link to="/profile">
+                {/* Will show user activity, progress, session history, recently interacted */}
+              </Col>
+            </Row>
+            <Row>
+              <Mutation mutation={UPDATE_USER} variables={{ id: 'cjmuxt69x46dr0b28449u4jsz', email: 'wssssaaaOOOw@www.com' }}>
+                {updateUser => <Link to="/profile">
                   <Button type="submit" onClick={updateUser}>
                     EDIT
                   </Button>
                 </Link>}
               </Mutation>
-        </Row>
-      </Grid>
+            </Row>
+          </Grid>
+        }
+      </React.Fragment>
     )
   }
 }

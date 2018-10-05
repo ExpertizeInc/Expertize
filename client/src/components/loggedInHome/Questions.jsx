@@ -54,9 +54,8 @@ export default class Questions extends Component {
   render() {
     return (
       <Form className="form-panel-signup centered" horizontal>
-      {console.log('question user', this.props.user)}
-        <h2>      {this.props.user.username}
- - Post a Question</h2>
+        {console.log('question user', this.props.user)}
+        <h2>{this.props.user.username} - Post a Question</h2>
         <FormGroup controlId="formHorizontalPassword">
           <Col componentClass={ControlLabel} sm={5}>
             Title
@@ -91,7 +90,7 @@ export default class Questions extends Component {
         </FormGroup>
         <FormGroup>
           <Col smOffset={6} sm={3}>
-            <Mutation mutation={createQuestion} variables={{ userId: 'klkmlmf', description: this.state.description, tag: this.state.tag, chat: 'VIDEO', coins: 3, title: this.state.title }} onCompleted={(data) => console.log('on complete', data)}>
+            <Mutation mutation={createQuestion} variables={{ userId: this.props.user.id, description: this.state.description, tag: this.state.tag, chat: 'VIDEO', coins: 3, title: this.state.title }} onCompleted={(data) => console.log('on complete', data)}>
               {(createQuestion, { data }) => {
                 console.log(data)
                 return (
@@ -123,7 +122,6 @@ export default class Questions extends Component {
               )
             }}
           </Query>
-
         </FormGroup>
       </Form>
     )
