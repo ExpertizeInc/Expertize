@@ -3,8 +3,9 @@ import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router } from 'react-router-dom';
-// import Particles from 'react-particles-js';
-// import params from './particles.js'
+import Particles from 'react-particles-js';
+import params from './particles.js'
+import gql from "graphql-tag";
 
 
 import Routes from './Routes.jsx';
@@ -13,6 +14,16 @@ const client = new ApolloClient({
   uri: "http://localhost:4000"
 });
 
+const GET_USER_UID = gql`
+query user($uid: String!) {
+  user(uid: $uid) {
+    id
+    username
+    email
+    coins
+  }
+}
+`
 
 class App extends React.Component {
   constructor(props) {
@@ -29,19 +40,28 @@ class App extends React.Component {
   
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user !== null) {
-        this.setState({
-          authenticated: true
-        }, () => console.log('authenticated'))
+      console.log('fbbauth', user)
+      if (user) {
+        client.query({
+          query: GET_USER_UID,
+          variables: { uid: user.uid }})
+          .then(({ data }) => {
+            console.log('test?', data.user)
+            this.setState({
+              authenticated: true,
+              user: data.user })
+          })
+          .catch(err => console.log('auth faied', err))
       } else {
         this.setState({
           authenticated: false
         })
       }
     })
+  
     
-    IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
-    IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
+    // IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
+    // IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
     // if (IN.User.isAuthorized()) {
     //   console.log('in.user',IN.User.isAuthorized())
     //   this.setState({
@@ -54,7 +74,7 @@ class App extends React.Component {
 
   signIn(user) {
     console.log('signed in:', user)
-    this.setState({ user: user })
+    this.setState({ authenticated: true, user: user })
   }
 
   callbackFunction() {

@@ -145,6 +145,7 @@ class Questionaire extends Component {
                   </Link>}
                 </Mutation>}
             </div>
+            {console.log('questionaire user', this.props.user)}
           </Col>
         </Tab>
       </Tabs>
