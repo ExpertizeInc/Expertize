@@ -1,6 +1,6 @@
 type Query {
   user(uid: String!): User
-  tags: [String!]!
+  tags: [Tag!]!
   users: [User]!
   questions: [Question]!
   questionsByUser(userId: String!): [Question]
@@ -42,8 +42,8 @@ type UserTag {
 }
 
 type Tag {
-    id: ID!
-    name: String!
+  id: ID!
+  name: String!
 }
 
  type Question {

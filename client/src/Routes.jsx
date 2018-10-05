@@ -11,6 +11,7 @@ import Questionaire from './components/Questionaire.jsx';
 import Profile from './components/Profile.jsx'
 import Error from './components/Error.jsx';
 import Restricted from './components/loggedInHome/Restricted.jsx';
+import Questions from './components/loggedInHome/Questions.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
 
