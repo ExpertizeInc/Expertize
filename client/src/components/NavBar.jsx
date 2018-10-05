@@ -13,10 +13,12 @@ class NavBar extends Component {
 
   // //for signout button
   signOutUser() {
+    console.log('firing signOutUser in navbar')
     let { signOut } = this.props
     if(IN.User.isAuthorized()) {
       IN.User.logout(signOut,'')
     } else {
+      console.log('siging out of firebase')
       firebase.auth().signOut()
     }
   }

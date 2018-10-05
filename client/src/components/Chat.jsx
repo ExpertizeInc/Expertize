@@ -22,6 +22,10 @@ class Chat extends Component {
 
   componentDidMount() {
     socket.on('connect', () => {
+      var username = prompt("What's your name?")
+      this.setState({
+        userOne:username
+      }, () => socket.emit('log in', this.state.userOne))
       console.log('user connected to socket on componentdidmount')
     })
     socket.on('outbound', (message) => {
@@ -29,10 +33,6 @@ class Chat extends Component {
       this.setState(state => {
         return {messages: state.messages.concat(message)}
       })
-    })
-    var username = prompt(`What's your name?`)
-    this.setState({
-      userOne: username
     })
   }
 

@@ -17,9 +17,22 @@ var port = process.env.PORT || 3001;
 
 var server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
+var users = {}
+
 const io = require('socket.io')(server)
 io.on('connect', (socket) => {
   console.log('a user connected, id is:',socket.id)
+  socket.on('log in', (data) => {
+    socket.username = data
+    users[socket.username] = socket
+    console.log('data',data)
+    updateUsername()
+    io.sockets.emit('hello', 'what up?')
+  })
+
+  function updateUsername() {
+    io.sockets.emit('usernames', Object.keys(users));
+  }
   // socket.on('connectToUser', )s
   socket.on('message', (msg) => {
     console.log('received message:', msg)

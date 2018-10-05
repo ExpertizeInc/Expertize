@@ -29,19 +29,22 @@ class App extends React.Component {
   
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
+      console.log('this is user from onauthstatechanged', user)
       if (user !== null) {
         this.setState({
-          authenticated: true
-        }, () => console.log('authenticated'))
+          authenticated: true,
+          user:user
+        }, () => console.log('this.state',this.state))
       } else {
+        console.log('there is no firebase user')
         this.setState({
           authenticated: false
         })
       }
     })
     
-    IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
-    IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
+    // IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
+    // IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
     // if (IN.User.isAuthorized()) {
     //   console.log('in.user',IN.User.isAuthorized())
     //   this.setState({

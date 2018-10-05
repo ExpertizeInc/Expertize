@@ -39,8 +39,9 @@ class Signin extends Component {
   submitSignIn(e) {
     //send to firebase/server
     e.preventDefault()
-    console.log('submitting sign in to firebase')
+    // console.log('submitting sign in to firebase', this.state.email, this.state.password)
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    // .then((user)=>console.log('this is the user after pressing submitsignin',user))
     .then(() => this.props.history.push('/home'))
     // .then(()=>console.log(this.props))
     .catch(function(error) {

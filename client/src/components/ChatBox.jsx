@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 const ChatBox = ({messages}) => (
   <div>
-  {messages.map(message => <div>{console.log(message)}{message}</div>)}
+  {messages.map((message,i) => <div id={i}>{message}</div>)}
   </div>
 )
  
