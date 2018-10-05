@@ -19,4 +19,4 @@ projects:
           language: typescript 
           # input: src/schema.graphql
           output:
-            binding: ./generated/prisma/index.ts
+            binding: ./generated/index.ts

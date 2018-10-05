@@ -1,5 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../prisma/generated/prisma';
+import { Prisma } from '../prisma/generated';
 // import { User } from '../prisma/prisma';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
@@ -17,6 +17,9 @@ const resolvers = {
     },
     questions: (_, __, ctx, ____) => {
       return ctx.prisma.query.questions({});
+    },
+    questionsByUser: (_, {userId}, ctx: {prisma: Prisma}) => {
+      return ctx.prisma.query.questions({ where: {userId} });
     }
   },
   // User: {

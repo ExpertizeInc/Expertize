@@ -3,6 +3,15 @@ type Query {
   tags: [String!]!
   users: [User]!
   questions: [Question]!
+  questionsByUser(userId: String!): [Question]
+}
+
+type Mutation {
+   createUser(email: String!, uid: String!, username: String!): User
+   updateUser(id: String!, email: String, uid: String, description: String, coins: Int): User
+   login(email: String!, password: String!): LoginPayload!
+   addTag(name: String!): Tag
+   createQuestion(userId: String!, description: String!, tag: String!, coins: Int!, chat: ChatType!, title: String!): Question
 }
 
 type User {
@@ -54,10 +63,3 @@ type Tag {
     TEXT
   }
 
-type Mutation {
-   createUser(email: String!, uid: String!, username: String!): User
-   updateUser(id: String!, email: String, uid: String, description: String, coins: Int): User
-   login(email: String!, password: String!): LoginPayload!
-   addTag(name: String!): Tag
-   createQuestion(userId: String!, description: String!, tag: String!, coins: Int!, chat: ChatType!, title: String!): Question
-}

@@ -18,7 +18,7 @@ datamodel: datamodel.graphql
 # secret: mysecret123
 # generate:
 #   - generator: typescript-client
-#     output: ../src/generated
+#     output: ./generated
 
 hooks:
   post-deploy:
