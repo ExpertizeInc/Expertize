@@ -2,7 +2,7 @@
     id: ID! @unique 
     username: String! @unique
     email: String!
-    uid: String
+    uid: String @unique
     tags: [UserTag!]!
     description: String
     coins: Int @default(value: "1")

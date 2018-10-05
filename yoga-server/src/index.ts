@@ -8,9 +8,9 @@ const dotenv = require('dotenv').config();
 
 const resolvers = {
   Query: {
-    user: (_, {id}, ctx: {prisma: Prisma}) => {
+    user: (_, {uid}, ctx: {prisma: Prisma}) => {
       // const { prisma } = context;
-      return ctx.prisma.query.user({ where: {id} });
+      return ctx.prisma.query.user({ where: {uid} });
     },
     users: (_, __, ctx: {prisma: Prisma}, ____) => {
       return ctx.prisma.query.users({})

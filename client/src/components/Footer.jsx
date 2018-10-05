@@ -3,10 +3,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 
 export const Footer = () => (
-  <div id="footer" className="section container">
     <Grid>
       <Row>
       </Row>
     </Grid>
-  </div>
 );

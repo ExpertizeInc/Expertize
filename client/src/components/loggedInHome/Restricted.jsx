@@ -11,9 +11,7 @@ export default class Restricted extends Component {
     }
     render() {
         return (
-            <div>
-                <Questions />
-            </div>
+                <Questions user={this.props.user} />
         )
     }
 }

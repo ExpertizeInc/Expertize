@@ -1,5 +1,5 @@
 type Query {
-  user(id: ID!): User
+  user(uid: String!): User
   tags: [String!]!
   users: [User]!
   questions: [Question]!
