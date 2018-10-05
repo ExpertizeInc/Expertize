@@ -26,7 +26,8 @@ query questionsByUser($userId: String!) {
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+    }
   }
   render() {
     return (
@@ -47,7 +48,7 @@ class Profile extends Component {
               {/* user's key stats on app */}
               <Col xs={6} md={3}>
                 <Thumbnail className="centered">
-                  <h3>11</h3>
+                  <h3>3</h3>
                   Posts
           </Thumbnail>
               </Col>
@@ -69,7 +70,7 @@ class Profile extends Component {
               <Col>
                 <Thumbnail className="centered">
                   <h3>Alt stats/graphs</h3>
-            <Query query={GET_USER_QUESTIONS} variables={{userId: this.props.user.id}}>
+            <Query query={GET_USER_QUESTIONS} variables={{userId: this.props.user.id}} >
               {({ loading, error, data }) => {
                 if (loading) return <div>Fetching</div>
                 if (error) return <div>Error</div>
@@ -97,7 +98,7 @@ class Profile extends Component {
               </Col>
             </Row>
             <Row>
-            <Button bsSize="large">
+            {/* <Button bsSize="large">
              <Glyphicon glyph="cog" />Edit
             </Button>
               <Mutation mutation={UPDATE_USER} variables={{ id: 'cjmuxt69x46dr0b28449u4jsz', email: 'wssssaaaOOOw@www.com' }}>
@@ -106,7 +107,7 @@ class Profile extends Component {
                     Submit changes
                   </Button>
                 </Link>}
-              </Mutation>
+              </Mutation> */}
             </Row>
           </Grid>
         }
