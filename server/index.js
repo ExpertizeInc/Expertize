@@ -26,13 +26,9 @@ io.on('connect', (socket) => {
     socket.username = data
     users[socket.username] = socket
     console.log('data',data)
-    updateUsername()
     io.sockets.emit('hello', 'what up?')
   })
 
-  function updateUsername() {
-    io.sockets.emit('usernames', Object.keys(users));
-  }
   // socket.on('connectToUser', )s
   socket.on('message', (msg) => {
     console.log('received message:', msg)
