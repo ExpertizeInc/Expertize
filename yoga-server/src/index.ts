@@ -64,8 +64,6 @@ const resolvers = {
 
   }
 }
-console.log(process.env.PRISMA_SECRET)
-
 
 const server = new GraphQLServer({
   typeDefs: 'yoga-server/src/schema.graphql',
@@ -75,7 +73,6 @@ const server = new GraphQLServer({
     let user;
     const prisma = new Prisma({
      endpoint: process.env.PRISMA_ENDPOINT,
-    //  endpoint: 'http://localhost:4467',
      secret: process.env.PRISMA_SECRET
     })
     if (userId) {

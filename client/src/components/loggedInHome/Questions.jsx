@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
-import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Panel } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Panel, Grid, Row } from 'react-bootstrap'
 import gql from "graphql-tag";
-
-
 
 const createQuestion = gql`
   mutation createQuestion($userId: String!, $description: String!, $tag: String!, $chat: ChatType!, $coins: Int!, $title: String!) {
@@ -58,7 +56,7 @@ export default class Questions extends Component {
         <h2>{this.props.user.username} - Post a Question</h2>
         <FormGroup controlId="formHorizontalPassword">
           <Col componentClass={ControlLabel} sm={5}>
-            Title
+            What would you like to discuss?
           </Col>
           <Col sm={3}>
             <FormControl value={this.state.title} onChange={(e) => this.onChange(e, 'title')} type="Title" placeholder="Enter Title" />
@@ -74,7 +72,7 @@ export default class Questions extends Component {
         </FormGroup>
         <FormGroup controlId="formHorizontalUsername">
           <Col componentClass={ControlLabel} sm={5}>
-            Description
+            Include a brief description
           </Col>
           <Col sm={3}>
             <FormControl value={this.state.description} onChange={(e) => this.onChange(e, 'description')} type="Description" placeholder="Description" />
@@ -107,17 +105,32 @@ export default class Questions extends Component {
               // if (data) this.setState({ questions: data.questions })
               return (
                 <div>
-                  {console.log(data)}
-                  {data.questions.map((question, i) => (
-                    <div key={i}>
-                      <Panel>
-                        <Panel.Heading>
-                          <Panel.Title componentClass="h3">Title: {question.title} | Coins: {question.coins} | Tag: {question.tag} | Active: {question.active.toString()} | Chat Type: {question.chat}</Panel.Title>
-                        </Panel.Heading>
-                        <Panel.Body>{question.description}</Panel.Body>
-                      </Panel>
-                    </div>
-                  ))}
+                  <Col smOffset={2} sm={8}>
+                    {console.log(data)}
+                    {data.questions.map((question, i) => (
+                      <div key={i}>
+                        <Panel>
+                          <Panel.Heading>
+                            <Panel.Title componentClass="h3">Title: {question.title} | Coins: {question.coins} | Tag: {question.tag} | Active: {question.active.toString()} | Chat Type: {question.chat}</Panel.Title>
+                          </Panel.Heading>
+                          <Panel.Body>
+                            <Grid>
+                              <Row>
+                                <Col sm={2}>
+                                  <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+                                    <div className="hexTop"></div>
+                                    <div className="hexBottom"></div>
+                                  </div>
+                                  <div>{this.props.user.username}</div>
+                                </Col>
+                                <Col sm={2}>{question.description}</Col>
+                              </Row>
+                            </Grid>
+                          </Panel.Body>
+                        </Panel>
+                      </div>
+                    ))}
+                  </Col>
                 </div>
               )
             }}

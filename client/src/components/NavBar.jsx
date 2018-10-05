@@ -23,7 +23,7 @@ class NavBar extends Component {
 
   render() { 
     return (
-    <Navbar>
+    <Navbar fluid>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Expertize</Link>

@@ -46,7 +46,7 @@ class App extends React.Component {
           query: GET_USER_UID,
           variables: { uid: user.uid }})
           .then(({ data }) => {
-            console.log('test?', data.user)
+            console.log('prisma user', data.user)
             this.setState({
               authenticated: true,
               user: data.user })

@@ -9,6 +9,10 @@ html {
   width:100%;
   }
 
+.container {
+  margin: 0 50px;
+  width: flex;
+}
 .form-panel-signup {
   justify-content: center
 }
