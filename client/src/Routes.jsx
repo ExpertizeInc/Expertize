@@ -23,7 +23,7 @@ export const Routes = ({ authenticated, user, signIn, signInLI}) => (
           <Route exact strict path="/signin" render={(props) => <SignIn {...props} signInLI={signInLI}/>}></Route>
           <Route exact strict path="/signup" render={() => <Signup user={user} signIn={signIn} />}></Route>
           <Route exact strict path="/questionaire" render={() => <Questionaire user={user} />}></Route>
-          <Route exact strict path="/profile" render={() => <Profile user={user}/>}></Route>
+          <Route exact strict path="/profile" render={() => <Profile user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>
           <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>

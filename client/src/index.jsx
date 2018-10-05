@@ -19,6 +19,8 @@ query user($uid: String!) {
   user(uid: $uid) {
     id
     username
+    email
+    coins
   }
 }
 `
@@ -38,18 +40,18 @@ class App extends React.Component {
   
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
+      console.log('fbbauth', user)
       if (user) {
         client.query({
           query: GET_USER_UID,
-          variables: { uid: user.uid }
-        })
+          variables: { uid: user.uid }})
           .then(({ data }) => {
+            console.log('test?', data.user)
             this.setState({
               authenticated: true,
-              user: data
-            })
+              user: data.user })
           })
-          .catch(err => console.log('this faied', err))
+          .catch(err => console.log('auth faied', err))
       } else {
         this.setState({
           authenticated: false
@@ -58,8 +60,8 @@ class App extends React.Component {
     })
   
     
-    IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
-    IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
+    // IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
+    // IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
     // if (IN.User.isAuthorized()) {
     //   console.log('in.user',IN.User.isAuthorized())
     //   this.setState({
@@ -72,7 +74,7 @@ class App extends React.Component {
 
   signIn(user) {
     console.log('signed in:', user)
-    this.setState({ user: user })
+    this.setState({ authenticated: true, user: user })
   }
 
   callbackFunction() {

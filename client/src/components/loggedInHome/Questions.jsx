@@ -54,7 +54,9 @@ export default class Questions extends Component {
   render() {
     return (
       <Form className="form-panel-signup centered" horizontal>
-        <h2>Post a Question</h2>
+      {console.log('question user', this.props.user)}
+        <h2>      {this.props.user.username}
+ - Post a Question</h2>
         <FormGroup controlId="formHorizontalPassword">
           <Col componentClass={ControlLabel} sm={5}>
             Title
@@ -63,7 +65,6 @@ export default class Questions extends Component {
             <FormControl value={this.state.title} onChange={(e) => this.onChange(e, 'title')} type="Title" placeholder="Enter Title" />
           </Col>
         </FormGroup>
-        
         <FormGroup controlId="formHorizontalUsername">
           <Col componentClass={ControlLabel} sm={5}>
             Question Name
@@ -80,7 +81,6 @@ export default class Questions extends Component {
             <FormControl value={this.state.description} onChange={(e) => this.onChange(e, 'description')} type="Description" placeholder="Description" />
           </Col>
         </FormGroup>
-
         <FormGroup controlId="formHorizontalEmail">
           <Col componentClass={ControlLabel} sm={5}>
             Tag
@@ -89,41 +89,39 @@ export default class Questions extends Component {
             <FormControl value={this.state.tag} onChange={(e) => this.onChange(e, 'tag')} type="tag" placeholder="Enter Tag" />
           </Col>
         </FormGroup>
-
         <FormGroup>
           <Col smOffset={6} sm={3}>
-          {/* todo: hook up to firebase/linkedin Oauth */}
-
-          <Mutation mutation={createQuestion} variables={{ userId: this.props.user.user.id, description: this.state.description, tag: this.state.tag, chat: 'VIDEO', coins: 3, title: this.state.title }} onCompleted={(data) => console.log('on complete',data)}>
-            {(createQuestion, { data }) => {
-              console.log(data) 
-              return (
-              <Button onClick={createQuestion}>Create Question</Button>
-              )}}
+            <Mutation mutation={createQuestion} variables={{ userId: 'klkmlmf', description: this.state.description, tag: this.state.tag, chat: 'VIDEO', coins: 3, title: this.state.title }} onCompleted={(data) => console.log('on complete', data)}>
+              {(createQuestion, { data }) => {
+                console.log(data)
+                return (
+                  <Button onClick={createQuestion}>Create Question</Button>
+                )
+              }}
             </Mutation>
           </Col>
-          <br /><br/><br/>
+          <br /><br /><br />
           <Query query={getQuestions}>
-          {({ loading, error, data }) => {
-                    if (loading) return <div>Fetching</div>
-                    if (error) return <div>Error{console.log(error)}</div>
-                    // if (data) this.setState({ questions: data.questions })
-                    return (
-                    <div>
-                        {console.log(data)}
-                        {data.questions.map((question, i) => (
-                          <div key={i}>
-                            <Panel>
-                              <Panel.Heading>
-                                <Panel.Title componentClass="h3">Title: {question.title} | Coins: {question.coins} | Tag: {question.tag} | Active: {question.active.toString()} | Chat Type: {question.chat}</Panel.Title>
-                              </Panel.Heading>
-                              <Panel.Body>{question.description}</Panel.Body>
-                            </Panel>
-                          </div>
-                        ))}
+            {({ loading, error, data }) => {
+              if (loading) return <div>Fetching</div>
+              if (error) return <div>Error{console.log(error)}</div>
+              // if (data) this.setState({ questions: data.questions })
+              return (
+                <div>
+                  {console.log(data)}
+                  {data.questions.map((question, i) => (
+                    <div key={i}>
+                      <Panel>
+                        <Panel.Heading>
+                          <Panel.Title componentClass="h3">Title: {question.title} | Coins: {question.coins} | Tag: {question.tag} | Active: {question.active.toString()} | Chat Type: {question.chat}</Panel.Title>
+                        </Panel.Heading>
+                        <Panel.Body>{question.description}</Panel.Body>
+                      </Panel>
                     </div>
-                    )
-                }}
+                  ))}
+                </div>
+              )
+            }}
           </Query>
 
         </FormGroup>

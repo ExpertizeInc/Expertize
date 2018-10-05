@@ -10,18 +10,11 @@ type User {
   username: String!
   email: String!
   uid: String!
-  user: Profile!
-}
-
-type Profile {
-  id: ID!
-  user: User!
-  tags: [Tag!]!
+  tag: [UserTag!]!
   description: String
   coins: Int 
   session: [Session!]!
 }
-
 
 type Session {
   id: ID!

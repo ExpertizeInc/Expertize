@@ -40,10 +40,11 @@ class Profile extends Component {
           </Thumbnail>
           </Col>
           <Col xs={6} md={3}>
-            <Thumbnail className="centered">
-              <h3>23</h3>
+           <Thumbnail className="centered">
+           {console.log('profile user', this.props.user)}
+             {this.props.user && <h3>{this.props.user.coins}</h3>}
               Coins
-          </Thumbnail>
+          </Thumbnail>}
           </Col>
           <Col xs={6} md={3}>
             <Thumbnail className="centered">
