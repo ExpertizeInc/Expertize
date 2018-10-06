@@ -15,6 +15,7 @@ import {
   Glyphicon,
 } from "react-bootstrap";
 import gql from "graphql-tag";
+import TopicDropdown from './TopicDropdown.jsx';
 
 const createQuestion = gql`
   mutation createQuestion($userId: String!, $username: String!, $description: String!, $tag: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!) {
@@ -161,6 +162,7 @@ export default class QuestionFeed extends Component {
             return <div>
               <Col smOffset={2} sm={8}>
                 {console.log(data)}
+                <TopicDropdown />
                 {data.questions.map((question, i) => <div key={i}>
                   <Panel>
                     <Panel.Heading>

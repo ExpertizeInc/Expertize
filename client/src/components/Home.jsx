@@ -41,12 +41,10 @@ class Home extends Component {
                 return (
                   <div>
                     {console.log(data)}
-                    Hi,h
                     </div>
                 )
               }}
             </Query>
-            <div>Hello World!!fff</div>
           </div>) : <div>Not Logged In</div>
         } */}
 

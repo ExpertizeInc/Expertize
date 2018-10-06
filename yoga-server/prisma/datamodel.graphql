@@ -31,7 +31,7 @@
    username: String!
    tag: String!
    description: String!
-   coins: Int @default(value: 3)
+   coins: Int @default(value: "3")
    active: Boolean @default(value: "false")
    title: String!
    text: Boolean!
