@@ -5,7 +5,7 @@ projects:
       endpoints:
         default: http://localhost:4000
   database:
-    schemaPath: src/generated/prisma.graphql
+    schemaPath: prisma/generated/prisma.graphql
     extensions:
       prisma: prisma.yml
       # codegen:
@@ -19,4 +19,4 @@ projects:
           language: typescript 
           # input: src/schema.graphql
           output:
-            binding: ./generated/prisma/index.ts
+            binding: ../prisma/generated/index.ts

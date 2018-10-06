@@ -2,7 +2,7 @@
     id: ID! @unique 
     username: String! @unique
     email: String!
-    uid: String
+    uid: String @unique
     tags: [UserTag!]!
     description: String
     coins: Int @default(value: "1")
@@ -28,16 +28,14 @@
  type Question {
    id: ID! @unique
    userId: String!
+   username: String!
    tag: String!
    description: String!
    coins: Int @default(value: 3)
    active: Boolean @default(value: "false")
-   chat: ChatType!
    title: String!
+   text: Boolean!
+   audio: Boolean!
+   video: Boolean!
+   duration: Int! @default(value: "5")
  }
-
-  enum ChatType {
-    AUDIO
-    VIDEO
-    TEXT
-  }

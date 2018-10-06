@@ -9,6 +9,10 @@ html {
   width:100%;
   }
 
+.container {
+  margin: 0 50px;
+  width: flex;
+}
 .form-panel-signup {
   justify-content: center
 }
@@ -137,8 +141,25 @@ a, body {
   border-radius: 3px;
 }
 
+.mode-toggle {
+  border-radius: 30px;
+}
 
+.right {
+ text-align: right;
+}
 
+.round-btn {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
 
-
-
+.btn:focus {
+    outline: none !important;
+    outline-offset: none !important;
+}

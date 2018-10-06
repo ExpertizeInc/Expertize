@@ -1,5 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../prisma/generated/prisma';
+import { Prisma } from '../prisma/generated';
 // import { User } from '../prisma/prisma';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
@@ -8,15 +8,18 @@ const dotenv = require('dotenv').config();
 
 const resolvers = {
   Query: {
-    user: (_, {id}, ctx: {prisma: Prisma}) => {
+    user: (_, {uid}, ctx: {prisma: Prisma}) => {
       // const { prisma } = context;
-      return ctx.prisma.query.user({ where: {id} });
+      return ctx.prisma.query.user({ where: {uid} });
     },
     users: (_, __, ctx: {prisma: Prisma}, ____) => {
       return ctx.prisma.query.users({})
     },
     questions: (_, __, ctx, ____) => {
       return ctx.prisma.query.questions({});
+    },
+    questionsByUser: (_, {userId}, ctx: {prisma: Prisma}) => {
+      return ctx.prisma.query.questions({ where: {userId} });
     }
   },
   // User: {
@@ -30,18 +33,22 @@ const resolvers = {
   //   }
   // },
   Mutation: {
-      createUser: (parent, args, ctx: { prisma: Prisma }, info) => {
-        console.log(args, 'args inside createUser mutation')
-        return ctx.prisma.mutation.createUser({data: { username: args.username, email: args.email, uid: args.uid }});
-      },
-      createQuestion: async (parent, args, ctx, info) => {
-        console.log(args);
-        // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
-        return ctx.prisma.mutation.createQuestion({data: { userId: args.userId, tag: args.tag, description: args.description, chat: args.chat, coins: args.coins, title: args.title }})
-      },
-      updateUser(parent, args, ctx: { prisma: Prisma }, info) {
-        return ctx.prisma.mutation.updateUser({data: { email: args.email, uid: args.uid, description: args.description, coins:args.coins }, where: { id: args.id}})
-      },
+    createUser: (parent, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
+      console.log(username, 'args inside createUser mutation')
+      return ctx.prisma.mutation.createUser({ data: { username, email, uid } });
+    },
+    createQuestion: async (parent, { userId, username, tag, description, coins, title, text, audio, video, duration }, ctx, info) => {
+      // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
+      return ctx.prisma.mutation.createQuestion({
+        data: { userId, username, tag, description, coins, title, text, audio, video, duration }
+      })
+    },
+    updateUser(parent, { email, uid, description, coins, id }, ctx: { prisma: Prisma }, info) {
+      return ctx.prisma.mutation.updateUser({
+        data: { email, uid, description, coins },
+        where: { id } 
+      })
+    },
 
 
       // login: async (_, args: { email, password }, ctx: { prisma: Prisma}) => {
@@ -61,8 +68,6 @@ const resolvers = {
 
   }
 }
-console.log(process.env.PRISMA_SECRET)
-
 
 const server = new GraphQLServer({
   typeDefs: 'yoga-server/src/schema.graphql',
@@ -72,7 +77,6 @@ const server = new GraphQLServer({
     let user;
     const prisma = new Prisma({
      endpoint: process.env.PRISMA_ENDPOINT,
-    //  endpoint: 'http://localhost:4467',
      secret: process.env.PRISMA_SECRET
     })
     if (userId) {

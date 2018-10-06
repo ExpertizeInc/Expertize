@@ -15,10 +15,10 @@ endpoint: https://eu1.prisma.sh/alon-bibring-d051d8/expertize/dev
 datamodel: datamodel.graphql
 # secret: mysecret123
 
-secret: mysecret123
+# secret: mysecret123
 # generate:
 #   - generator: typescript-client
-#     output: ./generated/prisma
+#     output: ./generated
 
 hooks:
   post-deploy:

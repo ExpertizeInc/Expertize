@@ -10,7 +10,8 @@ import Chat from './components/Chat.jsx';
 import Questionaire from './components/Questionaire.jsx';
 import Profile from './components/Profile.jsx'
 import Error from './components/Error.jsx';
-import Restricted from './components/loggedInHome/Restricted.jsx';
+import UserHome from './components/loggedInHome/UserHome.jsx';
+import QuestionFeed from './components/loggedInHome/QuestionFeed.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
 
@@ -19,11 +20,11 @@ export const Routes = ({ authenticated, user, signIn, signInLI}) => (
       <NavBar authenticated={authenticated}/>
       <Switch>
           <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/home"/> : <Home/>)}></Route>
-          <PrivateRoute path='/home' component={Restricted} authenticated={authenticated}></PrivateRoute>
+          <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>
           <Route exact strict path="/signin" render={(props) => <SignIn {...props} signInLI={signInLI}/>}></Route>
           <Route exact strict path="/signup" render={() => <Signup user={user} signIn={signIn} />}></Route>
           <Route exact strict path="/questionaire" render={() => <Questionaire user={user} />}></Route>
-          <Route exact strict path="/profile" render={() => <Profile user={user}/>}></Route>
+          <Route exact strict path="/profile" render={() => <Profile user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>
           <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>

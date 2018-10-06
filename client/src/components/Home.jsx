@@ -3,14 +3,14 @@ import { Jumbotron, Button } from 'react-bootstrap'
 import { Query, Mutation } from 'react-apollo';
 import gql from "graphql-tag";
 
-const user = gql`
-{
-  user(id: "cjms2fns900160944d01ffp87") {
-    username
-    email
-  }
-}
-`;
+// const user = gql`
+// {
+//   user(id: "cjms2fns900160944d01ffp87") {
+//     username
+//     email
+//   }
+// }
+// `;
 
 class Home extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class Home extends Component {
             <Button bsStyle="primary">Learn more</Button>
           </p>
         </Jumbotron>
-        {this.state.authenticated === false ? // REMOVE === false
+        {/* {this.state.authenticated === false ?
           (<div>
             <Query query={user}>
               {({ loading, error, data }) => {
@@ -41,14 +41,14 @@ class Home extends Component {
                 return (
                   <div>
                     {console.log(data)}
-                    Hi,
+                    Hi,h
                     </div>
                 )
               }}
             </Query>
-            <div>Hello World!!</div>
+            <div>Hello World!!fff</div>
           </div>) : <div>Not Logged In</div>
-        }
+        } */}
 
       </div>
     );

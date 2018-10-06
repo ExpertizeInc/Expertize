@@ -1,8 +1,17 @@
 type Query {
-  user(id: ID!): User
-  tags: [String!]!
+  user(uid: String!): User
+  tags: [Tag!]!
   users: [User]!
   questions: [Question]!
+  questionsByUser(userId: String!): [Question]
+}
+
+type Mutation {
+   createUser(email: String!, uid: String!, username: String!): User
+   updateUser(id: String!, email: String, uid: String, description: String, coins: Int): User
+   login(email: String!, password: String!): LoginPayload!
+   addTag(name: String!): Tag
+   createQuestion(userId: String!, username: String!, description: String!, tag: String!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
 }
 
 type User {
@@ -10,18 +19,11 @@ type User {
   username: String!
   email: String!
   uid: String!
-  user: Profile!
-}
-
-type Profile {
-  id: ID!
-  user: User!
-  tags: [Tag!]!
+  tag: [UserTag!]!
   description: String
   coins: Int 
   session: [Session!]!
 }
-
 
 type Session {
   id: ID!
@@ -40,31 +42,22 @@ type UserTag {
 }
 
 type Tag {
-    id: ID!
-    name: String!
+  id: ID!
+  name: String!
 }
 
  type Question {
    id: ID!
    userId: String!
+   username: String
    description: String!
    tag: String!
    coins: Int!
    active: Boolean
-   chat: ChatType!
    title: String!
+   text: Boolean!
+   audio: Boolean!
+   video: Boolean!
+   duration: Int!
  }
 
-  enum ChatType {
-    AUDIO
-    VIDEO
-    TEXT
-  }
-
-type Mutation {
-   createUser(email: String!, uid: String!, username: String!): User
-   updateUser(id: String!, email: String, uid: String, description: String, coins: Int): User
-   login(email: String!, password: String!): LoginPayload!
-   addTag(name: String!): Tag
-   createQuestion(userId: String!, description: String!, tag: String!, coins: Int!, chat: ChatType!, title: String!): Question
-}
