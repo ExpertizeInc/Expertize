@@ -20,6 +20,9 @@ const resolvers = {
     },
     questionsByUser: (_, {userId}, ctx: {prisma: Prisma}) => {
       return ctx.prisma.query.questions({ where: {userId} });
+    },
+    tags: (_, __, ctx: { prisma: Prisma }, ____) => {
+      return ctx.prisma.query.tags({});
     }
   },
   // User: {

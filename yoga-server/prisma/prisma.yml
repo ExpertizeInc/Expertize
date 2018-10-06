@@ -16,13 +16,13 @@ datamodel: datamodel.graphql
 # secret: mysecret123
 
 secret: mysecret123
-generate:
-  - generator: typescript-client
-    output: ./generated
+# generate:
+#   - generator: typescript-client
+#     output: ./generated
 
 hooks:
   post-deploy:
-    - prisma generate
+    # - prisma generate
     - graphql get-schema --project database
     - graphql codegen
     - graphql prepare
