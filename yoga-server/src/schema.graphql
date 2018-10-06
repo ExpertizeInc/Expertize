@@ -11,7 +11,7 @@ type Mutation {
    updateUser(id: String!, email: String, uid: String, description: String, coins: Int): User
    login(email: String!, password: String!): LoginPayload!
    addTag(name: String!): Tag
-   createQuestion(userId: String!, description: String!, tag: String!, coins: Int!, chat: ChatType!, title: String!): Question
+   createQuestion(userId: String!, username: String!, description: String!, tag: String!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!): Question
 }
 
 type User {
@@ -49,17 +49,14 @@ type Tag {
  type Question {
    id: ID!
    userId: String!
+   username: String
    description: String!
    tag: String!
    coins: Int!
    active: Boolean
-   chat: ChatType!
    title: String!
+   text: Boolean!
+   audio: Boolean!
+   video: Boolean!
  }
-
-  enum ChatType {
-    AUDIO
-    VIDEO
-    TEXT
-  }
 
