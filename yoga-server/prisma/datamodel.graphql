@@ -28,16 +28,13 @@
  type Question {
    id: ID! @unique
    userId: String!
+   username: String!
    tag: String!
    description: String!
    coins: Int @default(value: 3)
    active: Boolean @default(value: "false")
-   chat: ChatType!
    title: String!
+   text: Boolean!
+   audio: Boolean!
+   video: Boolean!
  }
-
-  enum ChatType {
-    AUDIO
-    VIDEO
-    TEXT
-  }

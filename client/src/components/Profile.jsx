@@ -11,7 +11,7 @@ mutation updateUser($id: String!, $email: String, $uid: String, $description: St
         description
     }
 }
-`;
+`
 
 const GET_USER_QUESTIONS = gql`
 query questionsByUser($userId: String!) {
@@ -21,7 +21,6 @@ query questionsByUser($userId: String!) {
   }
 }
 `
-
 
 class Profile extends Component {
   constructor(props) {
