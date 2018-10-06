@@ -37,10 +37,10 @@ const resolvers = {
       console.log(username, 'args inside createUser mutation')
       return ctx.prisma.mutation.createUser({ data: { username, email, uid } });
     },
-    createQuestion: async (parent, { userId, username, tag, description, coins, title, text, audio, video }, ctx, info) => {
+    createQuestion: async (parent, { userId, username, tag, description, coins, title, text, audio, video, duration }, ctx, info) => {
       // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
       return ctx.prisma.mutation.createQuestion({
-        data: { userId, username, tag, description, coins, title, text, audio, video }
+        data: { userId, username, tag, description, coins, title, text, audio, video, duration }
       })
     },
     updateUser(parent, { email, uid, description, coins, id }, ctx: { prisma: Prisma }, info) {

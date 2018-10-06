@@ -11,7 +11,7 @@ type Mutation {
    updateUser(id: String!, email: String, uid: String, description: String, coins: Int): User
    login(email: String!, password: String!): LoginPayload!
    addTag(name: String!): Tag
-   createQuestion(userId: String!, username: String!, description: String!, tag: String!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!): Question
+   createQuestion(userId: String!, username: String!, description: String!, tag: String!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
 }
 
 type User {
@@ -58,5 +58,6 @@ type Tag {
    text: Boolean!
    audio: Boolean!
    video: Boolean!
+   duration: Int!
  }
 
