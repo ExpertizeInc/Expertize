@@ -33,18 +33,22 @@ const resolvers = {
   //   }
   // },
   Mutation: {
-      createUser: (parent, args, ctx: { prisma: Prisma }, info) => {
-        console.log(args, 'args inside createUser mutation')
-        return ctx.prisma.mutation.createUser({data: { username: args.username, email: args.email, uid: args.uid }});
-      },
-      createQuestion: async (parent, args, ctx, info) => {
-        console.log(args);
-        // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
-        return ctx.prisma.mutation.createQuestion({data: { userId: args.userId, tag: args.tag, description: args.description, chat: args.chat, coins: args.coins, title: args.title }})
-      },
-      updateUser(parent, args, ctx: { prisma: Prisma }, info) {
-        return ctx.prisma.mutation.updateUser({data: { email: args.email, uid: args.uid, description: args.description, coins:args.coins }, where: { id: args.id}})
-      },
+    createUser: (parent, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
+      console.log(username, 'args inside createUser mutation')
+      return ctx.prisma.mutation.createUser({ data: { username, email, uid } });
+    },
+    createQuestion: async (parent, { userId, username, tag, description, coins, title, text, audio, video }, ctx, info) => {
+      // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
+      return ctx.prisma.mutation.createQuestion({
+        data: { userId, username, tag, description, coins, title, text, audio, video }
+      })
+    },
+    updateUser(parent, { email, uid, description, coins, id }, ctx: { prisma: Prisma }, info) {
+      return ctx.prisma.mutation.updateUser({
+        data: { email, uid, description, coins },
+        where: { id } 
+      })
+    },
 
 
       // login: async (_, args: { email, password }, ctx: { prisma: Prisma}) => {
