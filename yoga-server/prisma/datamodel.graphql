@@ -36,6 +36,6 @@
    title: String!
    text: Boolean!
    audio: Boolean!
-   video: Boolean! 
+   video: Boolean!
    duration: Int! @default(value: "5")
  }

@@ -18,6 +18,7 @@ import gql from "graphql-tag";
 import TopicDropdown from './TopicDropdown.jsx';
 
 const createQuestion = gql`
+<<<<<<< HEAD
  mutation createQuestion($userId: String!, $username: String!, $description: String!, $tag: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!) {
    createQuestion(userId: $userId, username: $username, description: $description, tag: $tag, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
      description
@@ -43,6 +44,33 @@ const getQuestions = gql`
      duration
    }
  }
+=======
+  mutation createQuestion($userId: String!, $username: String!, $description: String!, $tag: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!) {
+    createQuestion(userId: $userId, username: $username, description: $description, tag: $tag, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+      description
+      tag
+      coins
+      title
+    }
+  }
+`
+
+const getQuestions = gql`
+  query {
+    questions{
+      username
+      description
+      tag
+      active
+      coins
+      title
+      text
+      audio
+      video
+      duration
+    }
+  }
+>>>>>>> dev
 `
 export default class QuestionFeed extends Component {
   constructor(props) {
@@ -52,8 +80,13 @@ export default class QuestionFeed extends Component {
       tag: '',
       chat: [],
       title: '',
+<<<<<<< HEAD
       questions: [],
       duration: 0
+=======
+      duration: 0,
+      questions: []
+>>>>>>> dev
     };
     this.onChange = this.onChange.bind(this);
     this.handleChatChoice = this.handleChatChoice.bind(this)
@@ -71,6 +104,7 @@ export default class QuestionFeed extends Component {
   }
 
   render() {
+    console.log(this.state.duration)
     return <Form className="form-panel-signup centered" horizontal>
       {console.log("question user", this.props.user)}
       <h2>{this.props.user.username} - Post a Question</h2>
@@ -111,7 +145,8 @@ export default class QuestionFeed extends Component {
           <ControlLabel>How long do you want the session to be?</ControlLabel>
         </Col>
         <Col sm={3}>
-          <FormControl componentClass="select" placeholder="Choose duration" onChange={e => this.onChange(e, "duration")} value={this.state.duration}>            <option value="select">Choose duration</option>
+          <FormControl componentClass="select" placeholder="Choose duration" onChange={e => this.onChange(e, "duration")} value={this.state.duration}>
+            <option value="select">Choose duration</option>
             <option value="5">5 Minutes</option>
             <option value="10">10 Minutes</option>
             <option value="15">15 Minutes</option>

@@ -32,9 +32,9 @@ class Home extends Component {
             <Button bsStyle="primary">Learn more</Button>
           </p>
         </Jumbotron>
-        {this.state.authenticated === false ? // REMOVE === false
+        {/* {this.state.authenticated === false ?
           (<div>
-            {/* <Query query={user}>
+            <Query query={user}>
               {({ loading, error, data }) => {
                 if (loading) return <div>Fetching</div>
                 if (error) return <div>Error</div>
@@ -44,9 +44,9 @@ class Home extends Component {
                     </div>
                 )
               }}
-            </Query> */}
+            </Query>
           </div>) : <div>Not Logged In</div>
-        }
+        } */}
 
       </div>
     );
