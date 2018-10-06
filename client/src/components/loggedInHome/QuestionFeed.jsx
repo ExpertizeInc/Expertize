@@ -18,33 +18,6 @@ import gql from "graphql-tag";
 import TopicDropdown from './TopicDropdown.jsx';
 
 const createQuestion = gql`
-<<<<<<< HEAD
- mutation createQuestion($userId: String!, $username: String!, $description: String!, $tag: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!) {
-   createQuestion(userId: $userId, username: $username, description: $description, tag: $tag, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
-     description
-     tag
-     coins
-     title
-   }
- }
-`
-
-const getQuestions = gql`
- query {
-   questions{
-     username
-     description
-     tag
-     active
-     coins
-     title
-     text
-     audio
-     video
-     duration
-   }
- }
-=======
   mutation createQuestion($userId: String!, $username: String!, $description: String!, $tag: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!) {
     createQuestion(userId: $userId, username: $username, description: $description, tag: $tag, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
       description
@@ -70,7 +43,6 @@ const getQuestions = gql`
       duration
     }
   }
->>>>>>> dev
 `
 export default class QuestionFeed extends Component {
   constructor(props) {
@@ -80,13 +52,8 @@ export default class QuestionFeed extends Component {
       tag: '',
       chat: [],
       title: '',
-<<<<<<< HEAD
-      questions: [],
-      duration: 0
-=======
       duration: 0,
       questions: []
->>>>>>> dev
     };
     this.onChange = this.onChange.bind(this);
     this.handleChatChoice = this.handleChatChoice.bind(this)
