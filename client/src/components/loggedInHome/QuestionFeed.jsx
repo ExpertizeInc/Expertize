@@ -17,8 +17,8 @@ import {
 import gql from "graphql-tag";
 
 const createQuestion = gql`
-  mutation createQuestion($userId: String!, $username: String!, $description: String!, $tag: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!) {
-    createQuestion(userId: $userId, username: $username, description: $description, tag: $tag, coins: $coins, title: $title, text: $text, audio: $audio, video: $video) {
+  mutation createQuestion($userId: String!, $username: String!, $description: String!, $tag: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!) {
+    createQuestion(userId: $userId, username: $username, description: $description, tag: $tag, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
       description
       tag
       coins
@@ -39,6 +39,7 @@ const getQuestions = gql`
       text
       audio
       video
+      duration
     }
   }
 `
@@ -50,6 +51,7 @@ export default class QuestionFeed extends Component {
       tag: '',
       chat: [],
       title: '',
+      duration: 0,
       questions: []
     };
     this.onChange = this.onChange.bind(this);
@@ -68,6 +70,7 @@ export default class QuestionFeed extends Component {
   }
 
   render() {
+    console.log(this.state.duration)
     return <Form className="form-panel-signup centered" horizontal>
       {console.log("question user", this.props.user)}
       <h2>{this.props.user.username} - Post a Question</h2>
@@ -108,7 +111,7 @@ export default class QuestionFeed extends Component {
           <ControlLabel>How long do you want the session to be?</ControlLabel>
         </Col>
         <Col sm={3}>
-          <FormControl componentClass="select" placeholder="Choose duration">
+          <FormControl componentClass="select" placeholder="Choose duration" onChange={e => this.onChange(e, "duration")} value={this.state.duration}>
             <option value="select">Choose duration</option>
             <option value="5">5 Minutes</option>
             <option value="10">10 Minutes</option>
@@ -139,7 +142,7 @@ export default class QuestionFeed extends Component {
       </FormGroup>
       <FormGroup>
         <Col smOffset={6} sm={3}>
-          <Mutation mutation={createQuestion} variables={{ userId: this.props.user.id, username: this.props.user.username, description: this.state.description, tag: this.state.tag, coins: 3, title: this.state.title, text: this.state.chat.includes("text"), audio: this.state.chat.includes("audio"), video: this.state.chat.includes("video") }} onCompleted={data => console.log("on complete", data)}>
+          <Mutation mutation={createQuestion} variables={{ userId: this.props.user.id, username: this.props.user.username, description: this.state.description, tag: this.state.tag, coins: 3, title: this.state.title, text: this.state.chat.includes("text"), audio: this.state.chat.includes("audio"), video: this.state.chat.includes("video"), duration: this.state.duration }} onCompleted={data => console.log("on complete", data)}>
             {(createQuestion, { data }) => {
               return <Button onClick={createQuestion}>
                 Create Question

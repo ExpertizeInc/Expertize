@@ -37,4 +37,5 @@
    text: Boolean!
    audio: Boolean!
    video: Boolean!
+   duration: Int! @default(value: "5")
  }
