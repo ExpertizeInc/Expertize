@@ -31,10 +31,11 @@
    username: String!
    tag: String!
    description: String!
-   coins: Int @default(value: 3)
+   coins: Int @default(value: "3")
    active: Boolean @default(value: "false")
    title: String!
    text: Boolean!
    audio: Boolean!
-   video: Boolean!
+   video: Boolean! 
+   duration: Int! @default(value: "5")
  }
