@@ -15,9 +15,9 @@ class Chat extends Component {
       userOne: '',
       userTwo: ''
     }
-    this.onChange = this.onChange.bind(this)
-    this.sendMessage = this.sendMessage.bind(this)
-    this.connecToUser = this.connectToUser.bind(this)
+    this.onChange = this.onChange.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
+    this.connecToUser = this.connectToUser.bind(this);
   }
 
   componentDidMount() {
@@ -25,20 +25,20 @@ class Chat extends Component {
       console.log('user connected to socket on componentdidmount')
     })
     socket.on('outbound', (message) => {
-      console.log('WILL TIS WORK??', message)
-      this.setState(state => {messages: state.messages.concat(message)})
+      // console.log('WILL TIS WORK??', message)
+      this.setState( {messages: state.messages.concat(message) });
     })
     let userOne = prompt(`What's your name?`)
     this.setState({ userOne })
   }
 
   onChange(e) {
-    this.setState({ text: e.target.value })
+    this.setState({ text: e.target.value });
   }
 
   sendMessage(msg) {
     socket.emit('message', msg)
-    this.setState({ text: ''})
+    this.setState({ text: '' });
   }
 
   connectToUser(e) {

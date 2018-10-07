@@ -1,30 +1,28 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    }
-    this.signOutUser = this.signOutUser.bind(this)
+    this.state = {};
+    this.signOutUser = this.signOutUser.bind(this);
   }
 
   // //for signout button
   signOutUser() {
-    let { signOut } = this.props
-    if(IN.User.isAuthorized()) {
-      IN.User.logout(signOut,'')
+    if (IN.User.isAuthorized()) {
+      IN.User.logout(this.props.signOut, '');
     } else {
-      firebase.auth().signOut()
+      firebase.auth().signOut();
     }
   }
 
-  render() { 
+  render() {
+    const routes = ['Questionnaire', 'Profile', 'Chat', 'Video'];
     const { authenticated } = this.props;
     return (
-    <Navbar fluid>
+      <Navbar fluid>
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">Expertize</Link>
@@ -33,22 +31,13 @@ class NavBar extends Component {
         <Nav>
           <NavItem eventKey={1}>Demo</NavItem>
           {/* for quick access to components during development. */}
-          {authenticated ? 
-            <NavItem eventKey={2}>
-              <Link to="/questionaire">Questionaire</Link>
-            </NavItem> : null}
-            {authenticated ? 
-            <NavItem eventKey={2}>
-              <Link to="/profile">Profile</Link>
-            </NavItem> : null}
-            {authenticated ? 
-            <NavItem eventKey={2}>
-              <Link to="/chat">Chat</Link>
-            </NavItem> : null}
-            {authenticated ? 
-            <NavItem eventKey={2}>
-              <Link to="/video">Video</Link>
-            </NavItem> : null}
+          {authenticated
+            ? routes.map(route => (
+                <NavItem eventKey={2} key={route}>
+                  <Link to={`/${route.toLowerCase()}`}>{route}</Link>
+                </NavItem>
+              ))
+            : null}
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1}>
@@ -62,5 +51,5 @@ class NavBar extends Component {
     );
   }
 }
- 
+
 export default NavBar;
