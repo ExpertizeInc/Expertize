@@ -37,41 +37,18 @@ export default class QuestionFeed extends Component {
     const { user } = this.props;
     const { description, tags, chat, title, duration, questions, name } = this.state;
     const times = [{name: '5 Minutes', value: 5}, {name: '10 Minutes', value: 10}, {name: '15 Minutes', value: 15}, {name: '20 Minutes', value: 20}, {name: '25 Minutes', value: 25}, {name: '30 Minutes', value: 30}];
+    const questionInfo = [{info: 'What would you like to discuss?', name: 'title', value: title, type: 'Title', placeholder: "Enter Title"}, {info: 'Question Name', name: 'name', value: name, type: 'Name', placeholder: "Enter Name"}, {info: 'Include a brief description', name: 'description', value: description, type: 'Description', placeholder: "Enter Description"}, {info: 'Include a brief description', name: 'tag', value: tags, type: 'Tag', placeholder: "Enter Tag"}]
     return (
       <Form className="form-panel-signup centered" horizontal>
         <h2>{user ? user.username : ''}: Post a Question</h2>
-        <FormGroup controlId="formHorizontalPassword">
-          <Col componentClass={ControlLabel} sm={5}>
-            What would you like to discuss?
+        {questionInfo.map(info => (
+          <FormGroup controlId={`formHorizontal${info.name}`} key={info.name}>
+            <Col componentClass={ControlLabel} sm={5}>{info.info}</Col>
+            <Col sm={3}>
+              <FormControl value={info.value} onChange={e => this.onChange(e, info.name)} type={info.type} placeholder={info.placeholder} />
             </Col>
-          <Col sm={3}>
-            <FormControl value={title} onChange={e => this.onChange(e, "title")} type="Title" placeholder="Enter Title" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalUsername">
-          <Col componentClass={ControlLabel} sm={5}>
-            Question Name
-            </Col>
-          <Col sm={3}>
-            <FormControl value={name} onChange={e => this.onChange(e, "name")} type="Name" placeholder="Name" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalUsername">
-          <Col componentClass={ControlLabel} sm={5}>
-            Include a brief description
-            </Col>
-          <Col sm={3}>
-            <FormControl value={description} onChange={e => this.onChange(e, "description")} type="Description" placeholder="Description" />
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formHorizontalEmail">
-          <Col componentClass={ControlLabel} sm={5}>
-            Tag
-            </Col>
-          <Col sm={3}>
-            <FormControl value={tags} onChange={e => this.onChange(e, "tag")} type="tag" placeholder="Enter Tag" />
-          </Col>
-        </FormGroup>
+          </FormGroup>
+        ))}
         <FormGroup controlId="formControlsSelect">
           <Col componentClass={ControlLabel} sm={5}>
             <ControlLabel>How long do you want the session to be?</ControlLabel>

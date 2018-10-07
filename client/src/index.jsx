@@ -6,8 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import params from './particles.js'
 import { GET_USER_UID } from './gql.js';
-
-
 import Routes from './Routes.jsx';
 
 const client = new ApolloClient({
@@ -17,10 +15,7 @@ const client = new ApolloClient({
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user: null,
-      authenticated: false
-    }
+    this.state = { user: null, authenticated: false }
     this.callbackFunction = this.callbackFunction.bind(this)
     this.signInLI = this.signInLI.bind(this)
     this.signOut = this.signOut.bind(this)
@@ -29,22 +24,16 @@ class App extends React.Component {
   
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log('fbbauth', user)
+      // console.log('firebase auth', user)
       if (user) {
         client.query({
           query: GET_USER_UID,
-          variables: { uid: user.uid }})
-          .then(({ data }) => {
-            console.log('prisma user', data.user)
-            this.setState({
-              authenticated: true,
-              user: data.user })
-          })
-          .catch(err => console.log('auth faied', err))
-      } else {
-        this.setState({
-          authenticated: false
+          variables: { uid: user.uid }
         })
+          .then(({ data }) => this.setState({ authenticated: true, user: data.user }))
+          .catch(err => console.error('auth faied', err));
+      } else {
+        this.setState({ authenticated: false });
       }
     })
   
@@ -62,7 +51,7 @@ class App extends React.Component {
   }
 
   signIn(user) {
-    console.log('signed in:', user)
+    // console.log('signed in:', user)
     this.setState({ authenticated: true, user: user })
   }
 
@@ -79,7 +68,7 @@ class App extends React.Component {
 
   signInLI(e, a) {
       e.preventDefault();
-      console.log('LINKED IN FKKKKKK')
+      console.log('LINKED IN')
       IN.User.authorize(this.callbackFunction, '')
       // a.history.push('/restricted')
   }

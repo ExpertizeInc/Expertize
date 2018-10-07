@@ -11,9 +11,7 @@ class LinkedinLogin extends React.Component {
     // componentDidMount() {
     //     var liRoot = document.createElement('div');
     //     liRoot.id = 'linkedin-root';
-
     //     document.body.appendChild(liRoot);
-
     //     (function(d, s, id) {
     //         const element = d.getElementsByTagName(s)[0];
     //         const ljs = element;
@@ -31,7 +29,7 @@ class LinkedinLogin extends React.Component {
     // callbackFunction() {
     //     IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
     //     .result((r) => console.log(r))
-    //     .error((e) => console.log(e))
+    //     .error((e) => console.error(e))
     // }
 
     // handleClick(e) {

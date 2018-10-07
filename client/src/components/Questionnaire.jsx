@@ -5,7 +5,7 @@ import { Mutation } from 'react-apollo';
 import TopicDropdown from './loggedInHome/TagDropdown.jsx';
 import { UPDATE_USER_1 } from '../gql.js'; 
 
-class Questionaire extends Component {
+export default class Questionnaire extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +25,9 @@ class Questionaire extends Component {
     this.addTags = this.addTags.bind(this)
   }
 
+  componentDidMount() {
+    console.log(this.props.user)
+  }
   getValidationState () {
     const length = this.state.username.length;
     if (length > 12 || length === 0) return 'error';
@@ -133,11 +136,11 @@ class Questionaire extends Component {
                 <Mutation mutation={UPDATE_USER_1} variables={{ id: user.id, email: 'update@update.com', description, coins, tags }}>
                   {updateUser => (
                     <Link to="/profile">
-                    <Button type="submit" onClick={updateUser}>
-                      LETS GOOOOOOOO
-                  </Button>
-                  </Link>)}
-                </Mutation> : ''}
+                      <Button type="submit" onClick={updateUser}>Save Profile Info</Button>
+                    </Link>
+                  )}
+                </Mutation> 
+                : ''}
             </div>
           </Col>
         </Tab>
@@ -145,5 +148,3 @@ class Questionaire extends Component {
       )
   }
 }
- 
-export default Questionaire;

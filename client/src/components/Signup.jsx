@@ -24,78 +24,49 @@ class Signup extends Component {
   }
 
   submitSignUp(e, cb) {
-    // send to server
+    const { uid, email, password } = this.state;
     e.preventDefault()
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(({user}) => {
       console.log('created fb user')
-      this.setState({ uid: user.uid}, () => cb())
+      this.setState({ uid: user.uid })
+      cb(uid);
     })
-    .catch((error) => {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.error('error code:',errorCode, ': ', errorMessage)
-    });
+    .catch((error) => console.error(`errorCode: ${error.code}, errorMessage: ${error.message}`));
   }
-
-
-
-
   render() { 
-    const { username, email, password, uid } = this.state;
+    const { username, email } = this.state;
+    const formInfo = [{name: 'username', placeholder: 'Username'}, {name: 'email', placeholder: 'Email'}, {name: 'password', placeholder: 'Password'}];
     return (
- 
-        <Form className="form-panel-signup" horizontal>
-          <FormGroup controlId="formHorizontalUsername">
+      <Form className="form-panel-signup" horizontal>
+        {formInfo.map(info => (
+          <FormGroup controlId={`formHorizontal${info.placeholder}`} key={info.name}>
             <Col componentClass={ControlLabel} sm={5}>
-              Username
+              {info.placeholder}
             </Col>
             <Col sm={3}>
-              <FormControl value={username} onChange={(e) => this.onChange(e, 'username')} type="username" placeholder="Username" />
+            <FormControl value={info.name} onChange={(e) => this.onChange(e, info.name)} type={info.name} placeholder={info.placeholder} />
             </Col>
           </FormGroup>
-
-          <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={5}>
-              Email
-            </Col>
-            <Col sm={3}>
-              <FormControl value={email} onChange={(e) => this.onChange(e, 'email')} type="email" placeholder="Email" />
-            </Col>
-          </FormGroup>
-
-          <FormGroup controlId="formHorizontalPassword">
-            <Col componentClass={ControlLabel} sm={5}>
-              Password
-            </Col>
-            <Col sm={3}>
-              <FormControl password={password} onChange={(e) => this.onChange(e, 'password')} type="password" placeholder="Password" />
-            </Col>
-          </FormGroup>
-
-          <FormGroup>
-            <Col smOffset={6} sm={3}>
-            {/* todo: hook up to firebase/linkedin Oauth */}
-            <Mutation mutation={createUser} fetchPolicy="no-cache" onError={(err) => console.log('ERRRORRRRR', err)} onCompleted={({createUser}) => this.props.signIn(createUser)}>
-              {(createUser, { data }) => {
-                return (
-                  <Button onClick={e => {
-                    this.submitSignUp(e, () => {
-                      createUser({ variables: { username, email, uid } })
-                    });
-                  }} type="submit">
-                    Create an account
-                 </Button>
-                )
-              }}
-
-            </Mutation>
-            </Col>
-          </FormGroup>
-        
-   
-      </Form>
+        ))}
+        <FormGroup>
+          <Col smOffset={6} sm={3}>
+          {/* todo: hook up to firebase/linkedin Oauth */}
+          <Mutation mutation={createUser} onError={(err) => console.error('Error in createUser mutation', err)} onCompleted={({createUser}) => this.props.signIn(createUser)}>
+            {(createUser, { data }) => {
+              return (
+                <Button 
+                  onClick={e => this.submitSignUp(e, (uid) => createUser({ variables: { username, email, uid } }))} 
+                  type="submit"
+                >
+                  Create an account
+                </Button>
+              )
+            }}
+          </Mutation>
+          </Col>
+        </FormGroup>
+    </Form>
 
 
     )
