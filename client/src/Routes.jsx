@@ -15,7 +15,7 @@ import QuestionFeed from './components/loggedInHome/QuestionFeed.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
 
-export const Routes = ({ authenticated, user, signIn, signInLI}) => (
+export const Routes = ({ authenticated, user, signIn, signInLI }) => (
     <React.Fragment>
       <NavBar authenticated={authenticated}/>
       <Switch>

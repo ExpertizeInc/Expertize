@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import params from './particles.js'
-import gql from "graphql-tag";
+import { GET_USER_UID } from './gql.js';
 
 
 import Routes from './Routes.jsx';
@@ -13,17 +13,6 @@ import Routes from './Routes.jsx';
 const client = new ApolloClient({
   uri: "http://localhost:4000"
 });
-
-const GET_USER_UID = gql`
-query user($uid: String!) {
-  user(uid: $uid) {
-    id
-    username
-    email
-    coins
-  }
-}
-`
 
 class App extends React.Component {
   constructor(props) {
@@ -102,6 +91,7 @@ class App extends React.Component {
   }
 
   render() {
+    const { user, authenticated } = this.state;
     return (
       <ApolloProvider client={client}>
         {/* <Particles params={params} style={{
@@ -113,7 +103,7 @@ class App extends React.Component {
           bottom: 0,
           backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
-        <Routes user={this.state.user} signIn={this.signIn} authenticated={this.state.authenticated} signInLI={this.signInLI} signOut={this.signOut}/>
+        <Routes user={user} signIn={this.signIn} authenticated={authenticated} signInLI={this.signInLI} signOut={this.signOut}/>
       </ApolloProvider>
     )
   }

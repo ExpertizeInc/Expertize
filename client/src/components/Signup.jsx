@@ -1,27 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import gql from "graphql-tag";
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap'
-
-
-const createUser = gql`
-mutation CreateUser($username: String! $email: String!, $uid: String!) {
-    createUser(username: $username, email: $email, uid: $uid) {
-      id
-      username
-      email
-    }
-}
-`;
-
-// const addLinkedInUser = gql`
-//   mutation AddUser($input: String!) {
-//     addUser(input: $input) {
-//       username
-//       email
-//     }
-//   }
-// `;
+import { createUser } from '../gql.js';
 
 class Signup extends Component {
   constructor(props) {
@@ -63,6 +43,7 @@ class Signup extends Component {
 
 
   render() { 
+    const { username, email, password, uid } = this.state;
     return (
  
         <Form className="form-panel-signup" horizontal>
@@ -71,7 +52,7 @@ class Signup extends Component {
               Username
             </Col>
             <Col sm={3}>
-              <FormControl value={this.state.username} onChange={(e) => this.onChange(e, 'username')} type="username" placeholder="Username" />
+              <FormControl value={username} onChange={(e) => this.onChange(e, 'username')} type="username" placeholder="Username" />
             </Col>
           </FormGroup>
 
@@ -80,7 +61,7 @@ class Signup extends Component {
               Email
             </Col>
             <Col sm={3}>
-              <FormControl value={this.state.email} onChange={(e) => this.onChange(e, 'email')} type="email" placeholder="Email" />
+              <FormControl value={email} onChange={(e) => this.onChange(e, 'email')} type="email" placeholder="Email" />
             </Col>
           </FormGroup>
 
@@ -89,7 +70,7 @@ class Signup extends Component {
               Password
             </Col>
             <Col sm={3}>
-              <FormControl password={this.state.password} onChange={(e) => this.onChange(e, 'password')} type="password" placeholder="Password" />
+              <FormControl password={password} onChange={(e) => this.onChange(e, 'password')} type="password" placeholder="Password" />
             </Col>
           </FormGroup>
 
@@ -101,7 +82,7 @@ class Signup extends Component {
                 return (
                   <Button onClick={e => {
                     this.submitSignUp(e, () => {
-                      createUser({ variables: { username: this.state.username, email: this.state.email, uid: this.state.uid } })
+                      createUser({ variables: { username, email, uid } })
                     });
                   }} type="submit">
                     Create an account

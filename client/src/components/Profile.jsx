@@ -2,25 +2,8 @@ import React, { Component } from 'react';
 import { Well, Grid, Col, Row, Panel, PageHeader, Thumbnail, Button, Glyphicon } from 'react-bootstrap'
 import { Mutation, Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
-import gql from "graphql-tag";
+import { UPDATE_USER, GET_USER_QUESTIONS } from '../gql.js';
 
-const UPDATE_USER = gql`
-mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int) {
-    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins) {
-        id
-        description
-    }
-}
-`
-
-const GET_USER_QUESTIONS = gql`
-query questionsByUser($userId: String!) {
-  questionsByUser(userId: $userId) {
-    title
-    description
-  }
-}
-`
 
 class Profile extends Component {
   constructor(props) {
@@ -76,7 +59,7 @@ class Profile extends Component {
                 return (
                   <React.Fragment>
                     {data.questionsByUser.map((question, i) => (
-                    <div>{i+1} Title: {question.title} | Description: {question.description}</div>
+                    <div key={i}>{i+1} Title: {question.title} | Description: {question.description}</div>
                     )
                     )}
                     {console.log('profile questions', data)}

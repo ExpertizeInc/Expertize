@@ -26,20 +26,14 @@ class Chat extends Component {
     })
     socket.on('outbound', (message) => {
       console.log('WILL TIS WORK??', message)
-      this.setState(state => {
-        return {messages: state.messages.concat(message)}
-      })
+      this.setState(state => {messages: state.messages.concat(message)})
     })
-    var username = prompt(`What's your name?`)
-    this.setState({
-      userOne: username
-    })
+    let userOne = prompt(`What's your name?`)
+    this.setState({ userOne })
   }
 
   onChange(e) {
-    this.setState({
-      text: e.target.value
-    })
+    this.setState({ text: e.target.value })
   }
 
   sendMessage(msg) {
@@ -57,14 +51,15 @@ class Chat extends Component {
 
 
   render() { 
+    const { messages, text } = this.state;
     return (
       <div>
         <Well>
-          <ChatBox messages={this.state.messages} />
+          <ChatBox messages={messages} />
           <Form>
-            <FormControl onChange={(e) => this.onChange(e)} value={this.state.text} placeholder="Chat" />
-            <Button onClick={() => this.sendMessage(this.state.text)} >BUTTON to send text</Button>
-            <Button onClick={() => this.sendMessage(this.state.text)} >BUTTON to send text</Button>
+            <FormControl onChange={(e) => this.onChange(e)} value={text} placeholder="Chat" />
+            <Button onClick={() => this.sendMessage(text)} >BUTTON to send text</Button>
+            <Button onClick={() => this.sendMessage(text)} >BUTTON to send text</Button>
             <Button value='sue' onClick={(e) => this.connectToUser(e)} >BUTTON to message sue</Button>
             <Button value='bob'onClick={(e) => this.connectToUser(e)} >BUTTON to message bob</Button>
           </Form>
