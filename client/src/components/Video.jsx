@@ -86,14 +86,15 @@ class Video extends Component {
   }
 
   render() {
+    const { roomname, showframe } = this.state;
     return (
     <div>
       <h1>Video</h1>
       <form>
-        <input type="text" onChange={this.handleChange} value={this.state.roomname}/>
+        <input type="text" onChange={this.handleChange} value={roomname}/>
         <button onClick={this.handleClick}>Roomname</button>
       </form>
-      { this.state.showframe? <iframe src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=91632a05-517e-4418-bcd2-ab58ff889970&iframe=true&room=${this.state.roomname}`} width='800' height='640' allow="microphone; camera"/> : <div></div>}
+      {showframe ? <iframe src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=91632a05-517e-4418-bcd2-ab58ff889970&iframe=true&room=${roomname}`} width='800' height='640' allow="microphone; camera"/> : <div />}
     </div>)
   }
 }

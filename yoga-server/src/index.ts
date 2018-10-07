@@ -1,6 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from '../prisma/generated';
-// import { User } from '../prisma/prisma';
+// import { User } from '../prisma/generated';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
@@ -37,20 +37,21 @@ const resolvers = {
   // },
   Mutation: {
     createUser: (parent, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
-      console.log(username, 'args inside createUser mutation')
+      console.log(username, email, uid, 'args inside createUser mutation')
       return ctx.prisma.mutation.createUser({ data: { username, email, uid } });
     },
-    createQuestion: async (parent, { userId, username, tag, description, coins, title, text, audio, video, duration }, ctx, info) => {
+    createQuestion: (parent, { userId, username, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
       // const userId = await ctx.prisma.query.user({where: { uid: args.id}});
+      console.log(tags)
       return ctx.prisma.mutation.createQuestion({
-        data: { userId, username, tag, description, coins, title, text, audio, video, duration }
-      })
+        data: { userId, username, tags: { set: tags }, description, coins, title, text, audio, video, duration }
+      });
     },
-    updateUser(parent, { email, uid, description, coins, id }, ctx: { prisma: Prisma }, info) {
+    updateUser: (parent, { email, uid, description, coins, id, tags }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
-        data: { email, uid, description, coins },
+        data: { email, uid, description, coins, tags: { set: tags } },
         where: { id } 
-      })
+      });
     },
 
 
@@ -80,7 +81,8 @@ const server = new GraphQLServer({
     let user;
     const prisma = new Prisma({
      endpoint: process.env.PRISMA_ENDPOINT,
-     secret: process.env.PRISMA_SECRET
+     secret: process.env.PRISMA_SECRET,
+     debug: true
     })
     if (userId) {
       user = await prisma.query.user({ where: { id: userId }});
@@ -93,3 +95,23 @@ const server = new GraphQLServer({
   }
 })
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`))
+
+
+// For Prisma, the Playground query is:
+
+// mutation {
+//    createAuthor(data: {
+//      prizes: ["Prize One", "Prize Two"]
+//    }) {
+//     id prizes 
+//   }
+// }
+// If your mutation is against your application server, then the resolver will look like the following:
+
+// ...
+// Mutation: {
+//   ...
+//   createAuthor: async (parent, args, ctx, info) => {
+//     return ctx.db.mutation.createAuthor({data: { prizes: args.prizes }}, info)
+//   }
+// }

@@ -22,6 +22,7 @@ class NavBar extends Component {
   }
 
   render() { 
+    const { authenticated } = this.props;
     return (
     <Navbar fluid>
         <Navbar.Header>
@@ -32,19 +33,19 @@ class NavBar extends Component {
         <Nav>
           <NavItem eventKey={1}>Demo</NavItem>
           {/* for quick access to components during development. */}
-          {this.props.authenticated ? 
+          {authenticated ? 
             <NavItem eventKey={2}>
               <Link to="/questionaire">Questionaire</Link>
             </NavItem> : null}
-            {this.props.authenticated ? 
+            {authenticated ? 
             <NavItem eventKey={2}>
               <Link to="/profile">Profile</Link>
             </NavItem> : null}
-            {this.props.authenticated ? 
+            {authenticated ? 
             <NavItem eventKey={2}>
               <Link to="/chat">Chat</Link>
             </NavItem> : null}
-            {this.props.authenticated ? 
+            {authenticated ? 
             <NavItem eventKey={2}>
               <Link to="/video">Video</Link>
             </NavItem> : null}
@@ -54,7 +55,7 @@ class NavBar extends Component {
             <Link to="/signin">Sign In</Link>
           </NavItem>
           <NavItem eventKey={2}>
-            {this.props.authenticated ? <Link to="/" onClick={this.signOutUser}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
+            {authenticated ? <Link to="/" onClick={this.signOutUser}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
           </NavItem>
         </Nav>
       </Navbar>

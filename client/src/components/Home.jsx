@@ -1,23 +1,11 @@
 import React, { Component } from 'react'
 import { Jumbotron, Button } from 'react-bootstrap'
 import { Query, Mutation } from 'react-apollo';
-import gql from "graphql-tag";
-
-// const user = gql`
-// {
-//   user(id: "cjms2fns900160944d01ffp87") {
-//     username
-//     email
-//   }
-// }
-// `;
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
-        authenticated: false
-     }
+    this.state = { authenticated: false }
   }
   render() {
     return (

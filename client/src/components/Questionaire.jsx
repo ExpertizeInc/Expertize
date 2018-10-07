@@ -1,18 +1,9 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, ToggleButtonGroup, ToggleButton, Label } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
 import { Mutation } from 'react-apollo';
-import gql from "graphql-tag";
-
-const UPDATE_USER = gql`
-mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int) {
-    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins) {
-        id
-        description
-    }
-}
-`;
+import TopicDropdown from './loggedInHome/TagDropdown.jsx';
+import { UPDATE_USER_1 } from '../gql.js'; 
 
 class Questionaire extends Component {
   constructor(props) {
@@ -22,7 +13,8 @@ class Questionaire extends Component {
       description: 'i am a corgi',
       coins: 3,
       key: 1,
-      value: []
+      value: [],
+      tags: []
     }
     this.handleSelect = this.handleSelect.bind(this)
     this.nextStep = this.nextStep.bind(this)
@@ -30,6 +22,7 @@ class Questionaire extends Component {
     this.handleInput = this.handleInput.bind(this)
     this.handleButtonToggle = this.handleButtonToggle.bind(this)
     this.handleSubmitInfo = this.handleSubmitInfo.bind(this)
+    this.addTags = this.addTags.bind(this)
   }
 
   getValidationState () {
@@ -62,16 +55,22 @@ class Questionaire extends Component {
     
   }
 
+  addTags(e) {
+    this.setState({ tags: [e, ...this.state.tags]})
+  }
+
   render() { 
-    const { description, coins } = this.state
+    const { description, coins, tags, key, username, value } = this.state
+    const { user } = this.props;
     return (
-      <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={this.state.key} onSelect={this.handleSelect}>
+      <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
+      {console.log('USERRR', this.props.user)}
         <Tab eventKey={1} title="Pick a username">
           <Form className="form-panel-question">
             <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
               <Col xsOffset={5} sm={2}>
                 <ControlLabel>Pick a unique username.</ControlLabel>
-                <FormControl type="text" value={this.state.username} onChange={(e) => this.handleInput(e, 'username')} />
+                <FormControl type="text" value={username} onChange={(e) => this.handleInput(e, 'username')} />
                 <FormControl.Feedback />
                 <HelpBlock>Pick a username.</HelpBlock>
               </Col>
@@ -92,9 +91,9 @@ class Questionaire extends Component {
               <div className="hexBottom"></div>
             </div>
             <FormGroup controlId="formControlsTextarea">
-              <h2>{this.state.username}, </h2>
+              <h2>{username}, </h2>
               <ControlLabel>Let us know a little about yourself</ControlLabel>
-              <FormControl componentClass="textarea" value={this.state.description} onChange={(e) => this.handleInput(e, 'description')} />
+              <FormControl componentClass="textarea" value={description} onChange={(e) => this.handleInput(e, 'description')} />
             </FormGroup>
           </Col>
           <FormGroup>
@@ -121,29 +120,25 @@ class Questionaire extends Component {
               <div className="hexTop"></div>
               <div className="hexBottom"></div>
             </div>
-            <h2>{this.state.username}</h2>
-            <div>{this.state.description}</div>
+            <h2>{username}</h2>
+            <div>{description}</div>
             Select your experience:
-          <ToggleButtonGroup type="checkbox" value={this.state.value} onChange={this.handleButtonToggle}>
-              {/* todo: pull from linkedin industry list then map tags */}
-              <ToggleButton value="Art">Art</ToggleButton>
-              <ToggleButton value="Engineering">Engineering</ToggleButton>
-              <ToggleButton value="Music">Music</ToggleButton>
-              <ToggleButton value="Programming">Programming</ToggleButton>
-            </ToggleButtonGroup>
-            <div>{this.state.value.map(tag => <div><Label>{tag}</Label>{' '}</div>)}</div>
+            <TopicDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
+            <div>{value.map(tag => <div key={tag}><Label>{tag}</Label>{' '}</div>)}</div>
             <div>What are you interested in?</div>
+            {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''}
             {/* todo: add a search or give some recommendations */}
             <div>
               {/* submit compiled user details to database. render user's profile complete w/ details */}
-              {this.props.user &&
-                <Mutation mutation={UPDATE_USER} variables={{ id: this.props.user.id, email: 'update@update.com', description, coins }}>
-                  {updateUser => <Link to="/profile">
+              {user ?
+                <Mutation mutation={UPDATE_USER_1} variables={{ id: user.id, email: 'update@update.com', description, coins, tags }}>
+                  {updateUser => (
+                    <Link to="/profile">
                     <Button type="submit" onClick={updateUser}>
                       LETS GOOOOOOOO
                   </Button>
-                  </Link>}
-                </Mutation>}
+                  </Link>)}
+                </Mutation> : ''}
             </div>
           </Col>
         </Tab>

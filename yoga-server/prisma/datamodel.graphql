@@ -3,10 +3,10 @@
     username: String! @unique
     email: String!
     uid: String @unique
-    tags: [UserTag!]!
+    tags: [String!]!
     description: String
     coins: Int @default(value: "1")
-    sessions: [Session!]!
+    # sessions: [Session!]!
   }
 
   type Session {
@@ -14,11 +14,11 @@
     type: String!
   }
 
-  type UserTag {
-    id: ID! @unique
-    user: User!
-    tag: Tag!
-  }
+  # type UserTag {
+  #   id: ID! @unique
+  #   user: User!
+  #   tag: Tag!
+  # }
 
   type Tag {
     id: ID! @unique
@@ -29,7 +29,7 @@
    id: ID! @unique
    userId: String!
    username: String!
-   tag: String!
+   tags: [String!]!
    description: String!
    coins: Int @default(value: "3")
    active: Boolean @default(value: "false")
