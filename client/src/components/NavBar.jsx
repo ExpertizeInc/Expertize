@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class NavBar extends Component {
+export default class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -51,6 +51,4 @@ class NavBar extends Component {
       </Navbar>
     );
   }
-}
-
-export default NavBar;
+};

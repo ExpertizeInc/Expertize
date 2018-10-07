@@ -1,6 +1,6 @@
 import React from 'react';
 
-class LinkedinLogin extends React.Component {
+export default class LinkedinLogin extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
@@ -48,6 +48,4 @@ class LinkedinLogin extends React.Component {
       );
     }
 };
-
-export default LinkedinLogin
 

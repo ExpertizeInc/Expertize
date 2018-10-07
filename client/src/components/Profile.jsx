@@ -4,7 +4,7 @@ import { Mutation, Query } from 'react-apollo';
 import { UPDATE_USER, GET_USER_QUESTIONS } from '../gql.js';
 
 
-class Profile extends Component {
+export default class Profile extends Component {
   render() {
     const userInfo = [{name: 'Posts', info: '3'}, {name: 'Coins', info: this.props.user ? this.props.user.coins : '' }, {name: 'Fields', info: '7'}];
     const { user } = this.props;
@@ -80,6 +80,4 @@ class Profile extends Component {
       </React.Fragment>
     )
   }
-}
- 
-export default Profile;
+};

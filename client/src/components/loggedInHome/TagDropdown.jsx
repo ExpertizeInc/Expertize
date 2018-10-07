@@ -9,8 +9,7 @@ export default class TagDropdown extends Component {
       <Query query={getTags}>
       {({ loading, error, data }) => {
         if (loading) return <div>Loading...</div>
-        if (error) return <div>Error:{console.log(error)}</div>
-        // if (data) this.callData(data)
+        if (error) return <div>Error {console.log(error)}</div>
         return (
           <DropdownButton title="Tags" id="dropdown-basic-default"  >
             {data.tags.map((tag, i) => (

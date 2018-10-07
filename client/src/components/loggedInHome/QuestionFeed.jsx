@@ -37,7 +37,8 @@ export default class QuestionFeed extends Component {
     const { user } = this.props;
     const { description, tags, chat, title, duration, questions, name } = this.state;
     const times = [{name: '5 Minutes', value: 5}, {name: '10 Minutes', value: 10}, {name: '15 Minutes', value: 15}, {name: '20 Minutes', value: 20}, {name: '25 Minutes', value: 25}, {name: '30 Minutes', value: 30}];
-    const questionInfo = [{info: 'What would you like to discuss?', name: 'title', value: title, type: 'Title', placeholder: "Enter Title"}, {info: 'Question Name', name: 'name', value: name, type: 'Name', placeholder: "Enter Name"}, {info: 'Include a brief description', name: 'description', value: description, type: 'Description', placeholder: "Enter Description"}, {info: 'Include a brief description', name: 'tag', value: tags, type: 'Tag', placeholder: "Enter Tag"}]
+    const questionInfo = [{info: 'What would you like to discuss?', name: 'title', value: title, type: 'Title', placeholder: "Enter Title"}, {info: 'Question Name', name: 'name', value: name, type: 'Name', placeholder: "Enter Name"}, {info: 'Include a brief description', name: 'description', value: description, type: 'Description', placeholder: "Enter Description"}, {info: 'Add tags to your profile', name: 'tag', value: tags, type: 'Tag', placeholder: "Enter Tag"}];
+    const toggleInfo = ['Text', 'Audio', 'Video'];
     return (
       <Form className="form-panel-signup centered" horizontal>
         <h2>{user ? user.username : ''}: Post a Question</h2>
@@ -68,18 +69,15 @@ export default class QuestionFeed extends Component {
           </Col>
           <Col sm={3}>
             <ToggleButtonGroup type="checkbox" value={chat} onChange={this.handleChatChoice}>
-              <ToggleButton className={"mode-toggle"} value={"text"}>
-                Text
-                </ToggleButton>
-              <ToggleButton className={"mode-toggle"} value={"audio"}>
-                Audio
-                </ToggleButton>
-              <ToggleButton className={"mode-toggle"} value={"video"}>
-                Video
-                </ToggleButton>
+                {toggleInfo.map(info => (
+                  <ToggleButton className="mode-toggle" value={info.toLowerCase()} key={info}>
+                  {info}
+                 </ToggleButton>
+                ))}
             </ToggleButtonGroup>
           </Col>
         </FormGroup>
+        <TopicDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
         <FormGroup>
           <Col smOffset={6} sm={3}>
             <Mutation mutation={createQuestion} 
@@ -97,7 +95,7 @@ export default class QuestionFeed extends Component {
               return (
                 <div>
                   <Col smOffset={2} sm={8}>
-                    <TopicDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
+                    
                     {data.questions.map((question, i) => (
                       <div key={i}>
                         <Panel>

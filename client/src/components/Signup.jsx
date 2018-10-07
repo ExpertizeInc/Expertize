@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap'
 import { createUser } from '../gql.js';
 
-class Signup extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,11 +66,7 @@ class Signup extends Component {
           </Mutation>
           </Col>
         </FormGroup>
-    </Form>
-
-
+      </Form>
     )
   }
-}
- 
-export default Signup;
+};
