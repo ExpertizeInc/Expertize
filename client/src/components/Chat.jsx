@@ -26,9 +26,9 @@ class Chat extends Component {
     })
     socket.on('outbound', (message) => {
       // console.log('WILL TIS WORK??', message)
-      this.setState( {messages: state.messages.concat(message) });
+      this.setState(state => {messages: state.messages.concat(message) });
     })
-    let userOne = prompt(`What's your name?`)
+    let userOne = prompt(`What's your name?`);
     this.setState({ userOne })
   }
 
@@ -37,18 +37,16 @@ class Chat extends Component {
   }
 
   sendMessage(msg) {
-    socket.emit('message', msg)
+    socket.emit('message', msg);
     this.setState({ text: '' });
   }
 
   connectToUser(e) {
     // this.setState({ userTwo: e.target.value}, () => {
     //   socket.emit('connectToUser', userOne, userTwo)
-    // })
+    // });
     // console.log(e.target.value)
   }
-
-
 
   render() { 
     const { messages, text } = this.state;
@@ -58,10 +56,10 @@ class Chat extends Component {
           <ChatBox messages={messages} />
           <Form>
             <FormControl onChange={(e) => this.onChange(e)} value={text} placeholder="Chat" />
-            <Button onClick={() => this.sendMessage(text)} >BUTTON to send text</Button>
-            <Button onClick={() => this.sendMessage(text)} >BUTTON to send text</Button>
-            <Button value='sue' onClick={(e) => this.connectToUser(e)} >BUTTON to message sue</Button>
-            <Button value='bob'onClick={(e) => this.connectToUser(e)} >BUTTON to message bob</Button>
+            <Button onClick={() => this.sendMessage(text)} >Send Text</Button>
+            <Button onClick={() => this.sendMessage(text)} >Send Text</Button>
+            <Button value='sue' onClick={(e) => this.connectToUser(e)} >Message Sue</Button>
+            <Button value='bob'onClick={(e) => this.connectToUser(e)} >Message Bob</Button>
           </Form>
         </Well>
       </div>

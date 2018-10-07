@@ -36,7 +36,7 @@ export default class QuestionFeed extends Component {
   render() {
     const { user } = this.props;
     const { description, tags, chat, title, duration, questions, name } = this.state;
-    const times = ['5 Minutes', '10 Minutes', '15 Minutes', '20 Minutes', '25 Minutes', '30 Minutes'];
+    const times = [{name: '5 Minutes', value: 5}, {name: '10 Minutes', value: 10}, {name: '15 Minutes', value: 15}, {name: '20 Minutes', value: 20}, {name: '25 Minutes', value: 25}, {name: '30 Minutes', value: 30}];
     return (
       <Form className="form-panel-signup centered" horizontal>
         <h2>{user ? user.username : ''}: Post a Question</h2>
@@ -80,7 +80,7 @@ export default class QuestionFeed extends Component {
             <FormControl componentClass="select" placeholder="Choose duration" onChange={e => this.onChange(e, "duration")} value={duration}>
               <option value="select">Choose duration</option>
               {times.map(time => (
-                <option value={time} key={time}>{time}</option>
+                <option value={time.value} key={time.value}>{time.name}</option>
               ))}
             </FormControl>
           </Col>
