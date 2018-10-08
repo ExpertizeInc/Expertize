@@ -16,32 +16,30 @@ export default class QuestionFeed extends Component {
       questions: []
     };
     this.onChange = this.onChange.bind(this);
-    this.handleChatChoice = this.handleChatChoice.bind(this)
+    this.handleChatChoice = this.handleChatChoice.bind(this);
     this.addTags = this.addTags.bind(this);
   }
 
   onChange(e, type) {
     e.preventDefault()
-    this.setState({
-      [type]: e.target.value
-    })
+    this.setState({ [type]: e.target.value });
   }
 
   handleChatChoice(e) {
-    this.setState({ chat: e })
+    this.setState({ chat: e });
   }
 
   addTags(e) {
-    this.setState({ tags: [e, ...this.state.tags]})
+    this.setState({ tags: [e, ...this.state.tags]});
   }
 
   render() {
     const { user } = this.props;
     const { description, tags, chat, title, duration, questions, name } = this.state;
-
+    const times = [{name: '5 Minutes', value: 5}, {name: '10 Minutes', value: 10}, {name: '15 Minutes', value: 15}, {name: '20 Minutes', value: 20}, {name: '25 Minutes', value: 25}, {name: '30 Minutes', value: 30}];
     return (
       <Form className="form-panel-signup centered" horizontal>
-        <h2>{user ? user.username : ''} - Post a Question</h2>
+        <h2>{user ? user.username : ''}: Post a Question</h2>
         <FormGroup controlId="formHorizontalPassword">
           <Col componentClass={ControlLabel} sm={5}>
             What would you like to discuss?
@@ -81,12 +79,9 @@ export default class QuestionFeed extends Component {
           <Col sm={3}>
             <FormControl componentClass="select" placeholder="Choose duration" onChange={e => this.onChange(e, "duration")} value={duration}>
               <option value="select">Choose duration</option>
-              <option value="5">5 Minutes</option>
-              <option value="10">10 Minutes</option>
-              <option value="15">15 Minutes</option>
-              <option value="20">20 Minutes</option>
-              <option value="25">25 Minutes</option>
-              <option value="30">30 Minutes</option>
+              {times.map(time => (
+                <option value={time.value} key={time.value}>{time.name}</option>
+              ))}
             </FormControl>
           </Col>
         </FormGroup>
@@ -111,66 +106,62 @@ export default class QuestionFeed extends Component {
         <FormGroup>
           <Col smOffset={6} sm={3}>
             <Mutation mutation={createQuestion} 
-            variables={{ userId: user ? user.id : '', username: user ? user.username : '', description, tags, coins: 3, title, text: chat.includes("text"), audio: chat.includes("audio"), video: chat.includes("video"), duration }} 
-            onCompleted={data => console.log("on complete", data)}
+              variables={{ userId: user ? user.id : '', username: user ? user.username : '', description, tags, coins: 3, title, text: chat.includes("text"), audio: chat.includes("audio"), video: chat.includes("video"), duration }} 
+              onCompleted={data => console.log("on complete", data)}
             >
-              {(createQuestion, { data }) => {
-                return <Button onClick={createQuestion}>
-                  Create Question
-                    </Button>;
-              }}
+              {(createQuestion, { data }) => <Button onClick={createQuestion}>Create Question</Button>}
             </Mutation>
           </Col>
-          <br />
-          <br />
-          <br />
+          <br /><br /><br />
           <Query query={getQuestions}>
             {({ loading, error, data }) => {
               if (loading) return <div>Loading...</div>;
               if (error) return <div>Error{console.log(error)}</div>;
-              return <div>
-                <Col smOffset={2} sm={8}>
-                  <TopicDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
-                  {data.questions.map((question, i) => <div key={i}>
-                    <Panel>
-                      <Panel.Heading>
-                        <Panel.Title componentClass="h3">
-                          Title: {question.title} | Coins: {question.coins} | Tag: {question.tags} | Active: {question.active.toString()}
-                        </Panel.Title>
-                      </Panel.Heading>
-                      <Panel.Body>
-                        <Grid>
-                          <Row>
-                            <Col sm={2}>
-                              <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-                                <div className="hexTop" />
-                                <div className="hexBottom" />
-                              </div>
-                              <div>{question.username}</div>
-                            </Col>
-                            <Col sm={3}>{question.description}</Col>
-                            <Col sm={2}>
-                              {/* i apologize for this code */}
-                              <div>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
-                                : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
-                              }</div>
-                              <div>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                                : <Button className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                              }</div>
-                              <div>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                                : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                              }</div>
-                            </Col>
-                            <Col sm={1}>
-                              <Button>PICK ME</Button>
-                            </Col>
-                          </Row>
-                        </Grid>
-                      </Panel.Body>
-                    </Panel>
-                  </div>)}
-                </Col>
-              </div>;
+              return (
+                <div>
+                  <Col smOffset={2} sm={8}>
+                    <TopicDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
+                    {data.questions.map((question, i) => (
+                      <div key={i}>
+                        <Panel>
+                          <Panel.Heading>
+                            <Panel.Title componentClass="h3">
+                              Title: {question.title} | Coins: {question.coins} | Tag: {question.tags} | Active: {question.active.toString()}
+                            </Panel.Title>
+                          </Panel.Heading>
+                          <Panel.Body>
+                            <Grid>
+                              <Row>
+                                <Col sm={2}>
+                                  <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+                                    <div className="hexTop" />
+                                    <div className="hexBottom" />
+                                  </div>
+                                  <div>{question.username}</div>
+                                </Col>
+                                <Col sm={3}>{question.description}</Col>
+                                <Col sm={2}>
+                                  {/* i apologize for this code */}
+                                  <div>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
+                                    : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
+                                  }</div>
+                                  <div>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
+                                    : <Button className="round-btn"><Glyphicon glyph="earphone" /></Button>
+                                  }</div>
+                                  <div>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
+                                    : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
+                                  }</div>
+                                </Col>
+                                <Col sm={1}><Button>Claim Question</Button></Col>
+                              </Row>
+                            </Grid>
+                          </Panel.Body>
+                        </Panel>
+                      </div>
+                    ))}
+                  </Col>
+                </div>
+              )
             }}
           </Query>
         </FormGroup>

@@ -64,7 +64,6 @@ class Questionaire extends Component {
     const { user } = this.props;
     return (
       <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
-      {console.log('USERRR', this.props.user)}
         <Tab eventKey={1} title="Pick a username">
           <Form className="form-panel-question">
             <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
