@@ -152,10 +152,7 @@ export default class QuestionFeed extends Component {
           <Query query={getQuestions}>
             {({ loading, error, data }) => {
               if (loading) return <div>Loading...</div>;
-              if (error)
-                return (
-                  <div>Error{console.log(error)}</div>
-                );
+              if (error) return <div>Error {console.log(error)}</div>;
               return (
                 <div>
                   <Col smOffset={2} sm={8}>
@@ -164,7 +161,7 @@ export default class QuestionFeed extends Component {
                         <Panel>
                           <Panel.Heading>
                             <Panel.Title componentClass="h3">
-                              Title: {question.title} | Coins: {question.coins}&nbsp;
+                              Title: {question.title} | Coins: {question.coins.toString()}&nbsp;
                               | Tags: {question.tags} | Active: {question.active.toString()}&nbsp;
                               | Duration: {question.duration.toString()} minutes
                             </Panel.Title>
