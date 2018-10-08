@@ -18,7 +18,7 @@ export default class UserHome extends Component {
         will be able to choose one post and pick mode of communication then start session */}
         <Button>
           <Glyphicon glyph="pencil" />
-          <Link to="/home/create"> Create</Link>
+          <Link to="/home/create">Create</Link>
         </Button>
         <QuestionFeed user={this.props.user} />
       </React.Fragment>

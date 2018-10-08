@@ -36,13 +36,13 @@ export default class NavBar extends Component {
             routes.map(route => (
               <NavItem eventKey={2} key={route} componentClass='span' style={{ marginTop: 15 }}>
                 <Link to={`/${route.toLowerCase()}`}>{route}</Link> &nbsp; &nbsp;
-              </NavItem>
+              </NavItem> 
               ))
             : null}
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1} componentClass='span' style={{ marginTop: 15 }}>
-            <Link to="/signin">Sign In &nbsp; &nbsp;</Link>
+            <Link to="/signin">Sign In </Link> &nbsp; &nbsp;
           </NavItem>
           <NavItem eventKey={2} componentClass='span' style={{ marginTop: 15, marginRight: 15 }}>
             {authenticated ? <Link to="/" onClick={this.signOutUser}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}

@@ -6,16 +6,16 @@ import { UPDATE_USER, GET_USER_QUESTIONS } from '../gql.js';
 
 export default class Profile extends Component {
   render() {
-    const userInfo = [{name: 'Posts', info: '3'}, {name: 'Coins', info: this.props.user ? this.props.user.coins : '' }, {name: 'Fields', info: '7'}];
     const { user } = this.props;
+    const userInfo = [{name: 'Posts', info: '3'}, {name: 'Coins', info: user ? user.coins : '' }, {name: 'Fields', info: '7'}];
     return (
       <React.Fragment>
         {user &&
           <Grid fluid >
             <PageHeader style={{display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
             <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-              <div className="hexTop"></div>
-              <div className="hexBottom"></div>
+              <div className="hexTop" />
+              <div className="hexBottom"/>
             </div>
             <Col xs={5} md={2} className="centered">
             <Thumbnail className="centered">
@@ -36,18 +36,14 @@ export default class Profile extends Component {
               <Col>
                 <Thumbnail className="centered">
                   <h3>Alt stats/graphs</h3>
-                  <Query query={GET_USER_QUESTIONS} variables={{userId: user.id}} >
+                  <Query query={GET_USER_QUESTIONS} variables={{ userId: user.id }}>
                     {({ loading, error, data }) => {
-                      if (loading) return <div>Fetching</div>
+                      if (loading) return <div>Loading...</div>
                       if (error) return <div>Error</div>
                       return (
                         <React.Fragment>
-                          {data.questionsByUser.map((question, i) => (
-                          <div key={i}>{i+1} Title: {question.title} | Description: {question.description}</div>
-                          )
-                          )}
-                          {/* {console.log('profile questions', data)} */}
-                          </React.Fragment>
+                          {data.questionsByUser.map((question, i) => <div key={i}>{i+1} Title: {question.title} | Description: {question.description}</div>)}
+                        </React.Fragment>
                       )}}
                   </Query>
                 </Thumbnail>

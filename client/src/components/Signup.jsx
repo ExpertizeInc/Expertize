@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap'
 import { createUser } from '../gql.js';
+import { Link } from 'react-router-dom';
 
 export default class Signup extends Component {
   constructor(props) {
@@ -28,38 +29,38 @@ export default class Signup extends Component {
     e.preventDefault()
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(({user}) => {
-      console.log('created fb user')
+      console.log('created fb user', user)
       this.setState({ uid: user.uid })
-      cb(uid);
+      cb(user.uid);
     })
     .catch((error) => console.error(`errorCode: ${error.code}, errorMessage: ${error.message}`));
   }
   render() { 
-    const { username, email } = this.state;
-    const formInfo = [{name: 'username', placeholder: 'Username'}, {name: 'email', placeholder: 'Email'}, {name: 'password', placeholder: 'Password'}];
+    const { username, email, password } = this.state;
+    const formInfo = [{value: username, placeholder: 'Username'}, {value: email, placeholder: 'Email'}, {value: password, placeholder: 'Password'}];
     return (
       <Form className="form-panel-signup" horizontal>
         {formInfo.map(info => (
-          <FormGroup controlId={`formHorizontal${info.placeholder}`} key={info.name}>
+          <FormGroup controlId={`formHorizontal${info.placeholder}`} key={info.placeholder}>
             <Col componentClass={ControlLabel} sm={5}>
               {info.placeholder}
             </Col>
             <Col sm={3}>
-            <FormControl value={info.name} onChange={(e) => this.onChange(e, info.name)} type={info.name} placeholder={info.placeholder} />
+            <FormControl value={info.value} onChange={(e) => this.onChange(e, info.placeholder.toLowerCase())} type={info.placeholder.toLowerCase()} placeholder={info.placeholder} />
             </Col>
           </FormGroup>
         ))}
         <FormGroup>
           <Col smOffset={6} sm={3}>
           {/* todo: hook up to firebase/linkedin Oauth */}
-          <Mutation mutation={createUser} onError={(err) => console.error('Error in createUser mutation', err)} onCompleted={({createUser}) => this.props.signIn(createUser)}>
+          <Mutation mutation={createUser} onError={(err) => console.error('Error in createUser mutation', err)} onCompleted={({newUser}) => this.props.signIn(newUser)}>
             {(createUser, { data }) => {
               return (
                 <Button 
                   onClick={e => this.submitSignUp(e, (uid) => createUser({ variables: { username, email, uid } }))} 
                   type="submit"
                 >
-                  Create an account
+                   Create An Account
                 </Button>
               )
             }}

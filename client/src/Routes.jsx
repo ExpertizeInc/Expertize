@@ -19,7 +19,7 @@ const Routes = ({ authenticated, user, signIn, signInLI }) => (
     <React.Fragment>
       <NavBar authenticated={authenticated}/>
       <Switch>
-          <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/home"/> : <Home/>)}></Route>
+          <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>
           <Route exact strict path="/signin" render={(props) => <SignIn {...props} signInLI={signInLI}/>}></Route>
           <Route exact strict path="/signup" render={() => <Signup user={user} signIn={signIn} />}></Route>

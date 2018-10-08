@@ -11,10 +11,10 @@ export default class TagDropdown extends Component {
         if (loading) return <div>Loading...</div>
         if (error) return <div>Error {console.log(error)}</div>
         return (
-          <DropdownButton title="Tags" id="dropdown-basic-default"  >
+          <DropdownButton title="Tags" id="dropdown-basic-default">
             {data.tags.map((tag, i) => (
               <MenuItem 
-                key={tag.name} 
+                key={tag.name}
                 id="bg-nested-dropdown"
                 eventKey={tag.name}
                 onSelect={this.props.addTags}

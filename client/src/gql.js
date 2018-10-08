@@ -73,7 +73,7 @@ query user($uid: String!) {
 }
 `;
 
-export const UPDATE_USER_1 = gql`
+export const UPDATE_USER_INFO = gql`
 mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String]) {
     updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags) {
         id
