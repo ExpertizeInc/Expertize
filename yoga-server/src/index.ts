@@ -1,5 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../prisma/generated';
+import { Prisma, User } from '../prisma/generated';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
@@ -9,36 +9,36 @@ const path = require('path');
 
 const resolvers = {
   Query: {
-    user: (_, {uid}, ctx: {prisma: Prisma}) => {
-      return ctx.prisma.query.user({ where: {uid} });
+    user: (parent: {user: User}, {uid}, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.user({ where: {uid} }, info);
     },
-    users: (_, __, ctx: {prisma: Prisma}, ____) => {
-      return ctx.prisma.query.users({});
+    users: (_, __, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.users({}, info);
     },
-    questions: (_, __, ctx, ____) => {
-      return ctx.prisma.query.questions({});
+    questions: (_, __, ctx, info) => {
+      return ctx.prisma.query.questions({}, info);
     },
-    questionsByUser: (_, {userId}, ctx: {prisma: Prisma}) => {
-      return ctx.prisma.query.questions({ where: {userId} });
+    questionsByUser: (_, {userId}, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.questions({ where: {userId} }, info);
     },
-    tags: (_, __, ctx: { prisma: Prisma }, ____) => {
-      return ctx.prisma.query.tags({});
+    tags: (_, __, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.tags({}); 
     }
   },
   Mutation: {
     createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.mutation.createUser({ data: { username, email, uid } });
+      return ctx.prisma.mutation.createUser({ data: { username, email, uid } }), info;
     },
     createQuestion: (_, { userId, username, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
       return ctx.prisma.mutation.createQuestion({
         data: { userId, username, tags: { set: tags }, description, coins, title, text, audio, video, duration }
-      });
+      }, info);
     },
-    updateUser: (_, { email, uid, description, coins, id, tags }, ctx: { prisma: Prisma }, info) => {
+    updateUser: (_, { email, uid, description, coins, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
-        data: { email, uid, description, coins, tags: { set: tags } },
+        data: { email, uid, description, coins, tags: { set: tags }, username, image },
         where: { id } 
-      });
+      }, info);
     },
   }
 }

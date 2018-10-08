@@ -9,12 +9,13 @@ export default class Questionnaire extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: 'corgi',
-      description: 'i am a corgi',
+      username: ' ',
+      description: ' ',
       coins: 3,
       key: 1,
       value: [],
-      tags: []
+      tags: [],
+      image: ''
     }
     this.handleSelect = this.handleSelect.bind(this)
     this.nextStep = this.nextStep.bind(this)
@@ -66,10 +67,11 @@ export default class Questionnaire extends Component {
   }
 
   render() { 
-    const { description, coins, tags, key, username, value } = this.state
+    const { description, coins, tags, key, username, value, image } = this.state
     const { user } = this.props;
     return (
       <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
+      {console.log(user, 'USER IN Q')}
         <Tab eventKey={1} title="Pick a username">
           <Form className="form-panel-question">
             <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
@@ -97,6 +99,8 @@ export default class Questionnaire extends Component {
             </div>
             <FormGroup controlId="formControlsTextarea">
               <h2>{username}, </h2>
+              <h3>Please enter a profile picture url:</h3>
+              <input type="text" value={image} onChange={(e) => this.handleInput(e, 'image')} />
               <ControlLabel>Let us know a little about yourself</ControlLabel>
               <FormControl componentClass="textarea" value={description} onChange={(e) => this.handleInput(e, 'description')} />
             </FormGroup>
@@ -118,22 +122,23 @@ export default class Questionnaire extends Component {
         </Tab>
         <Tab eventKey={4} title="Expertize">
           <Col xsOffset={4} sm={4}>
-            <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+            <div className="hexagon" style={{ backgroundImage: `url(${user && user.image ? user.image : user ? user : 'http://www.jesuschristsavior.net/Savior.jpeg'})` }}>
               <div className="hexTop"></div>
               <div className="hexBottom"></div>
             </div>
             <h2>{username}</h2>
             <div>{description}</div>
+            {console.log(this.state)}
             Select your experience: &nbsp;
             <TagDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
             <div>{value.map(tag => <div key={tag}><Label>{tag}</Label>{' '}</div>)}</div>
             <div>What are you interested in?</div>
-            {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''}
+            {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : tags ? tags.join() : <div>No Tags Currently</div> }
             {/* todo: add a search or give some recommendations */}
             <div><br/>
               {/* submit compiled user details to database. render user's profile complete w/ details */}
               {user ?
-                <Mutation mutation={UPDATE_USER_INFO} variables={{ id: user.id, email: 'update@update.com', description, coins, tags }}>
+                <Mutation mutation={UPDATE_USER_INFO} variables={{ id: user.id, description, tags, username, image }} onCompleted={(data) => console.log('23', data)}>
                   {updateUser => (
                     <Link to="/profile">
                       <Button type="submit" onClick={updateUser}>Save Profile Info</Button>

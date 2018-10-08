@@ -1,6 +1,6 @@
 
 type Query {
-  user(uid: String!): User
+  user(uid: String!): User!
   tags: [Tag!]!
   users: [User]!
   questions: [Question]!
@@ -9,7 +9,7 @@ type Query {
 
 type Mutation {
    createUser(email: String!, uid: String!, username: String!): User
-   updateUser(id: String!, email: String, uid: String, description: String, coins: Int, tags: [String]): User
+   updateUser(id: ID!, email: String, uid: String, description: String, coins: Int, tags: [String], username: String, image: String): User
    login(email: String!, password: String!): LoginPayload!
    addTag(name: String!): Tag
    createQuestion(userId: String!, username: String!, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
@@ -20,16 +20,26 @@ type User {
   username: String!
   email: String!
   uid: String!
-  tags: [String!]!
+  tags: [String!]
   description: String
   coins: Int 
+  ranking: Int
+  image: String
   # session: [Session!]!
 }
 
-type Session {
-  id: ID!
-  type: String!
-}
+# type Session {
+#   id: ID!
+#   type: String!
+#   expert: User
+#   pupil: User
+#   duration: Int
+#   completed: Boolean
+#   startedAt: DateTime
+#   endedAt: DateTime
+#   createdAt: DateTime!
+#   updatedAt: DateTime!
+# }
 
 type LoginPayload {
   token: String
@@ -52,7 +62,7 @@ type Tag {
    userId: String!
    username: String
    description: String!
-   tags: [String!]!
+   tags: [String!]
    coins: Int!
    active: Boolean
    title: String!

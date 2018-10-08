@@ -14,6 +14,7 @@ import {
 import TagDropdown from './TagDropdown.jsx';
 import { createQuestion } from '../../gql.js';
 import { times, questionInfo } from './constants.js';
+import { Link } from 'react-router-dom';
 
 export default class QuestionForm extends Component {
   constructor(props) {
@@ -56,6 +57,7 @@ export default class QuestionForm extends Component {
     console.log(user);
 
     const stateForQuestionInfo = [title, name, description];
+    const toggleInfo = ['Text', 'Audio', 'Video'];
     return (
       // modularize questions
       <Form className="form-panel-signup centered" horizontal>
@@ -118,15 +120,11 @@ export default class QuestionForm extends Component {
               value={chat}
               onChange={this.handleChatChoice}
             >
-              <ToggleButton className={'mode-toggle'} value={'text'}>
-                Text
+            {toggleInfo.map(info => (
+              <ToggleButton className={'mode-toggle'} value={info.toLowerCase()} key={info}>
+                {info}
               </ToggleButton>
-              <ToggleButton className={'mode-toggle'} value={'audio'}>
-                Audio
-              </ToggleButton>
-              <ToggleButton className={'mode-toggle'} value={'video'}>
-                Video
-              </ToggleButton>
+            ))}
             </ToggleButtonGroup>
           </Col>
         </FormGroup>
@@ -149,20 +147,22 @@ export default class QuestionForm extends Component {
               variables={{
                 userId: user.id,
                 username: user.username,
-                description: description,
-                tags: tags,
+                description,
+                tags,
                 coins: 3,
-                title: title,
+                title,
                 text: chat.includes('text'),
                 audio: chat.includes('audio'),
                 video: chat.includes('video'),
-                duration: duration
+                duration
               }}
               onCompleted={data => console.log('on complete', data)}
             >
               {(createQuestion, { data }) => {
                 return (
-                  <Button onClick={createQuestion}>Create Question</Button>
+                  <Link to="/home">
+                    <Button onClick={createQuestion}>Create Question</Button>
+                  </Link>
                 );
               }}
             </Mutation>
