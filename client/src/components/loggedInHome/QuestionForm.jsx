@@ -8,7 +8,7 @@ export default class QuestionForm extends Component {
   render() { 
     return (
       // modularize questions
-      <React.Fragment></React.Fragment>
+      <div />
     );
   }
 }

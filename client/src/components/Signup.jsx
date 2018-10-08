@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap'
 import { createUser } from '../gql.js';
-import { Link } from 'react-router-dom';
 
 export default class Signup extends Component {
   constructor(props) {

@@ -10,17 +10,15 @@ const token = "T1==cGFydG5lcl9pZD00NjE5NzU0MiZzaWc9YTgzYzMyYTM2MzIwZjJmYWEyNTc5M
 
 // Handling all of our errors here by alerting them
 function handleError(error) {
-  if (error) {
-    alert(error.message);
-  }
+  if (error) alert(error.message);
 }
 
 function initializeSession(a,b) {
   var apiKey = "46197542";
   var session = OT.initSession(apiKey, a);
-  console.log('ot', OT)
+  console.log('ot', OT);
   // Subscribe to a newly created stream
-  session.on('streamCreated', function(event) {
+  session.on('streamCreated', (event) => {
   session.subscribe(event.stream, 'subscriber', {
       insertMode: 'append',
       width: '100%',
@@ -35,7 +33,7 @@ function initializeSession(a,b) {
   }, handleError);
 
   // Connect to the session
-  session.connect(b, function(error) {
+  session.connect(b, (error) => {
     // If the connection is successful, publish to the session
     if (error) {
       handleError(error);
@@ -82,7 +80,7 @@ export default class Video extends Component {
   }
 
   handleChange(e) {
-    this.setState({roomname:e.target.value})
+    this.setState({ roomname:e.target.value })
   }
 
   render() {

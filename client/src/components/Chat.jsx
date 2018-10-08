@@ -15,7 +15,6 @@ export default class Chat extends Component {
       userOne: '',
       userTwo: ''
     }
-    this.onChange = this.onChange.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.connecToUser = this.connectToUser.bind(this);
   }
@@ -32,13 +31,9 @@ export default class Chat extends Component {
     this.setState({ userOne })
   }
 
-  onChange(e) {
-    this.setState({ text: e.target.value });
-  }
-
-  sendMessage(msg) {
-    socket.emit('message', msg);
-    this.setState({ text: '' });
+  sendMessage(text) {
+    socket.emit('message', text);
+    this.setState({ text });
   }
 
   connectToUser(e) {
@@ -55,7 +50,7 @@ export default class Chat extends Component {
         <Well>
           <ChatBox messages={messages} />
           <Form>
-            <FormControl onChange={(e) => this.onChange(e)} value={text} placeholder="Chat" />
+            <FormControl onChange={(e) => this.setState({ text: e.target.value }) } value={text} placeholder="Chat" />
             <Button onClick={() => this.sendMessage(text)} >Send Text</Button>
             <Button onClick={() => this.sendMessage(text)} >Send Text</Button>
             <Button value='sue' onClick={(e) => this.connectToUser(e)} >Message Sue</Button>

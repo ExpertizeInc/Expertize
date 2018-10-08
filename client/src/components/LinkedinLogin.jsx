@@ -12,7 +12,7 @@ export default class LinkedinLogin extends React.Component {
     //     var liRoot = document.createElement('div');
     //     liRoot.id = 'linkedin-root';
     //     document.body.appendChild(liRoot);
-    //     (function(d, s, id) {
+    //     ((d, s, id) => {
     //         const element = d.getElementsByTagName(s)[0];
     //         const ljs = element;
     //         var js = element;

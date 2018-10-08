@@ -25,7 +25,6 @@ class App extends React.Component {
   
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      // console.log('firebase auth', user)
       if (user) {
         client.query({ query: GET_USER_UID, variables: { uid: user.uid } })
           .then(({ data }) => this.setState({ authenticated: true, user: data.user }))
@@ -53,23 +52,22 @@ class App extends React.Component {
   callbackFunction() {
     IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
     // this.setState({authenticated: true}, 
-    .result((r) => console.log(r))
-    .error((e) => console.log(e))
+    .result((results) => console.log('results in linkedIn', results))
+    .error((error) => console.error('error in linkedIn', error));
     IN.API.Raw('/industries?format=json')
-    .result((r) => console.log(r))
-    .error((e) => console.error(e))
-    
+    .result((results) => console.log('results in.api.raw', results))
+    .error((error) => console.error('error in in.api.raw', error));
   }
 
   signInLI(e, a) {
       e.preventDefault();
-      console.log('LINKED IN')
-      IN.User.authorize(this.callbackFunction, '')
+      console.log('LINKED IN');
+      IN.User.authorize(this.callbackFunction, '');
       // a.history.push('/restricted')
   }
 
   signOut() {
-    this.setState({ authenticated: false }, () => console.log('toggled authenticated'))
+    this.setState({ authenticated: false }, () => console.log('toggled authenticated'));
   }
 
   render() {
