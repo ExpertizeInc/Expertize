@@ -2,9 +2,9 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={(props) => (
+    <Route {...rest} render={({match}) => (
       rest.authenticated
-        ? <Component user={rest.user} />
+        ? <Component match={match} user={rest.user} />
         : <Redirect to='/' />
     )} />
 )

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, ToggleButtonGroup, ToggleButton, Label } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
-import TopicDropdown from './loggedInHome/TagDropdown.jsx';
+import TagDropdown from './loggedInHome/TagDropdown.jsx';
 import { UPDATE_USER_INFO } from '../gql.js'; 
 
 export default class Questionnaire extends Component {
@@ -125,7 +125,7 @@ export default class Questionnaire extends Component {
             <h2>{username}</h2>
             <div>{description}</div>
             Select your experience: &nbsp;
-            <TopicDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
+            <TagDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
             <div>{value.map(tag => <div key={tag}><Label>{tag}</Label>{' '}</div>)}</div>
             <div>What are you interested in?</div>
             {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''}
