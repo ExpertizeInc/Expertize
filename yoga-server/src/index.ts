@@ -3,6 +3,7 @@ import { Prisma } from '../prisma/generated';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
+
 const dotenv = require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -40,6 +41,20 @@ const resolvers = {
         where: { id } 
       });
     },
+  },
+  Subscription: {
+    subscribeToSessionAsPupil (parent, args, context, info) {
+      return context.db.subscription.link(
+        { where: { mutation_in: ['UPDATED'] } },
+        
+      )
+    },
+    subscribeToSessionAsTeacher (parent, args, context, info) {
+      return context.db.subscription.link(
+        { where: { mutation_in: ['UPDATED'] } },
+        info,
+      )
+    }
   }
 }
 
@@ -61,7 +76,7 @@ const server = new GraphQLServer({
       user,
       ...req,
       prisma
-  };
+    };
   }
 });
 
@@ -77,4 +92,6 @@ const server = new GraphQLServer({
 
 
 // server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
+// server.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../../client/dist/index.html')));
+
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));

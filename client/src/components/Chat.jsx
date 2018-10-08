@@ -3,7 +3,7 @@ import { Form, FormControl, Button, Well } from 'react-bootstrap';
 import ChatBox from './ChatBox.jsx'
 import openSocket from 'socket.io-client';
 
-const socket = openSocket('http://localhost:3001');
+// const socket = openSocket('http://localhost:3001');
 
 export default class Chat extends Component {
   constructor(props) {
@@ -20,15 +20,15 @@ export default class Chat extends Component {
   }
 
   componentDidMount() {
-    socket.on('connect', () => {
-      console.log('user connected to socket on componentdidmount')
-    })
-    socket.on('outbound', (message) => {
-      // console.log('WILL TIS WORK??', message)
-      this.setState(state => {messages: state.messages.concat(message) });
-    })
-    let userOne = prompt(`What's your name?`);
-    this.setState({ userOne })
+    // socket.on('connect', () => {
+    //   console.log('user connected to socket on componentdidmount')
+    // })
+    // socket.on('outbound', (message) => {
+    //   // console.log('WILL TIS WORK??', message)
+    //   this.setState(state => {messages: state.messages.concat(message) });
+    // })
+    // let userOne = prompt(`What's your name?`);
+    // this.setState({ userOne })
   }
 
   sendMessage(text) {
