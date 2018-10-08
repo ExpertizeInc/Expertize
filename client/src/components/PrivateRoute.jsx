@@ -3,9 +3,9 @@ import { Route, Redirect, Switch } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   // <Switch>
-    <Route {...rest} render={(props) => (
+    <Route {...rest} render={({match}) => (
       rest.authenticated
-        ? <Component user={rest.user} />
+        ? <Component match={match} user={rest.user} />
         : <Redirect to='/' />
     )} />
   //   <Route exact strict path="/home/create" render={() => <Questions />}></Route>

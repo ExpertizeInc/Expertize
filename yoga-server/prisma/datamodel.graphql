@@ -6,7 +6,7 @@
     tags: [String!]!
     description: String
     coins: Int @default(value: "1")
-    # sessions: [Session!]!
+    sessions: [Session!]!
   }
 
   type Session {

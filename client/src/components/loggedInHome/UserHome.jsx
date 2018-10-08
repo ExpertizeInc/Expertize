@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import { Button, Glyphicon} from 'react-bootstrap';
-
+import QuestionForm from './QuestionForm.jsx';
 import QuestionFeed from './QuestionFeed.jsx';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 
-export default class UserHome extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <React.Fragment>
-        {/* will render feed here. 
+const UserHome = ({ match, user }) => (
+  <div>
+    {/* will render feed here. 
         will be able to choose one post and pick mode of communication then start session */}
-        <Button>
+    <Button>
           <Glyphicon glyph="pencil" />
-          <Link to="/home/create"> Create</Link>
+          <Link to={`${match.url}/create`}> Create</Link>
         </Button>
-        <QuestionFeed user={this.props.user} />
-      </React.Fragment>
-    )
-  }
-}
+{console.log('home', user)}
+        <Route path={`${match.url}/create`} render={() => <QuestionForm user={user} />} />
+
+    <QuestionFeed user={user} />
+    </div>
+)
+
+
+export default UserHome
+

@@ -6,8 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import params from './particles.js'
 import { GET_USER_UID } from './gql.js';
-
-
 import Routes from './Routes.jsx';
 
 const client = new ApolloClient({
@@ -28,6 +26,7 @@ class App extends React.Component {
   }
   
   componentDidMount() {
+    console.log('hm?',GET_USER_UID)
     firebase.auth().onAuthStateChanged((user) => {
       console.log('fbbauth', user)
       if (user) {
@@ -35,7 +34,7 @@ class App extends React.Component {
           query: GET_USER_UID,
           variables: { uid: user.uid }})
           .then(({ data }) => {
-            console.log('prisma user', data.user)
+            console.log('prisma user', data)
             this.setState({
               authenticated: true,
               user: data.user })
@@ -93,18 +92,22 @@ class App extends React.Component {
   render() {
     const { user, authenticated } = this.state;
     return (
-      <ApolloProvider client={client}>
+      <div>
+        <ApolloProvider client={client}>
         {/* <Particles params={params} style={{
           position: 'absolute',
           display: 'block',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
+          zIndex: -10,
+          // top: 0,
+          // left: 0,
+          // right: 0,
+          // bottom: 0,
+          backgroundImage: "url('http://www.sompaisoscatalans.cat/simage/96/965205/black-gradient-wallpaper.png')"
+          // backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
         <Routes user={user} signIn={this.signIn} authenticated={authenticated} signInLI={this.signInLI} signOut={this.signOut}/>
       </ApolloProvider>
+      </div>
     )
   }
 }

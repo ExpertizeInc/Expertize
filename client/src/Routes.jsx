@@ -12,11 +12,9 @@ import UserHome from './components/loggedInHome/UserHome.jsx';
 import QuestionFeed from './components/loggedInHome/QuestionFeed.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
-// import Footer from './components/Footer.jsx';
 
-
-export const Routes = ({ authenticated, user, signIn, signInLI }) => (
-    <React.Fragment>
+export const Routes = ({ authenticated, user, signIn, signInLI}) => (
+    <div>
       <NavBar authenticated={authenticated}/>
       <Switch>
           <Route exact strict path="/" render={() => (authenticated ? <Redirect to="/home"/> : <Home/>)}></Route>
@@ -30,7 +28,7 @@ export const Routes = ({ authenticated, user, signIn, signInLI }) => (
           <Route exact strict path="/*" component={Error}></Route>
       </Switch>
       {/* <Footer /> */}
-    </React.Fragment>
+    </div>
         )
 
 export default Routes;

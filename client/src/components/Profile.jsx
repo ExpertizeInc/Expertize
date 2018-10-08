@@ -13,7 +13,7 @@ class Profile extends Component {
   }
   render() {
     return (
-      <React.Fragment>
+      <div>
         {this.props.user &&
           <Grid fluid >
             <PageHeader style={{display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
@@ -21,7 +21,7 @@ class Profile extends Component {
               <div className="hexTop"></div>
               <div className="hexBottom"></div>
             </div>
-            <Col xs={5} md={2} className="centered">
+            <Col xs={6} md={2} className="centered">
             <Thumbnail className="centered">
               <h2>{this.props.user.username}</h2>
               </Thumbnail>
@@ -93,7 +93,7 @@ class Profile extends Component {
             </Row>
           </Grid>
         }
-      </React.Fragment>
+      </div>
     )
   }
 }
