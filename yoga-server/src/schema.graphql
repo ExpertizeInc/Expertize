@@ -8,11 +8,11 @@ type Query {
 }
 
 type Mutation {
-   createUser(username: String!, email: String!, uid: String!): User
-   updateUser(id: String!, email: String, uid: String, description: String, coins: Int, tags: [String]): User
-   login(email: String!, password: String!): LoginPayload!
-   addTag(name: String!): Tag
-   createQuestion(userId: String!, username: String!, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
+  createUser(email: String!, uid: String!, username: String!): User
+  updateUser(id: String!, email: String, uid: String, description: String, coins: Int, tags: [String]): User
+  login(email: String!, password: String!): LoginPayload!
+  addTag(name: String!): Tag
+  createQuestion(userId: String!, username: String!, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
 }
 
 type User {
@@ -29,6 +29,8 @@ type User {
 type Session {
   id: ID!
   type: String!
+  pupil: String!
+  teacher: String
 }
 
 type LoginPayload {
@@ -47,18 +49,30 @@ type Tag {
   name: String!
 }
 
- type Question {
-   id: ID!
-   userId: String!
-   username: String
-   description: String!
-   tags: [String!]!
-   coins: Int!
-   active: Boolean
-   title: String!
-   text: Boolean!
-   audio: Boolean!
-   video: Boolean!
-   duration: Int!
- }
+type Question {
+  id: ID!
+  userId: String!
+  username: String
+  description: String!
+  tags: [String!]!
+  coins: Int!
+  active: Boolean
+  title: String!
+  text: Boolean!
+  audio: Boolean!
+  video: Boolean!
+  duration: Int!
+}
+
+type SessionSubscriptionPayload {
+  mutation: MutationType!
+  node: Session
+  updatedFields: [String!]
+  previousValues: LinkPreviousValues
+}
+
+type Subscription {
+  subscribeToSessionAsPupil(pupil: String!): SessionSubscriptionPayload
+  subscribeToSessionAsTeacher(teacher: String!): SessionSubscriptionPayload
+}
 
