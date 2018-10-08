@@ -87,11 +87,7 @@ export default class QuestionFeed extends Component {
               value={duration}
             >
               <option value="select">Choose duration</option>
-              {times.map(time => (
-                <option value={time.value} key={time.value}>
-                  {time.name}
-                </option>
-              ))}
+              {times.map(time => <option value={time.value} key={time.value}>{time.name} </option>)}
             </FormControl>
           </Col>
         </FormGroup>
