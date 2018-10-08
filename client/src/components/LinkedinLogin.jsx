@@ -1,6 +1,6 @@
 import React from 'react';
 
-class LinkedinLogin extends React.Component {
+export default class LinkedinLogin extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
@@ -11,10 +11,8 @@ class LinkedinLogin extends React.Component {
     // componentDidMount() {
     //     var liRoot = document.createElement('div');
     //     liRoot.id = 'linkedin-root';
-
     //     document.body.appendChild(liRoot);
-
-    //     (function(d, s, id) {
+    //     ((d, s, id) => {
     //         const element = d.getElementsByTagName(s)[0];
     //         const ljs = element;
     //         var js = element;
@@ -31,7 +29,7 @@ class LinkedinLogin extends React.Component {
     // callbackFunction() {
     //     IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
     //     .result((r) => console.log(r))
-    //     .error((e) => console.log(e))
+    //     .error((e) => console.error(e))
     // }
 
     // handleClick(e) {
@@ -42,14 +40,12 @@ class LinkedinLogin extends React.Component {
 
     
     render() {
-      let { signInLI } = this.props
+      let { signInLI, text } = this.props
       return ( 
         <div>
-        < button onClick = { signInLI }> { this.props.text }</button >
+          <button onClick={signInLI}>{text}</button>
         </div>
       );
     }
 };
-
-export default LinkedinLogin
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
 import { Query, Mutation } from 'react-apollo';
 
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = { authenticated: false };
@@ -26,9 +26,7 @@ class Home extends Component {
       </div>
     );
   }
-}
-
-export default Home;
+};
 
 {
   /* {this.state.authenticated === false ?

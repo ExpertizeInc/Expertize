@@ -1,7 +1,7 @@
  type User {
     id: ID! @unique 
     username: String! @unique
-    email: String!
+    email: String! @unique
     uid: String @unique
     tags: [String!]!
     description: String

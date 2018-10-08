@@ -8,7 +8,7 @@ export const createQuestion = gql`
       title
     }
   }
-`
+`;
 
 export const getQuestions = gql`
   query {
@@ -24,7 +24,7 @@ export const getQuestions = gql`
       duration
     }
   }
-`
+`;
 
 export const getTags = gql`
   query {
@@ -32,7 +32,7 @@ export const getTags = gql`
       name
     }
   }
-`
+`;
 
 export const UPDATE_USER = gql`
 mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int) {
@@ -41,7 +41,7 @@ mutation updateUser($id: String!, $email: String, $uid: String, $description: St
         description
     }
 }
-`
+`;
 
 export const GET_USER_QUESTIONS = gql`
 query questionsByUser($userId: String!) {
@@ -50,7 +50,7 @@ query questionsByUser($userId: String!) {
     description
   }
 }
-`
+`;
 
 export const createUser = gql`
 mutation CreateUser($username: String! $email: String!, $uid: String!) {
@@ -60,7 +60,7 @@ mutation CreateUser($username: String! $email: String!, $uid: String!) {
       email
     }
 }
-`
+`;
 
 export const GET_USER_UID = gql`
 query user($uid: String!) {
@@ -71,13 +71,13 @@ query user($uid: String!) {
     coins
   }
 }
-`
+`;
 
-export const UPDATE_USER_1 = gql`
+export const UPDATE_USER_INFO = gql`
 mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String]) {
     updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags) {
         id
         description
     }
 }
-`
+`;
