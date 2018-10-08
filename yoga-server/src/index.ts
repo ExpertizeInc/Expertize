@@ -76,5 +76,5 @@ const server = new GraphQLServer({
 // });
 
 
-// server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
+server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));

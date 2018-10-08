@@ -4,14 +4,24 @@
     email: String! @unique
     uid: String @unique
     tags: [String!]!
+    image: String
+    ranking: Int @default(value:"0")
     description: String
     coins: Int @default(value: "1")
-    # sessions: [Session!]!
+    sessions: [Session!]! @relation(name: "UserSessions")
   }
 
   type Session {
     id: ID! @unique
     type: String!
+    expert: User @relation(name: "UserSessions")
+    pupil: User @relation(name: "PupilSessions")
+    duration: Int
+    completed: Boolean
+    startedAt: DateTime
+    endedAt: DateTime
+    createdAt: DateTime!
+    updatedAt: DateTime!
   }
 
   # type UserTag {
@@ -29,7 +39,7 @@
    id: ID! @unique
    userId: String!
    username: String!
-   tags: [String!]!
+   tags: [String!]
    description: String!
    coins: Int @default(value: "3")
    active: Boolean @default(value: "false")
