@@ -1,4 +1,4 @@
-(function() {
+(() => {
     let config = {
     apiKey: "AIzaSyDVxDfTye3_uAVvmomMxUOT3ARnz3VnqKE",
     authDomain: "expertize-520ca.firebaseapp.com",

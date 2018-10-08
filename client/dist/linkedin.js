@@ -3,10 +3,10 @@ liRoot.id = 'linkedin-root';
 
 document.body.appendChild(liRoot);
 
-(function(d, s, id) {
+((d, s, id) => {
   const element = d.getElementsByTagName(s)[0];
   const ljs = element;
-  var js = element;
+  const js = element;
   if (d.getElementById(id)) {
       return; }
   js = d.createElement(s);

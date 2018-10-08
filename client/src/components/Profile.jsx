@@ -1,72 +1,52 @@
 import React, { Component } from 'react';
-import { Well, Grid, Col, Row, Panel, PageHeader, Thumbnail, Button, Glyphicon } from 'react-bootstrap'
+import { Grid, Col, Row, PageHeader, Thumbnail } from 'react-bootstrap'
 import { Mutation, Query } from 'react-apollo';
-import { Link } from 'react-router-dom';
 import { UPDATE_USER, GET_USER_QUESTIONS } from '../gql.js';
 
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
-  }
+export default class Profile extends Component {
   render() {
+    const { user } = this.props;
+    const userInfo = [{name: 'Posts', info: '3'}, {name: 'Coins', info: user ? user.coins : '' }, {name: 'Fields', info: '7'}];
     return (
       <div>
-        {this.props.user &&
+        {user &&
           <Grid fluid >
             <PageHeader style={{display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
             <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-              <div className="hexTop"></div>
-              <div className="hexBottom"></div>
+              <div className="hexTop" />
+              <div className="hexBottom"/>
             </div>
             <Col xs={6} md={2} className="centered">
             <Thumbnail className="centered">
-              <h2>{this.props.user.username}</h2>
+              <h2>{user.username}</h2>
               </Thumbnail>
             </Col>
             <Row >
-              {/* user's key stats on app */}
-              <Col xs={6} md={3}>
-                <Thumbnail className="centered">
-                  <h3>3</h3>
-                  Posts
-          </Thumbnail>
-              </Col>
-              <Col xs={6} md={3}>
-                <Thumbnail className="centered">
-                  {console.log('profile user', this.props.user)}
-                  {this.props.user && <h3>{this.props.user.coins}</h3>}
-                  Coins
-          </Thumbnail>
-              </Col>
-              <Col xs={6} md={3}>
-                <Thumbnail className="centered">
-                  <h3>7</h3>
-                  Fields
-            </Thumbnail>
-              </Col>
+              {userInfo.map(user => (
+                <Col xs={6} md={3} key={user.name}>
+                  <Thumbnail className="centered">
+                    <h3>{user.info}</h3>
+                    {user.name}
+                  </Thumbnail>
+                </Col>
+              ))}
             </Row>
             <Row>
               <Col>
                 <Thumbnail className="centered">
                   <h3>Alt stats/graphs</h3>
-            <Query query={GET_USER_QUESTIONS} variables={{userId: this.props.user.id}} >
-              {({ loading, error, data }) => {
-                if (loading) return <div>Fetching</div>
-                if (error) return <div>Error</div>
-                return (
-                  <React.Fragment>
-                    {data.questionsByUser.map((question, i) => (
-                    <div key={i}>{i+1} Title: {question.title} | Description: {question.description}</div>
-                    )
-                    )}
-                    {console.log('profile questions', data)}
-                    </React.Fragment>
-                )}}
-            </Query>
-            </Thumbnail>
+                  <Query query={GET_USER_QUESTIONS} variables={{ userId: user.id }}>
+                    {({ loading, error, data }) => {
+                      if (loading) return <div>Loading...</div>
+                      if (error) return <div>Error</div>
+                      return (
+                        <React.Fragment>
+                          {data.questionsByUser.map((question, i) => <div key={i}>{i+1} Title: {question.title} | Description: {question.description}</div>)}
+                        </React.Fragment>
+                      )}}
+                  </Query>
+                </Thumbnail>
                 {/* Will show user activity, progress, session history, recently interacted */}
               </Col>
             </Row>
@@ -75,7 +55,7 @@ class Profile extends Component {
                 <Thumbnail className="centered">
                   <h3>Interaction History, etc</h3>
                   Map out session history for user
-            </Thumbnail>
+                </Thumbnail>
                 {/* Will show user activity, progress, session history, recently interacted */}
               </Col>
             </Row>
@@ -96,6 +76,4 @@ class Profile extends Component {
       </div>
     )
   }
-}
- 
-export default Profile;
+};

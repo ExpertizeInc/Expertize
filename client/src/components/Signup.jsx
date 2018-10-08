@@ -3,7 +3,7 @@ import { Mutation } from 'react-apollo';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap'
 import { createUser } from '../gql.js';
 
-class Signup extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,82 +24,49 @@ class Signup extends Component {
   }
 
   submitSignUp(e, cb) {
-    // send to server
+    const { uid, email, password } = this.state;
     e.preventDefault()
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(({user}) => {
-      console.log('created fb user')
-      this.setState({ uid: user.uid}, () => cb())
+      console.log('created fb user', user)
+      this.setState({ uid: user.uid })
+      cb(user.uid);
     })
-    .catch((error) => {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.error('error code:',errorCode, ': ', errorMessage)
-    });
+    .catch((error) => console.error(`errorCode: ${error.code}, errorMessage: ${error.message}`));
   }
-
-
-
-
   render() { 
-    const { username, email, password, uid } = this.state;
+    const { username, email, password } = this.state;
+    const formInfo = [{value: username, placeholder: 'Username'}, {value: email, placeholder: 'Email'}, {value: password, placeholder: 'Password'}];
     return (
- 
-        <Form className="form-panel-signup" horizontal>
-          <FormGroup controlId="formHorizontalUsername">
+      <Form className="form-panel-signup" horizontal>
+        {formInfo.map(info => (
+          <FormGroup controlId={`formHorizontal${info.placeholder}`} key={info.placeholder}>
             <Col componentClass={ControlLabel} sm={5}>
-              Username
+              {info.placeholder}
             </Col>
             <Col sm={3}>
-              <FormControl value={username} onChange={(e) => this.onChange(e, 'username')} type="username" placeholder="Username" />
+            <FormControl value={info.value} onChange={(e) => this.onChange(e, info.placeholder.toLowerCase())} type={info.placeholder.toLowerCase()} placeholder={info.placeholder} />
             </Col>
           </FormGroup>
-
-          <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={5}>
-              Email
-            </Col>
-            <Col sm={3}>
-              <FormControl value={email} onChange={(e) => this.onChange(e, 'email')} type="email" placeholder="Email" />
-            </Col>
-          </FormGroup>
-
-          <FormGroup controlId="formHorizontalPassword">
-            <Col componentClass={ControlLabel} sm={5}>
-              Password
-            </Col>
-            <Col sm={3}>
-              <FormControl password={password} onChange={(e) => this.onChange(e, 'password')} type="password" placeholder="Password" />
-            </Col>
-          </FormGroup>
-
-          <FormGroup>
-            <Col smOffset={6} sm={3}>
-            {/* todo: hook up to firebase/linkedin Oauth */}
-            <Mutation mutation={createUser} fetchPolicy="no-cache" onError={(err) => console.log('ERRRORRRRR', err)} onCompleted={({createUser}) => this.props.signIn(createUser)}>
-              {(createUser, { data }) => {
-                return (
-                  <Button onClick={e => {
-                    this.submitSignUp(e, () => {
-                      createUser({ variables: { username, email, uid } })
-                    });
-                  }} type="submit">
-                    Create an account
-                 </Button>
-                )
-              }}
-
-            </Mutation>
-            </Col>
-          </FormGroup>
-        
-   
+        ))}
+        <FormGroup>
+          <Col smOffset={6} sm={3}>
+          {/* todo: hook up to firebase/linkedin Oauth */}
+          <Mutation mutation={createUser} onError={(err) => console.error('Error in createUser mutation', err)} onCompleted={({newUser}) => this.props.signIn(newUser)}>
+            {(createUser, { data }) => {
+              return (
+                <Button 
+                  onClick={e => this.submitSignUp(e, (uid) => createUser({ variables: { username, email, uid } }))} 
+                  type="submit"
+                >
+                   Create An Account
+                </Button>
+              )
+            }}
+          </Mutation>
+          </Col>
+        </FormGroup>
       </Form>
-
-
     )
   }
-}
- 
-export default Signup;
+};

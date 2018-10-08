@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, ToggleButtonGroup, ToggleButton, Label } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
-import TopicDropdown from './loggedInHome/TagDropdown.jsx';
-import { UPDATE_USER_1 } from '../gql.js'; 
+import TagDropdown from './loggedInHome/TagDropdown.jsx';
+import { UPDATE_USER_INFO } from '../gql.js'; 
 
-class Questionaire extends Component {
+export default class Questionnaire extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +25,9 @@ class Questionaire extends Component {
     this.addTags = this.addTags.bind(this)
   }
 
+  componentDidMount() {
+    console.log(this.props.user)
+  }
   getValidationState () {
     const length = this.state.username.length;
     if (length > 12 || length === 0) return 'error';
@@ -39,24 +42,27 @@ class Questionaire extends Component {
   }
 
   handleInput(e, type) {
-    e.preventDefault()
-    this.setState({
-      [type]: e.target.value
-    })
+    e.preventDefault();
+    this.setState({ [type]: e.target.value });
   }
 
   nextStep(e) {
-    e.preventDefault()
-    this.setState({ key: ++this.state.key})
+    e.preventDefault();
+    this.setState({ key: ++this.state.key });
   }
 
   handleSubmitInfo() {
     // save data and render profile
-    
   }
 
   addTags(e) {
-    this.setState({ tags: [e, ...this.state.tags]})
+    if (this.state.tags.includes(e)) {
+      alert('Tag already added')
+    } else if (this.state.tags.length >= 5) {
+      alert('No more than 5 tags per profile');
+    } else {
+      this.setState({ tags: [e, ...this.state.tags]});
+    }
   }
 
   render() { 
@@ -68,10 +74,10 @@ class Questionaire extends Component {
           <Form className="form-panel-question">
             <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
               <Col xsOffset={5} sm={2}>
-                <ControlLabel>Pick a unique username.</ControlLabel>
+                <ControlLabel>Pick a unique username</ControlLabel>
                 <FormControl type="text" value={username} onChange={(e) => this.handleInput(e, 'username')} />
                 <FormControl.Feedback />
-                <HelpBlock>Pick a username.</HelpBlock>
+                <HelpBlock>Pick a username</HelpBlock>
               </Col>
             </FormGroup>
             <FormGroup>
@@ -86,8 +92,8 @@ class Questionaire extends Component {
         <Tab eventKey={2} title="Set up profile">
           <Col smOffset={4} sm={3}>
             <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-              <div className="hexTop"></div>
-              <div className="hexBottom"></div>
+              <div className="hexTop" />
+              <div className="hexBottom" />
             </div>
             <FormGroup controlId="formControlsTextarea">
               <h2>{username}, </h2>
@@ -97,20 +103,17 @@ class Questionaire extends Component {
           </Col>
           <FormGroup>
             <Col smOffset={5} sm={2}>
-              <Button type="submit" onClick={this.nextStep}>
-                Proceed to the next step
-                </Button>
+              <Button type="submit" onClick={this.nextStep}>Proceed to the next step</Button>
             </Col>
           </FormGroup>
         </Tab>
         <Tab eventKey={3} title="Set up profile">
           {/* only show if user did not select linkedin oauth signup. maybe pick avatar here too */}
-          <Col smOffset={4} sm={3}>
-            <div>We use LinkedIn to tailor the experience for you. Would you like to connect in order to:</div>
-            <div>- Automatically create your profile</div>
-            <div>- Receive recommendations based on your interests</div>
-            <div>- or -</div>
-            <a onClick={this.nextStep}>Skip this step for now</a>
+          <Col smOffset={4} sm={3}><br/>
+            <div>We use LinkedIn to tailor the experience for you. Would you like to connect in order to:</div><br />
+            <li>Automatically create your profile</li>
+            <li>Receive recommendations based on your interests</li><br />
+            <a href="#" onClick={this.nextStep} style={{ color: 'blue' }}>Skip this step for now</a>
           </Col>
         </Tab>
         <Tab eventKey={4} title="Expertize">
@@ -121,23 +124,23 @@ class Questionaire extends Component {
             </div>
             <h2>{username}</h2>
             <div>{description}</div>
-            Select your experience:
-            <TopicDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
+            Select your experience: &nbsp;
+            <TagDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
             <div>{value.map(tag => <div key={tag}><Label>{tag}</Label>{' '}</div>)}</div>
             <div>What are you interested in?</div>
             {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''}
             {/* todo: add a search or give some recommendations */}
-            <div>
+            <div><br/>
               {/* submit compiled user details to database. render user's profile complete w/ details */}
               {user ?
-                <Mutation mutation={UPDATE_USER_1} variables={{ id: user.id, email: 'update@update.com', description, coins, tags }}>
+                <Mutation mutation={UPDATE_USER_INFO} variables={{ id: user.id, email: 'update@update.com', description, coins, tags }}>
                   {updateUser => (
                     <Link to="/profile">
-                    <Button type="submit" onClick={updateUser}>
-                      LETS GOOOOOOOO
-                  </Button>
-                  </Link>)}
-                </Mutation> : ''}
+                      <Button type="submit" onClick={updateUser}>Save Profile Info</Button>
+                    </Link>
+                  )}
+                </Mutation> 
+                : ''}
             </div>
           </Col>
         </Tab>
@@ -145,5 +148,3 @@ class Questionaire extends Component {
       )
   }
 }
- 
-export default Questionaire;

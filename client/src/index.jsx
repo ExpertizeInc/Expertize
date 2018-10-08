@@ -2,11 +2,12 @@ import React from 'react';
 import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import params from './particles.js'
 import { GET_USER_UID } from './gql.js';
 import Routes from './Routes.jsx';
+import history from './components/history.js';
 
 const client = new ApolloClient({
   uri: "http://localhost:4000"
@@ -15,10 +16,7 @@ const client = new ApolloClient({
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user: null,
-      authenticated: false
-    }
+    this.state = { user: null, authenticated: false }
     this.callbackFunction = this.callbackFunction.bind(this)
     this.signInLI = this.signInLI.bind(this)
     this.signOut = this.signOut.bind(this)
@@ -26,28 +24,15 @@ class App extends React.Component {
   }
   
   componentDidMount() {
-    console.log('hm?',GET_USER_UID)
     firebase.auth().onAuthStateChanged((user) => {
-      console.log('fbbauth', user)
       if (user) {
-        client.query({
-          query: GET_USER_UID,
-          variables: { uid: user.uid }})
-          .then(({ data }) => {
-            console.log('prisma user', data)
-            this.setState({
-              authenticated: true,
-              user: data.user })
-          })
-          .catch(err => console.log('auth faied', err))
+        client.query({ query: GET_USER_UID, variables: { uid: user.uid } })
+          .then(({ data }) => this.setState({ authenticated: true, user: data.user }))
+          .catch(err => console.error('auth faied', err));
       } else {
-        this.setState({
-          authenticated: false
-        })
+        this.setState({ authenticated: false });
       }
     })
-  
-    
     // IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
     // IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
     // if (IN.User.isAuthorized()) {
@@ -61,32 +46,28 @@ class App extends React.Component {
   }
 
   signIn(user) {
-    console.log('signed in:', user)
-    this.setState({ authenticated: true, user: user })
+    this.setState({ authenticated: true, user }, () => history.push('/home'));
   }
 
   callbackFunction() {
     IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
     // this.setState({authenticated: true}, 
-    .result((r) => console.log(r))
-    .error((e) => console.log(e))
+    .result((results) => console.log('results in linkedIn', results))
+    .error((error) => console.error('error in linkedIn', error));
     IN.API.Raw('/industries?format=json')
-    .result((r) => console.log(r))
-    .error((e) => console.error(e))
-    
+    .result((results) => console.log('results in.api.raw', results))
+    .error((error) => console.error('error in in.api.raw', error));
   }
 
   signInLI(e, a) {
       e.preventDefault();
-      console.log('LINKED IN FKKKKKK')
-      IN.User.authorize(this.callbackFunction, '')
+      console.log('LINKED IN');
+      IN.User.authorize(this.callbackFunction, '');
       // a.history.push('/restricted')
   }
 
   signOut() {
-    this.setState({
-      authenticated: false
-    }, () => console.log('toggled authenticated'))
+    this.setState({ authenticated: false }, () => console.log('toggled authenticated'));
   }
 
   render() {
@@ -112,4 +93,4 @@ class App extends React.Component {
   }
 }
 
-render(<Router><App/></Router>, document.getElementById('app'));
+render(<Router history={history}><App/></Router>, document.getElementById('app'));

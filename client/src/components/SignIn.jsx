@@ -18,7 +18,7 @@ import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap';
 import LinkedinLogin from './LinkedinLogin.jsx';
 
-class Signin extends Component {
+export default class Signin extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,11 +42,9 @@ class Signin extends Component {
     console.log('submitting sign in to firebase')
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .then(() => this.props.history.push('/home'))
-    // .then(()=>console.log(this.props))
-    .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+    .catch(error => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
       console.error('error code:',errorCode, 'with message: ', errorMessage)
       window.alert('incorrect username/password')
     });
@@ -83,6 +81,4 @@ class Signin extends Component {
       </div>
     );
   }
-}
-
-export default Signin
+};

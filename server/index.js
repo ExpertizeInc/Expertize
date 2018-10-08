@@ -10,11 +10,9 @@ app.use(express.static(path.join(__dirname + '/../client/dist')));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
-});
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../client/dist/index.html')));
 
-var port = process.env.PORT || 3001;
+const port = process.env.PORT || 3001;
 
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
