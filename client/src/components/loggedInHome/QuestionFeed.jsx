@@ -149,7 +149,7 @@ export default class QuestionFeed extends Component {
             </Mutation>
           </Col>
           <br /><br /><br />
-          <Query query={getQuestions}>
+          <Query query={getQuestions} >
             {({ loading, error, data }) => {
               if (loading) return <div>Loading...</div>;
               if (error) return <div>Error {console.log(error)}</div>;
@@ -159,10 +159,11 @@ export default class QuestionFeed extends Component {
                     {data.questions.map((question, i) => (
                       <div key={i}>
                         <Panel>
+                          {console.log(question)}
                           <Panel.Heading>
                             <Panel.Title componentClass="h3">
                               Title: {question.title} | Coins: {question.coins.toString()}&nbsp;
-                              | Tags: {question.tags} | Active: {question.active.toString()}&nbsp;
+                              | Tags: {question.tags && question.tags.length > 1 ? question.tags.map(tag => {tag}) : '' } | Active: {question.active.toString()}&nbsp;
                               | Duration: {question.duration.toString()} minutes
                             </Panel.Title>
                           </Panel.Heading>

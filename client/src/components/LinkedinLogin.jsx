@@ -40,10 +40,10 @@ export default class LinkedinLogin extends React.Component {
 
     
     render() {
-      let { signInLI } = this.props
+      let { signInLI, text } = this.props
       return ( 
         <div>
-        < button onClick = { signInLI }> { this.props.text }</button >
+          <button onClick={signInLI}>{text}</button>
         </div>
       );
     }

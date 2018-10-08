@@ -64,5 +64,17 @@ const server = new GraphQLServer({
   };
   }
 });
+
+// const io = require('socket.io')(server)
+// io.on('connect', (socket) => {
+//   console.log('a user connected, id is:', socket.id);
+//   socket.on('message', (msg) => {
+//     console.log('received message:', msg);
+//     io.sockets.emit('outbound', msg);
+//   });
+//   socket.on('disconnect', () => console.log('user disconnected'));
+// });
+
+
 // server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));
