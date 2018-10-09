@@ -3,7 +3,7 @@ import { Prisma } from '../prisma/generated';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
-
+import { node } from 'prop-types';
 const dotenv = require('dotenv').config();
 const express = require('express');
 const path = require('path');
@@ -24,7 +24,10 @@ const resolvers = {
     },
     tags: (_, __, ctx: { prisma: Prisma }, ____) => {
       return ctx.prisma.query.tags({});
-    }
+    },
+    sessions: (_,__,ctx, ____) => {
+      return ctx.prisma.query.sessions({});
+    },
   },
   Mutation: {
     createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
@@ -54,16 +57,16 @@ const resolvers = {
     }
   },
   Subscription: {
-    subscribeToSessionAsPupil (parent, { pupil }, ctx, info) {
-      return ctx.prisma.subscription.session(
-        { where: { mutation_in: ['UPDATED'] } },
-        
-      )
-    },
-    subscribeToSessionAsTeacher (parent, { teacher }, ctx, info) {
-      return ctx.prisma.subscription.session(
-        { where: { mutation_in: ['UPDATED'] } },
-        info,
+    subscribeToSessionAsExpert: (_, { username }, ctx, info) => {
+      return ctx.prisma.subscription.session({ 
+        where: { 
+          mutation_in: ['UPDATED'],
+          node : {
+            expert: {username: username},
+            accepted: false
+          }
+        } 
+      }  
       )
     }
   }
@@ -100,11 +103,6 @@ const server = new GraphQLServer({
 //   });
 //   socket.on('disconnect', () => console.log('user disconnected'));
 // });
-
-
-
-// server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
-// server.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../../client/dist/index.html')));
 
 
 server.express.use(express.static(path.join(__dirname + '/../../client/dist')));

@@ -1,9 +1,11 @@
+# import SessionSubscriptionPayload from "../prisma/generated/prisma.graphql"
 type Query {
   user(uid: String!): User
   tags: [Tag!]!
   users: [User]!
   questions: [Question]!
   questionsByUser(userId: String!): [Question]
+  sessions: [Session!]!
 }
 
 type Mutation {
@@ -24,7 +26,7 @@ type User {
   tags: [String!]!
   description: String
   coins: Int 
-  # session: [Session!]!
+  session: [Session!]
 }
 
 type Session {
@@ -51,32 +53,20 @@ type Tag {
   name: String!
 }
 
-type Question {
-  id: ID!
-  userId: String!
-  username: String
-  description: String!
-  tags: [String!]!
-  coins: Int!
-  active: Boolean
-  title: String!
-  text: Boolean!
-  audio: Boolean!
-  video: Boolean!
-  duration: Int!
-}
-
-type SessionSubscriptionPayload {
-  mutation: MutationType!
-  node: Session
-  updatedFields: [String!]
-  previousValues: LinkPreviousValues
-}
-
-type Subscription {
-  subscribeToSessionAsPupil(pupil: String!): SessionSubscriptionPayload
-  subscribeToSessionAsTeacher(teacher: String!): SessionSubscriptionPayload
-}
+ type Question {
+   id: ID!
+   userId: String!
+   username: String
+   description: String!
+   tags: [String!]!
+   coins: Int!
+   active: Boolean
+   title: String!
+   text: Boolean!
+   audio: Boolean!
+   video: Boolean!
+   duration: Int!
+ }
 
 input UserCreateOneInput {
   connect: UserInput
@@ -87,3 +77,17 @@ input UserInput {
 }
 
 scalar DateTime
+
+# type SubscriptionPayLoad {
+#   # mutation: updateSession!
+#   node: Session
+#   updatedFields: [String!]
+#   previousValues: Session
+# }
+
+# type M
+
+type Subscription {
+  subscribeToSessionAsExpert(username:String!): SessionSubscriptionPayload
+}
+
