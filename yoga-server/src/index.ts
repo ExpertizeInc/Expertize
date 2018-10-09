@@ -41,16 +41,16 @@ const resolvers = {
         where: { id } 
       });
     },
-    createSession: (_, { id, type, pupil }, ctx, info) => {
+    createSession: (_, { type, expert, pupil, accepted, duration, completed, startedAt, endedAt}, ctx, info) => {
       return ctx.prisma.mutation.createSession({
-        data: { id, type, pupil }
-      })
+        data: { type, expert, pupil, duration, accepted, completed, startedAt, endedAt }
+      });
     },
-    updateSession: (_, { teacher, pupil }, ctx: { prisma: Prisma }, info) => {
+    updateSession: (_, { id, accepted, completed, startedAt, endedAt}, ctx, info) => {
       return ctx.prisma.mutation.updateSession({
-        data: { teacher },
-        where: { pupil }
-      })
+        data: { accepted, completed, startedAt, endedAt },
+        where: { id }
+      });
     }
   },
   Subscription: {
@@ -65,7 +65,7 @@ const resolvers = {
         { where: { mutation_in: ['UPDATED'] } },
         info,
       )
-    }
+    
   }
 }
 
@@ -102,7 +102,10 @@ const server = new GraphQLServer({
 // });
 
 
+
 // server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
 // server.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../../client/dist/index.html')));
 
+
+server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));

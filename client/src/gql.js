@@ -81,3 +81,20 @@ mutation updateUser($id: String!, $email: String, $uid: String, $description: St
     }
 }
 `;
+
+export const CREATE_SESSION = gql`
+mutation createSession($type: String!, $expert: UserCreateOneInput, $pupil: UserCreateOneInput, $duration: Int, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime) {
+  createSession(type: $type, expert: $expert, pupil: $pupil, duration: $duration, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
+    id
+  }
+}
+`
+
+export const UPDATE_SESSION = gql`
+mutation updateSession($id: String!, $accepted: Boolean, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime) {
+  updateSession(id: $id, accepted: $accepted, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
+    accepted
+    completed
+  }
+}
+`

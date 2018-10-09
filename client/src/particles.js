@@ -53,7 +53,7 @@ module.exports = {
       "width": 1
     },
     "move": {
-      "enable": true,
+      "enable": false,
       "speed": 1,
       "direction": "none",
       "random": false,
@@ -65,7 +65,7 @@ module.exports = {
         "rotateX": 600,
         "rotateY": 1200
       }
-    }
+    },
   },
   "interactivity": {
     "detect_on": "canvas",
@@ -107,4 +107,5 @@ module.exports = {
     }
   },
   "retina_detect": true
+  
 }

@@ -9,7 +9,7 @@ export default class Profile extends Component {
     const { user } = this.props;
     const userInfo = [{name: 'Posts', info: '3'}, {name: 'Coins', info: user ? user.coins : '' }, {name: 'Fields', info: '7'}];
     return (
-      <React.Fragment>
+      <div>
         {user &&
           <Grid fluid >
             <PageHeader style={{display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
@@ -17,7 +17,7 @@ export default class Profile extends Component {
               <div className="hexTop" />
               <div className="hexBottom"/>
             </div>
-            <Col xs={5} md={2} className="centered">
+            <Col xs={6} md={2} className="centered">
             <Thumbnail className="centered">
               <h2>{user.username}</h2>
               </Thumbnail>
@@ -73,7 +73,7 @@ export default class Profile extends Component {
             </Row>
           </Grid>
         }
-      </React.Fragment>
+      </div>
     )
   }
 };

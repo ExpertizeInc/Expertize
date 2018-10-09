@@ -1,4 +1,5 @@
 type User {
+<<<<<<< HEAD
   id: ID! @unique
   username: String! @unique
   email: String! @unique
@@ -22,6 +23,48 @@ type Session {
   createdAt: DateTime!
   updatedAt: DateTime!
 }
+=======
+id: ID! @unique
+username: String! @unique
+email: String! @unique
+uid: String @unique
+tags: [String!]!
+image: String
+ranking: Int @default(value:"0")
+description: String
+coins: Int @default(value: "1")
+sessions: [Session!]! @relation(name: "UserSessions")
+}
+
+type Session {
+id: ID! @unique
+type: String!
+expert: User @relation(name: "UserSessions")
+pupil: User @relation(name: "PupilSessions")
+duration: Int
+accepted: Boolean
+completed: Boolean
+startedAt: DateTime
+endedAt: DateTime
+createdAt: DateTime!
+updatedAt: DateTime!
+}
+
+  type Session {
+    id: ID! @unique
+    type: String!
+    expert: User @relation(name: "UserSessions")
+    pupil: User @relation(name: "PupilSessions")
+    duration: Int
+    accepted: Boolean
+    completed: Boolean
+    startedAt: DateTime
+    endedAt: DateTime
+    createdAt: DateTime!
+    updatedAt: DateTime!
+  }
+# 1018921401e6574bd4103679773e3adfd0170f1c
+>>>>>>> dev
 
 # type UserTag {
 #   id: ID! @unique
@@ -30,6 +73,7 @@ type Session {
 # }
 
 type Tag {
+<<<<<<< HEAD
   id: ID! @unique
   name: String! @unique
 }
@@ -48,3 +92,33 @@ type Question {
   video: Boolean!
   duration: Int! @default(value: "5")
 }
+=======
+id: ID! @unique
+name: String! @unique
+}
+
+type Question {
+id: ID! @unique
+userId: String!
+username: String!
+tags: [String!]
+description: String!
+coins: Int @default(value: "3")
+active: Boolean @default(value: "false")
+title: String!
+text: Boolean!
+audio: Boolean!
+video: Boolean!
+duration: Int! @default(value: "5")
+}
+# username: String!
+# tags: [String!]
+# description: String!
+# coins: Int @default(value: "3")
+# active: Boolean @default(value: "false")
+# title: String!
+# text: Boolean!
+# audio: Boolean!
+# video: Boolean!
+# duration: Int! @default(value: "5")
+# }

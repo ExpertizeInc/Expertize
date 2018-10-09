@@ -1,26 +1,23 @@
 html,body{
-  height: 100%
+  height: 100%;
+  width: 100%;
+  position:absolute;
 }
 
-
+/* 
 html {
-  position:absolute;
   height:100%;
   width:100%;
-  }
+  } */
 
 .container {
-  margin: 0 50px;
+  display: flex;
   width: flex;
 }
 .form-panel-signup {
   justify-content: center
 }
 
-.centered {
-  justify-content: center;
-  text-align: center;
-}
 .navbar {
   margin-bottom: 0px;
   background: none;
@@ -162,4 +159,21 @@ a, body {
 .btn:focus {
     outline: none !important;
     outline-offset: none !important;
+}
+/* 
+#particles canvas{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+} */
+
+/* canvas {
+  display: block;
+  vertical-align: bottom;
+} */
+
+.centered {
+  text-align: center;
+  align-items: center;
 }
