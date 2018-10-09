@@ -88,3 +88,12 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
     }
 }
 `;
+
+export const CREATE_SESSION = gql`
+mutation createSession($id: String!, $type: String!, $expert: User, $pupil: User, $duration: Int, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime, $createdAt: DateTime!, $updatedAt: DateTime!) {
+  createSession(id: $id, type: $type, expert: $expert, pupil: $pupil, duration: $duration, completed: $completed, startedAt: $startedAt, endedAt: $endedAt, createdAt: $createdAt, updatedAt: $updatedAt) {
+    id
+    
+  }
+}
+`

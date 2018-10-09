@@ -1,10 +1,12 @@
-// 
-
 import React, { Component } from "react";
 import { Query, Mutation } from "react-apollo";
-import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Panel, Grid, Row, ToggleButtonGroup, ToggleButton, Glyphicon } from "react-bootstrap";
+import { Col, Button, Panel, Grid, Row, Glyphicon } from "react-bootstrap";
 // import TopicDropdown from './TagDropdown.jsx';
 import { createQuestion, getQuestions } from '../../gql.js';
+import SessionModal from './SessionModal.jsx'
+import { Link } from 'react-router-dom';
+import { userInfo } from "os";
+
 
 export default class QuestionFeed extends Component {
   constructor(props) {
@@ -26,61 +28,70 @@ export default class QuestionFeed extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    const { questions } = this.state;
+    const { user, match } = this.props;
+    // console.log('feed user', user)
     return (
-        <div>
-          <Query query={getQuestions}>
-            {({ loading, error, data }) => {
-              if (loading) return <div>Loading...</div>;
-              if (error) return <div>Error{console.log(error)}</div>;
-              return (
-                <div>
-                  <Col smOffset={2} sm={8}>
-                    {data.questions.map((question, i) => (
-                      <div key={i}>
-                        <Panel>
-                          <Panel.Heading>
-                            <Panel.Title componentClass="h3">
-                              Title: {question.title} | Coins: {question.coins} | Tag: {question.tags.map(tag => tag.concat(', '))} | Active: {question.active.toString()}
-                            </Panel.Title>
-                          </Panel.Heading>
-                          <Panel.Body>
-                            <Grid>
-                              <Row>
-                                <Col sm={2}>
-                                  <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-                                    <div className="hexTop" />
-                                    <div className="hexBottom" />
-                                  </div>
-                                  <div>{question.username}</div>
-                                </Col>
-                                <Col sm={3}>{question.description}</Col>
-                                <Col sm={2}>
-                                  {/* i apologize for this code */}
-                                  <div>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
-                                    : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
-                                  }</div>
-                                  <div>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                                    : <Button className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                                  }</div>
-                                  <div>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                                    : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                                  }</div>
-                                </Col>
-                                <Col sm={1}><Button>Claim Question</Button></Col>
-                              </Row>
-                            </Grid>
-                          </Panel.Body>
-                        </Panel>
-                      </div>
-                    ))}
-                  </Col>
-                </div>
-              )
-            }}
-          </Query>
-          </div>
+      <div>
+        <Button>
+          <Glyphicon glyph="pencil" />
+          <Link to={`${match.url}/create`}>Create</Link>
+        </Button>
+        <Query query={getQuestions}>
+          {({ loading, error, data }) => {
+            if (loading) return <div>Loading...</div>;
+            if (error) return <div>Error{console.log(error)}</div>;
+            return (
+              <div>
+                <Col smOffset={2} sm={8}>
+                  {data.questions.map((question, i) => (
+                    <div key={i}>
+                      <Panel>
+                        <Panel.Heading>
+                          <Panel.Title componentClass="h3">
+                            Title: {question.title} | Coins: {question.coins} | Tag: {question.tags.length > 1 ? question.tags.map((tag, i) => tag.concat(', '))
+                              : 
+                              question.tags} 
+                              | Active: {question.active.toString()}
+                          </Panel.Title>
+                        </Panel.Heading>
+                        <Panel.Body>
+                          <Grid>
+                            <Row>
+                              <Col sm={2}>
+                                <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+                                  <div className="hexTop" />
+                                  <div className="hexBottom" />
+                                </div>
+                                <div>{question.username}</div>
+                              </Col>
+                              <Col sm={3}>{question.description}</Col>
+                              <Col sm={2}>
+                                {/* i apologize for this code */}
+                                <div>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
+                                  : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
+                                }</div>
+                                <div>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
+                                  : <Button className="round-btn"><Glyphicon glyph="earphone" /></Button>
+                                }</div>
+                                <div>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
+                                  : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
+                                }</div>
+                              </Col>
+                              <Col sm={1}>
+                                <SessionModal match={match} question={question} user={user} />
+                              </Col>
+                            </Row>
+                          </Grid>
+                        </Panel.Body>
+                      </Panel>
+                    </div>
+                  ))}
+                </Col>
+              </div>
+            )
+          }}
+        </Query>
+      </div>
     );
   }
 }

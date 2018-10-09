@@ -28,18 +28,20 @@ type User {
   # session: [Session!]!
 }
 
-# type Session {
-#   id: ID!
-#   type: String!
-#   expert: User
-#   pupil: User
-#   duration: Int
-#   completed: Boolean
-#   startedAt: DateTime
-#   endedAt: DateTime
-#   createdAt: DateTime!
-#   updatedAt: DateTime!
-# }
+
+type Session {
+id: ID!
+type: String!
+expert: User
+pupil: User
+duration: Int
+accepted: Boolean
+completed: Boolean
+startedAt: DateTime
+endedAt: DateTime
+createdAt: DateTime!
+updatedAt: DateTime!
+}
 
 type LoginPayload {
   token: String

@@ -27,7 +27,7 @@ export default class Profile extends Component {
               <div className="hexTop" />
               <div className="hexBottom"/>
             </div>
-            <Col xs={5} md={2} className="centered">
+            <Col xs={6} md={2} className="centered">
             <Thumbnail className="centered">
            <span>Username: <h4>{user.username}</h4></span>
             <span>Email: <h4>{user.email}</h4></span>
