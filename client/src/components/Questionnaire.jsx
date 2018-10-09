@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, ToggleButtonGroup, ToggleButton, Label } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, Label, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import TagDropdown from './loggedInHome/TagDropdown.jsx';
-import { UPDATE_USER_INFO } from '../gql.js'; 
+import { UPDATE_USER_INFO, GET_USER_INFO, GET_USER_QUESTIONS } from '../gql.js'; 
 
 export default class Questionnaire extends Component {
   constructor(props) {
@@ -15,15 +15,17 @@ export default class Questionnaire extends Component {
       key: 1,
       value: [],
       tags: [],
-      image: ''
+      image: '',
+      show: false
     }
-    this.handleSelect = this.handleSelect.bind(this)
-    this.nextStep = this.nextStep.bind(this)
-    this.getValidationState = this.getValidationState.bind(this)
-    this.handleInput = this.handleInput.bind(this)
-    this.handleButtonToggle = this.handleButtonToggle.bind(this)
-    this.handleSubmitInfo = this.handleSubmitInfo.bind(this)
-    this.addTags = this.addTags.bind(this)
+    this.handleSelect = this.handleSelect.bind(this);
+    this.nextStep = this.nextStep.bind(this);
+    this.getValidationState = this.getValidationState.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.handleButtonToggle = this.handleButtonToggle.bind(this);
+    this.handleSubmitInfo = this.handleSubmitInfo.bind(this);
+    this.addTags = this.addTags.bind(this);
+    this.handleDismiss = this.handleDismiss.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +51,15 @@ export default class Questionnaire extends Component {
 
   nextStep(e) {
     e.preventDefault();
-    this.setState({ key: ++this.state.key });
+    if (this.state.username.length <= 3) {
+      this.setState({ show: true })
+    } else {
+      this.setState({ key: ++this.state.key });
+    }
+  }
+
+  handleDismiss() {
+    this.setState({ show: false })
   }
 
   handleSubmitInfo() {
@@ -67,7 +77,7 @@ export default class Questionnaire extends Component {
   }
 
   render() { 
-    const { description, coins, tags, key, username, value, image } = this.state
+    const { description, coins, tags, key, username, value, image, show } = this.state
     const { user } = this.props;
     return (
       <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
@@ -87,6 +97,15 @@ export default class Questionnaire extends Component {
                 <Button type="submit" onClick={this.nextStep}>
                   Submit
                 </Button>
+                {show ?
+                  <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+                    <h4>Oh snap! You got an error!</h4>
+                    <p>Please increase the length of your input</p>
+                    <p><Button onClick={this.handleDismiss}>Hide Alert</Button></p>
+                  </Alert>
+                  :
+                  ''
+                }
               </Col>
             </FormGroup>
           </Form>
@@ -138,7 +157,14 @@ export default class Questionnaire extends Component {
             <div><br/>
               {/* submit compiled user details to database. render user's profile complete w/ details */}
               {user ?
-                <Mutation mutation={UPDATE_USER_INFO} variables={{ id: user.id, description, tags, username, image }} onCompleted={(data) => console.log('23', data)}>
+                <Mutation 
+                  mutation={UPDATE_USER_INFO} 
+                  variables={{ id: user.id, description, tags, username, image }}
+                  // refetchQueries={() => {
+                  //   console.log("================refetchQueries====================");
+                  //   return ["GET_USER_INFO", "GET_USER_QUESTIONS"];
+                  // }}
+                >
                   {updateUser => (
                     <Link to="/profile">
                       <Button type="submit" onClick={updateUser}>Save Profile Info</Button>
