@@ -72,6 +72,7 @@ type SessionSubscriptionPayload {
 }
 
 type Subscription {
-  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
+  subscribeToSessionAsPupil(pupil: String!): SessionSubscriptionPayload
+  subscribeToSessionAsTeacher(teacher: String!): SessionSubscriptionPayload
 }
 

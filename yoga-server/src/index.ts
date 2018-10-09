@@ -41,16 +41,27 @@ const resolvers = {
         where: { id } 
       });
     },
+    createSession: (_, { id, type, pupil }, ctx, info) => {
+      return ctx.prisma.mutation.createSession({
+        data: { id, type, pupil }
+      })
+    },
+    updateSession: (_, { teacher, pupil }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.mutation.updateSession({
+        data: { teacher },
+        where: { pupil }
+      })
+    }
   },
   Subscription: {
-    subscribeToSessionAsPupil (parent, args, context, info) {
-      return context.db.subscription.link(
+    subscribeToSessionAsPupil (parent, { pupil }, ctx, info) {
+      return ctx.prisma.subscription.session(
         { where: { mutation_in: ['UPDATED'] } },
         
       )
     },
-    subscribeToSessionAsTeacher (parent, args, context, info) {
-      return context.db.subscription.link(
+    subscribeToSessionAsTeacher (parent, { teacher }, ctx, info) {
+      return ctx.prisma.subscription.session(
         { where: { mutation_in: ['UPDATED'] } },
         info,
       )
