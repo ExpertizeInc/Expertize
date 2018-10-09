@@ -7,7 +7,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 const UserHome = ({ match, user }) => (
   <div>
     <Switch>
-    <Route path={`${match.url}/create`} render={() => <QuestionForm user={user} />} />
+    <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
     <Route path={`${match.url}/discussion`} render={({match}) => <Discussion user={user} match={match} />} />
     <QuestionFeed match={match} user={user} />
     </Switch>

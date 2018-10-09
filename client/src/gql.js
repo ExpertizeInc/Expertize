@@ -12,7 +12,7 @@ export const createQuestion = gql`
 
 export const getQuestions = gql`
   query {
-    questions{
+    questions {
       username
       description
       active
@@ -22,6 +22,7 @@ export const getQuestions = gql`
       audio
       video
       duration
+      tags
     }
   }
 `;
@@ -35,8 +36,8 @@ export const getTags = gql`
 `;
 
 export const UPDATE_USER = gql`
-mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int) {
-    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins) {
+mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int, $username: String) {
+    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, username: $username) {
         id
         description
     }
@@ -48,6 +49,7 @@ query questionsByUser($userId: String!) {
   questionsByUser(userId: $userId) {
     title
     description
+    tags
   }
 }
 `;
@@ -69,15 +71,23 @@ query user($uid: String!) {
     username
     email
     coins
+    uid
+    ranking
+    image
+    tags
   }
 }
 `;
 
 export const UPDATE_USER_INFO = gql`
-mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String]) {
-    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags) {
+mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String], $username: String, $image: String) {
+    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags, username: $username, image: $image) {
         id
         description
+        image
+        description
+        coins
+        username
     }
 }
 `;

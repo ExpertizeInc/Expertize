@@ -1,5 +1,3 @@
-// 
-
 import React, { Component } from "react";
 import { Query, Mutation } from "react-apollo";
 import { Col, Button, Panel, Grid, Row, Glyphicon } from "react-bootstrap";
@@ -8,6 +6,7 @@ import { createQuestion, getQuestions } from '../../gql.js';
 import SessionModal from './SessionModal.jsx'
 import { Link } from 'react-router-dom';
 import { userInfo } from "os";
+
 
 export default class QuestionFeed extends Component {
   constructor(props) {
@@ -30,12 +29,12 @@ export default class QuestionFeed extends Component {
 
   render() {
     const { user, match } = this.props;
-    console.log('feed user', user)
+    // console.log('feed user', user)
     return (
       <div>
         <Button>
           <Glyphicon glyph="pencil" />
-          <Link to={`${match.url}/create`}> Create</Link>
+          <Link to={`${match.url}/create`}>Create</Link>
         </Button>
         <Query query={getQuestions}>
           {({ loading, error, data }) => {
@@ -49,7 +48,10 @@ export default class QuestionFeed extends Component {
                       <Panel>
                         <Panel.Heading>
                           <Panel.Title componentClass="h3">
-                            Title: {question.title} | Coins: {question.coins} | Tag: {question.tags} | Active: {question.active.toString()}
+                            Title: {question.title} | Coins: {question.coins} | Tag: {question.tags.length > 1 ? question.tags.map((tag, i) => tag.concat(', '))
+                              : 
+                              question.tags} 
+                              | Active: {question.active.toString()}
                           </Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>

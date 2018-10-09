@@ -31,7 +31,7 @@ export default class Signup extends Component {
       console.log('created fb user', user)
       this.setState({ uid: user.uid })
       cb(user.uid);
-    })
+    }).then(() => this.props.history.push('/questionnaire'))
     .catch((error) => console.error(`errorCode: ${error.code}, errorMessage: ${error.message}`));
   }
   render() { 

@@ -13,7 +13,7 @@ import QuestionFeed from './components/loggedInHome/QuestionFeed.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
 
-export const Routes = ({ authenticated, user, signIn, signInLI}) => (
+const Routes = ({ authenticated, user, signIn, signInLI}) => (
     <div>
 
       <NavBar authenticated={authenticated}/>
@@ -21,15 +21,15 @@ export const Routes = ({ authenticated, user, signIn, signInLI}) => (
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>
           <Route exact strict path="/signin" render={(props) => <SignIn {...props} signInLI={signInLI}/>}></Route>
-          <Route exact strict path="/signup" render={() => <Signup user={user} signIn={signIn} />}></Route>
-          <Route exact strict path="/questionnaire" render={() => <Questionnaire user={user} />}></Route>
-          <Route exact strict path="/profile" render={() => <Profile user={user} />}></Route>
+          <Route exact strict path="/signup" render={(props) => <Signup user={user} {...props} signIn={signIn} />}></Route>
+          <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} />}></Route>
+          <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>
           <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>
       </Switch>
       {/* <Footer /> */}
     </div>
-        )
+);
 
 export default Routes;
