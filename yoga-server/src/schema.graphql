@@ -1,4 +1,3 @@
-
 type Query {
   user(uid: String!): User
   tags: [Tag!]!
@@ -11,8 +10,10 @@ type Mutation {
    createUser(username: String!, email: String!, uid: String!): User
    updateUser(id: String!, email: String, uid: String, description: String, coins: Int, tags: [String]): User
    login(email: String!, password: String!): LoginPayload!
-   addTag(name: String!): Tag
    createQuestion(userId: String!, username: String!, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
+   createSession(type: String!, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
+   updateSession(id: String!, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
+   addTag(name: String!): Tag
 }
 
 type User {
@@ -29,18 +30,21 @@ type User {
 type Session {
   id: ID!
   type: String!
+  expert: User
+  pupil: User
+  duration: Int
+  accepted: Boolean
+  completed: Boolean
+  startedAt: DateTime
+  endedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type LoginPayload {
   token: String
   error: String
 }
-
-# type UserTag {
-#   id: ID! 
-#   user: User!
-#   tag: Tag!
-# }
 
 type Tag {
   id: ID!
@@ -62,3 +66,12 @@ type Tag {
    duration: Int!
  }
 
+input UserCreateOneInput {
+  connect: UserInput
+}
+
+input UserInput {
+  username: String
+}
+
+scalar DateTime

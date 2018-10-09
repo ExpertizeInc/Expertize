@@ -17,6 +17,7 @@
     expert: User @relation(name: "UserSessions")
     pupil: User @relation(name: "PupilSessions")
     duration: Int
+    accepted: Boolean
     completed: Boolean
     startedAt: DateTime
     endedAt: DateTime
