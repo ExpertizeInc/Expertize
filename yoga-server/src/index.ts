@@ -65,7 +65,7 @@ const resolvers = {
         { where: { mutation_in: ['UPDATED'] } },
         info,
       )
-    
+    }
   }
 }
 

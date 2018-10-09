@@ -7,13 +7,6 @@ type Query {
 }
 
 type Mutation {
-<<<<<<< HEAD
-  createUser(email: String!, uid: String!, username: String!): User
-  updateUser(id: String!, email: String, uid: String, description: String, coins: Int, tags: [String]): User
-  login(email: String!, password: String!): LoginPayload!
-  addTag(name: String!): Tag
-  createQuestion(userId: String!, username: String!, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
-=======
    createUser(username: String!, email: String!, uid: String!): User
    updateUser(id: String!, email: String, uid: String, description: String, coins: Int, tags: [String]): User
    login(email: String!, password: String!): LoginPayload!
@@ -21,7 +14,6 @@ type Mutation {
    createSession(type: String!, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    updateSession(id: String!, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    addTag(name: String!): Tag
->>>>>>> dev
 }
 
 type User {
@@ -38,10 +30,6 @@ type User {
 type Session {
   id: ID!
   type: String!
-<<<<<<< HEAD
-  pupil: String!
-  teacher: String
-=======
   expert: User
   pupil: User
   duration: Int
@@ -51,7 +39,6 @@ type Session {
   endedAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
->>>>>>> dev
 }
 
 type LoginPayload {
