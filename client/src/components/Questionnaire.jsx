@@ -68,6 +68,8 @@ export default class Questionnaire extends Component {
   render() { 
     const { description, coins, tags, key, username, value } = this.state
     const { user } = this.props;
+    console.log('modal', this.props)
+
     return (
       <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
         <Tab eventKey={1} title="Pick a username">

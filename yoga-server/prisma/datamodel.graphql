@@ -25,6 +25,21 @@ createdAt: DateTime!
 updatedAt: DateTime!
 }
 
+  type Session {
+    id: ID! @unique
+    type: String!
+    expert: User @relation(name: "UserSessions")
+    pupil: User @relation(name: "PupilSessions")
+    duration: Int
+    accepted: Boolean
+    completed: Boolean
+    startedAt: DateTime
+    endedAt: DateTime
+    createdAt: DateTime!
+    updatedAt: DateTime!
+  }
+# 1018921401e6574bd4103679773e3adfd0170f1c
+
 # type UserTag {
 #   id: ID! @unique
 #   user: User!

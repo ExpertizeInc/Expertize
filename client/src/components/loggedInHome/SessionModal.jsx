@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { Button, Modal, Glyphicon, Well, Grid, Row, Col } from 'react-bootstrap';
 import { Link, Route } from 'react-router-dom';
+import { Mutation, withApollo } from 'react-apollo';
 import { CREATE_SESSION } from '../../gql.js';
+import { connect } from 'tls';
 
 
-export default class SessionStartModal extends Component {
+class SessionModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       show: false
     }
     this.handleHide = this.handleHide.bind(this);
+    this.initiateSession = this.initiateSession.bind(this)
+  }
+
+  initiateSession() {
+    client.mutate({ mutation: CREATE_SESSION, variables: { uid: user.uid } })
+    .then(({ data }) => console.log('data?', data))
+    .catch(err => console.error('creation failed', err));
   }
 
   handleHide() {
@@ -18,7 +27,7 @@ export default class SessionStartModal extends Component {
   }
 
   render() { 
-    const { user, question, match } = this.props;
+    const { user, question, match, client } = this.props;
     return (
       <div className="container centered">
         <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
@@ -44,13 +53,28 @@ export default class SessionStartModal extends Component {
             <Well>{question.description}</Well>
           </Modal.Body>
           <Modal.Footer className="centered ">
-          
-            <span>{question.text && <Button bsStyle="success" ><Glyphicon glyph="comment" /><Link to={`${match.url}/discussion/text`}> Start text</Link></Button>
-            }</span>
-            <span>{question.audio && <Button bsStyle="success" ><Glyphicon glyph="earphone" /><Link to={`${match.url}/discussion/audio`}> Start audio</Link></Button>
-            }</span>
-            <span>{question.video && <Button bsStyle="success" ><Glyphicon glyph="facetime-video" /><Link to={`${match.url}/discussion/video`}> Start video</Link></Button>
-            }</span>
+          <Button onClick={() => console.log(new Date().toISOString())}>Test</Button>
+
+            <Mutation mutation={CREATE_SESSION} variables={{ type: 'videosa', expert: {connect: { username: user.username}}, pupil : {connect: { username: question.username}}}}>
+              {createSession => (
+                <span>{question.text && <Link to={`${match.url}/discussion/text`}><Button onClick={createSession} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
+                }</span>
+              )}
+            </Mutation>
+
+            {/* <Mutation mutation={CREATE_SESSION} >
+              {createSession => (
+                <span>{question.audio && <Link to={`${match.url}/discussion/audio`}><Button onClick={createSession} bsStyle="success" ><Glyphicon glyph="earphone" /> Start audio</Button></Link>
+                }</span>
+              )}
+            </Mutation>
+
+            <Mutation mutation={CREATE_SESSION} >
+              {createSession => (
+                <span>{question.video && <Link to={`${match.url}/discussion/video`}><Button onClick={createSession} bsStyle="success" ><Glyphicon glyph="facetime-video" /> Start video</Button></Link>
+                }</span>
+              )}
+            </Mutation> */}
          
           </Modal.Footer>
         </Modal>
@@ -58,4 +82,5 @@ export default class SessionStartModal extends Component {
     );
   }
 }
- 
+
+export default withApollo(SessionModal)

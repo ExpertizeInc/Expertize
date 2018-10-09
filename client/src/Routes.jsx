@@ -15,6 +15,7 @@ import Video from './components/Video.jsx';
 
 export const Routes = ({ authenticated, user, signIn, signInLI}) => (
     <div>
+
       <NavBar authenticated={authenticated}/>
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
