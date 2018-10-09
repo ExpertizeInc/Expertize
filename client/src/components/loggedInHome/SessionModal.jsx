@@ -28,7 +28,6 @@ class SessionModal extends Component {
 
   render() { 
     const { user, question, match, client } = this.props;
-    console.log(client)
     return (
       <div className="container centered">
         <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
