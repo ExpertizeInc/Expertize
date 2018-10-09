@@ -13,7 +13,9 @@ type Mutation {
    login(email: String!, password: String!): LoginPayload!
    addTag(name: String!): Tag
    createQuestion(userId: String!, username: String!, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
+   createSession(type: String!, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
 }
+
 
 type User {
   id: ID!
@@ -26,10 +28,29 @@ type User {
   # session: [Session!]!
 }
 
+input UserCreateOneInput {
+  connect: UserInput
+}
+
+input UserInput {
+  username: String
+}
+
 type Session {
   id: ID!
   type: String!
+  expert: User
+  pupil: User
+  duration: Int
+  accepted: Boolean
+  completed: Boolean
+  startedAt: DateTime
+  endedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
+
+scalar DateTime
 
 type LoginPayload {
   token: String
