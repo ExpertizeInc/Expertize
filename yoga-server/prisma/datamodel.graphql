@@ -11,35 +11,19 @@ coins: Int @default(value: "1")
 sessions: [Session!]! @relation(name: "UserSessions"),
 }
 
-<<<<<<< HEAD
 type Session {
-id: ID! @unique
-type: String!
-expert: User @relation(name: "UserSessions")
-pupil: User @relation(name: "PupilSessions")
-duration: Int
-accepted: Boolean
-completed: Boolean
-startedAt: DateTime
-endedAt: DateTime
-createdAt: DateTime!
-updatedAt: DateTime!
+  id: ID! @unique
+  type: String!
+  expert: User @relation(name: "UserSessions")
+  pupil: User @relation(name: "PupilSessions")
+  duration: Int
+  accepted: Boolean
+  completed: Boolean
+  startedAt: DateTime
+  endedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
-=======
-  type Session {
-    id: ID! @unique
-    type: String!
-    expert: User @relation(name: "UserSessions")
-    pupil: User @relation(name: "PupilSessions")
-    duration: Int
-    accepted: Boolean
-    completed: Boolean
-    startedAt: DateTime
-    endedAt: DateTime
-    createdAt: DateTime!
-    updatedAt: DateTime!
-  }
->>>>>>> dev
 
 # type UserTag {
 #   id: ID! @unique
