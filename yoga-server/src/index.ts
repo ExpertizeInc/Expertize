@@ -27,11 +27,14 @@ const resolvers = {
     sessions: (_, __, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.query.sessions({});
     },
-    sessionsWhereUnacceptedPupil: (_, { accepted, username }, ctx: { prisma: Prisma }, info) => {
+    sessionsWhereUnacceptedPupil: (_, { username }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.query.sessions({ where: { accepted: null, pupil: { username } }}, info);
     },
-    sessionsWhereAcceptedExpert: (_, { accepted, username }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.query.sessions({ where: { accepted: true, expert: { username } }}, info);
+    sessionsWhereAcceptedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({ where: { accepted: true, completed: null, expert: { username } }}, info);
+    },
+    sessionsWhereRejectedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({ where: { accepted: false, completed: null, expert: { username } }}, info);
     }
   },
   Mutation: {
@@ -49,9 +52,9 @@ const resolvers = {
         where: { id } 
       }, info);
     },
-    createSession: (_, { type, expert, pupil, accepted, duration, completed, startedAt, endedAt}, ctx, info) => {
+    createSession: (_, { type, questionId, expert, pupil, accepted, duration, completed, startedAt, endedAt}, ctx, info) => {
       return ctx.prisma.mutation.createSession({
-        data: { type, expert, pupil, duration, accepted, completed, startedAt, endedAt }
+        data: { type, questionId, expert, pupil, duration, accepted, completed, startedAt, endedAt }
       });
     },
     updateSession: (_, { id, accepted, completed, startedAt, endedAt}, ctx, info) => {

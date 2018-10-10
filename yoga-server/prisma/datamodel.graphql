@@ -18,6 +18,7 @@ linkedInId: String @unique
 type Session {
   id: ID! @unique
   type: String!
+  questionId: String
   expert: User @relation(name: "UserSessions")
   pupil: User @relation(name: "PupilSessions")
   duration: Int

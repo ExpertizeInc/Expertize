@@ -9,7 +9,6 @@ import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 
-
 const client = new ApolloClient({
   uri: "http://localhost:4000"
 });
@@ -35,13 +34,5 @@ const client = new ApolloClient({
 // const client = new ApolloClient({ 
 //   link
 // })
-
-
-       
-
-        
-       
-
-
 
 render(<Router history={history}><App client={client} /></Router>, document.getElementById('app'));

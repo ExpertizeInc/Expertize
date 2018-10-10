@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, Modal, Glyphicon, Well, Grid, Row, Col } from 'react-bootstrap';
-import { Link, Route } from 'react-router-dom';
 import { Mutation, withApollo } from 'react-apollo';
 import { CREATE_SESSION } from '../../gql.js';
 import { connect } from 'tls';
@@ -13,11 +12,6 @@ class SessionModal extends Component {
       show: false
     }
     this.handleHide = this.handleHide.bind(this);
-    this.initiateSession = this.initiateSession.bind(this)
-  }
-
-  initiateSession() {
-
   }
 
   handleHide() {
@@ -25,7 +19,7 @@ class SessionModal extends Component {
   }
 
   render() { 
-    const { user, question, match, client } = this.props;
+    const { user, question } = this.props;
     return (
       <div >
         <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
@@ -51,29 +45,22 @@ class SessionModal extends Component {
             <Well>{question.description}</Well>
           </Modal.Body>
           <Modal.Footer className="centered ">
-          <Button onClick={() => console.log(new Date().toISOString())}>Test</Button>
 
-            <Mutation mutation={CREATE_SESSION} variables={{ type: 'videosa', expert: {connect: { username: user.username}}, pupil : {connect: { username: question.username}}}}>
+            <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', expert: {connect: { username: user.username}}, pupil : {connect: { username: question.username}}}}>
               {createSession => (
-                <span>{question.text && <Link to={`${match.url}/discussion/text`}><Button onClick={createSession} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
+                <span>{question.text && <Button onClick={() => {createSession()
+                this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
                 }</span>
               )}
             </Mutation>
             
-
-            {/* <Mutation mutation={CREATE_SESSION} >
+            <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', expert: {connect: { username: user.username}}, pupil : {connect: { username: question.username}}}}>
               {createSession => (
-                <span>{question.audio && <Link to={`${match.url}/discussion/audio`}><Button onClick={createSession} bsStyle="success" ><Glyphicon glyph="earphone" /> Start audio</Button></Link>
+                <span>{question.video && <Button onClick={() => {createSession()
+                  this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="comment" />Send request to video chat</Button>
                 }</span>
               )}
             </Mutation>
-
-            <Mutation mutation={CREATE_SESSION} >
-              {createSession => (
-                <span>{question.video && <Link to={`${match.url}/discussion/video`}><Button onClick={createSession} bsStyle="success" ><Glyphicon glyph="facetime-video" /> Start video</Button></Link>
-                }</span>
-              )}
-            </Mutation> */}
          
           </Modal.Footer>
         </Modal>
