@@ -94,8 +94,8 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
 `;
 
 export const CREATE_SESSION = gql`
-mutation createSession($type: String!, $expert: UserCreateOneInput, $pupil: UserCreateOneInput, $duration: Int, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime) {
-  createSession(type: $type, expert: $expert, pupil: $pupil, duration: $duration, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
+mutation createSession($type: String!, $questionId: String, $expert: UserCreateOneInput, $pupil: UserCreateOneInput, $duration: Int, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime) {
+  createSession(type: $type, questionId: $questionId, expert: $expert, pupil: $pupil, duration: $duration, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
     id
   }
 }
@@ -110,10 +110,47 @@ mutation updateSession($id: String!, $accepted: Boolean, $completed: Boolean, $s
 }
 `
 
+// subject to rename
 export const GET_UNACCEPTED_SESSIONS = gql`
 query sessionsWhereUnacceptedPupil($username: String) {
   sessionsWhereUnacceptedPupil(username: $username) {
+    id
     type
+    expert {
+      username
+    }
+    pupil {
+      username
+    }
+  }
+}
+`
+export const GET_ACCEPTED_SESSIONS = gql`
+query sessionsWhereAcceptedExpert($username: String) {
+  sessionsWhereAcceptedExpert(username: $username) {
+    id
+    type
+    expert {
+      username
+    }
+    pupil {
+      username
+    }
+  }
+}
+`
+
+export const GET_REJECTED_SESSIONS = gql`
+query sessionsWhereRejectedExpert($username: String) {
+  sessionsWhereRejectedExpert(username: $username) {
+    id
+    type
+    expert {
+      username
+    }
+    pupil {
+      username
+    }
   }
 }
 `
