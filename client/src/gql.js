@@ -105,6 +105,7 @@ query user($uid: String!) {
     image
     tags
   }
+}
 `;
 
 export const UPDATE_USER_INFO = gql`
@@ -181,8 +182,7 @@ export const UPDATE_SESSION = gql`
       completed
     }
   }
-}
-`
+`;
 
 export const GET_UNACCEPTED_SESSIONS = gql`
 query sessionsWhereUnacceptedPupil($username: String) {

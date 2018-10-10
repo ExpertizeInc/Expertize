@@ -1,6 +1,7 @@
 import React from 'react';
+import LIButton from '../LIButton.png';
 
-export default class LinkedinLogin extends React.Component {
+export default class LinkedInLogin extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
@@ -40,10 +41,13 @@ export default class LinkedinLogin extends React.Component {
 
     
     render() {
-      let { signInLI, text } = this.props
+      let { signInLI } = this.props
       return ( 
         <div>
-          <button onClick={signInLI}>{text}</button>
+          {console.log(this.props)}
+          <button onClick={signInLI}>
+            <img src={LIButton} alt="linkedInButton" style={{ width: 190 }}/>
+          </button>
         </div>
       );
     }

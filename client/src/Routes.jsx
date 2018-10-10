@@ -14,16 +14,16 @@ import QuestionFeed from './components/loggedInHome/QuestionFeed.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
 
-const Routes = ({ authenticated, user, signIn, signInLI, linkedInEmail, linkedInId }) => (
+const Routes = ({ authenticated, user, signIn, signInLI, linkedInEmail, linkedInId, LIResults }) => (
     <div>
 
       <NavBar user={user} authenticated={authenticated}/>
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>
-          <Route exact strict path="/signin" render={(props) => <SignIn {...props} signInLI={signInLI}/>}></Route>
+          <Route exact strict path="/signin" render={(props) => <SignIn {...props} LIResults={LIResults} signInLI={signInLI}/>}></Route>
           <Route exact strict path="/signup" render={(props) => <Signup user={user} {...props} signIn={signIn} />}></Route>
-          <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} linkedInId={linkedInId} linkedInEmail={linkedInEmail} />}></Route>
+          <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} LIResults={LIResults} linkedInId={linkedInId} linkedInEmail={linkedInEmail} />}></Route>
           <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>
           <Route exact strict path="/video" component={Video}></Route>

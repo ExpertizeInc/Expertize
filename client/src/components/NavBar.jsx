@@ -12,7 +12,7 @@ export default class NavBar extends Component {
   // for signout button
   signOutUser() {
     if (IN.User.isAuthorized()) {
-      IN.User.logout(this.props.signOut, '');
+      IN.User.logout(this.props.signOut);
     } else {
       firebase.auth().signOut();
     }

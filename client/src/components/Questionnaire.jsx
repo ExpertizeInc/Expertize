@@ -16,7 +16,12 @@ export default class Questionnaire extends Component {
       value: [],
       tags: [],
       image: '',
-      show: false
+      show: false,
+      firstName: '',
+      lastName: '',
+      linkedInEmail: '',
+      linkedInId: '',
+      email: ''
     }
     this.handleSelect = this.handleSelect.bind(this);
     this.nextStep = this.nextStep.bind(this);
@@ -29,7 +34,8 @@ export default class Questionnaire extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props, 'AAAA')
+    const { emailAddress, firstName, lastName, headline, id, pictureUrl } = this.props.LIResults;
+    this.setState({ image: pictureUrl, firstName, lastName, linkedInEmail: emailAddress, linkedInId: id, email: emailAddress })
   }
   getValidationState () {
     const length = this.state.username.length;
@@ -77,9 +83,9 @@ export default class Questionnaire extends Component {
   }
 
   render() { 
-    const { description, coins, tags, key, username, value, image, show } = this.state
+    const { description, coins, tags, key, username, value, image, show, linkedInEmail, linkedInId, email } = this.state
     const { user } = this.props;
-    console.log('modal', this.props)
+    console.log('modal', this.state)
 
     return (
       <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
@@ -114,14 +120,23 @@ export default class Questionnaire extends Component {
         </Tab>
         <Tab eventKey={2} title="Set up profile">
           <Col smOffset={4} sm={3}>
-            <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
+            <div className="hexagon" style={{ backgroundImage: `url(${image})` }}>
               <div className="hexTop" />
               <div className="hexBottom" />
             </div>
             <FormGroup controlId="formControlsTextarea">
               <h2>{username}, </h2>
-              <h3>Please enter a profile picture url:</h3>
-              <input type="text" value={image} onChange={(e) => this.handleInput(e, 'image')} />
+              {image 
+              ? 
+                // <input type="text" value={image} />
+                <div />
+              :
+              <div>
+                <h3>Please enter a profile picture url:</h3>
+                <input type="text" value={image} onChange={(e) => this.handleInput(e, 'image')} />
+              </div>
+              }
+
               <ControlLabel>Let us know a little about yourself</ControlLabel>
               <FormControl componentClass="textarea" value={description} onChange={(e) => this.handleInput(e, 'description')} />
             </FormGroup>
@@ -143,7 +158,7 @@ export default class Questionnaire extends Component {
         </Tab>
         <Tab eventKey={4} title="Expertize">
           <Col xsOffset={4} sm={4}>
-            <div className="hexagon" style={{ backgroundImage: `url(${user && user.image ? user.image : user ? user : 'http://www.jesuschristsavior.net/Savior.jpeg'})` }}>
+            <div className="hexagon" style={{ backgroundImage: `url(${user && user.image ? user.image : image ? image : 'http://www.jesuschristsavior.net/Savior.jpeg'})` }}>
               <div className="hexTop"></div>
               <div className="hexBottom"></div>
             </div>
@@ -172,8 +187,8 @@ export default class Questionnaire extends Component {
                 : 
                 <Mutation 
                 mutation={CREATE_LINKED_IN_USER} 
-                variables={{ linkedInId: this.props.linkedInId, linkedInEmail: this.props.linkedInEmail, email: this.props.linkedInEmail, description, tags, username, image }}
-                onCompleted={(data) => console.log('LI', data)}
+                variables={{ linkedInId, linkedInEmail, email, description, tags, username, image }}
+                onCompleted={(data) => this.props.history.push('/home')}
               >
                 {createLinkedInUser => (
                   <Link to="/profile">

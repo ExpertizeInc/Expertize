@@ -23,6 +23,14 @@ module.exports = {
        exclude: /node_modules/,
        loader: 'graphql-tag/loader',
      },
+     {
+      test: /\.(pdf|jpg|png|gif|svg|ico)$/,
+      use: [
+          {
+              loader: 'url-loader'
+          },
+        ]
+      },
    ]
  },
  resolve: {

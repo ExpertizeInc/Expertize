@@ -5,11 +5,13 @@ import params from "../particles.js";
 import { GET_USER_UID } from "../gql.js";
 import Routes from "../Routes.jsx";
 import history from "../components/history.js";
+import axios from 'axios';
+// import dotenv from 'dotenv';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { user: null, authenticated: false };
+    this.state = { user: null, authenticated: false, LIResults: {} };
     this.callbackFunction = this.callbackFunction.bind(this);
     this.signInLI = this.signInLI.bind(this);
     this.signOut = this.signOut.bind(this);
@@ -46,12 +48,11 @@ export default class App extends React.Component {
   }
 
   callbackFunction() {
-
     IN.API.Raw("/people/~:(id,first-name,last-name,emailAddress,headline,picture-url,industry,positions:(id,title,summary,start-date,end-date,is-current,company:(id,name,type,size,industry,ticker)),educations:(id,school-name,field-of-study,start-date,end-date,degree,activities,notes))?format=json")
     // this.setState({authenticated: true}, 
     .result((results) => {
       console.log('results in linkedIn', results);
-      this.setState({ linkedInId: results.id, linkedInEmail: results.emailAddress }, () => {
+      this.setState({ LIResults: results }, () => {
         history.push('/questionnaire');
       })
         // client.mutate({
@@ -71,8 +72,11 @@ export default class App extends React.Component {
 
   signInLI(e, a) {
     e.preventDefault();
+    axios.get('/linkedIn')
+      .then((d) => console.log(d, 'asdasdasd'))
+      .catch(e => console.error(e))
     console.log("LINKED IN");
-    IN.User.authorize(this.callbackFunction, "");
+    // IN.User.authorize(this.callbackFunction);
     // a.history.push('/restricted')
   }
 
@@ -105,6 +109,7 @@ export default class App extends React.Component {
             authenticated={authenticated}
             signInLI={this.signInLI}
             signOut={this.signOut}
+            LIResults={this.state.LIResults}
           />
         </ApolloProvider>
       </div>
