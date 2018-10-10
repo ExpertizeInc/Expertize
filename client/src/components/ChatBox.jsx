@@ -21,8 +21,8 @@ class ChatBox extends Component {
     this.state = {
       text: '',
       messages: [],
-      target: this.props.him,//set username of other person
-      me: this.props.me//my username
+      target: '',//set username of other person
+      me: ''//my username
 
     }
     this.onChange = this.onChange.bind(this)
@@ -31,7 +31,8 @@ class ChatBox extends Component {
   } 
 
   componentDidMount() {
-    console.log('this is socket in chatbox', this.props.socket)
+    const { him, me } = this.props
+    console.log('him:',him,'me',me)
     this.props.socket.on('outbound', (message) => {
       console.log('WILL TIS WORK??', message, message.from)
       if(this.state.target === message.from) {
@@ -54,8 +55,8 @@ class ChatBox extends Component {
     var temp = [`${this.state.me}: ${text}`]
     this.setState(state => {
       return {messages: state.messages.concat(temp)}
-    })
-    this.props.socket.emit('message', {target, text})
+    },()=>console.log(target,text,this.state.userOne))
+    this.props.socket.emit('message', {target, text, nickname: this.state.userOnec})
     this.setState({ text: ''})
   }
 

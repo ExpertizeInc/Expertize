@@ -13,26 +13,30 @@ class Chat extends Component {
       messages: [],
       socketId: '',
       userOne: '',
+      target: '',
       online: [],
       rooms: []
     }
-    this.createRoom = this.createRoom.bind(this)
+    // this.createRoom = this.createRoom.bind(this)
   }
 
   componentWillReceiveProps(props) {
-    // this.setState({userOne: props.user.username}, () => socket.emit('get username'))
-    console.log(props)
+    this.setState({userOne: props.user.username}, () => console.log('cwrp state', this.state))
+    console.log('cwrp')
   }
 
   componentDidMount() {
     // socket.emit('get username')
-    console.log('chat component did mount!', this.props.match)
+    const { match, user } = this.props
+    console.log('the props of chat looking for params',this.state)
+    // setTimeout(() => this.setState({userOne: this.props.user.username, target: match.params.username}, ()=> console.log('the state in compnoenetdidimoutn', this.state)), 100)
+    // console.log('chat component did mount! match is :', user, this.props)
     // socket.on('get user') {
-
+    socket.emit('new user', user.username)
     socket.on('connect', () => {
       // var name = prompt('enter in username')
-      // console.log('userone at cdm in chat',name)
-      // this.setState({userOne:name}, () => socket.emit('new user', this.state.userOne))
+      console.log('userone at cdm in chat',user.username)
+      this.setState({userOne:user.username, target: this.props.match.params.username}, () => socket.emit('new user', this.state.userOne))
       // socket.emit('new user', name)
       socket.emit('new user', this.state.userOne)
       console.log('user connected to socket on componentdidmount')
@@ -41,34 +45,35 @@ class Chat extends Component {
       this.setState({online:data})
       console.log('list of users',data)
     })
-    socket.on('receive message', (data) => {
-      this.createRoom(e, data.user);
-    })
+    // socket.on('receive message', (data) => {
+    //   this.createRoom(e, data.user);
+    // })
     socket.on('outbound', (data) => {
       if (this.state.rooms.indexOf(data.from) === -1) {
         this.createRoom(null, data.from)
       }
     })
-    
   }
 
-  createRoom(e, user) {
-    user = this.state.userOne
-    console.log('user of click',user)
-    if(this.state.rooms.indexOf(user) === -1) {
-      var temp = this.state.rooms.concat([user]).sort()
-      console.log('temp', temp)
-      this.setState({
-        rooms: temp
-      }, () => socket.emit('new room', user))
-    } else {
-      alert('already have room with that person')
-    }
-  }
+  // createRoom(e, user) {
+  //   user = e.target.value
+  //   console.log('e.target.value',user)
+  //   console.log('user of click',user)
+  //   if(this.state.rooms.indexOf(user) === -1) {
+  //     var temp = this.state.rooms.concat([user]).sort()
+  //     console.log('temp in chat', temp)
+  //     this.setState({
+  //       rooms: temp
+  //     }, () => socket.emit('new room', user))
+  //   } else {
+  //     alert('already have room with that person')
+  //   }
+  // }
 
 
 
   render() { 
+    const { params } = this.props
     return (
       <div>
         <div>
@@ -78,7 +83,7 @@ class Chat extends Component {
           </ul>
         </div>
         <Well>
-          {this.state.rooms.map((room, i) => <div><ChatBox socket={socket} him={room} me={this.state.userOne}/></div> )}
+          <ChatBox socket={socket} him={this.state.target} me={this.state.userOne}/>
         </Well>
       </div>
     );
