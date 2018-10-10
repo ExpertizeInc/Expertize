@@ -57,7 +57,7 @@ class SessionModal extends Component {
 
             <Mutation mutation={CREATE_SESSION} variables={{ type: 'videosa', expert: {connect: { username: user.username}}, pupil : {connect: { username: question.username}}}}>
               {createSession => (
-                <span>{question.text && <Link to={`${match.url}/discussion/text`}><Button onClick={createSession} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
+                <span>{question.text && <Link to={`${match.url}/discussion/text`}><Button onClick={()=>console.log('text clicked')} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
                 }</span>
               )}
             </Mutation>

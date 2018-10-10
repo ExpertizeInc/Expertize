@@ -18,7 +18,7 @@ export default class Discussion extends Component {
 
         <Switch>
           <Route path={`${match.url}/video`} component={Video} />
-          <Route path={`${match.url}/text`} component={Chat} />
+          <Route path={`${match.url}/text`} render={()=> <Chat match={match} />} />
         </Switch>
         </Panel>
       </div>

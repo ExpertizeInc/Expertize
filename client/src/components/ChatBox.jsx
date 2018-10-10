@@ -6,7 +6,7 @@
 //   </div>
 // );
 
-export default ChatBox;
+
 
 import React, { Component } from 'react';
 import { Form, FormControl, Button, Well } from 'react-bootstrap';
@@ -21,8 +21,8 @@ class ChatBox extends Component {
     this.state = {
       text: '',
       messages: [],
-      target: this.props.him,
-      me: this.props.me
+      target: this.props.him,//set username of other person
+      me: this.props.me//my username
 
     }
     this.onChange = this.onChange.bind(this)
@@ -68,12 +68,10 @@ class ChatBox extends Component {
         <Form>
           <FormControl onChange={(e) => this.onChange(e)} value={this.state.text} placeholder="Chat" />
           <Button onClick={() => {this.sendMessage(target, text)}} >BUTTON to send text</Button>
-          {/* <Button onClick={(e) => this.sendMessage(this.state.text)} >BUTTON to send text</Button>
-          <Button value='sue' onClick={(e) => this.connectToUser(e)} >BUTTON to message sue</Button>
-          <Button value='bob'onClick={(e) => this.connectToUser(e)} >BUTTON to message bob</Button> */}
         </Form>
       </div>
     )
   }
 }
  
+export default ChatBox;

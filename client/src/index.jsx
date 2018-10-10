@@ -17,9 +17,11 @@ import { getMainDefinition } from 'apollo-utilities'
 
 const client = new ApolloClient({
   uri: "http://localhost:4000"
-  // link: httpLink,
-  // cache: new InMemoryCache()
+  // link,
+  // cache
 });
+
+// const cache = new InMemoryCache()
 
 // const wsLink = new WebSocketLink({
 //   uri: 'ws://localhost:4000',
@@ -28,7 +30,7 @@ const client = new ApolloClient({
 //   }
 // })
 
-// const httpLink = createHttpLink({ uri: 'http://localhost:4000'})
+// const httpLink = createHttpLink({ uri: 'http://localhost:4000/graphql'})
 
 // const link = split(
 //   ({ query }) => {

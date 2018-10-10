@@ -49,7 +49,7 @@ export default class QuestionFeed extends Component {
                       <Panel>
                         <Panel.Heading>
                           <Panel.Title componentClass="h3">
-                            Title: {question.title} | Coins: {question.coins} | Tag: {question.tags} | Active: {question.active.toString()}
+                            Title: {question.title} | Coins: {question.coins} | Tag: {question.tags} | Active: {question.active ? question.active.toString() : null}
                           </Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>

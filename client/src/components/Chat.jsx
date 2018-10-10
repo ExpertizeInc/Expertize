@@ -1,5 +1,3 @@
-export default ChatBox;
-
 import React, { Component } from 'react';
 import { Form, FormControl, Button, Well } from 'react-bootstrap';
 import ChatBox from './ChatBox.jsx'
@@ -18,17 +16,26 @@ class Chat extends Component {
       online: [],
       rooms: []
     }
-    this.connecToUser = this.connectToUser.bind(this)
     this.createRoom = this.createRoom.bind(this)
   }
 
+  componentWillReceiveProps(props) {
+    // this.setState({userOne: props.user.username}, () => socket.emit('get username'))
+    console.log(props)
+  }
+
   componentDidMount() {
-    console.log(this.props.user)
+    // socket.emit('get username')
+    console.log('chat component did mount!', this.props.match)
+    // socket.on('get user') {
+
+    }
     socket.on('connect', () => {
-      var name = prompt('enter in username')
-      console.log('userone at cdm in chat',name)
-      this.setState({userOne:name}, () => socket.emit('new user', this.state.userOne))
+      // var name = prompt('enter in username')
+      // console.log('userone at cdm in chat',name)
+      // this.setState({userOne:name}, () => socket.emit('new user', this.state.userOne))
       // socket.emit('new user', name)
+      socket.emit('new user', this.state.userOne)
       console.log('user connected to socket on componentdidmount')
     })
     socket.on('usernames', (data) => {
@@ -46,26 +53,8 @@ class Chat extends Component {
     
   }
 
-  // onChange(e) {
-  //   this.setState({
-  //     text: e.target.value
-  //   })
-  // }
-
-  // sendMessage(msg) {
-  //   socket.emit('message', msg)
-  //   this.setState({ text: ''})
-  // }
-
-  connectToUser(e) {
-    // this.setState({ userTwo: e.target.value}, () => {
-    //   socket.emit('connectToUser', userOne, userTwo)
-    // })
-    // console.log(e.target.value)
-  }
-
   createRoom(e, user) {
-    user = user || e.target.getAttribute('user')
+    user = this.state.userOne
     console.log('user of click',user)
     if(this.state.rooms.indexOf(user) === -1) {
       var temp = this.state.rooms.concat([user]).sort()
