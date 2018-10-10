@@ -5,8 +5,8 @@ import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
 import { node } from 'prop-types';
 const dotenv = require('dotenv').config();
-const express = require('express');
-const path = require('path');
+// const express = require('express');
+// const path = require('path');
 
 const resolvers = {
   Query: {
@@ -105,5 +105,5 @@ const server = new GraphQLServer({
 // });
 
 
-server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
+// server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));
