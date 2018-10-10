@@ -31,10 +31,10 @@ const resolvers = {
       return ctx.prisma.query.sessions({ where: { accepted: null, pupil: { username } }}, info);
     },
     sessionsWhereAcceptedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.query.sessions({ where: { accepted: true, expert: { username } }}, info);
+      return ctx.prisma.query.sessions({ where: { accepted: true, completed: null, expert: { username } }}, info);
     },
     sessionsWhereRejectedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.query.sessions({ where: { accepted: false, expert: { username } }}, info);
+      return ctx.prisma.query.sessions({ where: { accepted: false, completed: null, expert: { username } }}, info);
     }
   },
   Mutation: {

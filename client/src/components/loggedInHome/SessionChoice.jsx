@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { Query, Mutation } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import { Modal, Button } from 'react-bootstrap';
-import { GET_UNACCEPTED_SESSIONS, UPDATE_SESSION } from '../../gql.js';
-
-
+import { UPDATE_SESSION } from '../../gql.js';
 
 export default class SessionChoice extends Component {
   constructor(props) {
@@ -14,7 +12,7 @@ export default class SessionChoice extends Component {
   }
 
   render() {
-    const { hideNotification, session } = this.props
+    const { session } = this.props
     return (
       <div>
       {(session && session.pupil) && 
@@ -30,20 +28,10 @@ export default class SessionChoice extends Component {
           </Modal.Body>
           <Modal.Footer>
           <Mutation mutation={UPDATE_SESSION} variables={{ id: session.id, accepted: true }}>
-            {updateSession => (
-            <Button onClick={() => {
-              updateSession()
-              hideNotification()
-            }}>Accept</Button>
-            )}
+            {updateSession => <Button onClick={updateSession}>Accept</Button>}
             </Mutation>
             <Mutation mutation={UPDATE_SESSION} variables={{ id: session.id, accepted: false }}>
-            {updateSession => (
-            <Button onClick={() => {
-              updateSession()
-              hideNotification()
-            }}>Reject</Button>
-            )}
+            {updateSession =>  <Button onClick={updateSession}>Reject</Button>}
             </Mutation>
           </Modal.Footer>
         </Modal>}
