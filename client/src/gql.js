@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const createQuestion = gql`
+export const CREATE_QUESTION = gql`
   mutation createQuestion($userId: String!, $username: String!, $description: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
     createQuestion(userId: $userId, username: $username, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
       description
@@ -10,7 +10,7 @@ export const createQuestion = gql`
   }
 `;
 
-export const getQuestions = gql`
+export const GET_QUESTIONS = gql`
   query {
     questions {
       username
@@ -27,7 +27,7 @@ export const getQuestions = gql`
   }
 `;
 
-export const getTags = gql`
+export const GET_TAGS = gql`
   query {
     tags {
       name
@@ -54,8 +54,8 @@ query questionsByUser($userId: String!) {
 }
 `;
 
-export const createUser = gql`
-mutation CreateUser($username: String! $email: String!, $uid: String!) {
+export const CREATE_USER = gql`
+mutation createUser($username: String! $email: String!, $uid: String!) {
     createUser(username: $username, email: $email, uid: $uid) {
       id
       username
@@ -70,6 +70,7 @@ query user($uid: String!) {
     id
     username
     email
+    description
     coins
     uid
     ranking
@@ -105,6 +106,14 @@ mutation updateSession($id: String!, $accepted: Boolean, $completed: Boolean, $s
   updateSession(id: $id, accepted: $accepted, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
     accepted
     completed
+  }
+}
+`
+
+export const GET_UNACCEPTED_SESSIONS = gql`
+query sessionsWhereUnacceptedPupil($username: String) {
+  sessionsWhereUnacceptedPupil(username: $username) {
+    type
   }
 }
 `

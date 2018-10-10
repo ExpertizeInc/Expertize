@@ -20,7 +20,7 @@ export default class NavBar extends Component {
 
   render() {
     const routes = ['Questionnaire', 'Profile', 'Chat', 'Video'];
-    const { authenticated } = this.props;
+    const { authenticated, user } = this.props;
     return (
       <Navbar fluid >
         <Navbar.Header >
@@ -42,7 +42,7 @@ export default class NavBar extends Component {
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1} componentClass='span' style={{ marginTop: 15 }}>
-            <Link to="/signin">Sign In </Link> &nbsp; &nbsp;
+            {authenticated ? <img className="nav-img" src={user.image}></img> : <Link to="/signin">Sign In </Link>} &nbsp; &nbsp;
           </NavItem>
           <NavItem eventKey={2} componentClass='span' style={{ marginTop: 15, marginRight: 15 }}>
             {authenticated ? <Link to="/" onClick={this.signOutUser}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}

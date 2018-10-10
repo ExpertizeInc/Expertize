@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap'
-import { createUser } from '../gql.js';
+import { CREATE_USER } from '../gql.js';
 
 export default class Signup extends Component {
   constructor(props) {
@@ -52,7 +52,7 @@ export default class Signup extends Component {
         <FormGroup>
           <Col smOffset={6} sm={3}>
           {/* todo: hook up to firebase/linkedin Oauth */}
-          <Mutation mutation={createUser} onError={(err) => console.error('Error in createUser mutation', err)} onCompleted={({newUser}) => this.props.signIn(newUser)}>
+          <Mutation mutation={CREATE_USER} onError={(err) => console.error('Error in createUser mutation', err)} onCompleted={({newUser}) => this.props.signIn(newUser)}>
             {(createUser, { data }) => {
               return (
                 <Button 

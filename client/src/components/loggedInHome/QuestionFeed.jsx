@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Query, Mutation } from "react-apollo";
 import { Col, Button, Panel, Grid, Row, Glyphicon } from "react-bootstrap";
 // import TopicDropdown from './TagDropdown.jsx';
-import { createQuestion, getQuestions } from '../../gql.js';
+import { GET_QUESTIONS } from '../../gql.js';
 import SessionModal from './SessionModal.jsx'
 import { Link } from 'react-router-dom';
 import { userInfo } from "os";
@@ -36,7 +36,7 @@ export default class QuestionFeed extends Component {
           <Glyphicon glyph="pencil" />
           <Link to={`${match.url}/create`}>Create</Link>
         </Button>
-        <Query query={getQuestions}>
+        <Query query={GET_QUESTIONS}>
           {({ loading, error, data }) => {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error{console.log(error)}</div>;
@@ -51,7 +51,7 @@ export default class QuestionFeed extends Component {
                             Title: {question.title} | Coins: {question.coins} | Tag: {question.tags.length > 1 ? question.tags.map((tag, i) => tag.concat(', '))
                               : 
                               question.tags} 
-                              | Active: {question.active.toString()}
+                              
                           </Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>

@@ -1,10 +1,10 @@
 module.exports = {
   "particles": {
     "number": {
-      "value": 80,
+      "value": 232,
       "density": {
         "enable": true,
-        "value_area": 1500
+        "value_area": 4730.065579553293
       }
     },
     "color": {
@@ -17,7 +17,7 @@ module.exports = {
         "color": "#000000"
       },
       "polygon": {
-        "nb_sides": 5
+        "nb_sides": 4
       },
       "image": {
         "src": "img/github.svg",
@@ -53,30 +53,30 @@ module.exports = {
       "width": 1
     },
     "move": {
-      "enable": false,
-      "speed": 1,
+      "enable": true,
+      "speed": 0.5,
       "direction": "none",
       "random": false,
       "straight": false,
       "out_mode": "out",
       "bounce": false,
       "attract": {
-        "enable": true,
+        "enable": false,
         "rotateX": 600,
         "rotateY": 1200
       }
-    },
+    }
   },
   "interactivity": {
-    "detect_on": "canvas",
+    "detect_on": "window",
     "events": {
       "onhover": {
-        "enable": true,
+        "enable": false,
         "mode": "repulse"
       },
       "onclick": {
-        "enable": false,
-        "mode": "repulse"
+        "enable": true,
+        "mode": "push"
       },
       "resize": true
     },
@@ -95,7 +95,7 @@ module.exports = {
         "speed": 3
       },
       "repulse": {
-        "distance": 25,
+        "distance": 200,
         "duration": 0.4
       },
       "push": {
@@ -106,6 +106,5 @@ module.exports = {
       }
     }
   },
-  "retina_detect": true
-  
+  "retina_detect": false
 }
