@@ -25,6 +25,11 @@ module.exports = {
      },
    ]
  },
+ resolve: {
+  alias: {
+    graphql: path.resolve('./node_modules/graphql')
+  }
+},
  node: {
    fs: 'empty',
    tls: 'empty'

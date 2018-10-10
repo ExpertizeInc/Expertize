@@ -8,7 +8,11 @@ image: String
 ranking: Int @default(value:"0")
 description: String
 coins: Int @default(value: "1")
-sessions: [Session!]! @relation(name: "UserSessions"),
+inSession: Boolean
+sessionPupil: [Session!]! @relation(name: "PupilSessions")
+sessionExpert: [Session!]! @relation(name: "UserSessions")
+linkedInEmail: String @unique
+linkedInId: String @unique
 }
 
 type Session {
@@ -43,10 +47,11 @@ username: String!
 tags: [String!]
 description: String!
 coins: Int @default(value: "3")
-active: Boolean @default(value: "false")
+active: Boolean
 title: String!
 text: Boolean!
 audio: Boolean!
 video: Boolean!
 duration: Int! @default(value: "5")
+answeredBy: String
 }

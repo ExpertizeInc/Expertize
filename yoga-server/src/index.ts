@@ -3,9 +3,9 @@ import { Prisma, User } from '../prisma/generated';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
-const dotenv = require('dotenv').config();
-const express = require('express');
-const path = require('path');
+import 'dotenv/config'
+// const express = require('express');
+// const path = require('path');
 
 const resolvers = {
   Query: {
@@ -23,6 +23,15 @@ const resolvers = {
     },
     tags: (_, __, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.query.tags({}); 
+    },
+    sessions: (_, __, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({});
+    },
+    sessionsWhereUnacceptedPupil: (_, { accepted, username }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({ where: { accepted: null, pupil: { username } }}, info);
+    },
+    sessionsWhereAcceptedExpert: (_, { accepted, username }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({ where: { accepted: true, expert: { username } }}, info);
     }
   },
   Mutation: {
@@ -51,8 +60,23 @@ const resolvers = {
         where: { id }
       });
     }
-  }
+  },
+  // Subscription: {
+  //   subscribeToSessionAsExpert: (_, { username }, ctx, info) => {
+  //     return ctx.prisma.subscription.session({ 
+  //       where: { 
+  //         mutation_in: ['UPDATED'],
+  //         node : {
+  //           expert: {username: username},
+  //           accepted: false
+  //         }
+  //       } 
+  //     }  
+  //     )
+  //   }
+  // }
 }
+
 
 const server = new GraphQLServer({
   typeDefs: 'yoga-server/src/schema.graphql',
@@ -87,5 +111,5 @@ const server = new GraphQLServer({
 // });
 
 
-server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
+// server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));

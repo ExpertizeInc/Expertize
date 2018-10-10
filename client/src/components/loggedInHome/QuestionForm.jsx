@@ -12,7 +12,7 @@ import {
   Glyphicon
 } from 'react-bootstrap';
 import TagDropdown from './TagDropdown.jsx';
-import { createQuestion } from '../../gql.js';
+import { CREATE_QUESTION } from '../../gql.js';
 import { times, questionInfo } from './constants.js';
 import { Link } from 'react-router-dom';
 
@@ -156,7 +156,7 @@ export default class QuestionForm extends Component {
         <FormGroup>
           <Col smOffset={6} sm={3}>
             <Mutation
-              mutation={createQuestion}
+              mutation={CREATE_QUESTION}
               variables={{
                 userId: user.id,
                 username: user.username,
