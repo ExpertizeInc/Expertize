@@ -27,7 +27,10 @@ const resolvers = {
   },
   Mutation: {
     createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.mutation.createUser({ data: { username, email, uid } }), info;
+      return ctx.prisma.mutation.createUser({ data: { username, email, uid } }, info);
+    },
+    createLinkedInUser: (parent, { email, linkedInEmail, linkedInId, username, description, tags, image }, ctx: { prisma: Prisma}, info) => {
+      return ctx.prisma.mutation.createUser({ data: { email, linkedInEmail, linkedInId, username, description, tags: { set: tags }, image }}, info)
     },
     createQuestion: (_, { userId, username, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
       return ctx.prisma.mutation.createQuestion({
@@ -50,6 +53,22 @@ const resolvers = {
         data: { accepted, completed, startedAt, endedAt },
         where: { id }
       });
+    }
+  }, 
+  Subscription: {
+    subscribeToSessionAsExpert: (_, args, ctx, info) => {
+      console.log('USERE', args)
+      return ctx.prisma.subscription.session({ 
+        where: { 
+          mutation_in: ['UPDATED']
+        },
+          // node : {
+          //   expert: { username: args.username },
+          //   accepted: false
+          // },
+          info
+        }    
+      )
     }
   }
 }

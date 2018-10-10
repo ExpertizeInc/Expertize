@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import { Router } from 'react-router-dom';
 import Particles from 'react-particles-js';
 import params from './particles.js'
-import { GET_USER_UID } from './gql.js';
+import { GET_USER_UID, createLinkedInUser } from './gql.js';
 import Routes from './Routes.jsx';
 import history from './components/history.js';
 
@@ -16,7 +16,7 @@ const client = new ApolloClient({
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { user: null, authenticated: false }
+    this.state = { user: null, authenticated: false, linkedInId: '', linkedInEmail: '' }
     this.callbackFunction = this.callbackFunction.bind(this)
     this.signInLI = this.signInLI.bind(this)
     this.signOut = this.signOut.bind(this)
@@ -33,8 +33,8 @@ class App extends React.Component {
         this.setState({ authenticated: false });
       }
     })
-    // IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
-    // IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
+    IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login')), this)
+    IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
     // if (IN.User.isAuthorized()) {
     //   console.log('in.user',IN.User.isAuthorized())
     //   this.setState({
@@ -43,6 +43,7 @@ class App extends React.Component {
     // } else {
     //   console.log('no linkedin user signed in')
     // }
+    console.log(this.state)
   }
 
   signIn(user) {
@@ -50,19 +51,36 @@ class App extends React.Component {
   }
 
   callbackFunction() {
-    IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
+
+    IN.API.Raw("/people/~:(id,first-name,last-name,emailAddress,headline,picture-url,industry,positions:(id,title,summary,start-date,end-date,is-current,company:(id,name,type,size,industry,ticker)),educations:(id,school-name,field-of-study,start-date,end-date,degree,activities,notes))?format=json")
     // this.setState({authenticated: true}, 
-    .result((results) => console.log('results in linkedIn', results))
+    .result((results) => {
+      console.log('results in linkedIn', results);
+      this.setState({ linkedInId: results.id, linkedInEmail: results.emailAddress }, () => {
+        history.push('/questionnaire');
+      })
+        // client.mutate({
+        //   mutation: createLinkedInUser,
+        //   variables: {
+        //     linkedInId: results.id,
+        //     linkedInEmail: results.emailAddress,
+        //   },
+        // })
+        // .then(() => {
+        //   this.setState({ answerContent: '' });
+        //   this.props.data.refetch();
+        // })
+    })
     .error((error) => console.error('error in linkedIn', error));
-    IN.API.Raw('/industries?format=json')
-    .result((results) => console.log('results in.api.raw', results))
-    .error((error) => console.error('error in in.api.raw', error));
+    // IN.API.Raw('/industries?format=json')
+    // .result((results) => console.log('results in.api.raw', results))
+    // .error((error) => console.error('error in in.api.raw', error));
   }
 
   signInLI(e, a) {
       e.preventDefault();
       console.log('LINKED IN');
-      IN.User.authorize(this.callbackFunction, '');
+      IN.User.authorize(this.callbackFunction);
       // a.history.push('/restricted')
   }
 
@@ -86,7 +104,7 @@ class App extends React.Component {
           backgroundImage: "url('http://www.sompaisoscatalans.cat/simage/96/965205/black-gradient-wallpaper.png')"
           // backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
-        <Routes user={user} signIn={this.signIn} authenticated={authenticated} signInLI={this.signInLI} signOut={this.signOut}/>
+        <Routes user={user} signIn={this.signIn} authenticated={authenticated} signInLI={this.signInLI} signOut={this.signOut} linkedInId={this.state.linkedInId} linkedInEmail={this.state.linkedInEmail}/>
         </ApolloProvider>
       </div>
     )

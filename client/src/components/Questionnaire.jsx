@@ -3,7 +3,7 @@ import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, 
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import TagDropdown from './loggedInHome/TagDropdown.jsx';
-import { UPDATE_USER_INFO, GET_USER_INFO, GET_USER_QUESTIONS } from '../gql.js'; 
+import { UPDATE_USER_INFO, GET_USER_INFO, GET_USER_QUESTIONS, CREATE_LINKED_IN_USER } from '../gql.js'; 
 
 export default class Questionnaire extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export default class Questionnaire extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.user)
+    console.log(this.props, 'AAAA')
   }
   getValidationState () {
     const length = this.state.username.length;
@@ -162,10 +162,6 @@ export default class Questionnaire extends Component {
                 <Mutation 
                   mutation={UPDATE_USER_INFO} 
                   variables={{ id: user.id, description, tags, username, image }}
-                  // refetchQueries={() => {
-                  //   console.log("================refetchQueries====================");
-                  //   return ["GET_USER_INFO", "GET_USER_QUESTIONS"];
-                  // }}
                 >
                   {updateUser => (
                     <Link to="/profile">
@@ -173,7 +169,19 @@ export default class Questionnaire extends Component {
                     </Link>
                   )}
                 </Mutation> 
-                : ''}
+                : 
+                <Mutation 
+                mutation={CREATE_LINKED_IN_USER} 
+                variables={{ linkedInId: this.props.linkedInId, linkedInEmail: this.props.linkedInEmail, email: this.props.linkedInEmail, description, tags, username, image }}
+                onCompleted={(data) => console.log('LI', data)}
+              >
+                {createLinkedInUser => (
+                  <Link to="/profile">
+                    <Button type="submit" onClick={createLinkedInUser}>Save Profile</Button>
+                  </Link>
+                )}
+              </Mutation> 
+                }
             </div>
           </Col>
         </Tab>
