@@ -8,6 +8,7 @@ type Query {
   sessions: [Session!]!
   sessionsWhereUnacceptedPupil(username: String): [Session!]!
   sessionsWhereAcceptedExpert(username: String): [Session!]!
+  sessionsWhereRejectedExpert(username: String): [Session!]!
   sessionsByUser(username: String): [Session!]!
 }
 
@@ -16,7 +17,7 @@ type Mutation {
    updateUser(id: ID!, email: String, uid: String, description: String, coins: Int, tags: [String], username: String, image: String): User
    login(email: String!, password: String!): LoginPayload!
    createQuestion(userId: String!, username: String!, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
-   createSession(type: String!, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
+   createSession(type: String!, questionId: String, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    updateSession(id: String!, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    addTag(name: String!): Tag
    createLinkedInUser(linkedInEmail: String!, linkedInId: String!, username: String!, tags: [String], description: String, image: String, email: String!): User

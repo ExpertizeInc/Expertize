@@ -9,7 +9,6 @@ import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
 
-
 const client = new ApolloClient({
   uri: "http://localhost:4000"
 });

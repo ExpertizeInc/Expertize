@@ -16,17 +16,18 @@ linkedInId: String @unique
 }
 
 type Session {
-id: ID! @unique
-type: String!
-expert: User @relation(name: "UserSessions")
-pupil: User @relation(name: "PupilSessions")
-duration: Int
-accepted: Boolean @default(value: "false")
-completed: Boolean
-startedAt: DateTime
-endedAt: DateTime
-createdAt: DateTime!
-updatedAt: DateTime!
+  id: ID! @unique
+  type: String!
+  questionId: String
+  expert: User @relation(name: "UserSessions")
+  pupil: User @relation(name: "PupilSessions")
+  duration: Int
+  accepted: Boolean
+  completed: Boolean
+  startedAt: DateTime
+  endedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 # type UserTag {

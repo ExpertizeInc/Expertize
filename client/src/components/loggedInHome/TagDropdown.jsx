@@ -1,5 +1,5 @@
 import React, { Component } from 'react'; 
-import { Query, Mutation } from 'react-apollo';
+import { Query } from 'react-apollo';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { GET_TAGS } from '../../gql.js';
 
