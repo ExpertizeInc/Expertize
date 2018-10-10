@@ -1,12 +1,12 @@
 import React, { Component } from 'react'; 
 import { Query, Mutation } from 'react-apollo';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import { getTags } from '../../gql.js';
+import { GET_TAGS } from '../../gql.js';
 
 export default class TagDropdown extends Component {
   render() {
     return (
-      <Query query={getTags}>
+      <Query query={GET_TAGS}>
       {({ loading, error, data }) => {
         if (loading) return <div>Loading...</div>
         if (error) return <div>Error {console.log(error)}</div>

@@ -1,30 +1,8 @@
 import gql from 'graphql-tag';
 
-export const createQuestion = gql`
-  mutation createQuestion(
-    $userId: String!
-    $username: String!
-    $description: String!
-    $coins: Int!
-    $title: String!
-    $text: Boolean!
-    $audio: Boolean!
-    $video: Boolean!
-    $duration: Int!
-    $tags: [String!]!
-  ) {
-    createQuestion(
-      userId: $userId
-      username: $username
-      description: $description
-      tags: $tags
-      coins: $coins
-      title: $title
-      text: $text
-      audio: $audio
-      video: $video
-      duration: $duration
-    ) {
+export const CREATE_QUESTION = gql`
+  mutation createQuestion($userId: String!, $username: String!, $description: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
+    createQuestion(userId: $userId, username: $username, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
       description
       coins
       title
@@ -32,7 +10,7 @@ export const createQuestion = gql`
   }
 `;
 
-export const getQuestions = gql`
+export const GET_QUESTIONS = gql`
   query {
     questions {
       username
@@ -49,7 +27,7 @@ export const getQuestions = gql`
   }
 `;
 
-export const getTags = gql`
+export const GET_TAGS = gql`
   query {
     tags {
       name
@@ -90,8 +68,8 @@ export const GET_USER_QUESTIONS = gql`
   }
 `;
 
-export const createUser = gql`
-  mutation CreateUser($username: String!, $email: String!, $uid: String!) {
+export const CREATE_USER = gql`
+mutation createUser($username: String! $email: String!, $uid: String!) {
     createUser(username: $username, email: $email, uid: $uid) {
       id
       username
@@ -115,17 +93,17 @@ export const CREATE_LINKED_IN_USER = gql`
 `;
 
 export const GET_USER_UID = gql`
-  query user($uid: String!) {
-    user(uid: $uid) {
-      id
-      username
-      email
-      coins
-      uid
-      ranking
-      image
-      tags
-    }
+query user($uid: String!) {
+  user(uid: $uid) {
+    id
+    username
+    email
+    description
+    coins
+    uid
+    ranking
+    image
+    tags
   }
 `;
 
@@ -203,4 +181,13 @@ export const UPDATE_SESSION = gql`
       completed
     }
   }
-`;
+}
+`
+
+export const GET_UNACCEPTED_SESSIONS = gql`
+query sessionsWhereUnacceptedPupil($username: String) {
+  sessionsWhereUnacceptedPupil(username: $username) {
+    type
+  }
+}
+`

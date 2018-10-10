@@ -8,6 +8,7 @@ import Chat from './components/Chat.jsx';
 import Questionnaire from './components/Questionnaire.jsx';
 import Profile from './components/Profile.jsx'
 import Error from './components/Error.jsx';
+import Footer from './components/Footer.jsx';
 import UserHome from './components/loggedInHome/UserHome.jsx';
 import QuestionFeed from './components/loggedInHome/QuestionFeed.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
@@ -16,7 +17,7 @@ import Video from './components/Video.jsx';
 const Routes = ({ authenticated, user, signIn, signInLI, linkedInEmail, linkedInId }) => (
     <div>
 
-      <NavBar authenticated={authenticated}/>
+      <NavBar user={user} authenticated={authenticated}/>
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>
@@ -28,7 +29,7 @@ const Routes = ({ authenticated, user, signIn, signInLI, linkedInEmail, linkedIn
           <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>
       </Switch>
-      {/* <Footer /> */}
+      <Footer />
     </div>
 );
 
