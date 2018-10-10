@@ -17,9 +17,7 @@ class SessionModal extends Component {
   }
 
   initiateSession() {
-    client.mutate({ mutation: CREATE_SESSION, variables: { uid: user.uid } })
-    .then(({ data }) => console.log('data?', data))
-    .catch(err => console.error('creation failed', err));
+
   }
 
   handleHide() {
@@ -29,7 +27,7 @@ class SessionModal extends Component {
   render() { 
     const { user, question, match, client } = this.props;
     return (
-      <div className="container centered">
+      <div >
         <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
           PICK ME
            </Button>
@@ -61,6 +59,7 @@ class SessionModal extends Component {
                 }</span>
               )}
             </Mutation>
+            
 
             {/* <Mutation mutation={CREATE_SESSION} >
               {createSession => (
@@ -83,4 +82,4 @@ class SessionModal extends Component {
   }
 }
 
-export default withApollo(SessionModal)
+export default SessionModal

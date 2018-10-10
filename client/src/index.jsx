@@ -1,27 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
 import { Router } from 'react-router-dom';
-import Particles from 'react-particles-js';
-import params from './particles.js'
-import { GET_USER_UID } from './gql.js';
-import Routes from './Routes.jsx';
 import history from './components/history.js';
-import { createHttpLink } from 'apollo-link-http'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import App from './components/App.jsx';
+import { HttpLink } from 'apollo-link-http'
 import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
 import { getMainDefinition } from 'apollo-utilities'
-// import { split } from 'apollo-client-preset';
+
 
 const client = new ApolloClient({
   uri: "http://localhost:4000"
   // link,
   // cache
 });
-
-// const cache = new InMemoryCache()
 
 // const wsLink = new WebSocketLink({
 //   uri: 'ws://localhost:4000',
@@ -30,7 +23,7 @@ const client = new ApolloClient({
 //   }
 // })
 
-// const httpLink = createHttpLink({ uri: 'http://localhost:4000/graphql'})
+// const httpLink = new HttpLink({ uri: 'http://localhost:4000'})
 
 // const link = split(
 //   ({ query }) => {
@@ -78,32 +71,7 @@ class App extends React.Component {
     //   console.log('no linkedin user signed in')
     // }
   }
-
-  signIn(user) {
-    this.setState({ authenticated: true, user }, () => history.push('/home'));
-  }
-
-  callbackFunction() {
-    IN.API.Raw("/people/~:(id,firstName,lastName,emailAddress,location,industry)?format=json")
-    // this.setState({authenticated: true}, 
-    .result((results) => console.log('results in linkedIn', results))
-    .error((error) => console.error('error in linkedIn', error));
-    IN.API.Raw('/industries?format=json')
-    .result((results) => console.log('results in.api.raw', results))
-    .error((error) => console.error('error in in.api.raw', error));
-  }
-
-  signInLI(e, a) {
-      e.preventDefault();
-      console.log('LINKED IN');
-      IN.User.authorize(this.callbackFunction, '');
-      // a.history.push('/restricted')
-  }
-
-  signOut() {
-    this.setState({ authenticated: false }, () => console.log('toggled authenticated'));
-  }
-
+// })
   render() {
     const { user, authenticated } = this.state;
     return (
@@ -128,4 +96,4 @@ class App extends React.Component {
   }
 }
 
-render(<Router history={history}><App/></Router>, document.getElementById('app'));
+render(<Router history={history}><App client={client} /></Router>, document.getElementById('app'));

@@ -29,7 +29,6 @@ class Chat extends Component {
     console.log('chat component did mount!', this.props.match)
     // socket.on('get user') {
 
-    }
     socket.on('connect', () => {
       // var name = prompt('enter in username')
       // console.log('userone at cdm in chat',name)

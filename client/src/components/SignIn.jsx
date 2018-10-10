@@ -13,7 +13,6 @@
 // }
 
 
-
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap';
 import LinkedinLogin from './LinkedinLogin.jsx';
