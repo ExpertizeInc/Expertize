@@ -46,12 +46,12 @@ export default class LinkedInLogin extends React.Component {
       return ( 
         <div>
           {console.log(this.props)}
-          {/* <button onClick={signInLI}> */}
+          <button onClick={signInLI}>
           <Link to="/test">
             <img src={LIButton} alt="linkedInButton" style={{ width: 190 }}/>
           </Link>
 
-          {/* </button> */}
+          </button>
         </div>
       );
     }
