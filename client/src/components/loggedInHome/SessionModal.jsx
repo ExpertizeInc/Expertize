@@ -24,7 +24,7 @@ class SessionModal extends Component {
       <div >
         <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
           PICK ME
-           </Button>
+        </Button>
         <Modal
           show={this.state.show}
           onHide={this.handleHide}
@@ -33,7 +33,7 @@ class SessionModal extends Component {
         >
           <Modal.Header closeButton>
             <Modal.Title>
-              Begin your discussion with {question.username}
+              Begin your discussion with {question.username} - SessionModal.jsx
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -48,8 +48,9 @@ class SessionModal extends Component {
 
             <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', expert: {connect: { username: user.username}}, pupil : {connect: { username: question.username}}}}>
               {createSession => (
+                // <span>{question.text && <Link to={`${match.url}/discussion/text/${question.username}`}><Button onClick={()=>console.log('text clicked')} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
                 <span>{question.text && <Button onClick={() => {createSession()
-                this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
+                this.setState({ show: false }, () => console.log('session was created'))}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
                 }</span>
               )}
             </Mutation>

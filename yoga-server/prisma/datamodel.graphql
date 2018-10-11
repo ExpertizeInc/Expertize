@@ -17,7 +17,6 @@ sessionExpert: [Session!]! @relation(name: "UserSessions")
 linkedInEmail: String @unique
 linkedInId: String @unique
 }
-
 type Session {
   id: ID! @unique
   type: String!
@@ -32,18 +31,15 @@ type Session {
   createdAt: DateTime!
   updatedAt: DateTime!
 }
-
 # type UserTag {
 #   id: ID! @unique
 #   user: User!
 #   tag: Tag!
 # }
-
 type Tag {
 id: ID! @unique
 name: String! @unique
 }
-
 type Question {
 id: ID! @unique
 userId: String!
