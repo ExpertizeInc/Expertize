@@ -141,10 +141,10 @@ export const UPDATE_USER_INFO = gql`
 
 export const CREATE_SESSION = gql`
 mutation createSession($type: String!, $questionId: String, $expert: UserCreateOneInput, $pupil: UserCreateOneInput, $duration: Int, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime) {
-  createSession(type: $type, questionId: $questionId, expert: $expert, pupil: $pupil, duration: $duration, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
-    id
-  }
-`;
+ createSession(type: $type, questionId: $questionId, expert: $expert, pupil: $pupil, duration: $duration, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
+   id
+ }
+}`;
 
 export const UPDATE_SESSION = gql`
   mutation updateSession(

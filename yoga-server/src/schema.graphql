@@ -70,6 +70,7 @@ type Session {
   endedAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
+  questionId: String
 }
 
 type LoginPayload {

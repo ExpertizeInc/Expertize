@@ -1,5 +1,6 @@
 import React from 'react';
 import LIButton from '../LIButton.png';
+import { Route, Link } from 'react-router-dom';
 
 export default class LinkedInLogin extends React.Component {
     constructor(props) {
@@ -45,9 +46,12 @@ export default class LinkedInLogin extends React.Component {
       return ( 
         <div>
           {console.log(this.props)}
-          <button onClick={signInLI}>
+          {/* <button onClick={signInLI}> */}
+          <Link to="/test">
             <img src={LIButton} alt="linkedInButton" style={{ width: 190 }}/>
-          </button>
+          </Link>
+
+          {/* </button> */}
         </div>
       );
     }
