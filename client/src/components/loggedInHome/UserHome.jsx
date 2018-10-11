@@ -5,6 +5,7 @@ import Discussion from './Discussion.jsx';
 import SessionChoice from './SessionChoice.jsx';
 import SessionAccepted from './SessionAccepted.jsx';
 import SessionRejected from './SessionRejected.jsx';
+import DailyNotification from './DailyNotification.jsx';
 import { Route, Switch } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_UNACCEPTED_SESSIONS, GET_ACCEPTED_SESSIONS, GET_REJECTED_SESSIONS } from '../../gql.js';
@@ -15,14 +16,23 @@ export default class UserHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      session: []
+      session: [],
+      dailyShow: true
     }
+    this.toggleDaily = this.toggleDaily.bind(this)
+  }
+
+  toggleDaily() {
+    this.setState({ dailyShow: false })
   }
 
   render() {
     const { match, user } = this.props
-    return (  
+    const { dailyShow } = this.state
+    return (
       <div>
+        {!user.dailyClaimed && 
+        <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
         {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
         <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={50000}>
           {({ loading, error, data }) => {
