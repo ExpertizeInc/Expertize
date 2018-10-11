@@ -32,19 +32,14 @@ export default class App extends React.Component {
         this.setState({ authenticated: false });
       }
     });
-
-    if (window.location.href.search) {
-      console.log('XXXX', window.location)
-      let x = window.location.search.slice(6);
-      // x.slice(x.length, 9);
-      // remove state from here!
-      console.log('PPPP', x)
-      axios.get('/linkedin', { params: {url: `http://www.linkedin.com/oauth/v2/accessToken/grant_type=authorization_code&code=${window.location.search.slice(6)}redirect_uri=https%3A%2F%2Flocalhost:3001.com%2F&client_id=77jrp4h9m6f6yf&client_secret=TQyMsJWbwxSuBpum`}})
-      // axios.post(`http://www.linkedin.com/oauth/v2/accessToken/grant_type=authorization_code&code=${window.location.search.slice(6)}redirect_uri=https%3A%2F%2Flocalhost:3001.com%2F&client_id=123456789&client_secret=shhdonottell`)
+    if (window.location.search) {
+      console.log('THIS IS CODE', window.location);
+      let code = window.location.search.slice(6);
+       code = code.substr(0, code.length-10);
+       console.log(code);
+      axios.get('/linkedin', { params: {url: `https://www.linkedin.com/oauth/v2/accessToken/grant_type=authorization_code&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3001&client_id=77jrp4h9m6f6yf&client_secret=TQyMsJWbwxSuBpum`}})
         .then(data => console.log('FINAL', data))
-        .catch(err => console.error('FUCKING FINAL ERROR', err))
-        
-
+        .catch(err => console.error('FUCKING FINAL ERROR', err));
     }
     // IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
     // IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
@@ -87,7 +82,15 @@ export default class App extends React.Component {
 
   signInLI(e, a) {
     e.preventDefault();
-
+    if (window.location.href.search) {
+      console.log('THIS IS CODE', window.location);
+      let code = window.location.search.slice(6);
+       code = code.substr(0, code.length-10);
+       console.log(code);
+      axios.get('/linkedin', { params: {url: `https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${code}&redirect_uri=http%3A%2F%2Flocalhost:3001.com%2Fhome%2F&client_id=77jrp4h9m6f6yf&client_secret=TQyMsJWbwxSuBpum`}})
+        .then(data => console.log('FINAL', data))
+        .catch(err => console.error('FUCKING FINAL ERROR', err));
+    }
     // axios.get('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77jrp4h9m6f6yf&redirect_uri=http%3A%2F%2Flocalhost:3001%2Fsignin&state=987654321')
     // .then((data) => {
     //   // res.send(data);
