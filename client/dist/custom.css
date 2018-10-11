@@ -1,0 +1,77 @@
+/* ======= Modal ========= */
+
+.daily-modal {
+  width: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%; 
+  margin-left: -150px;
+  margin-top: -150px;
+}
+
+.modal-header {
+  background: black;
+  color: white;
+}
+
+.modal-content  {
+  border-radius: 20px !important; 
+}
+
+/* ======== BUTTONS ======= */
+
+
+.bttn {
+  border: none;
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	background: none;
+	cursor: pointer;
+	padding: 25px 80px;
+	display: inline-block;
+	margin: 15px 30px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.bttn:after {
+  content: '';
+	position: absolute;
+	z-index: -1;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.bttn:before {
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	position: relative;
+	-webkit-font-smoothing: antialiased;
+}
+.btn-2g {
+  border-radius: 40px;
+  background-color: #8dda8d
+}
+
+.btn-2g:hover {
+  background-color: #8dda8d;
+  box-shadow: 0 4px #447a44;
+  top: 2px;
+}
+
+.btn-2g:active {
+  background-color: #8dda8d;
+  box-shadow: 0 0 #447a44;
+  top: 6px;
+}

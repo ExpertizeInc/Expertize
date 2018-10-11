@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row, PageHeader, Thumbnail, Label } from 'react-bootstrap'
 import { Mutation, Query } from 'react-apollo';
-import { UPDATE_USER, GET_USER_QUESTIONS, GET_USER_UID } from '../gql.js';
+import { UPDATE_USER_INFO, GET_USER_QUESTIONS, GET_USER_UID } from '../gql.js';
 import Rating from 'react-rating';
 
 

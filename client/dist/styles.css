@@ -1,14 +1,9 @@
-html,body{
+/* html,body{
   height: 100%;
   width: 100%;
-}
+  background: url("http://www.sompaisoscatalans.cat/simage/96/965205/black-gradient-wallpaper.png")
 
-
-/* html {
-  height:100%;
-  width:100%;
-  } */
-
+} */
 
 .form-panel-signup {
   justify-content: center
@@ -16,13 +11,19 @@ html,body{
 
 .navbar {
   margin-bottom: 0px;
-  background: none;
+  background: black;
+  opacity: .8;
+  color:white;
+  border: none;
+  font-size: 16px;
 }
 
 
-a, body {
-  color:black;
+a {
+  color:white
 }
+
+
 
 .hexagon {
   position: relative;
@@ -148,7 +149,7 @@ a, body {
     padding: 6px 0px;
     border-radius: 15px;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.42857;
 }
 
@@ -169,9 +170,26 @@ canvas {
   vertical-align: bottom;
 }
 
+
+
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+.flex-row.row:after, 
+.flex-row.row:before {
+  display: flex;
+}
+
 .centered {
   text-align: center;
   align-items: center;
+  justify-content: center;
 }
 
 .tags {
@@ -183,3 +201,132 @@ canvas {
   width: 40px;
   height: 40px
 }
+/* a {
+  text-decoration: none;
+} */
+
+/* a {
+  transition: 0.4s;
+  color: #ffffff;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 0 10px;
+  margin: 0 10px;
+}
+a:hover {
+  background-color: #ffffff;
+  color: black;
+  padding: 24px 10px;
+} */
+
+a:hover {
+  text-decoration: none;
+  color:white;
+}
+
+
+.cl-effect-1 a::before,
+.cl-effect-1 a::after {
+	display: inline-block;
+	opacity: 0;
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
+	-moz-transition: -moz-transform 0.3s, opacity 0.2s;
+	transition: transform 0.3s, opacity 0.2s;
+}
+
+.cl-effect-1 a::before {
+	margin-right: 10px;
+	content: '[';
+	-webkit-transform: translateX(20px);
+	-moz-transform: translateX(20px);
+	transform: translateX(20px);
+}
+
+.cl-effect-1 a::after {
+	margin-left: 10px;
+	content: ']';
+	-webkit-transform: translateX(-20px);
+	-moz-transform: translateX(-20px);
+	transform: translateX(-20px);
+}
+
+.cl-effect-1 a:hover::before,
+.cl-effect-1 a:hover::after,
+.cl-effect-1 a:focus::before,
+.cl-effect-1 a:focus::after {
+  opacity: 1;
+  color: white;
+	-webkit-transform: translateX(0px);
+	-moz-transform: translateX(0px);
+	transform: translateX(0px);
+}
+
+
+.hidden-tabs ul > li > a {
+  background-color: transparent;
+  color: transparent;
+}
+/* .hidden-tabs ul > li > a:hover {
+  background-color: pink;
+}
+
+/* Active tab */
+/* .hidden-tabs ul > li.active > a,
+.hidden-tabs ul > li.active > a:hover,
+.hidden-tabs ul > li.active > a:focus {
+  background-color: red;
+  color: white;
+} */
+
+/* Disabled tab */
+/* .hidden-tabs ul > li.disabled > a {
+  background-color: lightgray;
+  color: darkgray; */
+/* }  */
+
+
+
+/* =========== Progress Bar =========== */
+
+.CircularProgressbar {
+  width: 100%;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+  stroke: #3e98c7;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: #d6d6d6;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  fill: #3e98c7;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.CircularProgressbar .CircularProgressbar-background {
+  fill: #d6d6d6;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-background {
+  fill: #3e98c7;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-text {
+  fill: #fff;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-path {
+  stroke: #fff;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-trail {
+  stroke: transparent;
+}
+
+

@@ -27,3 +27,12 @@ export const questionInfo = [
 ];
 
 export const toggleInfo = ['Text', 'Audio', 'Video'];
+
+export const dailyMessage = [
+  { message: `It's dangerous to go alone! Take this.` }, 
+  { message: `I used to be a novice like you, until I took this coin to the wallet` }, 
+  { message: `A coin wields no strength unless the hands that holds it has courage.`}, 
+  { message: `What is a person but the sum of their coins?` },
+  { message: `Would you kindly .. take this coin?` }, 
+  { message: `This is the coin you're looking for.` }
+]

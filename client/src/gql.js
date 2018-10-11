@@ -35,14 +35,14 @@ export const GET_TAGS = gql`
   }
 `;
 
-export const UPDATE_USER = gql`
-mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int, $username: String) {
-    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, username: $username) {
-        id
-        description
-    }
-}
-`;
+// export const UPDATE_USER = gql`
+// mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int, $username: String) {
+//     updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, username: $username) {
+//         id
+//         description
+//     }
+// }
+// `;
 
 export const GET_USER_QUESTIONS = gql`
 query questionsByUser($userId: String!) {
@@ -70,19 +70,23 @@ query user($uid: String!) {
     id
     username
     email
+    uid
+    tags
+    image
+    ranking
     description
     coins
-    uid
-    ranking
-    image
-    tags
+    inSession
+    online
+    dailyClaimed
+    debt
   }
 }
 `;
 
 export const UPDATE_USER_INFO = gql`
-mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String], $username: String, $image: String) {
-    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags, username: $username, image: $image) {
+mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String], $username: String, $image: String, $dailyClaimed: Boolean, $debt: Int, $online: Boolean, $inSession: Boolean) {
+    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags, username: $username, image: $image, dailyClaimed: $dailyClaimed, debt: $debt, online: $online, inSession: $inSession) {
         id
         description
         image

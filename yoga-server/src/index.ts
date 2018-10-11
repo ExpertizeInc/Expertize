@@ -49,9 +49,9 @@ const resolvers = {
         data: { userId, username, tags: { set: tags }, description, coins, title, text, audio, video, duration }
       }, info);
     },
-    updateUser: (_, { email, uid, description, coins, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
+    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
-        data: { email, uid, description, coins, tags: { set: tags }, username, image },
+        data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image },
         where: { id } 
       }, info);
     },
