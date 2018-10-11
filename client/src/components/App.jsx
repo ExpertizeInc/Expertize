@@ -37,7 +37,7 @@ export default class App extends React.Component {
       let code = window.location.search.slice(6);
        code = code.substr(0, code.length-10);
        console.log(code);
-      axios.get('/linkedin', { params: {url: `https://www.linkedin.com/oauth/v2/accessToken/grant_type=authorization_code&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3001&client_id=77jrp4h9m6f6yf&client_secret=TQyMsJWbwxSuBpum`}})
+      axios.get('/linkedin', { params: {url: `https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3001&client_id=77jrp4h9m6f6yf&client_secret=TQyMsJWbwxSuBpum`}})
         .then(data => console.log('FINAL', data))
         .catch(err => console.error('FUCKING FINAL ERROR', err));
     }

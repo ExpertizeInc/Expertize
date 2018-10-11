@@ -22,11 +22,11 @@ app.use(cors());
 app.get('/linkedin', (req, res) => {
   let { url } = req.query;
   console.log('8/8/88', url)
-  let data = { grant_type: "authorization_code", code: req.query.code, redirect_uri: "http%3A%2F%2Flocalhost%3A3001", client_secret: "TQyMsJWbwxSuBpum", client_id: "77jrp4h9m6f6yf" };
+  let data = {  grant_type: "authorization_code", code: req.query.code,  client_id: "77jrp4h9m6f6yf", redirect_uri: "http://localhost:3001", client_secret: "TQyMsJWbwxSuBpum" };
   // axios.post(url, {}, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
   //   .then(data => console.log('DDRR', data))
   //   .catch(e => console.error('LOSER', e))
-  axios.post('https://www.linkedin.com/oauth/v2/accessToken/', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded'}})
+  axios.post('https://www.linkedin.com/oauth/v2/accessToken', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded'}})
     .then(balls => console.log('BALLS', balls))
     .catch(err => console.error('FUCK', err))
 
