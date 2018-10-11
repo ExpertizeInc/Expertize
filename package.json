@@ -40,6 +40,7 @@
     "react": "^16.5.2",
     "react-apollo": "^2.2.1",
     "react-bootstrap": "^0.32.4",
+    "react-circular-progressbar": "^1.0.0",
     "react-dom": "^16.5.2",
     "react-particles-js": "^2.3.0",
     "react-rating": "^1.4.0",
