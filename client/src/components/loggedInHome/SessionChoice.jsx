@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo';
 import { Modal, Button } from 'react-bootstrap';
 import { UPDATE_SESSION } from '../../gql.js';
+import { Link } from 'react-router-dom';
 
 export default class SessionChoice extends Component {
   constructor(props) {
@@ -12,13 +13,13 @@ export default class SessionChoice extends Component {
   }
 
   render() {
-    const { session } = this.props
+    const { session, match } = this.props
     return (
       <div>
       {(session && session.pupil) && 
         <Modal show={true} >
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Modal heading - SessionChoice.jsx {session.id}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
            <h4>{session.expert.username} has selected to {session.type} chat with you!</h4>
@@ -28,10 +29,10 @@ export default class SessionChoice extends Component {
           </Modal.Body>
           <Modal.Footer>
           <Mutation mutation={UPDATE_SESSION} variables={{ id: session.id, accepted: true }}>
-            {updateSession => <Button onClick={updateSession}>Accept</Button>}
+            {updateSession => <Link to={{pathname:`${match.url}/discussion/${session.type}`, state:{session}}}><Button onClick={updateSession}>Accept</Button></Link>}
             </Mutation>
             <Mutation mutation={UPDATE_SESSION} variables={{ id: session.id, accepted: false }}>
-            {updateSession =>  <Button onClick={updateSession}>Reject</Button>}
+            {updateSession =>  <Link to={`${match.url}`}><Button onClick={updateSession}>Reject</Button></Link>}
             </Mutation>
           </Modal.Footer>
         </Modal>}

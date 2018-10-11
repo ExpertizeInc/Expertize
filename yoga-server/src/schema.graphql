@@ -1,4 +1,3 @@
-
 type Query {
   user(uid: String!): User!
   tags: [Tag!]!
@@ -7,9 +6,9 @@ type Query {
   questionsByUser(userId: String!): [Question]
   sessions: [Session!]!
   sessionsWhereUnacceptedPupil(username: String): [Session!]!
-  sessionsWhereAcceptedExpert(username: String): [Session!]!
-  sessionsWhereRejectedExpert(username: String): [Session!]!
-  sessionsByUser(username: String): [Session!]!
+  # sessionsWhereAcceptedExpert(username: String): [Session!]!
+  # sessionsWhereRejectedExpert(username: String): [Session!]!
+  sessionsForExpert(username: String): [Session!]!
 }
 
 type Mutation {
@@ -48,6 +47,7 @@ type Session {
   endedAt: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
+  questionId: String
 }
 
 type LoginPayload {

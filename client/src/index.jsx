@@ -33,6 +33,7 @@ const client = new ApolloClient({
 
 // const client = new ApolloClient({ 
 //   link
+//   // cache: new InMemoryCache()
 // })
 
 render(<Router history={history}><App client={client} /></Router>, document.getElementById('app'));

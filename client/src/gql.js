@@ -122,9 +122,29 @@ query sessionsWhereUnacceptedPupil($username: String) {
     pupil {
       username
     }
+    accepted
+    completed
   }
 }
 `
+
+export const GET_EXPERT_SESSIONS = gql`
+query sessionsForExpert($username: String) {
+  sessionsForExpert(username: $username) {
+    id
+    type
+    expert {
+      username
+    }
+    pupil {
+      username
+    }
+    accepted
+    completed
+  }
+}
+`
+
 export const GET_ACCEPTED_SESSIONS = gql`
 query sessionsWhereAcceptedExpert($username: String) {
   sessionsWhereAcceptedExpert(username: $username) {
@@ -136,6 +156,8 @@ query sessionsWhereAcceptedExpert($username: String) {
     pupil {
       username
     }
+    accepted
+    completed
   }
 }
 `
@@ -151,6 +173,8 @@ query sessionsWhereRejectedExpert($username: String) {
     pupil {
       username
     }
+    accepted
+    completed
   }
 }
 `

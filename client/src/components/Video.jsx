@@ -74,6 +74,10 @@ export default class Video extends Component {
   // var token = "T1==cGFydG5lcl9pZD00NjE5NzU0MiZzaWc9YTgzYzMyYTM2MzIwZjJmYWEyNTc5MWFjYzg0MzI4MDFlNjczZTMzYjpzZXNzaW9uX2lkPTJfTVg0ME5qRTVOelUwTW41LU1UVXpPRFl4TURBM056ZzFOWDVKWXpSYWF5dDVlRWRaV0V4RGF6a3laMHMzTURCMEsyWi1VSDQmY3JlYXRlX3RpbWU9MTUzODYxMDA3OCZub25jZT0wLjY4NTAyMzEzMTMzNjk3MjYmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTUzODY5NjQ3OCZpbml0aWFsX2xheW91dF9jbGFzc19saXN0PQ==";
   // // initializeSession(sessionId, token)
   // var room = 'yoooooooooooooooooooooooooooo'
+  componentDidMount() {
+    console.log('this.props in video component hopefully there is info',this.props)
+  }
+
   handleClick(e) {
     e.preventDefault()
     this.setState({showframe: true})
@@ -84,15 +88,20 @@ export default class Video extends Component {
   }
 
   render() {
-    const { roomname, showframe } = this.state;
+    // const { roomname, showframe } = this.state;
+    const expert = this.props.location.state.session.expert.username
+    const pupil = this.props.location.state.session.pupil.username
+    const roomname = expert + pupil
+    console.log('session', this.props.location.state.session)
+    console.log(roomname, 'expert', expert, 'pupil',pupil)
     return (
       <React.Fragment>
         <h1>Video</h1>
-        <form>
+        {/* <form>
           <input type="text" onChange={this.handleChange} value={roomname}/>
           <button onClick={this.handleClick}>Roomname</button>
-        </form>
-        {showframe ? <iframe src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=91632a05-517e-4418-bcd2-ab58ff889970&iframe=true&room=${roomname}`} width='800' height='640' allow="microphone; camera"/> : <div />}
+        </form> */}
+        <iframe src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=91632a05-517e-4418-bcd2-ab58ff889970&iframe=true&room=${roomname}`} width='800' height='640' allow="microphone; camera"/>
       </React.Fragment>
     )
   }
