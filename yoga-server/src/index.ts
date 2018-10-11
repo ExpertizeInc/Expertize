@@ -28,13 +28,16 @@ const resolvers = {
       return ctx.prisma.query.sessions({});
     },
     sessionsWhereUnacceptedPupil: (_, { username }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.query.sessions({ where: { accepted: null, pupil: { username } }}, info);
+      return ctx.prisma.query.sessions({ where: { accepted: null, completed: null, pupil: { username } }}, info);
     },
-    sessionsWhereAcceptedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.query.sessions({ where: { accepted: true, completed: null, expert: { username } }}, info);
-    },
-    sessionsWhereRejectedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.query.sessions({ where: { accepted: false, completed: null, expert: { username } }}, info);
+    // sessionsWhereAcceptedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
+    //   return ctx.prisma.query.sessions({ where: { accepted: true, completed: null, expert: { username } }}, info);
+    // },
+    // sessionsWhereRejectedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
+    //   return ctx.prisma.query.sessions({ where: { accepted: false, completed: null, expert: { username } }}, info);
+    // },
+    sessionsForExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({ where: { accepted: !null , completed: null, expert: { username } }}, info);
     }
   },
   Mutation: {
@@ -49,9 +52,9 @@ const resolvers = {
         data: { userId, username, tags: { set: tags }, description, coins, title, text, audio, video, duration }
       }, info);
     },
-    updateUser: (_, { email, uid, description, coins, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
+    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
-        data: { email, uid, description, coins, tags: { set: tags }, username, image },
+        data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image },
         where: { id } 
       }, info);
     },
@@ -102,7 +105,7 @@ const server = new GraphQLServer({
       user,
       ...req,
       prisma
-  };
+    };
   }
 });
 

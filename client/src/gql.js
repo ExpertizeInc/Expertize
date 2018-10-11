@@ -35,28 +35,14 @@ export const GET_TAGS = gql`
   }
 `;
 
-export const UPDATE_USER = gql`
-  mutation updateUser(
-    $id: String!
-    $email: String
-    $uid: String
-    $description: String
-    $coins: Int
-    $username: String
-  ) {
-    updateUser(
-      id: $id
-      email: $email
-      uid: $uid
-      description: $description
-      coins: $coins
-      username: $username
-    ) {
-      id
-      description
-    }
-  }
-`;
+// export const UPDATE_USER = gql`
+// mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int, $username: String) {
+//     updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, username: $username) {
+//         id
+//         description
+//     }
+// }
+// `;
 
 export const GET_USER_QUESTIONS = gql`
   query questionsByUser($userId: String!) {
@@ -98,43 +84,29 @@ query user($uid: String!) {
     id
     username
     email
+    uid
+    tags
+    image
+    ranking
     description
     coins
-    uid
-    ranking
-    image
-    tags
+    inSession
+    online
+    dailyClaimed
+    debt
   }
 }
 `;
 
 export const UPDATE_USER_INFO = gql`
-  mutation updateUser(
-    $id: ID!
-    $email: String
-    $uid: String
-    $description: String
-    $coins: Int
-    $tags: [String]
-    $username: String
-    $image: String
-  ) {
-    updateUser(
-      id: $id
-      email: $email
-      uid: $uid
-      description: $description
-      coins: $coins
-      tags: $tags
-      username: $username
-      image: $image
-    ) {
-      id
-      description
-      image
-      description
-      coins
-      username
+mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String], $username: String, $image: String, $dailyClaimed: Boolean, $debt: Int, $online: Boolean, $inSession: Boolean) {
+    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags, username: $username, image: $image, dailyClaimed: $dailyClaimed, debt: $debt, online: $online, inSession: $inSession) {
+        id
+        description
+        image
+        description
+        coins
+        username
     }
   }
 `;
@@ -179,9 +151,29 @@ query sessionsWhereUnacceptedPupil($username: String) {
     pupil {
       username
     }
+    accepted
+    completed
   }
 }
 `
+
+export const GET_EXPERT_SESSIONS = gql`
+query sessionsForExpert($username: String) {
+  sessionsForExpert(username: $username) {
+    id
+    type
+    expert {
+      username
+    }
+    pupil {
+      username
+    }
+    accepted
+    completed
+  }
+}
+`
+
 export const GET_ACCEPTED_SESSIONS = gql`
 query sessionsWhereAcceptedExpert($username: String) {
   sessionsWhereAcceptedExpert(username: $username) {
@@ -193,6 +185,8 @@ query sessionsWhereAcceptedExpert($username: String) {
     pupil {
       username
     }
+    accepted
+    completed
   }
 }
 `
@@ -208,6 +202,8 @@ query sessionsWhereRejectedExpert($username: String) {
     pupil {
       username
     }
+    accepted
+    completed
   }
 }
 `
