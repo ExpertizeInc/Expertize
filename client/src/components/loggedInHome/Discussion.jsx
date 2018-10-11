@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import { Panel } from 'react-bootstrap';
 import Video from '../Video.jsx';
 import Chat from '../Chat.jsx'
@@ -20,9 +20,10 @@ export default class Discussion extends Component {
       <Panel>
         Testing :
         asdfasdfdsa
+        <Link to={`${match.url}/text`}>ToText</Link>
         <Switch>
           <Route path={`${match.url}/video`} component={Video} />
-          <Route path={`${match.url}/text/:username`} render={(match)=> <Chat match={match} user={user} />} />
+          <Route path={`${match.url}/text`} render={(match)=> <Chat match={match} user={user} />} />
         </Switch>
         </Panel>
       </div>

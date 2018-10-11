@@ -32,6 +32,7 @@ class ChatBox extends Component {
 
   componentDidMount() {
     const { him, me } = this.props
+    this.setState({me:me, target:him}, () => console.log('the state in chatbox after set state',this.state))
     console.log('him:',him,'me',me)
     this.props.socket.on('outbound', (message) => {
       console.log('WILL TIS WORK??', message, message.from)

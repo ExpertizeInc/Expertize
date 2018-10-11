@@ -8,22 +8,16 @@ image: String
 ranking: Int @default(value:"0")
 description: String
 coins: Int @default(value: "1")
-<<<<<<< HEAD
-=======
 inSession: Boolean
->>>>>>> dev
 sessionPupil: [Session!]! @relation(name: "PupilSessions")
 sessionExpert: [Session!]! @relation(name: "UserSessions")
 linkedInEmail: String @unique
 linkedInId: String @unique
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 type Session {
   id: ID! @unique
   type: String!
+  questionId: String
   expert: User @relation(name: "UserSessions")
   pupil: User @relation(name: "PupilSessions")
   duration: Int
@@ -34,27 +28,15 @@ type Session {
   createdAt: DateTime!
   updatedAt: DateTime!
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 # type UserTag {
 #   id: ID! @unique
 #   user: User!
 #   tag: Tag!
 # }
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 type Tag {
 id: ID! @unique
 name: String! @unique
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 type Question {
 id: ID! @unique
 userId: String!
@@ -62,18 +44,11 @@ username: String!
 tags: [String!]
 description: String!
 coins: Int @default(value: "3")
-<<<<<<< HEAD
-active: Boolean @default(value: "false")
-=======
 active: Boolean
->>>>>>> dev
 title: String!
 text: Boolean!
 audio: Boolean!
 video: Boolean!
 duration: Int! @default(value: "5")
-<<<<<<< HEAD
-=======
 answeredBy: String
->>>>>>> dev
 }

@@ -36,6 +36,9 @@ export default class QuestionFeed extends Component {
           <Glyphicon glyph="pencil" />
           <Link to={`${match.url}/create`}>Create</Link>
         </Button>
+        <Button>
+          <Link to={`${match.url}/discussion`}>chat</Link>
+        </Button>
         <Query query={GET_QUESTIONS}>
           {({ loading, error, data }) => {
             if (loading) return <div>Loading...</div>;
