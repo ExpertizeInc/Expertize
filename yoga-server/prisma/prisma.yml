@@ -3,13 +3,13 @@ endpoint: https://eu1.prisma.sh/alon-bibring-d051d8/expertize/dev
 datamodel: datamodel.graphql
 secret: mysecret123
 
-# generate:
-#   - generator: typescript-client
-#     output: ./generated
+generate:
+  - generator: typescript-client
+    output: ./generated
 
 hooks:
   post-deploy:
-    # - prisma generate
+    - prisma generate
     - graphql get-schema --project database
     - graphql codegen
     - graphql prepare

@@ -65,7 +65,7 @@ export default class QuestionFeed extends Component {
                                   <div className="hexTop" />
                                   <div className="hexBottom" />
                                 </div>
-                                <div>{question.username}</div>
+                                <div>{question.user.username}</div>
                               </Col>
                               <Col sm={3}>{question.description}</Col>
                               <Col sm={2}>

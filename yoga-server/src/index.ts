@@ -18,8 +18,8 @@ const resolvers = {
     questions: (_, __, ctx, info) => {
       return ctx.prisma.query.questions({}, info);
     },
-    questionsByUser: (_, {userId}, ctx: {prisma: Prisma}, info) => {
-      return ctx.prisma.query.questions({ where: {userId} }, info);
+    questionsByUser: (_, { username }, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.questions({ where: { user: { username }} }, info);
     },
     tags: (_, __, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.query.tags({}); 
@@ -44,9 +44,9 @@ const resolvers = {
     createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.createUser({ data: { username, email, uid } }), info;
     },
-    createQuestion: (_, { userId, username, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
+    createQuestion: (_, { user, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
       return ctx.prisma.mutation.createQuestion({
-        data: { userId, username, tags: { set: tags }, description, coins, title, text, audio, video, duration }
+        data: { user, tags: { set: tags }, description, coins, title, text, audio, video, duration }
       }, info);
     },
     updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
@@ -58,9 +58,9 @@ const resolvers = {
     updateManyUsers: (_, __, ctx, info) => {
       return ctx.prisma.mutation.updateManyUsers({ data: { dailyClaimed: false }})
     },
-    createSession: (_, { type, questionId, expert, pupil, accepted, duration, completed, startedAt, endedAt}, ctx, info) => {
+    createSession: (_, { type, question, expert, pupil, accepted, duration, completed, startedAt, endedAt}, ctx, info) => {
       return ctx.prisma.mutation.createSession({
-        data: { type, questionId, expert, pupil, duration, accepted, completed, startedAt, endedAt }
+        data: { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt }
       });
     },
     updateSession: (_, { id, accepted, completed, startedAt, endedAt}, ctx, info) => {
