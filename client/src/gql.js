@@ -15,6 +15,7 @@ export const GET_QUESTIONS = gql`
       user {
         username
       }
+      id
       description
       active
       coins
