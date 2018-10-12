@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormControl, Button, Well } from 'react-bootstrap';
 import ChatBox from './ChatBox.jsx'
 import openSocket from 'socket.io-client';
+import Timer from './loggedInHome/Timer.jsx'
 
 const socket = openSocket('http://localhost:3001');
 
@@ -15,38 +16,25 @@ class Chat extends Component {
       userOne: '',
       target: '',
       online: [],
-      rooms: []
+      rooms: [],
+      view: false
     }
     this.onChange = this.onChange.bind(this)
     this.sendMessage = this.sendMessage.bind(this)
+    this.handleTimerClick = this.handleTimerClick.bind(this)
   }
-
-  // componentWillReceiveProps(props) {
-  //   const expert = props.location.state.session.expert.username
-  //   const pupil = props.location.state.session.pupil.username
-    
-  //   this.setState({userOne: props.user.username, target:props.user.username === expert ? expert : pupil}, () => console.log('cwrp state', this.state))
-  //   console.log('cwrp')
-  // }
 
   componentDidMount() {
     // socket.emit('get username')
     const { match, user } = this.props
     const expert = match.location.state.session.expert.username
-    const pupil = match.location.state.session.expert.username
-    console.log('this is the props in chat', this.props)
+    const pupil = match.location.state.session.pupil.username
+    // console.log('expert?',expert ,user.username === expert, 'pupil?',pupil,user.username===pupil, 'user is ', user.username)
     this.setState({userOne:user.username, target:user.username === expert ? pupil : expert}, () => console.log('the state of chat', this.state))
-    // console.log('the props of chat looking for params',this.state)
-    // setTimeout(() => this.setState({userOne: this.props.user.username, target: match.params.username}, ()=> console.log('the state in compnoenetdidimoutn', this.state)), 100)
-    // console.log('chat component did mount! match is :', user, this.props)
-    // socket.on('get user') {
     socket.emit('new user', user.username)
     socket.on('connect', () => {
       // var name = prompt('enter in username')
       console.log('userone at cdm in chat',user.username)
-      // this.setState({userOne:user.username, target: this.props.match.params.username}, () => socket.emit('new user', this.state.userOne))
-      // socket.emit('new user', name)
-      // socket.emit('new user', this.state.userOne)
       console.log('user connected to socket on componentdidmount')
     })
     socket.on('usernames', (data) => {
@@ -62,31 +50,14 @@ class Chat extends Component {
         })
       }
     })
-    // socket.on('receive message', (data) => {
-    //   this.createRoom(e, data.user);
-    // })
-    // socket.on('outbound', (data) => {
-    //   if (this.state.rooms.indexOf(data.from) === -1) {
-    //     this.createRoom(null, data.from)
-    //   }
-    // })
   }
 
-  componentDidMount() {
-    const { him, me } = this.props
-    this.setState({me:me, target:him}, () => console.log('the state in chatbox after set state',this.state))
-    console.log('him:',him,'me',me)
-    socket.on('outbound', (message) => {
-      console.log('WILL TIS WORK??', message, message.from)
-      if(this.state.target === message.from) {
-        var temp = [`${message.from}: ${message.msg}`]
-        this.setState(state => {
-          return {messages: state.messages.concat(temp)}
-        })
-      }
-    })
+  handleTimerClick(e) {
+    e.preventDefault()
+    this.setState((prevState) => ({
+      view:!prevState.view
+    }))
   }
-  
 
   onChange(e) {
     this.setState({
@@ -94,18 +65,23 @@ class Chat extends Component {
     })
   }
 
-  sendMessage(target, text) {
-    var temp = [`${this.state.me}: ${text}`]
+  sendMessage(target, text, e) {
+    e.preventDefault();
+    var temp = [`${this.state.userOne}: ${text}`]
     this.setState(state => {
       return {messages: state.messages.concat(temp)}
-    },()=>console.log(target,text,this.state.userOne))
+    },()=>console.log('state of chat when msg sent',target,text,this.state))
     socket.emit('message', {target, text, nickname: this.state.userOne})
     this.setState({ text: ''})
   }
 
   render() { 
     return (
+
       <div>
+        <Timer handleTimerClick={this.handleTimerClick}/>
+        {this.state.view ? 
+        <div>
         <div>
           <h3>Online Users - I am {this.state.userOne}</h3>
           <ul>
@@ -117,9 +93,9 @@ class Chat extends Component {
         {this.state.messages.map(message => <div>{console.log(message)}{message}</div>)}
         <Form>
           <FormControl onChange={(e) => this.onChange(e)} value={this.state.text} placeholder="Chat" />
-          <Button onClick={() => {this.sendMessage(target, text)}} >BUTTON to send text</Button>
+          <Button onClick={(e) => {this.sendMessage(this.state.target, this.state.text, e)}} >BUTTON to send text</Button>
         </Form>
-        </Well>
+        </Well> </div> : <div></div>}
       </div>
     );
   }

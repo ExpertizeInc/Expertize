@@ -11,7 +11,6 @@ import { Query } from 'react-apollo';
 import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../../gql.js';
 import { isNull } from 'util';
 
-
 export default class UserHome extends Component {
   constructor(props) {
     super(props);
