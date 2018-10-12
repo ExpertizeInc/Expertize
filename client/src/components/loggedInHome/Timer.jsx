@@ -4,11 +4,15 @@ export default class Timer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      time: 10
+      time: 100
     }
     this.intervalHandle
     this.tick = this.tick.bind(this)
     this.startTimer = this.startTimer.bind(this)
+  }
+
+  componentDidMount() {
+    this.startTimer()
   }
 
   tick() {
@@ -24,14 +28,14 @@ export default class Timer extends Component {
   }
   
   startTimer(e) {
-    this.props.handleTimerClick(e)
+    // this.props.handleTimerClick(e)
     this.intervalHandle = setInterval(this.tick, 1000)
   }
 
   render() {
     return (
       <div>
-        <button onClick={(e) => this.startTimer(e)}>start countdown</button>
+        {/* <button onClick={(e) => this.startTimer(e)}>start countdown</button> */}
         <div>{this.state.time}</div>
       </div>
     )

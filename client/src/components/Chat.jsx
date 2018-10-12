@@ -3,6 +3,8 @@ import { Form, FormControl, Button, Well } from 'react-bootstrap';
 import ChatBox from './ChatBox.jsx'
 import openSocket from 'socket.io-client';
 import Timer from './loggedInHome/Timer.jsx'
+import MDSpinner from 'react-md-spinner'
+import ReactLoading from 'react-loading'
 
 const socket = openSocket('http://localhost:3001');
 
@@ -29,11 +31,9 @@ class Chat extends Component {
     const { match, user } = this.props
     const expert = match.location.state.session.expert.username
     const pupil = match.location.state.session.pupil.username
-    // console.log('expert?',expert ,user.username === expert, 'pupil?',pupil,user.username===pupil, 'user is ', user.username)
     this.setState({userOne:user.username, target:user.username === expert ? pupil : expert}, () => console.log('the state of chat', this.state))
     socket.emit('new user', user.username)
     socket.on('connect', () => {
-      // var name = prompt('enter in username')
       console.log('userone at cdm in chat',user.username)
       console.log('user connected to socket on componentdidmount')
     })
@@ -44,7 +44,8 @@ class Chat extends Component {
     socket.on('outbound', (message) => {
       console.log('WILL TIS WORK??', message, message.from)
       if(this.state.target === message.from) {
-        var temp = [`${message.from}: ${message.msg}`]
+        // var temp = [`${message.from}: ${message.msg}`]
+        var temp = [{from:message.from, msg:message.msg}]
         this.setState(state => {
           return {messages: state.messages.concat(temp)}
         })
@@ -67,7 +68,8 @@ class Chat extends Component {
 
   sendMessage(target, text, e) {
     e.preventDefault();
-    var temp = [`${this.state.userOne}: ${text}`]
+    // var temp = [`${this.state.userOne}: ${text}`]
+    var temp = [{from:this.state.userOne, msg:message.msg}]
     this.setState(state => {
       return {messages: state.messages.concat(temp)}
     },()=>console.log('state of chat when msg sent',target,text,this.state))
@@ -76,27 +78,33 @@ class Chat extends Component {
   }
 
   render() { 
+    
     return (
-
+      this.state.online.length === 2 ? 
       <div>
-        <Timer handleTimerClick={this.handleTimerClick}/>
-        {this.state.view ? 
+        <Timer />
         <div>
-        <div>
-          <h3>Online Users - I am {this.state.userOne}</h3>
-          <ul>
-            {this.state.online.map((user) => <li key={user}>{user}</li>)}
-          </ul>
+          <div>
+            <h3>Online Users - I am {this.state.userOne}</h3>
+            <ul>
+              {this.state.online.map((user) => <li key={user}>{user}</li>)}
+            </ul>
+          </div>
+          {/* <Well>
+          <div><p>message box with {this.state.target}</p></div><br/>
+          {this.state.messages.map(message => <div>{console.log(message)}{message}</div>)}
+          <Form>
+            <FormControl onChange={(e) => this.onChange(e)} value={this.state.text} placeholder="Chat" />
+            <Button onClick={(e) => {this.sendMessage(this.state.target, this.state.text, e)}} >BUTTON to send text</Button>
+          </Form>
+          </Well>  */}
+          <ChatBox messages={this.state.messages} me={this.state.userOne} target={this.state.target} onChange={this.onChange} sendMessage={this.sendMessage} />
         </div>
-        <Well>
-        <div><p>message box with {this.state.target}</p></div><br/>
-        {this.state.messages.map(message => <div>{console.log(message)}{message}</div>)}
-        <Form>
-          <FormControl onChange={(e) => this.onChange(e)} value={this.state.text} placeholder="Chat" />
-          <Button onClick={(e) => {this.sendMessage(this.state.target, this.state.text, e)}} >BUTTON to send text</Button>
-        </Form>
-        </Well> </div> : <div></div>}
+      </div> :
+      <div>
+        <MDSpinner size="50"/>
       </div>
+  
     );
   }
 }

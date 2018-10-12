@@ -42,6 +42,8 @@
     "react-bootstrap": "^0.32.4",
     "react-circular-progressbar": "^1.0.0",
     "react-dom": "^16.5.2",
+    "react-loading": "^2.0.3",
+    "react-md-spinner": "^0.3.0",
     "react-particles-js": "^2.3.0",
     "react-rating": "^1.4.0",
     "react-router": "^4.3.1",

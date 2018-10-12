@@ -3,6 +3,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import { Panel } from 'react-bootstrap';
 import Video from '../Video.jsx';
 import Chat from '../Chat.jsx'
+import ChatBox from '../ChatBox.jsx'
 // import openSocket from 'socket.io-client'
 
 // const socket = openSocket('http://localhost:3001');
@@ -20,11 +21,14 @@ export default class Discussion extends Component {
       <Panel>
         Testing :
         asdfasdfdsa
-        <Link to={`${match.url}/text`}>ToText</Link>
+        <Link to={`${match.url}/chatbox`}>ToText</Link>
+        <div>
         <Switch>
           <Route path={`${match.url}/video`} component={Video} />
           <Route path={`${match.url}/text`} render={(match)=> <Chat match={match} user={user} />} />
+          <Route path={`${match.url}/chatbox`} component={ChatBox} />
         </Switch>
+        </div>
         </Panel>
       </div>
     );
