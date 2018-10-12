@@ -72,8 +72,10 @@ app.get('/auth/linkedin',
   app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
     failureRedirect: '/login'
   }), (req, res) => {
-    console.log('FUCK', req.user, req.profile)
-    res.send('MESSAGE')
+    // console.log('FUCK', req.user, req.profile)
+    res.locals.profile = req.user;
+    res.header('cache', req.user)
+    res.redirect('/home')
   });
 
 // app.get('/auth/linkedin', (req, res) => {
@@ -102,7 +104,7 @@ app.get('/auth/linkedin',
 
 
 
-app.get('/*', (req, res) => res.redirect('/'));
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../client/dist/index.html')));
 
 
 const port = process.env.PORT || 3001;
