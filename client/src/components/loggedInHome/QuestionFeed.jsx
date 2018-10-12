@@ -53,7 +53,7 @@ export default class QuestionFeed extends Component {
                       <Panel>
                         <Panel.Heading>
                           <Panel.Title componentClass="h3">
-                            Title: {question.title} | Coins: {question.coins} | Tag: {question.tags.length > 1 ? question.tags.map((tag, i) => tag.concat(', '))
+                            Title: {question.title} | Tag: {question.tags.length > 1 ? question.tags.map((tag, i) => tag.concat(', '))
                               : 
                               question.tags} 
                               
@@ -67,7 +67,7 @@ export default class QuestionFeed extends Component {
                                   <div className="hexTop" />
                                   <div className="hexBottom" />
                                 </div>
-                                <div>{question.username}</div>
+                                <div>{question.user.username}</div>
                               </Col>
                               <Col sm={3}>{question.description}</Col>
                               <Col sm={2}>

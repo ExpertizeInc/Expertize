@@ -1,10 +1,9 @@
 import gql from 'graphql-tag';
 
 export const CREATE_QUESTION = gql`
-  mutation createQuestion($userId: String!, $username: String!, $description: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
-    createQuestion(userId: $userId, username: $username, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+  mutation createQuestion($user: UserCreateOneInput, $description: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
+    createQuestion(user: $user, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
       description
-      coins
       title
     }
   }
@@ -13,7 +12,9 @@ export const CREATE_QUESTION = gql`
 export const GET_QUESTIONS = gql`
   query {
     questions {
-      username
+      user {
+        username
+      }
       description
       active
       coins
@@ -45,8 +46,8 @@ export const GET_TAGS = gql`
 // `;
 
 export const GET_USER_QUESTIONS = gql`
-query questionsByUser($userId: String!) {
-  questionsByUser(userId: $userId) {
+query questionsByUser($username: String!) {
+  questionsByUser(username: $username) {
     title
     description
     tags
@@ -98,8 +99,8 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
 `;
 
 export const CREATE_SESSION = gql`
-mutation createSession($type: String!, $questionId: String, $expert: UserCreateOneInput, $pupil: UserCreateOneInput, $duration: Int, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime) {
-  createSession(type: $type, questionId: $questionId, expert: $expert, pupil: $pupil, duration: $duration, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
+mutation createSession($type: String!, $question: QuestionCreateOneInput, $expert: UserCreateOneInput, $pupil: UserCreateOneInput, $duration: Int, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime) {
+  createSession(type: $type, question: $question, expert: $expert, pupil: $pupil, duration: $duration, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
     id
   }
 }
