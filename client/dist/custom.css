@@ -75,3 +75,9 @@
   box-shadow: 0 0 #447a44;
   top: 6px;
 }
+
+/* =========== INPUT ============== */
+
+.round-input {
+  border-radius: 20px;
+}
