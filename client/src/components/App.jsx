@@ -6,92 +6,73 @@ import { GET_USER_UID } from "../gql.js";
 import Routes from "../Routes.jsx";
 import history from "../components/history.js";
 import axios from 'axios';
-// import dotenv from 'dotenv';
-import jsonp from 'jsonp';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { user: null, authenticated: false, LIResults: {}, code: '' };
-    this.callbackFunction = this.callbackFunction.bind(this);
+    // this.callbackFunction = this.callbackFunction.bind(this);
     this.signInLI = this.signInLI.bind(this);
     this.signOut = this.signOut.bind(this);
     this.signIn = this.signIn.bind(this);
   }
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.props.client
-          .query({ query: GET_USER_UID, variables: { uid: user.uid } })
-          .then(({ data }) =>
-            this.setState({ authenticated: true, user: data.user }, () => {
-              // if (data.user.dailyClaimed === false) {
-              //   show popup to let them claim 1 coin freebie 
-              // }
-            })
-          )
-          .catch(err => console.error("auth faied", err));
-      } else {
-        this.setState({ authenticated: false });
-      }
-    });
-    // if (window.location.search) {
-    //   this.setState({ code: window.location.search.slice(6)})
-      // console.log('THIS IS CODE', window.location);
-      // let code = window.location.search.slice(6);
-      //  code = code.substr(0, code.length-10);
-      //  console.log(code);
-      // axios.get('/linkedin', { params: {url: `https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${code}&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2F&client_id=77jrp4h9m6f6yf&client_secret=TQyMsJWbwxSuBpum`}})
-      //   .then(data => console.log('FINAL', data))
-      //   .catch(err => console.error('FUCKING FINAL ERROR', err));
-    }
-    // IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
-    // IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
-    // if (IN.User.isAuthorized()) {
-    //   console.log('in.user',IN.User.isAuthorized())
-    //   this.setState({
-    //     authenticated: true
-    //   }, () => console.log('li user is logged in'))
-    // } else {
-    //   console.log('no linkedin user signed in')
-    // }
-  // }
+    // firebase.auth().onAuthStateChanged(user => {
+    //   if (user) {
+    //     this.props.client
+    //       .query({ query: GET_USER_UID, variables: { uid: user.uid } })
+    //       .then(({ data }) =>
+    //         this.setState({ authenticated: true, user: data.user }, () => {
+    //           // if (data.user.dailyClaimed === false) {
+    //           //   show popup to let them claim 1 coin freebie 
+    //           // }
+    //         })
+    //       )
+    //       .catch(err => console.error("auth failed", err));
+    //   } else {
+    //     this.setState({ authenticated: false });
+    //   }
+    // });
+  }
 
   signIn(user) {
     this.setState({ authenticated: true, user }, () => history.push("/home"));
   }
 
-  callbackFunction() {
-    IN.API.Raw("/people/~:(id,first-name,last-name,emailAddress,headline,picture-url,industry,positions:(id,title,summary,start-date,end-date,is-current,company:(id,name,type,size,industry,ticker)),educations:(id,school-name,field-of-study,start-date,end-date,degree,activities,notes))?format=json")
-    // this.setState({authenticated: true}, 
-    .result((results) => {
-      console.log('results in linkedIn', results);
-      this.setState({ LIResults: results }, () => {
-        history.push('/questionnaire');
-      })
-        // client.mutate({
-        //   mutation: createLinkedInUser,
-        //   variables: {
-        //     linkedInId: results.id,
-        //     linkedInEmail: results.emailAddress,
-        //   },
-        // })
-        // .then(() => {
-        //   this.setState({ answerContent: '' });
-        //   this.props.data.refetch();
-        // })
-    })
-    .error((error) => console.error('error in linkedIn', error));
-  }
+  // callbackFunction() {
+  //   IN.API.Raw("/people/~:(id,first-name,last-name,emailAddress,headline,picture-url,industry,positions:(id,title,summary,start-date,end-date,is-current,company:(id,name,type,size,industry,ticker)),educations:(id,school-name,field-of-study,start-date,end-date,degree,activities,notes))?format=json")
+  //   // this.setState({authenticated: true}, 
+  //   .result((results) => {
+  //     console.log('results in linkedIn', results);
+  //     this.setState({ LIResults: results }, () => {
+  //       history.push('/questionnaire');
+  //     })
+  //       // client.mutate({
+  //       //   mutation: createLinkedInUser,
+  //       //   variables: {
+  //       //     linkedInId: results.id,
+  //       //     linkedInEmail: results.emailAddress,
+  //       //   },
+  //       // })
+  //       // .then(() => {
+  //       //   this.setState({ answerContent: '' });
+  //       //   this.props.data.refetch();
+  //       // })
+  //   })
+  //   .error((error) => console.error('error in linkedIn', error));
+  // }
 
   signInLI(e, a) {
     e.preventDefault();
-    this.setState({ code: window.location.search.slice(6)}, () => {
-      axios.get('/linkedin', { params: {url: `https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code=${this.state.code}&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2F&client_id=77jrp4h9m6f6yf&client_secret=TQyMsJWbwxSuBpum`}})
-      .then(data => console.log('FINAL', data))
-      .catch(err => console.error('FUCKING FINAL ERROR', err));
-    })
+    // this.setState({ code: window.location.search.slice(6)}, () => {
+      axios.get('/auth/linkedin')
+        .then(data => console.log('NAT', data))
+        .catch(e => console.error('GEORGE', e))
+       // }) 
+      // .then(data => console.log('FINAL', data))
+      // .catch(err => console.error('FUCKING FINAL ERROR', err));
+
     // axios.get('https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77jrp4h9m6f6yf&redirect_uri=http%3A%2F%2Flocalhost:3001%2Fsignin&state=987654321')
     // .then((data) => {
     //   // res.send(data);

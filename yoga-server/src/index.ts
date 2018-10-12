@@ -44,9 +44,9 @@ const resolvers = {
     createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.createUser({ data: { username, email, uid } }, info);
     },
-    createLinkedInUser: (parent, { email, linkedInEmail, linkedInId, username, description, tags, image }, ctx: { prisma: Prisma}, info) => {
-      return ctx.prisma.mutation.createUser({ data: { email, linkedInEmail, linkedInId, username, description, tags: { set: tags }, image }}, info)
-    },
+    // createLinkedInUser: (parent, { email, linkedInEmail, linkedInId, username, description, tags, image }, ctx: { prisma: Prisma}, info) => {
+    //   return ctx.prisma.mutation.createUser({ data: { email, linkedInEmail, linkedInId, username, description, tags: { set: tags }, image }}, info)
+    // },
     createQuestion: (_, { userId, username, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
       return ctx.prisma.mutation.createQuestion({
         data: { userId, username, tags: { set: tags }, description, coins, title, text, audio, video, duration }

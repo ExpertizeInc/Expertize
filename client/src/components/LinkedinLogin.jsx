@@ -45,13 +45,13 @@ export default class LinkedInLogin extends React.Component {
       let { signInLI } = this.props
       return ( 
         <div>
-          {console.log(this.props)}
-          <button onClick={signInLI}>
-          <Link to="/test">
+          {/* {console.log(this.props)} */}
+          <a href="http://localhost:3001/auth/linkedin">
+          {/* <Link to="/test"> */}
             <img src={LIButton} alt="linkedInButton" style={{ width: 190 }}/>
-          </Link>
+          {/* </Link> */}
 
-          </button>
+          </a>
         </div>
       );
     }

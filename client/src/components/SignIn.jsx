@@ -1,17 +1,3 @@
-// import React from 'react'
-// import LinkedinLogin from './LinkedinLogin.jsx'
-
-// const SignIn = ({ signIn }) => {
-
-//     return (
-//     <div>
-//         <h1>Sign In Page</h1>
-//         <div>hello</div>
-//         <LinkedinLogin text="SIGN IN" signIn={signIn}/>
-//     </div>
-//     )
-// }
-
 import React, { Component } from 'react';
 import {
   Form,
@@ -91,7 +77,7 @@ export default class Signin extends Component {
             <Row>
               <Col smOffset={6} sm={3}>
                 <Button onClick={this.submitSignIn} type="submit">Log In</Button>
-                <LinkedInLogin signInLI={e => signInLI(e)} text="LINKEDIN SIGNIN" />
+                <LinkedInLogin signInLI={signInLI} text="LINKEDIN SIGNIN" />
               </Col>
             </Row>
           </FormGroup>

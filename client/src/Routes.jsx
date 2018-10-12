@@ -25,7 +25,7 @@ const Routes = ({ authenticated, user, signIn, signInLI, linkedInEmail, linkedIn
           <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} LIResults={LIResults} linkedInId={linkedInId} linkedInEmail={linkedInEmail} />}></Route>
           <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>
-          <Route path='/test' component={() => window.location = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77jrp4h9m6f6yf&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2F&state=321'}/>
+          {/* <Route path='/test' component={() => window.location = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77jrp4h9m6f6yf&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2F&state=321'}/> */}
           <Route exact strict path="/home/discussion/chat" component={Chat}></Route>
           <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>
