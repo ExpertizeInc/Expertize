@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { Query, Mutation } from 'react-apollo';
+import { Mutation } from 'react-apollo';
 import {
   Form,
   FormGroup,
   FormControl,
+  Grid,
+  Row,
   Col,
+  Panel,
+  Badge,
   Button,
   ControlLabel,
+  ButtonGroup,
   ToggleButtonGroup,
   ToggleButton,
-  Glyphicon
+  DropdownButton,
+  MenuItem,
+  Image
 } from 'react-bootstrap';
 import TagDropdown from './TagDropdown.jsx';
 import { CREATE_QUESTION } from '../../gql.js';
@@ -24,12 +31,14 @@ export default class QuestionForm extends Component {
       tags: [],
       chat: [],
       title: '',
-      duration: 0
+      duration: 5
     };
     this.onChange = this.onChange.bind(this);
     this.addTags = this.addTags.bind(this);
+    this.setDuration = this.setDuration.bind(this);
     this.handleChatChoice = this.handleChatChoice.bind(this);
   }
+
   onChange(e, type) {
     e.preventDefault();
     this.setState({
@@ -39,6 +48,12 @@ export default class QuestionForm extends Component {
   handleChatChoice(e) {
     this.setState({ chat: e });
   }
+
+  setDuration(e) {
+    (this.state.duration + e < 25 && this.state.duration + e !== 0) ?
+    this.setState({ duration: this.state.duration + e}) : null
+  }
+
   addTags(e) {
     if (this.state.tags.includes(e)) {
       alert('You have already added this tag')
@@ -59,114 +74,123 @@ export default class QuestionForm extends Component {
       questions,
       name
     } = this.state;
-
-    console.log(user);
-
-    const stateForQuestionInfo = [title, name, description];
+    const stateForQuestionInfo = [title, description];
     const toggleInfo = ['Text', 'Audio', 'Video'];
     return (
       // modularize questions
-      <Form className="form-panel-signup centered" horizontal>
-        <h2>{user.username} - Post a Question</h2>
-        {questionInfo.map((question, i) => (
-          <FormGroup 
-            controlId={`formHorizontal${question.type}`}
-            key={question.info}
-          >
-            <Col componentClass={ControlLabel} sm={5}>
-              {question.info}
-            </Col>
-            <Col sm={3}>
-              <FormControl className="round-input"
-                value={stateForQuestionInfo[i]}
-                onChange={e => this.onChange(e, question.type.toLowerCase())}
-                type={question.type}
-                placeholder={question.placeholder}
-              />
-            </Col>
-          </FormGroup>
-        ))}
-        <FormGroup controlId="formControlsSelect">
-          <Col componentClass={ControlLabel} sm={5}>
-            <ControlLabel>How long do you want the session to be?</ControlLabel>
+      <Grid>
+        <Row>
+          <Col xsOffset={4} xs={6} md={4}>
+            <Form className="form-panel-signup centered" horizontal>
+              {/* {questionInfo.map((question, i) => (
+                <FormGroup
+                  controlId={`formHorizontal${question.type}`}
+                  key={question.info}>
+                  <Col componentClass={ControlLabel} >
+                    {question.info}
+                  </Col>
+                  <Col>
+                    <FormControl className="round-input"
+                      value={stateForQuestionInfo[i]}
+                      onChange={e => this.onChange(e, question.type.toLowerCase())}
+                      type={question.type}
+                      placeholder={question.placeholder}
+                    />
+                  </Col>
+                </FormGroup>
+              ))} */}
+
+              <FormGroup controlId="formControlsTextarea">
+                <ControlLabel>What would you like to discuss?</ControlLabel>
+                <FormControl style={{ height: "35px" }} className="round-input" componentClass="textarea" placeholder="eg. Python best practices" />
+              </FormGroup>
+
+              <FormGroup controlId="formControlsTextarea">
+                <ControlLabel>Include a brief description.</ControlLabel>
+                <FormControl style={{ height: "80px" }}className="round-input" componentClass="textarea" placeholder="eg. I'm just starting to learn Python and was wondering if there are certain pointers someone who has used it in their job could give me." />
+              </FormGroup>
+
+              <FormGroup controlId="formControlsSelect">
+                <Col componentClass={ControlLabel} >
+                  <ControlLabel>How long do you want the session to be?</ControlLabel>
+                </Col>
+                <Col>
+                  <ButtonGroup>
+                    <Button className={'mode-toggle'} onClick={() => this.setDuration(-5)} value="-" key="-">
+                      -
+                    </Button>
+                    <Button  className={'mode-toggle'} value={this.state.duration} key="test">
+                     {this.state.duration} minutes
+                    </Button>
+                    <Button className={'mode-toggle'} onClick={() => this.setDuration(5)} value="+"  key="+">
+                      +
+                    </Button>
+                  </ButtonGroup>
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col className="centered" >
+                  <strong>I'd like to use</strong>
+                </Col>
+                <Col >
+                  <ToggleButtonGroup
+                    type="checkbox"
+                    value={chat}
+                    onChange={this.handleChatChoice}>
+                    {toggleInfo.map(info => (
+                      <ToggleButton
+                        className={'mode-toggle'}
+                        value={info.toLowerCase()}
+                        key={info}>
+                        {info}
+                      </ToggleButton>
+                    ))}
+                  </ToggleButtonGroup>
+                </Col>
+              </FormGroup>
+              <FormGroup controlId="formControlsSelect">
+                <Col componentClass={ControlLabel}>
+                  <ControlLabel>Add Some Tags</ControlLabel>
+                </Col>
+                <Col >
+                  <h5>
+                    {tags.length > 1 ? tags.map(tag => <Badge>{tag}</Badge>) : <Badge>{tags}</Badge>}
+                  </h5>
+                  <br />
+                  <TagDropdown userId={user ? user.id : ''} addTags={this.addTags} />
+                </Col>
+              </FormGroup>
+              <FormGroup>
+                <Col className="centered">
+                  <h5 className="centered">This will cost: {user.debt > 0 ? 2 * user.debt : 2} <Image style={{ width: "20px" }} src="../../coin.gif"></Image></h5>
+                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="../../coin.gif"></Image></h5>
+                  <Mutation
+                    mutation={CREATE_QUESTION}
+                    variables={{
+                      userId: user.id,
+                      username: user.username,
+                      description,
+                      tags,
+                      coins: user.debt > 0 ? 2 + user.debt : 2,
+                      title,
+                      text: chat.includes('text'),
+                      audio: chat.includes('audio'),
+                      video: chat.includes('video'),
+                      duration}}>
+                    {(createQuestion, { data }) => {
+                      return (
+                        <Link to="/home">
+                          <Button className="btn-2g bttn" onClick={createQuestion}>Create Question</Button>
+                        </Link>
+                      );
+                    }}
+                  </Mutation>
+                </Col>
+              </FormGroup>
+            </Form>
           </Col>
-          <Col sm={3}>
-            <FormControl className="round-input"
-              componentClass="select"
-              placeholder="Choose duration"
-              onChange={e => this.onChange(e, 'duration')}
-              value={this.state.duration}
-            >
-              <option value="select">Choose duration</option>
-              {times.map(time => (
-                <option className="round-input" value={time.value} key={time.value}>
-                  {time.name}
-                </option>
-              ))}
-            </FormControl>
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col className="right" sm={5}>
-            <strong>I'd like to use</strong>
-          </Col>
-          <Col sm={3}>
-            <ToggleButtonGroup
-              type="checkbox"
-              value={chat}
-              onChange={this.handleChatChoice}
-            >
-              {toggleInfo.map(info => (
-                <ToggleButton
-                  className={'mode-toggle'}
-                  value={info.toLowerCase()}
-                  key={info}
-                >
-                  {info}
-                </ToggleButton>
-              ))}
-            </ToggleButtonGroup>
-          </Col>
-        </FormGroup>
-        <FormGroup controlId="formControlsSelect">
-          <Col componentClass={ControlLabel} sm={5}>
-            <ControlLabel>Add Some Tags</ControlLabel>
-          </Col>
-          <Col sm={3}>
-            <h5>
-              {tags.length > 1 ? tags.map(tag => tag.concat(', ')) : tags}
-            </h5>
-            <br />
-            <TagDropdown userId={user ? user.id : ''} addTags={this.addTags} />
-          </Col>
-        </FormGroup>
-        <FormGroup>
-          <Col smOffset={6} sm={3}>
-            <Mutation
-              mutation={CREATE_QUESTION}
-              variables={{
-                userId: user.id,
-                username: user.username,
-                description,
-                tags,
-                coins: {},
-                title,
-                text: chat.includes('text'),
-                audio: chat.includes('audio'),
-                video: chat.includes('video'),
-                duration
-              }}>
-              {(createQuestion, { data }) => {
-                return (
-                  <Link to="/home">
-                    <Button onClick={createQuestion}>Create Question</Button>
-                  </Link>
-                );
-              }}
-            </Mutation>
-          </Col>
-        </FormGroup>
-      </Form>
+        </Row>
+      </Grid>
     );
   }
 };

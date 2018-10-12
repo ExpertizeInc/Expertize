@@ -62,7 +62,6 @@ class SessionModal extends Component {
                 }</span>
               )}
             </Mutation>
-         
           </Modal.Footer>
         </Modal>
       </div>   
