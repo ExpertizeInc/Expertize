@@ -17,6 +17,7 @@ sessionExpert: [Session!]! @relation(name: "UserSessions")
 linkedInEmail: String @unique
 linkedInId: String @unique
 }
+
 type Session {
   id: ID! @unique
   type: String!

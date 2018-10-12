@@ -69,7 +69,7 @@ export default class QuestionForm extends Component {
       <Form className="form-panel-signup centered" horizontal>
         <h2>{user.username} - Post a Question</h2>
         {questionInfo.map((question, i) => (
-          <FormGroup
+          <FormGroup 
             controlId={`formHorizontal${question.type}`}
             key={question.info}
           >
@@ -77,7 +77,7 @@ export default class QuestionForm extends Component {
               {question.info}
             </Col>
             <Col sm={3}>
-              <FormControl
+              <FormControl className="round-input"
                 value={stateForQuestionInfo[i]}
                 onChange={e => this.onChange(e, question.type.toLowerCase())}
                 type={question.type}
@@ -86,25 +86,12 @@ export default class QuestionForm extends Component {
             </Col>
           </FormGroup>
         ))}
-        <FormGroup controlId="formHorizontalEmail">
-          <Col componentClass={ControlLabel} sm={5}>
-            Tag
-          </Col>
-          <Col sm={3}>
-            <FormControl
-              value={tags}
-              onChange={e => this.onChange(e, 'tag')}
-              type="tag"
-              placeholder="Enter Tag"
-            />
-          </Col>
-        </FormGroup>
         <FormGroup controlId="formControlsSelect">
           <Col componentClass={ControlLabel} sm={5}>
             <ControlLabel>How long do you want the session to be?</ControlLabel>
           </Col>
           <Col sm={3}>
-            <FormControl
+            <FormControl className="round-input"
               componentClass="select"
               placeholder="Choose duration"
               onChange={e => this.onChange(e, 'duration')}
@@ -112,7 +99,7 @@ export default class QuestionForm extends Component {
             >
               <option value="select">Choose duration</option>
               {times.map(time => (
-                <option value={time.value} key={time.value}>
+                <option className="round-input" value={time.value} key={time.value}>
                   {time.name}
                 </option>
               ))}
@@ -162,15 +149,13 @@ export default class QuestionForm extends Component {
                 username: user.username,
                 description,
                 tags,
-                coins: 3,
+                coins: {},
                 title,
                 text: chat.includes('text'),
                 audio: chat.includes('audio'),
                 video: chat.includes('video'),
                 duration
-              }}
-              
-            >
+              }}>
               {(createQuestion, { data }) => {
                 return (
                   <Link to="/home">
