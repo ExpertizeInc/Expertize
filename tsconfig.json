@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+	"strict": false,
+"moduleResolution": "node",
+"module": "commonjs",
+"lib":["esnext","dom"]
+  }
+}
