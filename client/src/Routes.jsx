@@ -16,12 +16,12 @@ import Video from './components/Video.jsx';
 
 const Routes = ({ authenticated, user, signIn, signOut }) => (
     <div>
-      <NavBar user={user} authenticated={authenticated} />
+      <NavBar user={user} authenticated={authenticated}/>
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
-          <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated} signOut={signOut}></PrivateRoute>
+          <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>
           <Route exact strict path="/signin" render={(props) => <SignIn {...props} />}></Route>
-          <Route exact strict path="/signup" render={(props) => <Signup user={user} {...props} signIn={signIn} />}></Route>
+          <Route exact strict path="/signup" render={(props) => <Signup {...props} signIn={signIn} />}></Route>
           <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} />}></Route>
           <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>

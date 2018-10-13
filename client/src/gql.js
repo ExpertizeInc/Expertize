@@ -1,12 +1,16 @@
 import gql from 'graphql-tag';
 
 export const CREATE_QUESTION = gql`
-  mutation createQuestion($user: UserCreateOneInput, $description: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
-    createQuestion(user: $user, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
-      description
-      title
-    }
+mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: String!, $userCoins: Int!, $coins: Int!, $debt: Int, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
+  createQuestion(user: $user, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+    description
+    title
   }
+  updateUser(id: $id, coins: $userCoins, debt: $debt) {
+    uid
+    coins
+  }
+}
 `;
 
 export const GET_QUESTIONS = gql`
@@ -15,6 +19,7 @@ export const GET_QUESTIONS = gql`
       user {
         username
       }
+      id
       description
       active
       coins

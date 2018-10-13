@@ -1,0 +1,72 @@
+type User {
+ id: ID! @unique
+ username: String! @unique
+ email: String! @unique
+ uid: String @unique
+ linkedInEmail: String @unique
+ linkedInId: String @unique
+ tags: [String!]!
+ image: String
+ industry: String
+ ranking: Int @default(value:"0")
+ description: String
+ coins: Int @default(value: "0")
+ inSession: Boolean
+ online: Boolean
+ privacy: String
+ reviews: String
+ dailyClaimed: Boolean
+ debt: Int @default(value:"0")
+ sentMessages: [Message!]! @relation(name: "SendingUser")
+ receivedMessages: [Message!]! @relation(name: "RecievingUser")
+ questionsAsked: [Question!]! @relation(name: "AskingUser")
+ questionsAnswered: [Question!]! @relation(name: "AnswerUser")
+ sessionPupil: [Session!]! @relation(name: "PupilSessions")
+ sessionExpert: [Session!]! @relation(name: "UserSessions")
+}
+
+type Message {
+ id: ID! @unique
+ sender: User @relation(name: "SendingUser")
+ recipient: User @relation(name: "RecievingUser")
+ message: String
+ read: Boolean
+ createdAt: DateTime!
+}
+
+type Session {
+ id: ID! @unique
+ type: String!
+ question: Question
+ expert: User @relation(name: "UserSessions")
+ pupil: User @relation(name: "PupilSessions")
+ duration: Int
+ accepted: Boolean
+ completed: Boolean
+ startedAt: DateTime
+ endedAt: DateTime
+ scheduledFor: DateTime
+ createdAt: DateTime!
+ updatedAt: DateTime!
+}
+
+type Tag {
+id: ID! @unique
+name: String! @unique
+}
+
+type Question {
+ id: ID! @unique
+ user: User @relation(name: "AskingUser")
+ tags: [String!]
+ description: String!
+ coins: Int @default(value: "2")
+ active: Boolean
+ title: String!
+ text: Boolean!
+ audio: Boolean!
+ video: Boolean!
+ duration: Int! @default(value: "5")
+ answeredBy: User @relation(name: "AnswerUser")
+ createdAt: DateTime!
+}

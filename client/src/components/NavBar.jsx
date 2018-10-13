@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Nav, Navbar, NavItem, Glyphicon } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -47,12 +47,17 @@ export default class NavBar extends Component {
               </NavItem> 
               ))
             : null}
-        </Nav>
-        <Nav pullRight>
           <NavItem eventKey={1} className="cl-effect-1" componentClass='span' style={{ marginTop: 15 }}>
+            <Link to="/signin"><Glyphicon glyph="envelope" /> Inbox</Link> &nbsp; &nbsp;
+          </NavItem>
+        </Nav>
+
+        <Nav pullRight>
+
+          <NavItem eventKey={2} className="cl-effect-1" componentClass='span' style={{ marginTop: 15 }}>
             <Link to="/signin">Sign In </Link> &nbsp; &nbsp;
           </NavItem>
-          <NavItem eventKey={2} className="cl-effect-1" componentClass='span' style={{ marginTop: 15, marginRight: 15 }}>
+          <NavItem eventKey={3} className="cl-effect-1" componentClass='span' style={{ marginTop: 15, marginRight: 15 }}>
             {authenticated ? <Link to="/" onClick={this.signOutUser}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
           </NavItem>
         </Nav>

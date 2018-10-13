@@ -3,6 +3,7 @@ import { ApolloProvider } from "react-apollo";
 import Particles from "react-particles-js";
 import params from "../particles.js";
 import { GET_USER_UID, CREATE_USER } from "../gql.js";
+import { Query } from 'react-apollo';
 import Routes from "../Routes.jsx";
 import history from "../components/history.js";
 import axios from 'axios';
@@ -10,8 +11,7 @@ import axios from 'axios';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { user: null, authenticated: false, linkedInUserName: '', linkedInEmail: '', linkedInId: '', linkedInImage: '', linkedInHeadline: '', linkedInUrl: ''  };
-    // this.callbackFunction = this.callbackFunction.bind(this);
+    this.state = { user: null, authenticated: false, uid: null };
     this.signOut = this.signOut.bind(this);
     this.signIn = this.signIn.bind(this);
   }
@@ -94,6 +94,23 @@ export default class App extends React.Component {
           backgroundImage: "url('http://www.sompaisoscatalans.cat/simage/96/965205/black-gradient-wallpaper.png')"
           // backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
+        {(authenticated && !user) && 
+            <Query query={ GET_USER_UID } variables={{ uid: this.state.uid }} >
+
+              {({ loading, error, data, refetch, networkStatus }) => {
+                if (loading) return <div>Loading...</div>;
+                if (error) return <div>Error{console.log(error)}</div>;
+                return (
+                  <div>
+                    Ok
+                  {console.log('????', data)}
+                    {this.setState({ user: data.user })}
+                  </div>
+
+                );
+              }}
+
+            </Query>}
           <Routes
             user={user}
             signIn={this.signIn}

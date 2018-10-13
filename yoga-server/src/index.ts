@@ -1,5 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma, User } from '../db/generated';
+import { Prisma, User } from '../prisma/generated';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
@@ -9,7 +9,7 @@ import 'dotenv/config'
 
 const resolvers = {
   Query: {
-    user: (parent: {user: User}, {uid}, ctx: {prisma: Prisma}, info) => {
+    user: (parent, {uid}, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.user({ where: {uid} }, info);
     },
     users: (_, __, ctx: {prisma: Prisma}, info) => {
