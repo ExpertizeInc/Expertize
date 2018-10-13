@@ -1,47 +1,31 @@
 import React, { Component } from 'react';
-import {
-  Form,
-  FormGroup,
-  FormControl,
-  Col,
-  Button,
-  ControlLabel,
-  Row
-} from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Row } from 'react-bootstrap';
 import LinkedInLogin from './LinkedInLogin.jsx';
 
 export default class Signin extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      password: ''
-    };
+    this.state = { email: '', password: '' };
     this.onChange = this.onChange.bind(this);
     this.submitSignIn = this.submitSignIn.bind(this);
   }
 
   onChange(e, type) {
     e.preventDefault();
-    this.setState({
-      [type]: e.target.value
-    });
+    this.setState({ [type]: e.target.value });
   }
 
   submitSignIn(e) {
-    //send to firebase/server
     e.preventDefault();
     console.log('submitting sign in to firebase');
     firebase
       .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.history.push('/home'))
-      .catch(error => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.error('error code:', errorCode, 'with message: ', errorMessage);
-        window.alert('incorrect username/password');
-      });
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+          .then(() => this.props.history.push('/home'))
+          .catch(error => {
+            console.error('error code:', error.code, 'with message: ', error.message);
+            alert('incorrect username/password');
+          });
   }
 
   render() {
@@ -76,7 +60,7 @@ export default class Signin extends Component {
             <Row>
               <Col smOffset={6} sm={3}>
                 <Button onClick={this.submitSignIn} type="submit">Log In</Button>
-                <LinkedInLogin />
+                <br/><LinkedInLogin />
               </Col>
             </Row>
           </FormGroup>

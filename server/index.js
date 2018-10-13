@@ -30,7 +30,6 @@ app.get('/logout', (req, res) => {
   });
 });
 
-
 app.post('/users', (req, res) => {
   console.log('CHECK IT', req.params, req.query, req.body)
   res.send(200)

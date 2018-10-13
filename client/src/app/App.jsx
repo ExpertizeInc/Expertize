@@ -1,11 +1,11 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import Particles from "react-particles-js";
-import params from "../particles.js";
-import { GET_USER_UID, CREATE_USER } from "../gql.js";
+// import Particles from "react-particles-js";
+// import params from "../particles.js";
 import { Query } from 'react-apollo';
-import Routes from "../Routes.jsx";
-import history from "../components/history.js";
+import { GET_USER_UID } from "../apollo/gql.js";
+import Routes from "../routes/Routes.jsx";
+import history from "./history.js";
 import axios from 'axios';
 
 export default class App extends React.Component {
@@ -17,55 +17,45 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.user === null) {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          this.props.client
-            .query({ query: GET_USER_UID, variables: { uid: user.uid } })
-            .then(({ data }) => {
-            console.log(data.user, 'p')
-              this.setState({ authenticated: true, user: data.user }, () => {
-                // if (data.user.dailyClaimed === false) {
-                //   show popup to let them claim 1 coin freebie 
-                // }
-                history.push('/home')
-              })
-            })
-            .catch(err => console.error("auth failed", err));
-        } else {
-          this.setState({ authenticated: false });
-        }
-      });
-    }
-    if (this.state.user !== null) {
+    // if (!this.state.authenticated) {
+    //   firebase.auth().onAuthStateChanged(user => {
+    //     if (user) {
+    //       this.props.client
+    //         .query({ query: GET_USER_UID, variables: { uid: user.uid } })
+    //         .then(({ data }) => {
+    //         console.log(data.user, 'p')
+    //           this.setState({ authenticated: true, user: data.user }, () => {
+    //             // if (data.user.dailyClaimed === false) {
+    //             //   show popup to let them claim 1 coin freebie 
+    //             // }
+    //             history.push('/home')
+    //           })
+    //         })
+    //         .catch(err => console.error("auth failed", err));
+    //     } else {
+    //       this.setState({ authenticated: false });
+    //     }
+    //   });
+    // }
+    if (!this.state.authenticated) {
       axios.post('/users')
-      .then((res) => {
-      var user = JSON.parse(res.headers.user);
-      // console.log(user);
-      if (user) {
-        console.log('XXX', user)
-        this.props.client 
-            .query({  query: GET_USER_UID, variables: { uid: user.id }})
-            .then(({ data }) => {
-              console.log('DATA', data)
-              this.setState({ authenticated: true, user: data.user }, () => {
-                history.push('/home')
-              })
-            })
-              .catch(() => {
-                this.props.client
-                  .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName }})
-                    .then(({data}) => {
-                      console.log("PPPPPP", data.createUser)
-                      this.setState({ authenticated: true, user: data.createUser}, (user) => history.push('/questionnaire'))
-                    })
-                    .catch(e => console.error('FUCK', e))
-              })
-      } else {
-         history.push('/login');
-      }
-    })
-    .catch(e => console.error('FAILED', e))
+        .then((res) => {
+        var user = JSON.parse(res.headers.user);
+        if (user) {
+          this.props.client 
+              .query({  query: GET_USER_UID, variables: { uid: user.id }})
+                .then(({ data }) => this.setState({ authenticated: true, user: data.user }, () => history.push('/home')))
+                .catch(() => {
+                  this.props.client
+                    .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName }})
+                      .then(({data}) => this.setState({ authenticated: true, user: data.createUser}, () => history.push('/questionnaire')))
+                      .catch(e => console.error('FUCK', e))
+                });
+        } else {
+          history.push('/login');
+        }
+      })
+      .catch(e => console.error('FAILED', e))
     }
   }
 
@@ -96,7 +86,6 @@ export default class App extends React.Component {
         }} /> */}
         {(authenticated && !user) && 
             <Query query={ GET_USER_UID } variables={{ uid: this.state.uid }} >
-
               {({ loading, error, data, refetch, networkStatus }) => {
                 if (loading) return <div>Loading...</div>;
                 if (error) return <div>Error{console.log(error)}</div>;
@@ -106,10 +95,8 @@ export default class App extends React.Component {
                   {console.log('????', data)}
                     {this.setState({ user: data.user })}
                   </div>
-
                 );
               }}
-
             </Query>}
           <Routes
             user={user}

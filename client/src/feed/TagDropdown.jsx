@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
 import { Query } from 'react-apollo';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import { GET_TAGS } from '../../gql.js';
+import { GET_TAGS } from '../apollo/gql.js';
 
 export default class TagDropdown extends Component {
   render() {

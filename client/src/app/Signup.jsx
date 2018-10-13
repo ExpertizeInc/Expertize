@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap'
-import { CREATE_USER } from '../gql.js';
-import LIButton from '../LIButton.png';
+import { CREATE_USER } from '../apollo/gql.js';
 import LinkedInLogin from './LinkedInLogin.jsx';
 
 export default class Signup extends Component {
@@ -55,7 +54,7 @@ export default class Signup extends Component {
                   {signUpLinkedIn
                   ?
                   <div>
-                    <LinkedInLogin />
+                    <br/><LinkedInLogin />
                     <h5>Don't have a linkedin account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>click here</Button></h5>
                   </div>
                   :

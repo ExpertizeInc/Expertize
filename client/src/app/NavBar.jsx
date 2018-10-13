@@ -23,6 +23,7 @@ export default class NavBar extends Component {
       .catch(e => console.error)
     } else {
       firebase.auth().signOut();
+      this.props.signOut()
     }
   }
 

@@ -70,20 +70,6 @@ const resolvers = {
       });
     }
   },
-  // Subscription: {
-  //   subscribeToSessionAsExpert: (_, { username }, ctx, info) => {
-  //     return ctx.prisma.subscription.session({ 
-  //       where: { 
-  //         mutation_in: ['UPDATED'],
-  //         node : {
-  //           expert: {username: username},
-  //           accepted: false
-  //         }
-  //       } 
-  //     }  
-  //     )
-  //   }
-  // }
 }
 
 

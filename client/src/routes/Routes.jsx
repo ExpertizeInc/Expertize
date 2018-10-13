@@ -1,22 +1,22 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import SignIn from './components/SignIn.jsx';
-import Home from './components/Home.jsx';
-import Signup from './components/Signup.jsx';
-import NavBar from './components/NavBar.jsx';
-import Chat from './components/Chat.jsx';
-import Questionnaire from './components/Questionnaire.jsx';
-import Profile from './components/Profile.jsx'
-import Error from './components/Error.jsx';
-import Footer from './components/Footer.jsx';
-import UserHome from './components/loggedInHome/UserHome.jsx';
-import QuestionFeed from './components/loggedInHome/QuestionFeed.jsx';
-import PrivateRoute from './components/PrivateRoute.jsx';
-import Video from './components/Video.jsx';
+import SignIn from '../app/SignIn.jsx';
+import Home from '../app/Home.jsx';
+import Signup from '../app/Signup.jsx';
+import NavBar from '../app/NavBar.jsx';
+import Chat from '../sessions/Chat.jsx';
+import Questionnaire from '../profile/Questionnaire.jsx';
+import Profile from '../profile/Profile.jsx'
+import Error from '../app/Error.jsx';
+import Footer from '../app/Footer.jsx';
+import UserHome from '../app/UserHome.jsx';
+// import QuestionFeed from '../feed/QuestionFeed.jsx';
+import PrivateRoute from './PrivateRoute.jsx';
+import Video from '../sessions/Video.jsx';
 
 const Routes = ({ authenticated, user, signIn, signOut }) => (
     <div>
-      <NavBar user={user} authenticated={authenticated}/>
+      <NavBar user={user} authenticated={authenticated} signOut={signOut}/>
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>
