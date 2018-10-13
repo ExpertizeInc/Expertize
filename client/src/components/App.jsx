@@ -99,6 +99,7 @@ export default class App extends React.Component {
                 if (error) return <div>Error{console.log(error)}</div>;
                 return (
                   <div>
+                    Ok
                   {console.log('????', data)}
                     {this.setState({ user: data.user })}
                   </div>

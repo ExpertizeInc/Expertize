@@ -29,7 +29,8 @@ export default class QuestionFeed extends Component {
 
   render() {
     const { user, match } = this.props;
-    return <div>
+    return (
+    <div>
         <Button>
           <Glyphicon glyph="pencil" />
           <Link to={`${match.url}/create`}>Create</Link>
@@ -39,16 +40,16 @@ export default class QuestionFeed extends Component {
         </Button>
         <Query query={GET_QUESTIONS}>
           {({ loading, error, data }) => {
-            if (loading) return <div>Loading...</div>;
+            if (loading) return <div>Q Loading...</div>;
             if (error) return <div> Error {console.log(error)} </div>;
-            return 
+            return (
             <div>
               <Col smOffset={2} sm={8}>
-                {data.questions.map(question => <QuestionFeedItem question={question} user={user} match={match} />)}
+               {data.questions.map(question => <QuestionFeedItem question={question} user={user} match={match} /> )}
               </Col>
-            </div>;
+            </div>)
           }}
         </Query>
-      </div>;
+      </div>)
   }
 }

@@ -37,8 +37,7 @@ export default class UserHome extends Component {
       <div>
         {user && 
         <div>
-        {!user.dailyClaimed && 
-        <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
+        {!user.dailyClaimed &&  <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
         {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
         <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={500}>
           {({ loading, error, data }) => {
