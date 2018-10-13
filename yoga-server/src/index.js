@@ -1,47 +1,46 @@
-import { GraphQLServer } from 'graphql-yoga';
-import { Prisma, User } from '../db/generated';
-import { permissions } from './permissions'; 
-import { createTextChangeRange } from 'typescript';
-import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
-import 'dotenv/config'
+const { GraphQLServer } = require('graphql-yoga');
+const { Prisma } =  require('../db/generated');
+// import { permissions } from './permissions'; 
+// import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
+require('dotenv/config')
 // const express = require('express');
 // const path = require('path');
 
 const resolvers = {
   Query: {
-    user: (parent: {user: User}, {uid}, ctx: {prisma: Prisma}, info) => {
+    user: (parent, {uid}, ctx, info) => {
       return ctx.prisma.query.user({ where: {uid} }, info);
     },
-    users: (_, __, ctx: {prisma: Prisma}, info) => {
+    users: (_, __, ctx, info) => {
       return ctx.prisma.query.users({}, info);
     },
     questions: (_, __, ctx, info) => {
       return ctx.prisma.query.questions({}, info);
     },
-    questionsByUser: (_, { username }, ctx: {prisma: Prisma}, info) => {
+    questionsByUser: (_, { username }, ctx, info) => {
       return ctx.prisma.query.questions({ where: { user: { username }} }, info);
     },
-    tags: (_, __, ctx: { prisma: Prisma }, info) => {
+    tags: (_, __, ctx, info) => {
       return ctx.prisma.query.tags({}); 
     },
-    sessions: (_, __, ctx: { prisma: Prisma }, info) => {
+    sessions: (_, __, ctx, info) => {
       return ctx.prisma.query.sessions({});
     },
-    sessionsWhereUnacceptedPupil: (_, { username }, ctx: { prisma: Prisma }, info) => {
+    sessionsWhereUnacceptedPupil: (_, { username }, ctx, info) => {
       return ctx.prisma.query.sessions({ where: { accepted: null, completed: null, pupil: { username } }}, info);
     },
-    // sessionsWhereAcceptedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
+    // sessionsWhereAcceptedExpert: (_, { username }, ctx, info) => {
     //   return ctx.prisma.query.sessions({ where: { accepted: true, completed: null, expert: { username } }}, info);
     // },
-    // sessionsWhereRejectedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
+    // sessionsWhereRejectedExpert: (_, { username }, ctx, info) => {
     //   return ctx.prisma.query.sessions({ where: { accepted: false, completed: null, expert: { username } }}, info);
     // },
-    sessionsForExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
+    sessionsForExpert: (_, { username }, ctx, info) => {
       return ctx.prisma.query.sessions({ where: { accepted: !null , completed: null, expert: { username } }}, info);
     }
   },
   Mutation: {
-    createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
+    createUser: (_, { username, email, uid }, ctx, info) => {
       return ctx.prisma.mutation.createUser({ data: { username, email, uid } }, info);
     },
     createQuestion: (_, { user, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
@@ -49,7 +48,7 @@ const resolvers = {
         data: { user, tags: { set: tags }, description, coins, title, text, audio, video, duration }
       }, info);
     },
-    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
+    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image }, ctx, info) => {
       return ctx.prisma.mutation.updateUser({
         data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image },
         where: { id } 
@@ -88,7 +87,7 @@ const resolvers = {
 
 
 const server = new GraphQLServer({
-  typeDefs: 'yoga-server/src/schema.graphql',
+  typeDefs: 'schema.graphql',
   resolvers,
   context: async req => {
     const userId = getUserIdFromRequest(req);
