@@ -9,8 +9,9 @@ import DailyNotification from './DailyNotification.jsx';
 import { Route, Switch } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../../gql.js';
+import Survey from './Survey.jsx'
+// import OpenSocket from 'socket.io-client';
 import { isNull } from 'util';
-
 
 export default class UserHome extends Component {
   constructor(props) {
@@ -31,8 +32,9 @@ export default class UserHome extends Component {
     const { dailyShow } = this.state
     return (
       <div>
-        {!user.dailyClaimed && 
-        <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
+        {user && 
+        <div>
+        {!user.dailyClaimed &&  <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
         {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
         <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={500}>
           {({ loading, error, data }) => {
@@ -93,8 +95,8 @@ export default class UserHome extends Component {
       <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
       <Route path={`${match.url}/discussion`} render={({match}) => <Discussion user={user} match={match} />} />
       <QuestionFeed match={match} user={user} />
-      </Switch>
-
+      </Switch></div>
+        }
       </div>
     );
   }
