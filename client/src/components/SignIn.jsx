@@ -45,7 +45,6 @@ export default class Signin extends Component {
   }
 
   render() {
-    let { signInLI } = this.props;
     return (
       <div>
         <Form className="form-panel-signup" horizontal>
@@ -77,7 +76,7 @@ export default class Signin extends Component {
             <Row>
               <Col smOffset={6} sm={3}>
                 <Button onClick={this.submitSignIn} type="submit">Log In</Button>
-                <LinkedInLogin signInLI={signInLI} text="LINKEDIN SIGNIN" />
+                <LinkedInLogin />
               </Col>
             </Row>
           </FormGroup>

@@ -46,20 +46,12 @@ export const GET_TAGS = gql`
 // `;
 
 export const GET_USER_QUESTIONS = gql`
-<<<<<<< HEAD
   query questionsByUser($userId: String!) {
     questionsByUser(userId: $userId) {
       title
       description
       tags
     }
-=======
-query questionsByUser($username: String!) {
-  questionsByUser(username: $username) {
-    title
-    description
-    tags
->>>>>>> dev
   }
 `;
 

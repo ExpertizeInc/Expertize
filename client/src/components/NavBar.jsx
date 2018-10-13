@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -11,8 +12,15 @@ export default class NavBar extends Component {
 
   // for signout button
   signOutUser() {
-    if (IN.User.isAuthorized()) {
-      IN.User.logout(this.props.signOut);
+    console.log(this.props)
+    if (this.props.user.id.length < 28) {
+         // check if linkedIn user
+      // if so, get request to logout
+      axios.get('/logout')
+      .then(() => {
+        window.location.href = "/";
+      })
+      .catch(e => console.error)
     } else {
       firebase.auth().signOut();
     }

@@ -7,10 +7,14 @@ export default class Home extends Component {
     super(props);
     this.state = { authenticated: false };
   }
+  componentDidMount() {
+    // console.log(response.headers)
+  }
   render() {
     return (
       <div>
         <Jumbotron>
+          {console.log(this.props)}
           <h1>Welcome to Expertize!</h1>
           <p>
             Tutors exist, but young professionals are too busy. We bring

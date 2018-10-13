@@ -14,18 +14,17 @@ import QuestionFeed from './components/loggedInHome/QuestionFeed.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Video from './components/Video.jsx';
 
-const Routes = ({ authenticated, user, signIn, signInLI, linkedInEmail, linkedInId, LIResults, signOut }) => (
+const Routes = ({ authenticated, user, signIn, signOut }) => (
     <div>
-      <NavBar user={user} authenticated={authenticated}/>
+      <NavBar user={user} authenticated={authenticated} />
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated} signOut={signOut}></PrivateRoute>
-          <Route exact strict path="/signin" render={(props) => <SignIn {...props} LIResults={LIResults} signInLI={signInLI}/>}></Route>
+          <Route exact strict path="/signin" render={(props) => <SignIn {...props} />}></Route>
           <Route exact strict path="/signup" render={(props) => <Signup user={user} {...props} signIn={signIn} />}></Route>
-          <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} LIResults={LIResults} linkedInId={linkedInId} linkedInEmail={linkedInEmail} />}></Route>
+          <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} />}></Route>
           <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>
-          {/* <Route path='/test' component={() => window.location = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=77jrp4h9m6f6yf&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2F&state=321'}/> */}
           <Route exact strict path="/home/discussion/chat" component={Chat}></Route>
           <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>

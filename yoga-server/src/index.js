@@ -9,7 +9,8 @@ require('dotenv/config')
 const resolvers = {
   Query: {
     user: (parent, {uid}, ctx, info) => {
-      return ctx.prisma.query.user({ where: {uid} }, info);
+      console.log('NOOOO', uid)
+      return ctx.prisma.query.getUserIdFromRequest({ where: {uid} }, info);
     },
     users: (_, __, ctx, info) => {
       return ctx.prisma.query.users({}, info);
@@ -41,6 +42,7 @@ const resolvers = {
   },
   Mutation: {
     createUser: (_, { username, email, uid }, ctx, info) => {
+      console.log('WHYYY', username)
       return ctx.prisma.mutation.createUser({ data: { username, email, uid } }, info);
     },
     createQuestion: (_, { user, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
@@ -68,44 +70,22 @@ const resolvers = {
         where: { id }
       });
     }
-  },
-  // Subscription: {
-  //   subscribeToSessionAsExpert: (_, { username }, ctx, info) => {
-  //     return ctx.prisma.subscription.session({ 
-  //       where: { 
-  //         mutation_in: ['UPDATED'],
-  //         node : {
-  //           expert: {username: username},
-  //           accepted: false
-  //         }
-  //       } 
-  //     }  
-  //     )
-  //   }
-  // }
+  }
 }
 
 
 const server = new GraphQLServer({
   typeDefs: 'schema.graphql',
   resolvers,
-  context: async req => {
-    const userId = getUserIdFromRequest(req);
-    let user;
-    const prisma = new Prisma({
+  context: req => ({
+    ...req,
+    prisma: new Prisma({
+    typeDefs: 'src/schema.graphql',
      endpoint: process.env.PRISMA_ENDPOINT,
      secret: process.env.PRISMA_SECRET,
      debug: true
     })
-    if (userId) {
-      user = await prisma.query.user({ where: { id: userId }});
-    }
-    return {
-      user,
-      ...req,
-      prisma
-    };
-  }
+  })
 });
 
 // const io = require('socket.io')(server)
