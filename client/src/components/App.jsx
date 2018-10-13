@@ -2,6 +2,7 @@ import React from "react";
 import { ApolloProvider } from "react-apollo";
 import Particles from "react-particles-js";
 import params from "../particles.js";
+import { Query } from 'react-apollo';
 import { GET_USER_UID } from "../gql.js";
 import Routes from "../Routes.jsx";
 import history from "../components/history.js";
@@ -9,7 +10,7 @@ import history from "../components/history.js";
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { user: null, authenticated: false };
+    this.state = { user: null, authenticated: false, uid: null };
     this.callbackFunction = this.callbackFunction.bind(this);
     this.signInLI = this.signInLI.bind(this);
     this.signOut = this.signOut.bind(this);
@@ -19,20 +20,19 @@ export default class App extends React.Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.props.client
-          .query({ query: GET_USER_UID, variables: { uid: user.uid } })
-          .then(({ data }) =>
-            this.setState({ authenticated: true, user: data.user }, () => {
-              // if (data.user.dailyClaimed === false) {
-              //   show popup to let them claim 1 coin freebie 
-              // }
-            })
-          )
-          .catch(err => console.error("auth faied", err));
+        // this.props.client
+        //   .query({ query: GET_USER_UID, variables: { uid: user.uid }, notifyOnNetworkStatusChange: true })
+        //   .then(({ data }) => {
+        //     this.setState({ authenticated: true, user: data.user }, () => {
+        //     })}
+        //   )
+        //   .catch(err => console.error("auth faied", err));
+        this.setState({ authenticated: true, uid: user.uid })
       } else {
         this.setState({ authenticated: false });
       }
     });
+
     // IN.Event.on(IN, 'auth', () => this.setState({authenticated:true}, () => console.log('detected user login',IN.User)), this)
     // IN.Event.on(IN, 'logout', () => this.setState({authorization:false}, () => console.log('logged out')), this)
     // if (IN.User.isAuthorized()) {
@@ -91,6 +91,23 @@ export default class App extends React.Component {
           backgroundImage: "url('http://www.sompaisoscatalans.cat/simage/96/965205/black-gradient-wallpaper.png')"
           // backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
+        {(authenticated && !user) && 
+            <Query query={ GET_USER_UID } variables={{ uid: this.state.uid }} >
+
+              {({ loading, error, data, refetch, networkStatus }) => {
+                if (loading) return <div>Loading...</div>;
+                if (error) return <div>Error{console.log(error)}</div>;
+                return (
+                  <div>
+                    Ok
+                  {console.log('????', data)}
+                    {this.setState({ user: data.user })}
+                  </div>
+
+                );
+              }}
+
+            </Query>}
           <Routes
             user={user}
             signIn={this.signIn}

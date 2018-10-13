@@ -14,10 +14,10 @@ const endpoint = 'http://localhost:4000/'
 const client = new GraphQLClient(endpoint, { headers: process.env.AUTHORIZATION })
 
 setInterval(() => {
-  if (new Date().getHours() >= 23) {
+  if (new Date().getHours() >= 1) {
     client.request(RESET_DAILIES, { dailyClaimed: false })
     .then(data => console.log('reset dailies at:', new Date().toLocaleString(), data))
     .catch(err => console.log('err', err))
   }
-}, 3600000) 
+}, 3000000) 
 
