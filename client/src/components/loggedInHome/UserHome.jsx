@@ -17,7 +17,7 @@ export default class UserHome extends Component {
     super(props);
     this.state = {
       session: [],
-      dailyShow: true
+      dailyShow: false
     }
     this.toggleDaily = this.toggleDaily.bind(this)
   }
@@ -26,11 +26,17 @@ export default class UserHome extends Component {
     this.setState({ dailyShow: false })
   }
 
+  componentDidUpdate(prevProps) {
+
+  }
+
   render() {
     const { match, user } = this.props
     const { dailyShow } = this.state
     return (
       <div>
+        {user && 
+        <div>
         {!user.dailyClaimed && 
         <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
         {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
@@ -93,8 +99,8 @@ export default class UserHome extends Component {
       <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
       <Route path={`${match.url}/discussion`} render={({match}) => <Discussion user={user} match={match} />} />
       <QuestionFeed match={match} user={user} />
-      </Switch>
-
+      </Switch></div>
+        }
       </div>
     );
   }

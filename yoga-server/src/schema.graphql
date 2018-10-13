@@ -13,7 +13,7 @@ type Query {
 
 type Mutation {
    createUser(email: String!, uid: String!, username: String!): User
-   updateUser(id: ID!, email: String, uid: String, description: String, coins: Int, tags: [String], username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int): User
+   updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, coins: Int, tags: [String], username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int): User
    updateManyUsers(dailyClaimed: Boolean): BatchPayload!
    login(email: String!, password: String!): LoginPayload!
    createQuestion(user: UserCreateOneInput, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question

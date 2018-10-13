@@ -19,7 +19,7 @@ import {
   Image
 } from 'react-bootstrap';
 import TagDropdown from './TagDropdown.jsx';
-import { CREATE_QUESTION, GET_QUESTIONS, GET_USER_QUESTIONS } from '../../gql.js';
+import { CREATE_QUESTION, GET_QUESTIONS, GET_USER_QUESTIONS, GET_USER_UID } from '../../gql.js';
 import { times, questionInfo } from './constants.js';
 import { Link } from 'react-router-dom';
 
@@ -71,8 +71,7 @@ export default class QuestionForm extends Component {
       chat,
       title,
       duration,
-      questions,
-      name
+      questions
     } = this.state;
     const stateForQuestionInfo = [title, description];
     const toggleInfo = ['Text', 'Audio', 'Video'];
@@ -132,7 +131,7 @@ export default class QuestionForm extends Component {
                 <Col className="centered" >
                   <strong>I'd like to use</strong>
                 </Col>
-                <Col >
+                <Col>
                   <ToggleButtonGroup
                     type="checkbox"
                     value={chat}
@@ -152,11 +151,10 @@ export default class QuestionForm extends Component {
                 <Col componentClass={ControlLabel}>
                   <ControlLabel>Add Some Tags</ControlLabel>
                 </Col>
-                <Col >
+                <Col>
                   <h5>
                     {tags.length > 1 ? tags.map(tag => <Badge>{tag}</Badge>) : <Badge>{tags}</Badge>}
                   </h5>
-                  <br />
                   <TagDropdown userId={user ? user.id : ''} addTags={this.addTags} />
                 </Col>
               </FormGroup>
@@ -171,6 +169,7 @@ export default class QuestionForm extends Component {
                       user: { connect: { username: user.username }},
                       description,
                       tags,
+                      debt: user.coins >= (user.debt > 0 ? 2 + user.debt : 2) ? 0 : user.coins - (user.debt > 0 ? 2 + user.debt : 2) - user.debt,
                       userCoins: user.coins - (user.debt > 0 ? 2 + user.debt : 2),
                       coins: user.debt > 0 ? 2 + user.debt : 2,
                       title,
@@ -178,7 +177,7 @@ export default class QuestionForm extends Component {
                       audio: chat.includes('audio'),
                       video: chat.includes('video'),
                       duration}} 
-                      refetchQueries={() => [{ query: GET_QUESTIONS }, { query: GET_USER_QUESTIONS, variables: { username: user.username } } ]}
+                      refetchQueries={() => [{ query: GET_USER_UID , variables: { uid: user.uid }}, { query: GET_QUESTIONS },{ query: GET_USER_QUESTIONS, variables: { username: user.username } }  ]}
                       >
                     {createQuestion => {
                       return (
