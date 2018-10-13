@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Timer from './loggedInHome/Timer.jsx'
 import OpenTok from 'opentok';
 
 // replace these values with those generated in your TokBox Account
@@ -92,10 +93,13 @@ export default class Video extends Component {
     const expert = this.props.location.state.session.expert.username
     const pupil = this.props.location.state.session.pupil.username
     const roomname = expert + pupil
+    const { location } = this.props
+    // console.log('duration of video', match.location.state.session.question.duration)
     console.log('session', this.props.location.state.session)
     console.log(roomname, 'expert', expert, 'pupil',pupil)
     return (
       <React.Fragment>
+        <Timer minutes={this.props.location .state.session.question.duration}/>
         <h1>Video</h1>
         {/* <form>
           <input type="text" onChange={this.handleChange} value={roomname}/>

@@ -29,6 +29,7 @@ export const GET_QUESTIONS = gql`
       video
       duration
       tags
+      id
     }
   }
 `;
@@ -134,6 +135,9 @@ query sessionsWhereUnacceptedPupil($username: String) {
     }
     accepted
     completed
+    question{
+      duration
+    }
   }
 }
 `
@@ -151,6 +155,9 @@ query sessionsForExpert($username: String) {
     }
     accepted
     completed
+    question{
+      duration
+    }
   }
 }
 `
