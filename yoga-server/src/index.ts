@@ -58,7 +58,7 @@ const resolvers = {
     updateManyUsers: (_, __, ctx, info) => {
       return ctx.prisma.mutation.updateManyUsers({ data: { dailyClaimed: false }})
     },
-    createSession: (_, { type, question, expert, pupil, accepted, duration, completed, startedAt, endedAt}, ctx, info) => {
+    createSession: (_, { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt}, ctx, info) => {
       return ctx.prisma.mutation.createSession({
         data: { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt }
       });

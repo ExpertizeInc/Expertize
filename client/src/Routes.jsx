@@ -25,7 +25,6 @@ const Routes = ({ authenticated, user, signIn, signOut }) => (
           <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} />}></Route>
           <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>
-          <Route exact strict path="/home/discussion/chat" component={Chat}></Route>
           <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>
       </Switch>
