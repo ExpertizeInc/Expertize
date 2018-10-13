@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, FormControl, Button, Well } from 'react-bootstrap';
 import ChatBox from './ChatBox.jsx'
 import openSocket from 'socket.io-client';
-import Timer from './loggedInHome/Timer.jsx'
+import Timer from './Timer.jsx'
 import MDSpinner from 'react-md-spinner'
 import ReactLoading from 'react-loading'
 

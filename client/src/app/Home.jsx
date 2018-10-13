@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
-import { Query, Mutation } from 'react-apollo';
 
 export default class Home extends Component {
   constructor(props) {

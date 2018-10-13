@@ -3,8 +3,8 @@ import CircularProgressbar from 'react-circular-progressbar';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, FormControl, Panel, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, Label, Alert, Grid, Row } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
-import TagDropdown from './loggedInHome/TagDropdown.jsx';
-import { UPDATE_USER_INFO } from '../gql.js'; 
+import TagDropdown from '../feed/TagDropdown.jsx';
+import { UPDATE_USER_INFO } from '../apollo/gql.js'; 
 
 export default class Questionnaire extends Component {
   constructor(props) {

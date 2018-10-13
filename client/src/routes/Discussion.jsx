@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Route, Switch, Link } from 'react-router-dom';
 import { Panel } from 'react-bootstrap';
-import Video from '../Video.jsx';
-import Chat from '../Chat.jsx'
-import ChatBox from '../ChatBox.jsx'
+import Video from '../sessions/Video.jsx';
+import Chat from '../sessions/Chat.jsx'
+import ChatBox from '../sessions/ChatBox.jsx'
 // import openSocket from 'socket.io-client'
 
 // const socket = openSocket('http://localhost:3001');
