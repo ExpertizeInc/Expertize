@@ -167,9 +167,11 @@ export default class QuestionForm extends Component {
                   <Mutation
                     mutation={ CREATE_QUESTION }
                     variables={{
+                      id: user.id,
                       user: { connect: { username: user.username }},
                       description,
                       tags,
+                      userCoins: user.coins - (user.debt > 0 ? 2 + user.debt : 2),
                       coins: user.debt > 0 ? 2 + user.debt : 2,
                       title,
                       text: chat.includes('text'),

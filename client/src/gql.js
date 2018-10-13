@@ -1,12 +1,15 @@
 import gql from 'graphql-tag';
 
 export const CREATE_QUESTION = gql`
-  mutation createQuestion($user: UserCreateOneInput, $description: String!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
-    createQuestion(user: $user, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
-      description
-      title
-    }
+mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: String!, $userCoins: Int!, $coins: Int!, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
+  createQuestion(user: $user, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+    description
+    title
   }
+  updateUser(id: $id, coins: $userCoins) {
+    coins
+  }
+}
 `;
 
 export const GET_QUESTIONS = gql`
@@ -184,3 +187,4 @@ query sessionsWhereRejectedExpert($username: String) {
   }
 }
 `
+
