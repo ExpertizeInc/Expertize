@@ -9,6 +9,8 @@ import DailyNotification from './DailyNotification.jsx';
 import { Route, Switch } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../../gql.js';
+import Survey from './Survey.jsx'
+// import OpenSocket from 'socket.io-client';
 import { isNull } from 'util';
 
 export default class UserHome extends Component {
@@ -30,6 +32,7 @@ export default class UserHome extends Component {
     const { dailyShow } = this.state
     return (
       <div>
+        <Survey/>
         {!user.dailyClaimed && 
         <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
         {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}

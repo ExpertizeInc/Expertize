@@ -12,7 +12,7 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      duration: '',
       messages: [],
       socketId: '',
       userOne: '',
@@ -21,14 +21,16 @@ class Chat extends Component {
       rooms: [],
       view: false
     }
-    this.onChange = this.onChange.bind(this)
-    this.sendMessage = this.sendMessage.bind(this)
+    // this.onChange = this.onChange.bind(this)
+    // this.sendMessage = this.sendMessage.bind(this)
     this.handleTimerClick = this.handleTimerClick.bind(this)
+    this.sendMessage = this.sendMessage.bind(this)
   }
 
   componentDidMount() {
     // socket.emit('get username')
     const { match, user } = this.props
+    console.log('session data',match.location.state.session)
     const expert = match.location.state.session.expert.username
     const pupil = match.location.state.session.pupil.username
     this.setState({userOne:user.username, target:user.username === expert ? pupil : expert}, () => console.log('the state of chat', this.state))
@@ -60,16 +62,16 @@ class Chat extends Component {
     }))
   }
 
-  onChange(e) {
-    this.setState({
-      text: e.target.value
-    })
-  }
+  // onChange(e) {
+  //   this.setState({
+  //     text: e.target.value
+  //   })
+  // }
 
-  sendMessage(target, text, e) {
-    e.preventDefault();
+  sendMessage(target, text) {
+    // e.preventDefault();
     // var temp = [`${this.state.userOne}: ${text}`]
-    var temp = [{from:this.state.userOne, msg:message.msg}]
+    var temp = [{from:this.state.userOne, msg:text}]
     this.setState(state => {
       return {messages: state.messages.concat(temp)}
     },()=>console.log('state of chat when msg sent',target,text,this.state))
@@ -78,11 +80,11 @@ class Chat extends Component {
   }
 
   render() { 
-    
+    const { match } = this.props
     return (
       this.state.online.length === 2 ? 
       <div>
-        <Timer />
+        {<Timer minutes={match.location.state.session.question.duration}/>}
         <div>
           <div>
             <h3>Online Users - I am {this.state.userOne}</h3>

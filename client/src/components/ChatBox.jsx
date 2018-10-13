@@ -1,13 +1,3 @@
-// import React from 'react';
-
-// const ChatBox = ({messages}) => (
-//   <div>
-//     {messages.map((message, i) => <div key={i}>{console.log(message)}{message}</div>)}
-//   </div>
-// );
-
-
-
 import React, { Component } from 'react';
 import { Form, FormControl, Button, Well } from 'react-bootstrap';
 // import openSocket from 'socket.io-client';
@@ -18,9 +8,31 @@ import { Form, FormControl, Button, Well } from 'react-bootstrap';
 class ChatBox extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      text: ''
+    }
+    this.onChange = this.onChange.bind(this)
+    // this.sendMessage = this.sendMessage.bind(this)
   }
+
+  onChange(e) {
+    this.setState({
+      text: e.target.value
+    })
+  }
+
+  // sendMessage(target, text, e) {
+  //   e.preventDefault();
+  //   // var temp = [`${this.state.userOne}: ${text}`]
+  //   var temp = [{from:this.state.userOne, msg:message.msg}]
+  //   this.setState(state => {
+  //     return {messages: state.messages.concat(temp)}
+  //   },()=>console.log('state of chat when msg sent',target,text,this.state))
+  //   socket.emit('message', {target, text, nickname: this.state.userOne})
+  //   this.setState({ text: ''})
+  // }
   render() {
-    let { messages, me, target, sendMessage } = this.props
+    let { messages, me, sendMessage, target } = this.props
     let check = (str) => str === me ? 'userOne' : 'target'
     return (
       <div id="chatbox-body">
@@ -42,8 +54,8 @@ class ChatBox extends Component {
             ))}
           </div>
           <div className="chat-form">
-            <textarea></textarea>
-            <button onClick={sendMessage}>Send</button>
+            <textarea onChange={(e) => this.onChange(e)} value={this.state.text} placeholder='Message'></textarea>
+            <button onClick={() => {sendMessage(target, this.state.text); this.setState({text:''})}}>Send</button>
           </div>
         </div>
       </div>

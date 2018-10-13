@@ -6,7 +6,6 @@ import { GET_QUESTIONS } from '../../gql.js';
 import SessionModal from './SessionModal.jsx'
 import { Link } from 'react-router-dom';
 import { userInfo } from "os";
-import Timer from './Timer.jsx'
 
 
 export default class QuestionFeed extends Component {
@@ -33,7 +32,6 @@ export default class QuestionFeed extends Component {
     // console.log('feed user', user)
     return (
       <div>
-        <Timer/>
         <Button>
           <Glyphicon glyph="pencil" />
           <Link to={`${match.url}/create`}>Create</Link>
