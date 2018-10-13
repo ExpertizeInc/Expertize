@@ -7,7 +7,7 @@
     "test": "",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "worker-dev": "nodemon workers/worker.js",
+    "worker-dev": "nodemon worker/worker.js",
     "start": "nodemon server/index.js webpack -d --watch",
     "graphql-dev": "nodemon -e ts,graphql -x ts-node yoga-server/src/index.ts",
     "dockstart": "node server/index.js"

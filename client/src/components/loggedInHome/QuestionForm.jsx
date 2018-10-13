@@ -19,7 +19,7 @@ import {
   Image
 } from 'react-bootstrap';
 import TagDropdown from './TagDropdown.jsx';
-import { CREATE_QUESTION } from '../../gql.js';
+import { CREATE_QUESTION, GET_QUESTIONS, GET_USER_QUESTIONS, GET_USER_UID } from '../../gql.js';
 import { times, questionInfo } from './constants.js';
 import { Link } from 'react-router-dom';
 
@@ -71,8 +71,7 @@ export default class QuestionForm extends Component {
       chat,
       title,
       duration,
-      questions,
-      name
+      questions
     } = this.state;
     const stateForQuestionInfo = [title, description];
     const toggleInfo = ['Text', 'Audio', 'Video'];
@@ -102,12 +101,12 @@ export default class QuestionForm extends Component {
 
               <FormGroup controlId="formControlsTextarea">
                 <ControlLabel>What would you like to discuss?</ControlLabel>
-                <FormControl style={{ height: "35px" }} className="round-input" componentClass="textarea" placeholder="eg. Python best practices" />
+                <FormControl onChange={(e) => this.onChange(e, 'title')} style={{ height: "35px" }} className="round-input" componentClass="textarea" placeholder="eg. Python best practices" />
               </FormGroup>
 
               <FormGroup controlId="formControlsTextarea">
                 <ControlLabel>Include a brief description.</ControlLabel>
-                <FormControl style={{ height: "80px" }}className="round-input" componentClass="textarea" placeholder="eg. I'm just starting to learn Python and was wondering if there are certain pointers someone who has used it in their job could give me." />
+                <FormControl onChange={(e) => this.onChange(e, 'description')}style={{ height: "80px" }}className="round-input" componentClass="textarea" placeholder="eg. I'm just starting to learn Python and was wondering if there are certain pointers someone who has used it in their job could give me." />
               </FormGroup>
 
               <FormGroup controlId="formControlsSelect">
@@ -132,7 +131,7 @@ export default class QuestionForm extends Component {
                 <Col className="centered" >
                   <strong>I'd like to use</strong>
                 </Col>
-                <Col >
+                <Col>
                   <ToggleButtonGroup
                     type="checkbox"
                     value={chat}
@@ -152,31 +151,35 @@ export default class QuestionForm extends Component {
                 <Col componentClass={ControlLabel}>
                   <ControlLabel>Add Some Tags</ControlLabel>
                 </Col>
-                <Col >
+                <Col>
                   <h5>
                     {tags.length > 1 ? tags.map(tag => <Badge>{tag}</Badge>) : <Badge>{tags}</Badge>}
                   </h5>
-                  <br />
                   <TagDropdown userId={user ? user.id : ''} addTags={this.addTags} />
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col className="centered">
-                  <h5 className="centered">This will cost: {user.debt > 0 ? 2 * user.debt : 2} <Image style={{ width: "20px" }} src="../../coin.gif"></Image></h5>
+                  <h5 className="centered">This will cost: {user.debt > 0 ? 2 + user.debt : 2} <Image style={{ width: "20px" }} src="../../coin.gif"></Image></h5>
                   <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="../../coin.gif"></Image></h5>
                   <Mutation
-                    mutation={CREATE_QUESTION}
+                    mutation={ CREATE_QUESTION }
                     variables={{
+                      id: user.id,
                       user: { connect: { username: user.username }},
                       description,
                       tags,
+                      debt: user.coins >= (user.debt > 0 ? 2 + user.debt : 2) ? 0 : user.coins - (user.debt > 0 ? 2 + user.debt : 2) - user.debt,
+                      userCoins: user.coins - (user.debt > 0 ? 2 + user.debt : 2),
                       coins: user.debt > 0 ? 2 + user.debt : 2,
                       title,
                       text: chat.includes('text'),
                       audio: chat.includes('audio'),
                       video: chat.includes('video'),
-                      duration}}>
-                    {(createQuestion, { data }) => {
+                      duration}} 
+                      refetchQueries={() => [{ query: GET_USER_UID , variables: { uid: user.uid }}, { query: GET_QUESTIONS },{ query: GET_USER_QUESTIONS, variables: { username: user.username } }  ]}
+                      >
+                    {createQuestion => {
                       return (
                         <Link to="/home">
                           <Button className="btn-2g bttn" onClick={createQuestion}>Create Question</Button>
