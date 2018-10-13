@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap'
-import { CREATE_USER } from '../gql.js';
+import { CREATE_USER } from '../apollo/gql.js';
 
 export default class Signup extends Component {
   constructor(props) {

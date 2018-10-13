@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Modal, Glyphicon, Well, Grid, Row, Col } from 'react-bootstrap';
 import { Mutation, withApollo } from 'react-apollo';
-import { CREATE_SESSION } from '../../gql.js';
+import { CREATE_SESSION } from '../apollo/gql.js';
 import { connect } from 'tls';
 
 

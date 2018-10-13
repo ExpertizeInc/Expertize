@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Timer from './loggedInHome/Timer.jsx'
+import Timer from './Timer.jsx'
 import OpenTok from 'opentok';
 
 // replace these values with those generated in your TokBox Account

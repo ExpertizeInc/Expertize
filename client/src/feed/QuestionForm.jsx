@@ -19,8 +19,8 @@ import {
   Image
 } from 'react-bootstrap';
 import TagDropdown from './TagDropdown.jsx';
-import { CREATE_QUESTION, GET_QUESTIONS, GET_USER_QUESTIONS, GET_USER_UID } from '../../gql.js';
-import { times, questionInfo } from './constants.js';
+import { CREATE_QUESTION, GET_QUESTIONS, GET_USER_QUESTIONS, GET_USER_UID } from '../apollo/gql.js';
+import { times, questionInfo } from '../constants.js';
 import { Link } from 'react-router-dom';
 
 export default class QuestionForm extends Component {
@@ -160,8 +160,8 @@ export default class QuestionForm extends Component {
               </FormGroup>
               <FormGroup>
                 <Col className="centered">
-                  <h5 className="centered">This will cost: {user.debt > 0 ? 2 + user.debt : 2} <Image style={{ width: "20px" }} src="../../coin.gif"></Image></h5>
-                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="../../coin.gif"></Image></h5>
+                  <h5 className="centered">This will cost: {user.debt > 0 ? 2 + user.debt : 2} <Image style={{ width: "20px" }} src="../images/coin.gif"></Image></h5>
+                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="../images/coin.gif"></Image></h5>
                   <Mutation
                     mutation={ CREATE_QUESTION }
                     variables={{

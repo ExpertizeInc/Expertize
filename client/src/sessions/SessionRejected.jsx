@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { Modal, Button } from 'react-bootstrap';
-import { UPDATE_SESSION } from '../../gql.js';
+import { UPDATE_SESSION } from '../apollo/gql.js';
 import { Link } from 'react-router-dom'
 
 const SessionRejected = (props) => {

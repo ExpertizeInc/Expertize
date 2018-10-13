@@ -1,21 +1,6 @@
-// import React from 'react'
-// import LinkedinLogin from './LinkedinLogin.jsx'
-
-// const SignIn = ({ signIn }) => {
-
-//     return (
-//     <div>
-//         <h1>Sign In Page</h1>
-//         <div>hello</div>
-//         <LinkedinLogin text="SIGN IN" signIn={signIn}/>
-//     </div>
-//     )
-// }
-
-
 import React, { Component } from 'react';
 import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap';
-import LinkedinLogin from './LinkedinLogin.jsx';
+import LinkedInLogin from './LinkedInLogin.jsx';
 
 export default class Signin extends Component {
   constructor(props) {
@@ -76,7 +61,7 @@ export default class Signin extends Component {
             </Col>
           </FormGroup>
         </Form>
-        <LinkedinLogin signInLI={(e) => {signInLI(e)}} text="LINKEDIN SIGNIN"/>
+        <LinkedInLogin signInLI={(e) => {signInLI(e)}} text="LINKEDIN SIGNIN"/>
       </div>
     );
   }

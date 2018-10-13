@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import QuickView from './QuickView.jsx';
-import SessionModal from './SessionModal.jsx'
+import SessionModal from '../sessions/SessionModal.jsx'
 import { Col, Button, Panel, Grid, Row, Glyphicon } from "react-bootstrap";
 
 export default class QuestionFeedItem extends Component {

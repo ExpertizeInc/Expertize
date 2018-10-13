@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Query, Mutation } from "react-apollo";
 import { Col, Button, Panel, Grid, Row, Glyphicon } from "react-bootstrap";
 // import TopicDropdown from './TagDropdown.jsx';
-import { GET_QUESTIONS } from '../../gql.js';
+import { GET_QUESTIONS } from '../apollo/gql.js';
 import QuestionFeedItem from './QuestionFeedItem.jsx';
 import { Link } from 'react-router-dom';
 import { userInfo } from "os";

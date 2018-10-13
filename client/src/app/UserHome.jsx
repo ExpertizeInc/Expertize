@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import QuestionForm from './QuestionForm.jsx';
-import QuestionFeed from './QuestionFeed.jsx';
-import Discussion from './Discussion.jsx';
-import SessionChoice from './SessionChoice.jsx';
-import SessionAccepted from './SessionAccepted.jsx';
-import SessionRejected from './SessionRejected.jsx';
-import DailyNotification from './DailyNotification.jsx';
+import QuestionForm from '../feed/QuestionForm.jsx';
+import QuestionFeed from '../feed/QuestionFeed.jsx';
+import Discussion from '../routes/Discussion.jsx';
+import SessionChoice from '../sessions/SessionChoice.jsx';
+import SessionAccepted from '../sessions/SessionAccepted.jsx';
+import SessionRejected from '../sessions/SessionRejected.jsx';
+import DailyNotification from '../profile/DailyNotification.jsx';
 import { Route, Switch } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../../gql.js';
-import Survey from './Survey.jsx'
+import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../apollo/gql.js';
+import Survey from '../sessions/Survey.jsx'
 // import OpenSocket from 'socket.io-client';
 import { isNull } from 'util';
 

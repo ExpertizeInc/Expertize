@@ -1,11 +1,11 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import Particles from "react-particles-js";
-import params from "../particles.js";
+// import Particles from "react-particles-js";
+// import params from "../particles.js";
 import { Query } from 'react-apollo';
-import { GET_USER_UID } from "../gql.js";
-import Routes from "../Routes.jsx";
-import history from "../components/history.js";
+import { GET_USER_UID } from "../apollo/gql.js";
+import Routes from "../routes/Routes.jsx";
+import history from "./history.js";
 
 export default class App extends React.Component {
   constructor(props) {
