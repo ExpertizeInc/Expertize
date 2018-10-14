@@ -72,13 +72,13 @@ query allMessages($username: username) {
 `
 
 export const GET_USER_QUESTIONS = gql`
-query questionsByUser($username: String!) {
-  questionsByUser(username: $username) {
-    title
-    description
-    tags
+  query questionsByUser($userId: String!) {
+    questionsByUser(userId: $userId) {
+      title
+      description
+      tags
+    }
   }
-}
 `;
 
 export const CREATE_USER = gql`
@@ -88,8 +88,22 @@ mutation createUser($username: String! $email: String!, $uid: String!) {
       username
       email
     }
-}
+  }
 `;
+
+// export const CREATE_LINKED_IN_USER = gql`
+//   mutation createLinkedInUser($linkedInEmail: String!, $linkedInId: String!, $email: String!, $username: String!, $tags: [String], $description: String, $image: String) {
+//     createLinkedInUser(linkedInEmail: $linkedInEmail, linkedInId: $linkedInId, email: $email, username: $username, tags: $tags, description: $description, image: $image) {
+//       email
+//       username
+//       id
+//       linkedInId
+//       image
+//       username
+//       tags
+//     }
+//   }
+// `;
 
 export const GET_USER_UID = gql`
 query user($uid: String!) {
@@ -121,7 +135,7 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
         coins
         username
     }
-}
+  }
 `;
 
 export const CREATE_SESSION = gql`
@@ -133,13 +147,25 @@ mutation createSession($type: String!, $question: QuestionCreateOneInput, $exper
 `
 
 export const UPDATE_SESSION = gql`
-mutation updateSession($id: String!, $accepted: Boolean, $completed: Boolean, $startedAt: DateTime, $endedAt: DateTime) {
-  updateSession(id: $id, accepted: $accepted, completed: $completed, startedAt: $startedAt, endedAt: $endedAt) {
-    accepted
-    completed
+  mutation updateSession(
+    $id: String!
+    $accepted: Boolean
+    $completed: Boolean
+    $startedAt: DateTime
+    $endedAt: DateTime
+  ) {
+    updateSession(
+      id: $id
+      accepted: $accepted
+      completed: $completed
+      startedAt: $startedAt
+      endedAt: $endedAt
+    ) {
+      accepted
+      completed
+    }
   }
-}
-`
+`;
 
 // subject to rename
 export const GET_UNACCEPTED_SESSIONS = gql`
@@ -215,4 +241,3 @@ query sessionsWhereRejectedExpert($username: String) {
   }
 }
 `
-

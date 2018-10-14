@@ -42,7 +42,7 @@ export default class QuestionFeed extends Component {
                     <Glyphicon glyph="pencil" />
                     <Link to={`${match.url}/create`}>Create</Link>
                   </Button>
-               {data.questions.map(question => <QuestionFeedItem question={question} user={user} match={match} /> )}
+               {data.questions.map((question, i) => <QuestionFeedItem question={question} user={user} match={match} key={i} /> )}
               
             </div>)
           }}

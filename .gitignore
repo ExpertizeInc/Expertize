@@ -8,3 +8,4 @@ docker-compose.yml
 logfile
 docker-compose.yml
 generated
+OauthParams.js

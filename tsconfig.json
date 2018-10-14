@@ -4,6 +4,6 @@
 	"strict": false,
 "moduleResolution": "node",
 "module": "commonjs",
-"lib":["esnext","dom"]
+"lib":["esnext","dom", "esnext.asynciterable"]
   }
 }

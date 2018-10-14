@@ -1,16 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import linkedInButton from '../../dist/images/LIButton.png';
 
-export default class LinkedInLogin extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-    render() {
-      return ( 
-        <div>
-          <button>hi</button>
-        </div>
-      );
-    }
-};
+const LinkedInLogin = ({ authenticateLinkedInUser }) => <a href="/auth/linkedin"><img src={linkedInButton} onClick={authenticateLinkedInUser}/></a>;
 
+export default LinkedInLogin;

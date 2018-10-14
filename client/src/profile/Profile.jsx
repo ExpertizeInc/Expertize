@@ -33,7 +33,7 @@ export default class Profile extends Component {
                   <span><h2>{user.username}</h2></span>
                   <Rating readonly initialRating={user.ranking} /> <br />
                   <div>{user.description}</div>
-                  <div>{user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">user.tags</Label>}</div>
+                  <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">user.tags</Label>}</div>
                 
                 <Button><Glyphicon glyph="cog" /> Edit preferences</Button>
                 </Thumbnail>
@@ -62,7 +62,7 @@ export default class Profile extends Component {
                 <Row>
                   <Thumbnail className="centered">
                     <h3>Alt stats/graphs</h3>
-                    <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
+                    {/* <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
                       {({ loading, error, data }) => {
                         if (loading) return <div>Loading...</div>
                         if (error) return <div>Error</div>
@@ -72,7 +72,7 @@ export default class Profile extends Component {
                           </div>
                         )
                       }}
-                    </Query>
+                    </Query> */}
                   </Thumbnail>
                   {/* Will show user activity, progress, session history, recently interacted */}
                 </Row>

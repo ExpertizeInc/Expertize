@@ -2,16 +2,46 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const path = require('path');
-const cors = require('cors');
-// const OpenTok = require('opentok');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const authMiddleware = require('./auth/authMiddleware.js');
+const passport = require('./auth/linkedInAuth.js');
+const compression = require('compression');
 
-var app = express();
+const app = express();
+app.use(compression());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({
+  secret: 'TQyMsJWbwxSuBpum',
+  resave: false,
+  saveUninitialized: false,
+  // cookie: { secure: true }
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(authMiddleware);
+
 app.use(express.static(path.join(__dirname + '/../client/dist')));
-app.use(bodyParser.json());
-app.use(cors());
+
+
+app.get('/auth/linkedin',passport.authenticate('linkedin'), (req, res) => { });
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {failureRedirect: '/' }), (req, res) => {
+  res.redirect('/');
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => res.redirect('/'));
+});
+
+app.post('/users', (req, res) => {
+  console.log('USER', req.user);
+  console.log('is Authenticated', req.isAuthenticated())
+  res.send(200);
+})
 
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../client/dist/index.html')));
-// app.use(express.static(path.join(__dirname + '/../client/dist')));
+
 
 const port = process.env.PORT || 3001;
 
