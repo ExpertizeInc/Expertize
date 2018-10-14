@@ -37,13 +37,13 @@ export default class QuestionFeed extends Component {
             if (error) return <div> Error {console.log(error)} </div>;
             return (
             <div>
-              <Col>
+              
                   <Button>
                     <Glyphicon glyph="pencil" />
                     <Link to={`${match.url}/create`}>Create</Link>
                   </Button>
                {data.questions.map(question => <QuestionFeedItem question={question} user={user} match={match} /> )}
-              </Col>
+              
             </div>)
           }}
         </Query>

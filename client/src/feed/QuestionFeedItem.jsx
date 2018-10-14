@@ -20,29 +20,27 @@ export default class QuestionFeedItem extends Component {
   render() {
     let { question, user, match } = this.props
     return (
-      <div>
-        <QuickView user={user} show={this.state.show} toggleShow={this.toggleShow} />
       <Panel>
+      <QuickView user={user} show={this.state.show} toggleShow={this.toggleShow} />
         <Panel.Heading>
           <Panel.Title componentClass="h3">
            <strong>{question.title}</strong>
           </Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-        
             <Row>
-              <Col sm={1}>
+              <Col sm={3}>
                 <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }} onClick={() => this.toggleShow()}>
                   <div className="hexTop" />
                   <div className="hexBottom" />
                 </div>
                 <div className="centered" onClick={() => this.toggleShow()}><strong>@{question.user.username}</strong></div>
               </Col>
-              <Col sm={2  }>{question.description}
+              <Col sm={3}>{question.description}
               {question.tags.length > 1 ? question.tags.map((tag, i) => <Badge>{tag}</Badge>)
               : 
               <Badge>{question.tags}</Badge>} </Col>
-              <Col sm={1}>
+              <Col sm={3}>
                 <div>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
                   : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
                 }</div>
@@ -57,10 +55,8 @@ export default class QuestionFeedItem extends Component {
                 <SessionModal match={match} question={question} user={user} />
               </Col>
             </Row>
-            
         </Panel.Body>
       </Panel>
-      </div>
     )
   }
 }
