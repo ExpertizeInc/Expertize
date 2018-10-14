@@ -79,7 +79,7 @@ export default class QuestionForm extends Component {
       // modularize questions
       <Grid>
         <Row>
-          <Col xsOffset={4} xs={6} md={4}>
+          <Col xs={6} md={4}>
             <Form className="form-panel-signup centered" horizontal>
               {/* {questionInfo.map((question, i) => (
                 <FormGroup

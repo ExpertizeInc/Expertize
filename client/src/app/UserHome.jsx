@@ -10,7 +10,7 @@ import Inbox from '../inbox/Inbox.jsx'
 import { Route, Switch } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../apollo/gql.js';
-import { Grid, Row, Col, Thumbnail } from "react-bootstrap";
+import { Grid, Row, Col, Thumbnail, Panel } from "react-bootstrap";
 
 import Survey from '../sessions/Survey.jsx'
 // import OpenSocket from 'socket.io-client';
@@ -21,7 +21,7 @@ export default class UserHome extends Component {
     super(props);
     this.state = {
       session: [],
-      dailyShow: false
+      dailyShow: true
     }
     this.toggleDaily = this.toggleDaily.bind(this)
   }
@@ -38,7 +38,7 @@ export default class UserHome extends Component {
         <div>
         {!user.dailyClaimed &&  <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
         {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
-        <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={500}>
+        <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={5000}>
           {({ loading, error, data }) => {
             if (loading) return <div></div>
             if (error) return <div>{console.log(error)}</div>
@@ -76,7 +76,7 @@ export default class UserHome extends Component {
             }
           }}
         </Query>  */}
-        <Query query={GET_EXPERT_SESSIONS} variables={{ username: user.username }} pollInterval={500}>
+        <Query query={GET_EXPERT_SESSIONS} variables={{ username: user.username }} pollInterval={5000}>
           {({ loading, error, data }) => {
             if (loading) return <div></div>
             if (error) return <div>{console.log(error)}</div>
@@ -91,22 +91,29 @@ export default class UserHome extends Component {
               return null
             }
           }}
-        </Query>
-        <Grid style={{ display: 'flex' }}>
-       <Row ><Col><Thumbnail>SOMETHINGGGG</Thumbnail></Col></Row>
-       <Row>
-          <Col  md={3}><Thumbnail>dsfsdffs</Thumbnail></Col><Col md={9}>
-      <Switch>
-      <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
-      <Route path={`${match.url}/discussion`} render={({match}) => <Discussion user={user} match={match} />} />
-      <Route path={`${match.url}/inbox`} render={({match}) => <Inbox user={user} match={match} />} />
-      <QuestionFeed match={match} user={user} />
-      </Switch>
-      </Col>
-      {/* <Col></Col> */}
-      </Row>
-      </Grid>
-      </div>}
+          </Query>
+          <Grid style={{ display: 'block', padding: "40px" }}>
+            <Row style={{ padding: "14px" }}><Col><Panel>
+              <div>SOMETHINGGGG</div>
+              <div>SOMETHINGGGG</div>
+              <div>SOMETHINGGGG</div>
+              <div>SOMETHINGGGG</div>
+              <div>SOMETHINGGGG</div>
+              <div>SOMETHINGGGG</div>
+            </Panel></Col></Row>
+            <Row>
+              <Col md={2}><Thumbnail>dsfsdffs</Thumbnail></Col>
+              <Col md={10}>
+                <Switch>
+                  <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
+                  <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />
+                  <Route path={`${match.url}/inbox`} render={({ match }) => <Inbox user={user} match={match} />} />
+                  <QuestionFeed match={match} user={user} />
+                </Switch>
+              </Col>
+            </Row>
+          </Grid>
+        </div>}
       </React.Fragment>
     );
   }

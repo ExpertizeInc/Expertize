@@ -43,16 +43,16 @@ export const GET_TAGS = gql`
 `;
 
 export const CREATE_MESSAGE = gql`
-mutation createMessage($message: String, $sender: UserCreateOneInput, $recipient: UserCreateOneInput) {
-  createMessage(message: $message, sender: $sender, recipient: $recipient) {
+mutation createMessage($title: String, $message: String, $sender: UserCreateOneInput, $recipient: UserCreateOneInput) {
+  createMessage(title: $title, message: $message, sender: $sender, recipient: $recipient) {
     message
   }
 }
 `
 
 export const GET_ALL_MESSAGES = gql`
-query allMessages($username: username) {
-  messagesWhereSender(username: $username) {
+query allMessages($username: String!) {
+  messagesSent(username: $username) {
     createdAt
     title
     message
@@ -60,7 +60,7 @@ query allMessages($username: username) {
       username
     }
   }
-  messagesWhereRecipient(username: $username) {
+  messagesReceived(username: $username) {
     createdAt
     title
     message

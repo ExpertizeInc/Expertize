@@ -46,6 +46,7 @@
     "react-dom": "^16.5.2",
     "react-loading": "^2.0.3",
     "react-md-spinner": "^0.3.0",
+    "react-moment": "^0.8.1",
     "react-particles-js": "^2.3.0",
     "react-rating": "^1.4.0",
     "react-router": "^4.3.1",

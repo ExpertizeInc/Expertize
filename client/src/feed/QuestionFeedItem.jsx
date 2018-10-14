@@ -30,10 +30,8 @@ export default class QuestionFeedItem extends Component {
         <Panel.Body>
             <Row>
               <Col sm={3}>
-                <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }} onClick={() => this.toggleShow()}>
-                  <div className="hexTop" />
-                  <div className="hexBottom" />
-                </div>
+                <img src='http://placecorgi.com/150' onClick={() => this.toggleShow()} />
+           
                 <div className="centered" onClick={() => this.toggleShow()}><strong>@{question.user.username}</strong></div>
               </Col>
               <Col sm={3}>{question.description}

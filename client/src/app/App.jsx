@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-// import Particles from "react-particles-js";
-// import params from "../particles.js";
+import Particles from "react-particles-js";
+import params from "../particles.js";
 import { Query } from 'react-apollo';
 import { GET_USER_UID } from "../apollo/gql.js";
 import Footer from './Footer.jsx';
@@ -82,7 +82,7 @@ export default class App extends React.Component {
         <div className="main">
         <ApolloProvider client={this.props.client}>
           {/* particles is buggy, but might fix later during refinement phase */}
-          {/* <Particles params={params} style={{
+          <Particles params={params} style={{
           position: 'absolute',
           display: 'block',
           zIndex: -10,
@@ -92,7 +92,7 @@ export default class App extends React.Component {
           bottom: 0,
           backgroundImage: "url('http://www.sompaisoscatalans.cat/simage/96/965205/black-gradient-wallpaper.png')"
           // backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
-        }} /> */}
+        }} />
         {(authenticated && !user) && 
             <Query query={ GET_USER_UID } variables={{ uid: this.state.uid }} >
 

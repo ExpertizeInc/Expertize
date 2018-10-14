@@ -1,13 +1,12 @@
 html,body{
   height: 100%;
-  background-color: #F4F5F6;
+  /* background-color: #F4F5F6; */
   color: black;
   font-size: 13px;
   margin: 0;
 }
 
 .main {
-  /* margin-bottom: -60px;  */
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -27,7 +26,7 @@ html,body{
   background: #13c8d9;
   opacity: .8;
   color:white;
-  padding: 10px 0 20px 0;
+  padding: 10px 130px 20px 110px;
   border: none;
   font-size: 13px;
   margin-bottom: 0px
@@ -45,6 +44,9 @@ html,body{
 a {
   color:white;
 }
+
+
+
 
 .hexagon {
   position: relative;
@@ -249,7 +251,6 @@ a:hover {
 
 a:hover {
   text-decoration: none;
-  color:white;
 }
 
 
@@ -276,11 +277,11 @@ a:hover {
 	opacity: 0;
 }
 
-
+/* 
 .hidden-tabs ul > li > a {
   background-color: transparent;
   color: transparent;
-}
+} */
 /* .hidden-tabs ul > li > a:hover {
   background-color: pink;
 }
@@ -452,4 +453,3 @@ a:hover {
 .chat-form button:hover {
 	background: #13c8d9;
 }
-
