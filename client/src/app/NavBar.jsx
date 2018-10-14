@@ -38,7 +38,7 @@ export default class NavBar extends Component {
             ))
             : null}
           <NavItem eventKey={1} componentClass='span' className="nav-item">
-            <Link to="/signin"><Glyphicon glyph="envelope" /> Inbox</Link>
+            <Link to="/inbox"><Glyphicon glyph="envelope" /> Inbox</Link>
           </NavItem>
           <NavItem eventKey={2} componentClass='span' className="nav-item">
             {!authenticated && <Link to="/signin">Sign In </Link>}

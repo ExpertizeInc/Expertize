@@ -50,6 +50,9 @@ const resolvers = {
     createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.createUser({ data: { username, email, uid } }), info;
     },
+    createMessage: (_, { title, sender, recipient, message }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.mutation.createMessage({ data: { title, sender, recipient, message } }), info;
+    },
     createQuestion: (_, { user, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
       return ctx.prisma.mutation.createQuestion({
         data: { user, tags: { set: tags }, description, coins, title, text, audio, video, duration }
