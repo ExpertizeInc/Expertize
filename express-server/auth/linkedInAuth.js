@@ -3,12 +3,11 @@ const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const OauthParams = require('./OauthParams.js');
 require('dotenv').config();
 
-
 passport.serializeUser((user, done) => {
   done(null, user)
 });
-passport.deserializeUser((id, done) => {
-      done(null, id);
+passport.deserializeUser((user, done) => {
+      done(null, user);
 });
 
 passport.use(new LinkedInStrategy({

@@ -10,20 +10,21 @@ export default class NavBar extends Component {
     this.signOutUser = this.signOutUser.bind(this);
   }
 
+  componentDidMount() {
+    this.props.authenticateLinkedInUser();
+  }
+
   // for signout button
   signOutUser() {
     console.log(this.props)
-    if (this.props.user.id.length < 28) {
-         // check if linkedIn user
-      // if so, get request to logout
+    if (this.props.user.id.length < 20) {
+      // check if linkedIn user if so, get request to logout
       axios.get('/logout')
-      .then(() => {
-        window.location.href = "/";
-      })
-      .catch(e => console.error)
+      .then(() => this.props.history.push('/'))
+      .catch(err => console.error('err in logout', err))
     } else {
       firebase.auth().signOut();
-      this.props.signOut()
+      this.props.signOut();
     }
   }
 
@@ -33,12 +34,13 @@ export default class NavBar extends Component {
     return (
       <Navbar fluid >
         <Nav>
+          {console.log(this.props, 'TRUE OR FALSE')}
           <NavItem componentClass='span' className="cl-effect-1" style={{ marginTop: 15 }}>
             <Link to="/">Expertize</Link>
           </NavItem>
         </Nav>
         <Nav>
-          <NavItem eventKey={1} componentClass='span' className="cl-effect-1" style={{ marginTop: 15 }}><Link to="/">Demo</Link></NavItem>
+          <NavItem eventKey={1} componentClass='span' className="cl-effect-1" style={{ marginTop: 15 }}><Link to="/">Feed</Link></NavItem>
           {/* for quick access to components during development. */}
           {authenticated
             ? 
@@ -49,7 +51,7 @@ export default class NavBar extends Component {
               ))
             : null}
           <NavItem eventKey={1} className="cl-effect-1" componentClass='span' style={{ marginTop: 15 }}>
-            <Link to="/signin"><Glyphicon glyph="envelope" /> Inbox</Link> &nbsp; &nbsp;
+            <Link to="/signin"><Glyphicon glyph="envelope" />Inbox</Link> &nbsp; &nbsp;
           </NavItem>
         </Nav>
 

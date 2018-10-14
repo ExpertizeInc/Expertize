@@ -34,7 +34,6 @@ export default class Signup extends Component {
     e.preventDefault()
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(({user}) => {
-      console.log('created fb user', user)
       this.setState({ uid: user.uid })
       cb(user.uid);
     }).then(() => this.props.history.push('/questionnaire'))

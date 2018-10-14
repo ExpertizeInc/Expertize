@@ -4,13 +4,20 @@ const dotenv = require('dotenv').config();
 const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const app = express();
 const authMiddleware = require('./auth/authMiddleware.js');
 const passport = require('./auth/linkedInAuth.js');
+const compression = require('compression');
 
+const app = express();
+app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({ secret: 'splurge' }))
+app.use(session({
+  secret: 'h9sfh8ao4unfkjasdnfjiu9nikjawn4mn0Mnsdlaskd',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: true }
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(authMiddleware);
@@ -19,20 +26,17 @@ app.use(express.static(path.join(__dirname + '/../client/dist')));
 
 
 app.get('/auth/linkedin',passport.authenticate('linkedin'), (req, res) => { req.locals.type = req.query.type});
-app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {failureRedirect: '/' }), (req, res) => { 
-  // console.log(req.user)
-  res.redirect('/') 
-});
+app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {failureRedirect: '/', successRedirect: '/' }));
 
 app.get('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    res.redirect('/');
-  });
+  req.session.destroy((err) => res.redirect('/'));
 });
 
 app.post('/users', (req, res) => {
-  console.log('CHECK IT', req.params, req.query, req.body)
-  res.send(200)
+  console.log('USER', req.user);
+  console.log('is Authenticated', req.isAuthenticated())
+  // console.log('CHECK IT', req.params, req.query, req.body)
+  res.sendStatus(200);
 })
 
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../client/dist/index.html')));

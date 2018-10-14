@@ -1,7 +1,7 @@
-import React from 'react';
-import linkedInButton from '../images/LIButton.png';
+import React, { Component } from 'react';
+import linkedInButton from '../../dist/images/LIButton.png';
 
-export default class LinkedInLogin extends React.Component {
+export default class LinkedInLogin extends Component {
     constructor(props) {
         super(props)
         this.state = {}

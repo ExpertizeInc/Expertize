@@ -1,7 +1,5 @@
 const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } =  require('../db/generated');
-// import { permissions } from './permissions'; 
-// import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
 require('dotenv/config')
 // const express = require('express');
 // const path = require('path');

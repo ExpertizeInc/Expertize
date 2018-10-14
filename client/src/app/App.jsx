@@ -14,49 +14,55 @@ export default class App extends React.Component {
     this.state = { user: null, authenticated: false, uid: null };
     this.signOut = this.signOut.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.checkLinkedInUser = this.checkLinkedInUser.bind(this);
+    this.checkFirebaseUser = this.checkFirebaseUser.bind(this);
   }
 
   componentDidMount() {
-    // if (!this.state.authenticated) {
-    //   firebase.auth().onAuthStateChanged(user => {
-    //     if (user) {
-    //       this.props.client
-    //         .query({ query: GET_USER_UID, variables: { uid: user.uid } })
-    //         .then(({ data }) => {
-    //         console.log(data.user, 'p')
-    //           this.setState({ authenticated: true, user: data.user }, () => {
-    //             // if (data.user.dailyClaimed === false) {
-    //             //   show popup to let them claim 1 coin freebie 
-    //             // }
-    //             history.push('/home')
-    //           })
-    //         })
-    //         .catch(err => console.error("auth failed", err));
-    //     } else {
-    //       this.setState({ authenticated: false });
-    //     }
-    //   });
-    // }
-    if (!this.state.authenticated) {
-      axios.post('/users')
-        .then((res) => {
-        var user = JSON.parse(res.headers.user);
-        if (user) {
-          this.props.client 
-              .query({  query: GET_USER_UID, variables: { uid: user.id }})
-                .then(({ data }) => this.setState({ authenticated: true, user: data.user }, () => history.push('/home')))
-                .catch(() => {
-                  this.props.client
-                    .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName }})
-                      .then(({data}) => this.setState({ authenticated: true, user: data.createUser}, () => history.push('/questionnaire')))
-                      .catch(e => console.error('FUCK', e))
-                });
-        } else {
-          history.push('/login');
-        }
-      })
-      .catch(e => console.error('FAILED', e))
+    this.checkFirebaseUser();
+    // this.checkLinkedInUser();
+  }
+
+  checkFirebaseUser() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.props.client
+          .query({ query: GET_USER_UID, variables: { uid: user.uid } })
+          .then(({ data }) => {
+          console.log(data.user, 'p')
+            this.setState({ authenticated: true, user: data.user }, () => {
+              // if (data.user.dailyClaimed === false) {
+              //   show popup to let them claim 1 coin freebie 
+              // }
+              history.push('/home')
+            })
+          })
+          .catch(err => console.error("auth failed", err));
+      } else {
+        this.setState({ authenticated: false });
+      }
+    });
+  }
+
+  checkLinkedInUser() {
+    axios.post('/users')
+    .then((res) => {
+    var user = JSON.parse(res.headers.user);
+    if (user) {
+      this.props.client 
+        .query({  query: GET_USER_UID, variables: { uid: user.id }})
+          .then(({ data }) => this.setState({ authenticated: true, user: data.user }, () => history.push('/home')))
+          .catch(() => {
+            this.props.client
+              .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName }})
+              .then(({data}) => this.setState({ authenticated: true, user: data.createUser}, () => history.push('/questionnaire')))
+              .catch(e => history.push('/login'))
+          });
+    } else {
+      history.push('/login');
     }
+  })
+  .catch(err => console.log('not signed in linkedIn', err))
   }
 
   signIn(user) {
@@ -64,7 +70,7 @@ export default class App extends React.Component {
   }
 
   signOut() {
-    this.setState({ authenticated: false }, () => console.log("toggled authenticated"));
+    this.setState({ authenticated: false, user: null }, () => history.push('/'));
   }
 
   render() {
@@ -92,18 +98,20 @@ export default class App extends React.Component {
                 return (
                   <div>
                     Ok
-                  {console.log('????', data)}
+                  {/* {console.log('????', data)} */}
                     {this.setState({ user: data.user })}
                   </div>
                 );
               }}
             </Query>}
           <Routes
+            history={history}
             user={user}
             signIn={this.signIn}
-            authenticated={authenticated}
             signOut={this.signOut}
+            authenticated={authenticated}
             LIResults={this.state.LIResults}
+            authenticateLinkedInUser={this.checkLinkedInUser}
           />
         </ApolloProvider>
       </div>

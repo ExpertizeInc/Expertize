@@ -45,7 +45,7 @@ export default class QuestionFeed extends Component {
             return (
             <div>
               <Col smOffset={2} sm={8}>
-               {data.questions.map(question => <QuestionFeedItem question={question} user={user} match={match} /> )}
+               {data.questions.map((question, i) => <QuestionFeedItem question={question} user={user} match={match} key={i}/> )}
               </Col>
             </div>)
           }}
