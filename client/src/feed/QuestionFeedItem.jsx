@@ -49,7 +49,7 @@ export default class QuestionFeedItem extends Component {
                   : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
                 }</div>
               </Col>
-              <Col >
+              <Col sm={1}>
                 <SessionModal match={match} question={question} user={user} />
               </Col>
             </Row>

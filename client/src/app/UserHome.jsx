@@ -102,8 +102,8 @@ export default class UserHome extends Component {
               <div>SOMETHINGGGG</div>
             </Panel></Col></Row>
             <Row>
-              <Col md={2}><Thumbnail>dsfsdffs</Thumbnail></Col>
-              <Col md={10}>
+              <Col md={3}><Thumbnail>dsfsdffs</Thumbnail></Col>
+              <Col md={9}>
                 <Switch>
                   <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
                   <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />

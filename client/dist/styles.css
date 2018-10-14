@@ -1,9 +1,11 @@
 html,body{
   height: 100%;
   /* background-color: #F4F5F6; */
+  background-color: #333;
   color: black;
   font-size: 13px;
   margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 .main {
@@ -24,7 +26,6 @@ html,body{
 .navbar {
   border-radius: 0px;
   background: #13c8d9;
-  opacity: .8;
   color:white;
   padding: 10px 130px 20px 110px;
   border: none;
@@ -36,6 +37,9 @@ html,body{
   padding: 10px 20px 0px 20px;
 }
 
+img {
+  border-radius: 20px;
+}
 .btn {
   background-color: #13c8d9;
   border: none;
@@ -45,83 +49,6 @@ a {
   color:white;
 }
 
-
-
-
-.hexagon {
-  position: relative;
-  width: 60px; 
-  height: 34.64px;
-  margin: 17.32px 0;
-  background-image: url(http://csshexagon.com/img/meow.jpg);
-  background-size: auto 64.6632px;
-  background-position: center;
-  box-shadow: 0 0 1px rgba(0,0,0,0.65);
-  border-left: solid 2px #000000;
-  border-right: solid 2px #000000;
-}
-
-.hexTop,
-.hexBottom {
-  position: absolute;
-  z-index: 1;
-  width: 42.43px;
-  height: 42.43px;
-  overflow: hidden;
-  -webkit-transform: scaleY(0.5774) rotate(-45deg);
-  -ms-transform: scaleY(0.5774) rotate(-45deg);
-  transform: scaleY(0.5774) rotate(-45deg);
-  background: inherit;
-  left: 6.79px;
-  box-shadow: 0 0 1px rgba(0,0,0,0.65);
-}
-
-/*counter transform the bg image on the caps*/
-.hexTop:after,
-.hexBottom:after {
-  content: "";
-  position: absolute;
-  width: 56.0000px;
-  height: 32.331615074619044px;
-  -webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-16.1658px);
-  -ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-16.1658px);
-  transform:          rotate(45deg) scaleY(1.7321) translateY(-16.1658px);
-  -webkit-transform-origin: 0 0;
-  -ms-transform-origin: 0 0;
-  transform-origin: 0 0;
-  background: inherit;
-}
-
-.hexTop {
-  top: -21.2132px;
-  border-top: solid 2.8284px #000000;
-  border-right: solid 2.8284px #000000;
-}
-
-.hexTop:after {
-  background-position: center top;
-}
-
-.hexBottom {
-  bottom: -21.2132px;
-  border-bottom: solid 2.8284px #000000;
-  border-left: solid 2.8284px #000000;
-}
-
-.hexBottom:after {
-  background-position: center bottom;
-}
-
-.hexagon:after {
-  content: "";
-  position: absolute;
-  top: 1.1547px;
-  left: 0;
-  width: 56.0000px;
-  height: 32.3316px;
-  z-index: 2;
-  background: inherit;
-}
 
 .profile-nav {
   background: grey;

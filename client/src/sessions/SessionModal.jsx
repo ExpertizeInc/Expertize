@@ -22,7 +22,7 @@ class SessionModal extends Component {
     const { user, question } = this.props;
     return (
       <React.Fragment>
-        <Button bsStyle="primary" className="btn-block" onClick={() => this.setState({ show: true })}>
+        <Button bsStyle="primary"  onClick={() => this.setState({ show: true })}>
           PICK ME
         </Button>
         <Modal
