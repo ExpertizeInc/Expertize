@@ -130,10 +130,10 @@ export default class App extends React.Component {
 
   signOut() {
     firebase.auth().signOut();
-    localStorage.setItem('user', null);
-    localStorage.setItem('userId', null);
-    localStorage.setItem('timestamp', null);
-    localStorage.setItem('fbOrLi', null);
+    localStorage.setItem('user', 'null');
+    localStorage.setItem('userId', 'null');
+    localStorage.setItem('timestamp', 'null');
+    localStorage.setItem('fbOrLi', 'null');
     this.setState({ authenticated: false, user: null }, () => history.push('/'));
   }
 
