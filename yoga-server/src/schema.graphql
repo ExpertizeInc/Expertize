@@ -2,6 +2,8 @@ type Query {
   user(uid: String!): User!
   tags: [Tag!]!
   users: [User]!
+  messagesWhereSender(username: String!): [Message]
+  messagesWhereRecipient(username: String!): [Message]
   questions: [Question]!
   questionsByUser(username: String!): [Question]
   sessions: [Session!]!
@@ -15,6 +17,8 @@ type Mutation {
    createUser(email: String!, uid: String!, username: String!): User
    updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, coins: Int, tags: [String], username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int): User
    updateManyUsers(dailyClaimed: Boolean): BatchPayload!
+   createMessage(title: String, sender: UserCreateOneInput, recipient: UserCreateOneInput, message: String): Message
+   updateManyMessages: BatchPayload!
    login(email: String!, password: String!): LoginPayload!
    createQuestion(user: UserCreateOneInput, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
    createSession(type: String!, question: QuestionCreateOneInput, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
@@ -41,7 +45,7 @@ type User {
   coins: Int 
   ranking: Int
   image: String
-  # session: [Session!]!
+  session: [Session!]!
 }
 
 
@@ -61,30 +65,35 @@ type Session {
   questionId: String
 }
 
-type LoginPayload {
-  token: String
-  error: String
-}
 
 type Tag {
   id: ID!
   name: String!
 }
 
- type Question {
-   id: ID!
-   user: User
-   description: String!
-   tags: [String!]
-   coins: Int!
-   active: Boolean
-   title: String!
-   text: Boolean!
-   audio: Boolean!
-   video: Boolean!
-   duration: Int!
-   answeredBy: User
- }
+type Question {
+  id: ID!
+  user: User
+  description: String!
+  tags: [String!]
+  coins: Int!
+  active: Boolean
+  title: String!
+  text: Boolean!
+  audio: Boolean!
+  video: Boolean!
+  duration: Int!
+  answeredBy: User
+}
+
+type Message {
+  id: ID!
+  sender: User 
+  recipient: User
+  message: String
+  read: Boolean
+  createdAt: DateTime!
+}
 
 input UserCreateOneInput {
   connect: UserInput
@@ -110,4 +119,9 @@ type Subscription {
 
 type SessionSubscriptionPayload {
   updatedFields: [String!]
+}
+
+type LoginPayload {
+  token: String
+  error: String
 }

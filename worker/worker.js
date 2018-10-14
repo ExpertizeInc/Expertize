@@ -9,6 +9,13 @@ mutation updateManyUsers($dailyClaimed: Boolean) {
 }
 `
 
+const EXPIRE_MESSAGES = `
+mutation updateManyMessages {
+  updateManyMessages {
+    count
+  }
+}
+`
 const endpoint = 'http://localhost:4000/'
  
 const client = new GraphQLClient(endpoint, { headers: process.env.AUTHORIZATION })
@@ -19,5 +26,11 @@ setInterval(() => {
     .then(data => console.log('reset dailies at:', new Date().toLocaleString(), data))
     .catch(err => console.log('err', err))
   }
-}, 3000000) 
+}, 3000000)
+
+setInterval(() => {
+    client.request(EXPIRE_MESSAGES)
+    .then(data => console.log('expired messages', new Date().toLocaleString(), data))
+    .catch(err => console.log('err', err))
+}, 40000)
 

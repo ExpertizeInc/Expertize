@@ -4,6 +4,7 @@ import { ApolloProvider } from "react-apollo";
 // import params from "../particles.js";
 import { Query } from 'react-apollo';
 import { GET_USER_UID } from "../apollo/gql.js";
+import Footer from './Footer.jsx';
 import Routes from "../routes/Routes.jsx";
 import history from "./history.js";
 import axios from 'axios';
@@ -76,8 +77,9 @@ export default class App extends React.Component {
   render() {
     const { user, authenticated } = this.state;
     return (
-      <div>
-        <ApolloProvider client={this.props.client} mutate={this.props.mutate}>
+      <React.Fragment>
+        <div className="main">
+        <ApolloProvider client={this.props.client}>
           {/* particles is buggy, but might fix later during refinement phase */}
           {/* <Particles params={params} style={{
           position: 'absolute',
@@ -110,11 +112,13 @@ export default class App extends React.Component {
             signIn={this.signIn}
             signOut={this.signOut}
             authenticated={authenticated}
-            LIResults={this.state.LIResults}
+            history={history}
             authenticateLinkedInUser={this.checkLinkedInUser}
           />
         </ApolloProvider>
-      </div>
+        </div>
+        <Footer />
+      </React.Fragment>
     );
   }
 }

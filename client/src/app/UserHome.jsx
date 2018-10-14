@@ -6,9 +6,12 @@ import SessionChoice from '../sessions/SessionChoice.jsx';
 import SessionAccepted from '../sessions/SessionAccepted.jsx';
 import SessionRejected from '../sessions/SessionRejected.jsx';
 import DailyNotification from '../profile/DailyNotification.jsx';
+import Inbox from '../inbox/Inbox.jsx'
 import { Route, Switch } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../apollo/gql.js';
+import { Grid, Row, Col, Thumbnail } from "react-bootstrap";
+
 import Survey from '../sessions/Survey.jsx'
 // import OpenSocket from 'socket.io-client';
 import { isNull } from 'util';
@@ -18,7 +21,7 @@ export default class UserHome extends Component {
     super(props);
     this.state = {
       session: [],
-      dailyShow: true
+      dailyShow: false
     }
     this.toggleDaily = this.toggleDaily.bind(this)
   }
@@ -31,8 +34,7 @@ export default class UserHome extends Component {
     const { match, user } = this.props
     const { dailyShow } = this.state
     return (
-      <div>
-        {user && 
+        <React.Fragment>{user && 
         <div>
         {!user.dailyClaimed &&  <DailyNotification toggle={ this.toggleDaily } show={ dailyShow } user={ user } />}
         {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
@@ -90,14 +92,22 @@ export default class UserHome extends Component {
             }
           }}
         </Query>
-        
+        <Grid style={{ display: 'flex' }}>
+       <Row ><Col><Thumbnail>SOMETHINGGGG</Thumbnail></Col></Row>
+       <Row>
+          <Col  md={3}><Thumbnail>dsfsdffs</Thumbnail></Col><Col md={9}>
       <Switch>
       <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
       <Route path={`${match.url}/discussion`} render={({match}) => <Discussion user={user} match={match} />} />
+      <Route path={`${match.url}/inbox`} render={({match}) => <Inbox user={user} match={match} />} />
       <QuestionFeed match={match} user={user} />
-      </Switch></div>
-        }
-      </div>
+      </Switch>
+      </Col>
+      {/* <Col></Col> */}
+      </Row>
+      </Grid>
+      </div>}
+      </React.Fragment>
     );
   }
 }

@@ -15,6 +15,12 @@ const resolvers = {
     users: (_, __, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.users({}, info);
     },
+    messagesWhereSender: (_, { username }, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.messages({ where: { sender: { username }, expired: false } }, info);
+    },
+    messagesWhereRecipient: (_, { username }, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.messages({ where: { recipient: { username }, expired: false } }, info);
+    },
     questions: (_, __, ctx, info) => {
       return ctx.prisma.query.questions({}, info);
     },
@@ -44,6 +50,9 @@ const resolvers = {
     createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.createUser({ data: { username, email, uid } }, info);
     },
+    createMessage: (_, { title, sender, recipient, message }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.mutation.createMessage({ data: { title, sender, recipient, message } }), info;
+    },
     createQuestion: (_, { user, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
       return ctx.prisma.mutation.createQuestion({
         data: { user, tags: { set: tags }, description, coins, title, text, audio, video, duration }
@@ -57,6 +66,13 @@ const resolvers = {
     },
     updateManyUsers: (_, __, ctx, info) => {
       return ctx.prisma.mutation.updateManyUsers({ data: { dailyClaimed: false }})
+    },
+    updateManyMessages: (_, __, ctx, info) => {
+      let past = new Date()
+      return ctx.prisma.mutation.updateManyMessages({
+        data: { expired : true },
+        where: { createdAt_lte: new Date(past.setDate(past.getDate() - 14)).toISOString()}
+      })
     },
     createSession: (_, { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt}, ctx, info) => {
       return ctx.prisma.mutation.createSession({
