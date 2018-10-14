@@ -166,7 +166,7 @@ export default class QuestionForm extends Component {
                     mutation={ CREATE_QUESTION }
                     variables={{
                       id: user.id,
-                      user: { connect: { username: user ? user.username : '' }},
+                      user: { connect: { username: user.username }},
                       description,
                       tags,
                       debt: user.coins >= (user.debt > 0 ? 2 + user.debt : 2) ? 0 : user.coins - (user.debt > 0 ? 2 + user.debt : 2) - user.debt,
