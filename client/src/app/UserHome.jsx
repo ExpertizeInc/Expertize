@@ -92,20 +92,28 @@ export default class UserHome extends Component {
             }
           }}
         </Query>
-        <Grid style={{ display: 'flex' }}>
-       <Row ><Col><Thumbnail>SOMETHINGGGG</Thumbnail></Col></Row>
-       <Row>
-          <Col  md={3}><Thumbnail>dsfsdffs</Thumbnail></Col><Col md={9}>
-      <Switch>
-      <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
-      <Route path={`${match.url}/discussion`} render={({match}) => <Discussion user={user} match={match} />} />
-      <Route path={`${match.url}/inbox`} render={({match}) => <Inbox user={user} match={match} />} />
-      <QuestionFeed match={match} user={user} />
-      </Switch>
-      </Col>
-      {/* <Col></Col> */}
-      </Row>
-      </Grid>
+        <Grid style={{ display: 'block', padding: "20px" }}>
+      <Row style={{ padding: "14px" }}><Col><Thumbnail>
+      <div>SOMETHINGGGG</div>
+      <div>SOMETHINGGGG</div>
+      <div>SOMETHINGGGG</div>
+      <div>SOMETHINGGGG</div>
+      <div>SOMETHINGGGG</div>
+      <div>SOMETHINGGGG</div>
+     </Thumbnail></Col></Row>
+      <Row>
+         <Col  md={3}><Thumbnail>dsfsdffs</Thumbnail></Col>
+         <Col md={9}>
+     <Switch>
+     <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
+     <Route path={`${match.url}/discussion`} render={({match}) => <Discussion user={user} match={match} />} />
+     <Route path={`${match.url}/inbox`} render={({match}) => <Inbox user={user} match={match} />} />
+     <QuestionFeed match={match} user={user} />
+     </Switch>
+     </Col>
+     {/* <Col></Col> */}
+     </Row>
+     </Grid>
       </div>}
       </React.Fragment>
     );

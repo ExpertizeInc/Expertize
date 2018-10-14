@@ -33,7 +33,7 @@ export default class Profile extends Component {
                   <span><h2>{user.username}</h2></span>
                   <Rating readonly initialRating={user.ranking} /> <br />
                   <div>{user.description}</div>
-                  <div>{user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">user.tags</Label>}</div>
+                  <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">user.tags</Label>}</div>
                 
                 <Button><Glyphicon glyph="cog" /> Edit preferences</Button>
                 </Thumbnail>

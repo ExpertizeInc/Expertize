@@ -6,26 +6,6 @@ import axios from 'axios';
 export default class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.signOutUser = this.signOutUser.bind(this);
-  }
-
-  componentDidMount() {
-    // this.props.authenticateLinkedInUser();
-  }
-
-  // for signout button
-  signOutUser() {
-    console.log(this.props)
-    if (this.props.user.id.length < 20) {
-      // check if linkedIn user if so, get request to logout
-      axios.get('/logout')
-      .then(() => this.props.history.push('/'))
-      .catch(err => console.error('err in logout', err))
-    } else {
-      firebase.auth().signOut();
-      this.props.signOut();
-    }
   }
 
   render() {
@@ -54,7 +34,7 @@ export default class NavBar extends Component {
             {!authenticated && <Link to="/signin">Sign In </Link>}
           </NavItem>
           <NavItem eventKey={3} componentClass='span' className="nav-item">
-            {authenticated ? <Link to="/" onClick={this.signOutUser}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
+            {authenticated ? <Link to="/" onClick={this.props.signOut}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
           </NavItem>
         </Nav>
       </Navbar>

@@ -12,31 +12,60 @@ import axios from 'axios';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { user: null, authenticated: false, uid: null };
+    this.state = { user: null, authenticated: false, uid: null, isLoading: true };
     this.signOut = this.signOut.bind(this);
     this.signIn = this.signIn.bind(this);
     this.checkLinkedInUser = this.checkLinkedInUser.bind(this);
     this.checkFirebaseUser = this.checkFirebaseUser.bind(this);
+    this.checkIfUserIsInDB = this.checkIfUserIsInDB.bind(this);
+    this.firebaseSignIn = this.firebaseSignIn.bind(this);
+  }
+
+  UNSAFE_componentWillMount(nextProps, nextState) {
+    localStorage.getItem('userId') && this.setState({ authenticated: true, uid: localStorage.getItem('user'), user: localStorage.getItem('userData'), isLoading: false})
   }
 
   componentDidMount() {
-    // this.checkFirebaseUser();
-    // if (this.state.user) {
-    //   history.push('/home')
-    // } else {
-    //   this.checkLinkedInUser();
-    // }
-    this.checkLinkedInUser()
+    let userId = localStorage.getItem('userId');
+    let authType = localStorage.getItem('fbOrLi');
+    if (userId) {
+      this.checkIfUserIsInDB(userId);
+    } else if (authType === 'firebase') {
+      this.checkFirebaseUser();
+    } else if (authType === 'linkedIn') {
+      this.checkLinkedInUser();
+    } else {
+      this.checkFirebaseUser();
+      this.checkLinkedInUser();
+    }
+  }
+
+  checkIfUserIsInDB(uid) {
+    this.props.client
+      .query({ query: GET_USER_UID, variables: { uid } })
+        .then(({ data }) => {
+          console.log(data.user, 'p')
+          this.setState({ authenticated: true, user: data.user }, () => {
+            // if (data.user.dailyClaimed === false) {
+            //   show popup to let them claim 1 coin freebie 
+            // }
+            history.push('/home')
+          })
+        })
+        .catch(err => console.error("auth failed", err));
   }
 
   checkFirebaseUser() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        localStorage.setItem('userId', user.uid);
+        localStorage.setItem('fbOrLi', 'firebase');
+        localStorage.setItem('timestamp', Date.now());
+        this.setState({ authenticated: true })
         this.props.client
           .query({ query: GET_USER_UID, variables: { uid: user.uid } })
           .then(({ data }) => {
-          console.log(data.user, 'p')
-            this.setState({ authenticated: true, user: data.user }, () => {
+            this.setState({ user: data.user }, () => {
               // if (data.user.dailyClaimed === false) {
               //   show popup to let them claim 1 coin freebie 
               // }
@@ -54,11 +83,15 @@ export default class App extends React.Component {
     axios.post('/users')
     .then((res) => {
     const user = JSON.parse(res.headers.user);
-    console.log('USER', user)
     if (user) {
+      localStorage.setItem('userId', user.uid);
+      localStorage.setItem('fbOrLi', 'linkedIn');
+      localStorage.setItem('timestamp', Date.now());
       this.props.client 
         .query({  query: GET_USER_UID, variables: { uid: user.id }})
-          .then(({ data }) => this.setState({ authenticated: true, user: data.user }, () => history.push('/home')))
+          .then(({ data }) => {
+            this.setState({ authenticated: true, user: data.user }, () => history.push('/home'))
+          })
           .catch(() => {
             this.props.client
               .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName }})
@@ -73,12 +106,29 @@ export default class App extends React.Component {
   }
 
   signIn(user) {
-    // this.checkLinkedInUser();
+    localStorage.setItem('userId', user.uid || user.id);
+    localStorage.setItem('fbOrLi', 'firebase');
+    localStorage.setItem('timestamp', Date.now());
     this.setState({ authenticated: true, user }, () => history.push("/home"));
   }
 
+  firebaseSignIn(e, email, password) {
+    e.preventDefault();
+    console.log('submitting sign in to firebase');
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(({user}) => this.signIn(user))
+      .catch(error => {
+        console.error('error code:', error.code, 'with message: ', error.message);
+        // alert('incorrect username/password');
+      });  
+  }
+
   signOut() {
-    // this.checkFirebaseUser();
+    firebase.auth().signOut();
+    localStorage.setItem('user', null);
+    localStorage.setItem('userId', null);
+    localStorage.setItem('timestamp', null);
+    localStorage.setItem('fbOrLi', null);
     this.setState({ authenticated: false, user: null }, () => history.push('/'));
   }
 
@@ -122,6 +172,7 @@ export default class App extends React.Component {
             authenticated={authenticated}
             history={history}
             authenticateLinkedInUser={this.checkLinkedInUser}
+            fbSignIn={this.firebaseSignIn}
           />
         </ApolloProvider>
         </div>

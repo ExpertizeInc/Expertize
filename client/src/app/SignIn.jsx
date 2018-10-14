@@ -7,25 +7,11 @@ export default class Signin extends Component {
     super(props);
     this.state = { email: '', password: '' };
     this.onChange = this.onChange.bind(this);
-    this.submitSignIn = this.submitSignIn.bind(this);
   }
 
   onChange(e, type) {
     e.preventDefault();
     this.setState({ [type]: e.target.value });
-  }
-
-  submitSignIn(e) {
-    e.preventDefault();
-    console.log('submitting sign in to firebase');
-    firebase
-      .auth()
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
-          .then(() => this.props.history.push('/home'))
-          .catch(error => {
-            console.error('error code:', error.code, 'with message: ', error.message);
-            alert('incorrect username/password');
-          });
   }
 
   render() {
@@ -59,7 +45,7 @@ export default class Signin extends Component {
           <FormGroup>
             <Row>
               <Col smOffset={6} sm={3}>
-                <Button onClick={this.submitSignIn} type="submit">Log In</Button>
+                <Button onClick={(e) => this.props.fbSignIn(e, this.state.email, this.state.password)} type="submit">Log In</Button>
                 <br/><LinkedInLogin />
               </Col>
             </Row>

@@ -42,8 +42,8 @@ const resolvers = {
     // sessionsWhereRejectedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
     //   return ctx.prisma.query.sessions({ where: { accepted: false, completed: null, expert: { username } }}, info);
     // },
-    sessionsForExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.query.sessions({ where: { accepted: !null , completed: null, expert: { username } }}, info);
+    sessionsForExpert:  (_, { username }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({ where: { accepted_not: null , completed: null, expert: { username } }}, info);
     }
   },
   Mutation: {
@@ -87,7 +87,11 @@ const resolvers = {
     }
   },
 }
-
+const prisma = new Prisma({
+  endpoint: process.env.PRISMA_ENDPOINT,
+  secret: process.env.PRISMA_SECRET,
+  debug: true
+ })
 
 const server = new GraphQLServer({
   typeDefs: 'yoga-server/src/schema.graphql',
@@ -95,11 +99,6 @@ const server = new GraphQLServer({
   context: async req => {
     const userId = getUserIdFromRequest(req);
     let user;
-    const prisma = new Prisma({
-     endpoint: process.env.PRISMA_ENDPOINT,
-     secret: process.env.PRISMA_SECRET,
-     debug: true
-    })
     if (userId) {
       user = await prisma.query.user({ where: { id: userId }});
     }
