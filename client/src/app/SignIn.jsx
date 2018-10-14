@@ -46,7 +46,7 @@ export default class Signin extends Component {
             <Row>
               <Col smOffset={6} sm={3}>
                 <Button onClick={(e) => this.props.fbSignIn(e, this.state.email, this.state.password)} type="submit">Log In</Button>
-                <br/><LinkedInLogin />
+                <br/><LinkedInLogin authenticateLinkedInUser={this.props.authenticateLinkedInUser}/>
               </Col>
             </Row>
           </FormGroup>

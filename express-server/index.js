@@ -12,6 +12,12 @@ const app = express();
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'TQyMsJWbwxSuBpum',
+  resave: false,
+  saveUninitialized: false,
+  // cookie: { secure: true }
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(authMiddleware);
@@ -19,7 +25,7 @@ app.use(authMiddleware);
 app.use(express.static(path.join(__dirname + '/../client/dist')));
 
 
-app.get('/auth/linkedin',passport.authenticate('linkedin'));
+app.get('/auth/linkedin',passport.authenticate('linkedin'), (req, res) => { });
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {failureRedirect: '/' }), (req, res) => {
   res.redirect('/');
 });
@@ -31,7 +37,7 @@ app.get('/logout', (req, res) => {
 app.post('/users', (req, res) => {
   console.log('USER', req.user);
   console.log('is Authenticated', req.isAuthenticated())
-  res.sendStatus(200);
+  res.send(200);
 })
 
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../client/dist/index.html')));
@@ -46,13 +52,14 @@ const io = require('socket.io')(server)
 var users = {};
 
 io.on('connect', (socket) => {
-  socket.on("new user", (data) => {
+  socket.on("new user", function(data) {
     console.log('name of new user',data)
     socket.nickname = data;
     users[socket.nickname] = socket;
     console.log('this is sock nickname', data)
     console.log('this is the sock-id', socket.id, data)
     console.log('user', data)
+    // console.log('this is the users object', users)
     updateNicknames(); 
   });
   console.log('a user connected, id is:',socket.id)
@@ -63,7 +70,7 @@ io.on('connect', (socket) => {
     targetSock.emit('outbound', {msg:data.text, from:nickname})
   })
   
-  socket.on("disconnect", (data) => {
+  socket.on("disconnect", function(data) {
     console.log('user disconnected');
     delete users[socket.nickname];
     updateNicknames();

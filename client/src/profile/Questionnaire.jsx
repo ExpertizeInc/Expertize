@@ -34,8 +34,6 @@ export default class Questionnaire extends Component {
     this.handleDismiss = this.handleDismiss.bind(this);
   }
 
-  componentDidMount() {
-  }
   getValidationState () {
     const length = this.state.username.length;
     if (length > 12 || length === 0) return 'error';
@@ -152,11 +150,11 @@ export default class Questionnaire extends Component {
               <div>
                 {/* // submit compiled user details to database. render user's profile complete w/ details */}
                 {user ?
-                  <Mutation mutation={UPDATE_USER_INFO} variables={{ id: user.id, email: user.email, description, coins, tags }}>
+                  <Mutation mutation={UPDATE_USER_INFO} variables={{ id: user.id, email: user.email, description, coins, tags: tags || [], username }}>
                     {updateUser => (
                       <Link to="/profile">
                       <Button type="submit" onClick={updateUser}>
-                        LETS GOOOOOOOO
+                        Update My Information
                     </Button>
                     </Link>)}
                   </Mutation> : ''}

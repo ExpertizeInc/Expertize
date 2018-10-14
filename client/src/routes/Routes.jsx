@@ -17,11 +17,11 @@ import Video from '../sessions/Video.jsx';
 
 const Routes = ({ authenticated, user, signIn, history, authenticateLinkedInUser, signOut, fbSignIn }) => (
     <div className="content">
-      <NavBar user={user} authenticated={authenticated} history={history} signOut={signOut} authenticateLinkedInUser={authenticateLinkedInUser}/>
+      <NavBar user={user} authenticated={authenticated} history={history} signOut={signOut} />
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>
-          <Route exact strict path="/signin" render={(props) => <SignIn {...props}  fbSignIn={fbSignIn} />}></Route>
+          <Route exact strict path="/signin" render={(props) => <SignIn {...props}  fbSignIn={fbSignIn} authenticateLinkedInUser={authenticateLinkedInUser} />}></Route>
           <Route exact strict path="/signup" render={(props) => <Signup {...props} signIn={signIn} />}></Route>
           <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} />}></Route>
           <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>

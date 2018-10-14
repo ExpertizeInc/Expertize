@@ -6,9 +6,7 @@ import { Col, Button, Panel, Grid, Row, Glyphicon, Badge } from "react-bootstrap
 export default class QuestionFeedItem extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      show: false
-    }
+    this.state = { show: false }
     this.toggleShow = this.toggleShow.bind(this)
   }
 
@@ -34,7 +32,7 @@ export default class QuestionFeedItem extends Component {
                   <div className="hexTop" />
                   <div className="hexBottom" />
                 </div>
-                <div className="centered" onClick={() => this.toggleShow()}><strong>@{question.user.username}</strong></div>
+                <div className="centered" onClick={() => this.toggleShow()}><strong>@{question.user ? question.user.username : ''}</strong></div>
               </Col>
               <Col sm={3}>{question.description}
               {question.tags.length > 1 ? question.tags.map((tag, i) => <Badge>{tag}</Badge>)

@@ -48,7 +48,6 @@ type User {
   session: [Session!]!
 }
 
-
 type Session {
   id: ID!
   question: Question

@@ -10,6 +10,7 @@ import 'dotenv/config'
 const resolvers = {
   Query: {
     user: (parent, {uid}, ctx: {prisma: Prisma}, info) => {
+      console.log(uid, 'asd')
       return ctx.prisma.query.user({ where: {uid} }, info);
     },
     users: (_, __, ctx: {prisma: Prisma}, info) => {

@@ -26,17 +26,17 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    let userId = localStorage.getItem('userId');
-    let authType = localStorage.getItem('fbOrLi');
-    if (userId) {
+    var userId = localStorage.getItem('userId');
+    var authType = localStorage.getItem('fbOrLi');
+    console.log('YES', userId, authType)
+    if (userId !== 'null') {
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase') {
       this.checkFirebaseUser();
     } else if (authType === 'linkedIn') {
       this.checkLinkedInUser();
     } else {
-      this.checkFirebaseUser();
-      this.checkLinkedInUser();
+
     }
   }
 
@@ -44,8 +44,10 @@ export default class App extends React.Component {
     this.props.client
       .query({ query: GET_USER_UID, variables: { uid } })
         .then(({ data }) => {
-          console.log(data.user, 'p')
           this.setState({ authenticated: true, user: data.user }, () => {
+            localStorage.setItem('userId', uid);
+            localStorage.setItem('fbOrLi', 'firebase');
+            localStorage.setItem('timestamp', Date.now());
             // if (data.user.dailyClaimed === false) {
             //   show popup to let them claim 1 coin freebie 
             // }
@@ -61,11 +63,10 @@ export default class App extends React.Component {
         localStorage.setItem('userId', user.uid);
         localStorage.setItem('fbOrLi', 'firebase');
         localStorage.setItem('timestamp', Date.now());
-        this.setState({ authenticated: true })
         this.props.client
           .query({ query: GET_USER_UID, variables: { uid: user.uid } })
           .then(({ data }) => {
-            this.setState({ user: data.user }, () => {
+            this.setState({ authenticated: true, user: data.user }, () => {
               // if (data.user.dailyClaimed === false) {
               //   show popup to let them claim 1 coin freebie 
               // }
@@ -82,25 +83,29 @@ export default class App extends React.Component {
   checkLinkedInUser() {
     axios.post('/users')
     .then((res) => {
-    const user = JSON.parse(res.headers.user);
-    if (user) {
-      localStorage.setItem('userId', user.uid);
-      localStorage.setItem('fbOrLi', 'linkedIn');
-      localStorage.setItem('timestamp', Date.now());
-      this.props.client 
-        .query({  query: GET_USER_UID, variables: { uid: user.id }})
-          .then(({ data }) => {
-            this.setState({ authenticated: true, user: data.user }, () => history.push('/home'))
-          })
-          .catch(() => {
-            this.props.client
-              .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName }})
-              .then(({data}) => this.setState({ authenticated: true, user: data.createUser}, () => history.push('/questionnaire')))
-              .catch(e => history.push('/login'))
-          });
-    } else {
-      history.push('/login');
-    }
+      console.log(res.headers)
+      const user = JSON.parse(res.headers.user);
+      console.log(user)
+      if (user) {
+        console.log(user)
+        localStorage.setItem('userId', user.id);
+        localStorage.setItem('fbOrLi', 'linkedIn');
+        localStorage.setItem('timestamp', Date.now());
+        this.setState({ authenticated: true })
+        this.props.client 
+          .query({  query: GET_USER_UID, variables: { uid: user.id }})
+            .then(({ data }) => {
+              this.setState({ authenticated: true, user: data.user }, () => history.push('/home'))
+            })
+            .catch(() => {
+              this.props.client
+                .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName }})
+                .then(({data}) => this.setState({ authenticated: true, user: data.createUser}, () => history.push('/questionnaire')))
+                .catch(e => history.push('/signin'))
+            });
+      } else {
+        history.push('/signin');
+      }
   })
   .catch(err => console.log('not signed in linkedIn', err))
   }
@@ -113,13 +118,13 @@ export default class App extends React.Component {
   }
 
   firebaseSignIn(e, email, password) {
+    this.checkFirebaseUser();
     e.preventDefault();
     console.log('submitting sign in to firebase');
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(({user}) => this.signIn(user))
       .catch(error => {
         console.error('error code:', error.code, 'with message: ', error.message);
-        // alert('incorrect username/password');
       });  
   }
 
@@ -151,7 +156,7 @@ export default class App extends React.Component {
           // backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
         {(authenticated && !user) && 
-            <Query query={ GET_USER_UID } variables={{ uid: this.state.uid }} >
+            <Query query={ GET_USER_UID } variables={{ uid: this.state.uid.toString() }} >
               {({ loading, error, data, refetch, networkStatus }) => {
                 if (loading) return <div>Loading...</div>;
                 if (error) return <div>Error{console.log(error)}</div>;
