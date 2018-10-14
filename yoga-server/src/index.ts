@@ -15,6 +15,12 @@ const resolvers = {
     users: (_, __, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.users({}, info);
     },
+    messagesWhereSender: (_, { username }, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.messages({ where: { sender: { username }, expired: false } }, info);
+    },
+    messagesWhereRecipient: (_, { username }, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.messages({ where: { recipient: { username }, expired: false } }, info);
+    },
     questions: (_, __, ctx, info) => {
       return ctx.prisma.query.questions({}, info);
     },
@@ -57,6 +63,13 @@ const resolvers = {
     },
     updateManyUsers: (_, __, ctx, info) => {
       return ctx.prisma.mutation.updateManyUsers({ data: { dailyClaimed: false }})
+    },
+    updateManyMessages: (_, __, ctx, info) => {
+      let past = new Date()
+      return ctx.prisma.mutation.updateManyMessages({
+        data: { expired : true },
+        where: { createdAt_lte: new Date(past.setDate(past.getDate() - 14)).toISOString()}
+      })
     },
     createSession: (_, { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt}, ctx, info) => {
       return ctx.prisma.mutation.createSession({

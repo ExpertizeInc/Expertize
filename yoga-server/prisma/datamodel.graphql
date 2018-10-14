@@ -31,6 +31,7 @@ type Message {
   recipient: User @relation(name: "RecievingUser")
   message: String
   read: Boolean
+  expired: Boolean @default(value: false)
   createdAt: DateTime!
 }
 
