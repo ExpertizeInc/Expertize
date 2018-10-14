@@ -29,8 +29,10 @@ type Message {
   id: ID! @unique
   sender: User @relation(name: "SendingUser")
   recipient: User @relation(name: "RecievingUser")
+  title: String
   message: String
-  read: Boolean
+  read: Boolean @default(value: false)
+  expired: Boolean @default(value: false)
   createdAt: DateTime!
 }
 

@@ -19,37 +19,31 @@ export default class NavBar extends Component {
   }
 
   render() {
-    const routes = ['Questionnaire', 'Profile', 'Chat', 'Video'];
+    const routes = ['Questionnaire', 'Profile'];
     const { authenticated } = this.props;
     return (
-      <Navbar fluid >
+      <Navbar >
         <Nav>
-          <NavItem componentClass='span' className="cl-effect-1" style={{ marginTop: 15 }}>
+          <NavItem eventKey={1} componentClass='span' className="nav-item">
             <Link to="/">Expertize</Link>
           </NavItem>
         </Nav>
-        <Nav>
-          <NavItem eventKey={1} componentClass='span' className="cl-effect-1" style={{ marginTop: 15 }}><Link to="/">Demo</Link></NavItem>
-          {/* for quick access to components during development. */}
-          {authenticated
-            ? 
-            routes.map(route => (
-              <NavItem eventKey={2} key={route} className="cl-effect-1" componentClass='span' style={{ marginTop: 15 }}>
-                <Link to={`/${route.toLowerCase()}`}>{route}</Link> &nbsp; &nbsp;
-              </NavItem> 
-              ))
-            : null}
-          <NavItem eventKey={1} className="cl-effect-1" componentClass='span' style={{ marginTop: 15 }}>
-            <Link to="/signin"><Glyphicon glyph="envelope" /> Inbox</Link> &nbsp; &nbsp;
-          </NavItem>
-        </Nav>
-
         <Nav pullRight>
-
-          <NavItem eventKey={2} className="cl-effect-1" componentClass='span' style={{ marginTop: 15 }}>
-            <Link to="/signin">Sign In </Link> &nbsp; &nbsp;
+          {authenticated
+            ?
+            routes.map(route => (
+              <NavItem eventKey={2} key={route} componentClass='span' className="nav-item">
+                <Link to={`/${route.toLowerCase()}`}>{route}</Link>
+              </NavItem>
+            ))
+            : null}
+          <NavItem eventKey={1} componentClass='span' className="nav-item">
+            <Link to="/home/inbox"><Glyphicon glyph="envelope" /> Inbox</Link>
           </NavItem>
-          <NavItem eventKey={3} className="cl-effect-1" componentClass='span' style={{ marginTop: 15, marginRight: 15 }}>
+          <NavItem eventKey={2} componentClass='span' className="nav-item">
+            {!authenticated && <Link to="/signin">Sign In </Link>}
+          </NavItem>
+          <NavItem eventKey={3} componentClass='span' className="nav-item">
             {authenticated ? <Link to="/" onClick={this.signOutUser}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
           </NavItem>
         </Nav>

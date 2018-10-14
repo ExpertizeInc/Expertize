@@ -161,7 +161,7 @@ export default class QuestionForm extends Component {
               <FormGroup>
                 <Col className="centered">
                   <h5 className="centered">This will cost: {user.debt > 0 ? 2 + user.debt : 2} <Image style={{ width: "20px" }} src="../images/coin.gif"></Image></h5>
-                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="../images/coin.gif"></Image></h5>
+                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="./images/coin.gif"></Image></h5>
                   <Mutation
                     mutation={ CREATE_QUESTION }
                     variables={{

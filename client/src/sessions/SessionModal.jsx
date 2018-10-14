@@ -21,7 +21,7 @@ class SessionModal extends Component {
   render() { 
     const { user, question } = this.props;
     return (
-      <div >
+      <React.Fragment>
         <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
           PICK ME
         </Button>
@@ -64,7 +64,7 @@ class SessionModal extends Component {
             </Mutation>
           </Modal.Footer>
         </Modal>
-      </div>   
+        </React.Fragment> 
     );
   }
 }

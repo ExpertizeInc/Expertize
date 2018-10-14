@@ -9,13 +9,14 @@ import Questionnaire from '../profile/Questionnaire.jsx';
 import Profile from '../profile/Profile.jsx'
 import Error from '../app/Error.jsx';
 import Footer from '../app/Footer.jsx';
+import Inbox from '../inbox/Inbox.jsx'
 import UserHome from '../app/UserHome.jsx';
 import QuestionFeed from '../feed/QuestionFeed.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
 import Video from '../sessions/Video.jsx';
 
 const Routes = ({ authenticated, user, signIn, signInLI}) => (
-    <div>
+    <div className="content">
       <NavBar user={user} authenticated={authenticated}/>
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
@@ -25,10 +26,10 @@ const Routes = ({ authenticated, user, signIn, signInLI}) => (
           <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} />}></Route>
           <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>
           <Route exact strict path="/chat" component={Chat}></Route>
+          {/* <Route exact strict path="/inbox" component={Inbox}></Route> */}
           <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>
       </Switch>
-      <Footer />
     </div>
 );
 

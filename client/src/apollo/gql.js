@@ -42,14 +42,34 @@ export const GET_TAGS = gql`
   }
 `;
 
-// export const UPDATE_USER = gql`
-// mutation updateUser($id: String!, $email: String, $uid: String, $description: String, $coins: Int, $username: String) {
-//     updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, username: $username) {
-//         id
-//         description
-//     }
-// }
-// `;
+export const CREATE_MESSAGE = gql`
+mutation createMessage($message: String, $sender: UserCreateOneInput, $recipient: UserCreateOneInput) {
+  createMessage(message: $message, sender: $sender, recipient: $recipient) {
+    message
+  }
+}
+`
+
+export const GET_ALL_MESSAGES = gql`
+query allMessages($username: username) {
+  messagesWhereSender(username: $username) {
+    createdAt
+    title
+    message
+    recipient {
+      username
+    }
+  }
+  messagesWhereRecipient(username: $username) {
+    createdAt
+    title
+    message
+    sender {
+      username
+    }
+  }
+}
+`
 
 export const GET_USER_QUESTIONS = gql`
 query questionsByUser($username: String!) {
