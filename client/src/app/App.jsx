@@ -3,7 +3,7 @@ import { ApolloProvider } from "react-apollo";
 // import Particles from "react-particles-js";
 // import params from "../particles.js";
 import { Query } from 'react-apollo';
-import { GET_USER_UID } from "../apollo/gql.js";
+import { GET_USER_UID, CREATE_USER } from "../apollo/gql.js";
 import Footer from './Footer.jsx';
 import Routes from "../routes/Routes.jsx";
 import history from "./history.js";
@@ -20,8 +20,13 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.checkFirebaseUser();
-    // this.checkLinkedInUser();
+    // this.checkFirebaseUser();
+    // if (this.state.user) {
+    //   history.push('/home')
+    // } else {
+    //   this.checkLinkedInUser();
+    // }
+    this.checkLinkedInUser()
   }
 
   checkFirebaseUser() {
@@ -48,7 +53,8 @@ export default class App extends React.Component {
   checkLinkedInUser() {
     axios.post('/users')
     .then((res) => {
-    var user = JSON.parse(res.headers.user);
+    const user = JSON.parse(res.headers.user);
+    console.log('USER', user)
     if (user) {
       this.props.client 
         .query({  query: GET_USER_UID, variables: { uid: user.id }})
@@ -67,10 +73,12 @@ export default class App extends React.Component {
   }
 
   signIn(user) {
+    // this.checkLinkedInUser();
     this.setState({ authenticated: true, user }, () => history.push("/home"));
   }
 
   signOut() {
+    // this.checkFirebaseUser();
     this.setState({ authenticated: false, user: null }, () => history.push('/'));
   }
 

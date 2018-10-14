@@ -11,7 +11,7 @@ export default class NavBar extends Component {
   }
 
   componentDidMount() {
-    this.props.authenticateLinkedInUser();
+    // this.props.authenticateLinkedInUser();
   }
 
   // for signout button

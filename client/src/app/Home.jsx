@@ -6,9 +6,7 @@ export default class Home extends Component {
     super(props);
     this.state = { authenticated: false };
   }
-  componentDidMount() {
-    // console.log(response.headers)
-  }
+  
   render() {
     return (
       <div>

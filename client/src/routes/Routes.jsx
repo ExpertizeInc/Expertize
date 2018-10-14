@@ -15,9 +15,9 @@ import UserHome from '../app/UserHome.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
 import Video from '../sessions/Video.jsx';
 
-const Routes = ({ authenticated, user, signIn, history }) => (
+const Routes = ({ authenticated, user, signIn, history, authenticateLinkedInUser }) => (
     <div className="content">
-      <NavBar user={user} authenticated={authenticated} history={history}/>
+      <NavBar user={user} authenticated={authenticated} history={history} authenticateLinkedInUser={authenticateLinkedInUser}/>
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated}></PrivateRoute>

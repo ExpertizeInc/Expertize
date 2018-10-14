@@ -6,8 +6,8 @@ require('dotenv').config();
 passport.serializeUser((user, done) => {
   done(null, user)
 });
-passport.deserializeUser((user, done) => {
-      done(null, user);
+passport.deserializeUser((id, done) => {
+  done(null, id);
 });
 
 passport.use(new LinkedInStrategy({
@@ -18,6 +18,7 @@ passport.use(new LinkedInStrategy({
   passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
   // asynchronous verification, for effect...
+  // console.log(req.user, 'BALLS')
   process.nextTick(() => {
     // To keep the example simple, the user's LinkedIn profile is returned to
     // represent the logged-in user. In a typical application, you would want

@@ -91,19 +91,19 @@ mutation createUser($username: String! $email: String!, $uid: String!) {
   }
 `;
 
-export const CREATE_LINKED_IN_USER = gql`
-  mutation createLinkedInUser($linkedInEmail: String!, $linkedInId: String!, $email: String!, $username: String!, $tags: [String], $description: String, $image: String) {
-    createLinkedInUser(linkedInEmail: $linkedInEmail, linkedInId: $linkedInId, email: $email, username: $username, tags: $tags, description: $description, image: $image) {
-      email
-      username
-      id
-      linkedInId
-      image
-      username
-      tags
-    }
-  }
-`;
+// export const CREATE_LINKED_IN_USER = gql`
+//   mutation createLinkedInUser($linkedInEmail: String!, $linkedInId: String!, $email: String!, $username: String!, $tags: [String], $description: String, $image: String) {
+//     createLinkedInUser(linkedInEmail: $linkedInEmail, linkedInId: $linkedInId, email: $email, username: $username, tags: $tags, description: $description, image: $image) {
+//       email
+//       username
+//       id
+//       linkedInId
+//       image
+//       username
+//       tags
+//     }
+//   }
+// `;
 
 export const GET_USER_UID = gql`
 query user($uid: String!) {
