@@ -77,10 +77,43 @@
   top: 6px;
 }
 
+/* ========= Input ========== */
 
-textarea, input {
+textarea, input, .form-control {
   -webkit-appearance: none;
-  outline: none;
+  outline-style:none;
+  box-shadow: none;
+  border-radius: 0px !important;
+  border-color:grey;
+  border-width: 0px 0px 1px 0px;
+}
+
+input:focus, .btn:focus, .form-control:focus {
+  outline: none !important;
+  outline-style:none;
+  border-radius: 0px;
+  box-shadow:none;
+}
+
+.form-control {
+  background-color: transparent;
+  color:grey;
+}
+
+.form-inline {
+  width: 100% !important
+}
+
+.form-group {
+  width: 100% !important;
+}
+
+.input-group {
+  width: 100% !important;
+}
+
+.form-control {
+  width: 100% !important;
 }
 
 .footer {
@@ -91,4 +124,44 @@ bottom: 0px;
 background: #13c8d9;
 text-align: center;
 color: white;
+}
+
+.border-bottom {
+  border-bottom: 1px;
+  border-color: grey;
+}
+
+.link-alt-blk {
+  color: black;
+}
+
+.link-alt-blk:hover {
+  color: #13c8d9
+}
+
+.link-alt {
+  background-color: #13c8d9;
+}
+
+.btn-white {
+  background-color: #fcfcfc;
+}
+
+/* ===== OVERRIDE ====== */
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  background-color: #13c8d9;
+}
+
+.panel {
+  color: black;
+}
+
+/* ===== DROPDOWN ====== */
+
+.Select-option:nth-child(n+6) {
+  display: none;
+}
+.dropdown-menu {
+  height: 70px;
+  overflow-y: scroll;
 }

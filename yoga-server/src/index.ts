@@ -16,10 +16,10 @@ const resolvers = {
     users: (_, __, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.users({}, info);
     },
-    messagesWhereSender: (_, { username }, ctx: {prisma: Prisma}, info) => {
+    messagesSent: (_, { username }, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.messages({ where: { sender: { username }, expired: false } }, info);
     },
-    messagesWhereRecipient: (_, { username }, ctx: {prisma: Prisma}, info) => {
+    messagesReceived: (_, { username }, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.messages({ where: { recipient: { username }, expired: false } }, info);
     },
     questions: (_, __, ctx, info) => {

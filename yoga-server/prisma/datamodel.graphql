@@ -1,34 +1,34 @@
 type User {
- id: ID! @unique
- username: String! @unique
- email: String! @unique
- uid: String @unique
- linkedInEmail: String @unique
- linkedInId: String @unique
- tags: [String!]!
- image: String
- industry: String
- ranking: Int @default(value:"0")
- description: String
- coins: Int @default(value: "0")
- inSession: Boolean
- online: Boolean
- privacy: String
- reviews: String
- dailyClaimed: Boolean
- debt: Int @default(value:"0")
- sentMessages: [Message!]! @relation(name: "SendingUser")
- receivedMessages: [Message!]! @relation(name: "RecievingUser")
- questionsAsked: [Question!]! @relation(name: "AskingUser")
- questionsAnswered: [Question!]! @relation(name: "AnswerUser")
- sessionPupil: [Session!]! @relation(name: "PupilSessions")
- sessionExpert: [Session!]! @relation(name: "UserSessions")
+  id: ID! @unique
+  username: String! @unique
+  email: String! @unique
+  uid: String @unique
+  linkedInEmail: String @unique
+  linkedInId: String @unique
+  tags: [String!]!
+  image: String
+  industry: String
+  ranking: Int @default(value:"0")
+  description: String
+  coins: Int @default(value: "0")
+  inSession: Boolean
+  online: Boolean 
+  privacy: String
+  reviews: String
+  dailyClaimed: Boolean
+  debt: Int @default(value:"0")
+  sentMessages: [Message!]! @relation(name: "SendingUser")
+  receivedMessages: [Message!]! @relation(name: "ReceivingUser")
+  questionsAsked: [Question!]! @relation(name: "AskingUser")
+  questionsAnswered: [Question!]! @relation(name: "AnswerUser")
+  sessionPupil: [Session!]! @relation(name: "PupilSessions")
+  sessionExpert: [Session!]! @relation(name: "UserSessions")
 }
 
 type Message {
   id: ID! @unique
   sender: User @relation(name: "SendingUser")
-  recipient: User @relation(name: "RecievingUser")
+  recipient: User @relation(name: "ReceivingUser")
   title: String
   message: String
   read: Boolean @default(value: false)

@@ -21,11 +21,10 @@ export default class SessionModal extends Component {
   render() { 
     const { user, question } = this.props;
     return (
-        <React.Fragment>
-          {console.log('session modal',this.props)}
+        <div>
         {user 
           ? 
-          <React.Fragment>
+          <div>
             <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
               PICK ME
             </Button>
@@ -46,21 +45,21 @@ export default class SessionModal extends Component {
                   <div className="hexBottom centered" />
                 </div>
                 <div><h2></h2></div>
-                <Well>{question.description}</Well>
+                <p>{question.description}</p>
               </Modal.Body>
               <Modal.Footer className="centered ">
 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : {connect: { username: question.user.username}}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
                     // <span>{question.text && <Link to={`${match.url}/discussion/text/${question.username}`}><Button onClick={()=>console.log('text clicked')} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
                     <span>{question.text && <Button onClick={() => {
                       createSession()
-                    this.setState({ show: false }, () => console.log('session was created'))}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
+                      this.setState({ show: false }, () => console.log('session was created'))}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
                     }</span>
                   )}
                 </Mutation>
                 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: { connect: { username: user.username}}, pupil : {connect: { username: question.user.username}}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
                     <span>{question.video && <Button onClick={() => {
                       createSession()
@@ -70,11 +69,11 @@ export default class SessionModal extends Component {
                 </Mutation>
               </Modal.Footer>
             </Modal>
-          </React.Fragment>
+          </div>
           :
           <div></div>
           }
-          </React.Fragment> 
+          </div> 
         
     );
   }

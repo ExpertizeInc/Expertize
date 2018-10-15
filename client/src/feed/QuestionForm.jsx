@@ -64,7 +64,7 @@ export default class QuestionForm extends Component {
     }
   }
   render() {
-    const { user } = this.props;
+    const { user, client } = this.props;
     const {
       description,
       tags,
@@ -79,7 +79,8 @@ export default class QuestionForm extends Component {
       // modularize questions
       <Grid>
         <Row>
-          <Col xsOffset={4} xs={6} md={4}>
+          <Col xs={6} md={4}>
+          {console.log(user)}
             <Form className="form-panel-signup centered" horizontal>
               {/* {questionInfo.map((question, i) => (
                 <FormGroup
@@ -115,13 +116,13 @@ export default class QuestionForm extends Component {
                 </Col>
                 <Col>
                   <ButtonGroup>
-                    <Button className={'mode-toggle'} onClick={() => this.setDuration(-5)} value="-" key="-">
+                    <Button className={'mode-toggle btn-white'} onClick={() => this.setDuration(-5)} value="-" key="-">
                       -
                     </Button>
-                    <Button  className={'mode-toggle'} value={this.state.duration} key="test">
+                    <Button  className={'mode-toggle btn-white'} value={this.state.duration} key="test">
                      {this.state.duration} minutes
                     </Button>
-                    <Button className={'mode-toggle'} onClick={() => this.setDuration(5)} value="+"  key="+">
+                    <Button className={'mode-toggle btn-white'} onClick={() => this.setDuration(5)} value="+"  key="+">
                       +
                     </Button>
                   </ButtonGroup>
@@ -155,18 +156,18 @@ export default class QuestionForm extends Component {
                   <h5>
                     {tags.length > 1 ? tags.map(tag => <Badge>{tag}</Badge>) : <Badge>{tags}</Badge>}
                   </h5>
-                  <TagDropdown userId={user ? user.id : ''} addTags={this.addTags} />
+                  <TagDropdown userId={user ? user.id : ''} client={client} addTags={this.addTags} />
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col className="centered">
                   <h5 className="centered">This will cost: {user.debt > 0 ? 2 + user.debt : 2} <Image style={{ width: "20px" }} src="../images/coin.gif"></Image></h5>
-                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="./images/coin.gif"></Image></h5>
+                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="../images/coin.gif"></Image></h5>
                   <Mutation
                     mutation={ CREATE_QUESTION }
                     variables={{
                       id: user.id,
-                      user: { connect: { username: user ? user.username : '' }},
+                      user: { connect: { username: user.username }},
                       description,
                       tags,
                       debt: user.coins >= (user.debt > 0 ? 2 + user.debt : 2) ? 0 : user.coins - (user.debt > 0 ? 2 + user.debt : 2) - user.debt,
