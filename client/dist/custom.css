@@ -169,12 +169,11 @@ color: white;
   color: black;
 }
 
-/* ===== DROPDOWN ====== */
-
-.Select-option:nth-child(n+6) {
-  display: none;
-}
-.dropdown-menu {
-  height: 70px;
-  overflow-y: scroll;
+/* ===== online status ====== */
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
 }

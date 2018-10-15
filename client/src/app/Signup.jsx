@@ -83,7 +83,10 @@ export default class Signup extends Component {
                       </FormGroup>
                     ))}
                       <Button 
-                        onClick={e => this.submitSignUp(e, (uid) => createUser({ variables: { username, email, uid } }))} 
+                        onClick={e => {
+                          localStorage.setItem('fbOrLi', 'firebase')
+                          this.submitSignUp(e, (uid) => createUser({ variables: { username, email, uid } }))
+                        }} 
                         type="submit"
                       >
                         Create An Account

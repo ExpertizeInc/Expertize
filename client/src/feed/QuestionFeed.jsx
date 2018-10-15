@@ -41,6 +41,7 @@ export default class QuestionFeed extends Component {
             if (error) return <div> Error {console.log(error)} </div>;
             return (
               <div>
+                {console.log(data, 'QUESTION DATA')}
               {data.questions.map((question, i) => <QuestionFeedItem question={question} user={user} match={match} key={i} />)}
               </div>
             )}}

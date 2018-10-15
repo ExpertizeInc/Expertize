@@ -5,6 +5,8 @@ import SessionModal from '../sessions/SessionModal.jsx'
 import { Col, Button, Panel, Grid, Row, Glyphicon, Badge } from "react-bootstrap";
 import greenCircle from '../../dist/images/green_circle.png';
 import redCircle from '../../dist/images/red_circle.png';
+import { Query } from 'react-apollo';
+import { GET_USER_BY_USERNAME } from '../apollo/gql.js';
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
@@ -21,12 +23,19 @@ export default class QuestionFeedItem extends Component {
   render() {
     const { question, user, match } = this.props
     const { show } = this.state;
+    const greyCircle = <span className="dot"></span>
     return (
       <Panel>
       <QuickView user={user} show={show} toggleShow={this.toggleShow} />
         <Panel.Heading>
           <Panel.Title componentClass="h3">
-           <strong>{question.title}</strong><p>{}</p>
+           <strong>{question.title}</strong> 
+           {question 
+           ?
+          <img src={question.user.online === true ? greenCircle : redCircle} alt={question.user.online === true ? 'online' : 'offline'}/>
+          :
+          ''
+          }
           </Panel.Title>
         </Panel.Heading>
         <Panel.Body>
@@ -46,23 +55,15 @@ export default class QuestionFeedItem extends Component {
                     : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
                   }</span>
                 </div>
-              
               </Col>
               <Col sm={3}>{question.description}
-              {question.tags.length > 1 ? question.tags.map((tag, i) => <Badge>{tag}</Badge>)
-              : 
-              <Badge>{question.tags}</Badge>} </Col>
-              {/* <Col sm={3}>
-                <div>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
-                  : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
-                }</div>
-                <div>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                  : <Button className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                }</div>
-                <div>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                  : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                }</div>
-              </Col> */}
+              {question.tags.length > 1 
+                ? 
+                question.tags.map(tag => <Badge key={tag}>{tag}</Badge>)
+                : 
+                <Badge>{question.tags}</Badge>
+              } 
+              </Col>
               <Col sm={1}>
                 <SessionModal match={match} question={question} user={user} />
               </Col>
