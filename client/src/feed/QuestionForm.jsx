@@ -115,13 +115,13 @@ export default class QuestionForm extends Component {
                 </Col>
                 <Col>
                   <ButtonGroup>
-                    <Button className={'mode-toggle'} onClick={() => this.setDuration(-5)} value="-" key="-">
+                    <Button className={'mode-toggle btn-white'} onClick={() => this.setDuration(-5)} value="-" key="-">
                       -
                     </Button>
-                    <Button  className={'mode-toggle'} value={this.state.duration} key="test">
+                    <Button  className={'mode-toggle btn-white'} value={this.state.duration} key="test">
                      {this.state.duration} minutes
                     </Button>
-                    <Button className={'mode-toggle'} onClick={() => this.setDuration(5)} value="+"  key="+">
+                    <Button className={'mode-toggle btn-white'} onClick={() => this.setDuration(5)} value="+"  key="+">
                       +
                     </Button>
                   </ButtonGroup>
@@ -161,7 +161,7 @@ export default class QuestionForm extends Component {
               <FormGroup>
                 <Col className="centered">
                   <h5 className="centered">This will cost: {user.debt > 0 ? 2 + user.debt : 2} <Image style={{ width: "20px" }} src="../images/coin.gif"></Image></h5>
-                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="./images/coin.gif"></Image></h5>
+                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="../images/coin.gif"></Image></h5>
                   <Mutation
                     mutation={ CREATE_QUESTION }
                     variables={{

@@ -48,7 +48,6 @@ type User {
   session: [Session!]!
 }
 
-
 type Session {
   id: ID!
   question: Question
@@ -84,6 +83,7 @@ type Question {
   video: Boolean!
   duration: Int!
   answeredBy: User
+  createdAt: DateTime!
 }
 
 type Message {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo';
 import { CREATE_MESSAGE, GET_ALL_MESSAGES } from '../apollo/gql.js'
-import { Form, FormGroup, InputGroup, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, Row, Col, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -26,21 +26,23 @@ class MessageForm extends Component {
     let { title, message, recipient } = this.state
     let { user } = this.props
     return (
-      <Form inline>
-        <FormGroup bsSize="small">
+      <Form>
+        <FormGroup>
           <div>To<FormControl onChange={(e) => this.onChange(e, 'recipient')} value={this.state.recipient} type="text" /></div>
-          <div>Subject<FormControl onChange={(e) => this.onChange(e, 'title')} value={this.state.title} type="text" /></div>
-          <div>Message<FormControl onChange={(e) => this.onChange(e, 'message')} value={this.state.message} type="text" /></div>
+          <div>Subject<FormControl  onChange={(e) => this.onChange(e, 'title')} value={this.state.title} type="text" /></div>
+          <div>Message<FormControl  onChange={(e) => this.onChange(e, 'message')} value={this.state.message} type="text" /></div>
           <Mutation
             mutation={CREATE_MESSAGE}
             variables={{ title, message, recipient: { connect: { username: recipient } }, sender: { connect: { username: user.username } } }}
             refetchQueries={() => [{ query: GET_ALL_MESSAGES, variables: { username: user.username } }]}
-            >
+            onComplete={() => this.setState({ title: '', message: '', recipient: ''})}>
             {createMessage => {
               return (
+                <Row>
+                <Col xsOffset={3} sm={3}>
                 <Link to="/home/inbox">
                   <Button className="btn-2g bttn" onClick={createMessage}>Send</Button>
-                </Link>
+                </Link></Col></Row>
               );
             }}
         </Mutation>

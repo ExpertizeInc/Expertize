@@ -18,7 +18,7 @@ type User {
   dailyClaimed: Boolean
   debt: Int @default(value:"0")
   sentMessages: [Message!]! @relation(name: "SendingUser")
-  receivedMessages: [Message!]! @relation(name: "ReceivingUser")
+  receivedMessages: [Message!]! @relation(name: "RecievingUser")
   questionsAsked: [Question!]! @relation(name: "AskingUser")
   questionsAnswered: [Question!]! @relation(name: "AnswerUser")
   sessionPupil: [Session!]! @relation(name: "PupilSessions")
@@ -28,28 +28,26 @@ type User {
 type Message {
   id: ID! @unique
   sender: User @relation(name: "SendingUser")
-  recipient: User @relation(name: "ReceivingUser")
-  title: String
+  recipient: User @relation(name: "RecievingUser")
   message: String
-  read: Boolean @default(value: false)
-  expired: Boolean @default(value: false)
+  read: Boolean
   createdAt: DateTime!
 }
 
 type Session {
- id: ID! @unique
- type: String!
- question: Question
- expert: User @relation(name: "UserSessions")
- pupil: User @relation(name: "PupilSessions")
- duration: Int
- accepted: Boolean
- completed: Boolean
- startedAt: DateTime
- endedAt: DateTime
- scheduledFor: DateTime
- createdAt: DateTime!
- updatedAt: DateTime!
+  id: ID! @unique
+  type: String!
+  question: Question
+  expert: User @relation(name: "UserSessions")
+  pupil: User @relation(name: "PupilSessions")
+  duration: Int
+  accepted: Boolean
+  completed: Boolean
+  startedAt: DateTime
+  endedAt: DateTime
+  scheduledFor: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Tag {
@@ -58,17 +56,17 @@ name: String! @unique
 }
 
 type Question {
- id: ID! @unique
- user: User @relation(name: "AskingUser")
- tags: [String!]
- description: String!
- coins: Int @default(value: "2")
- active: Boolean
- title: String!
- text: Boolean!
- audio: Boolean!
- video: Boolean!
- duration: Int! @default(value: "5")
- answeredBy: User @relation(name: "AnswerUser")
- createdAt: DateTime!
+  id: ID! @unique
+  user: User @relation(name: "AskingUser")
+  tags: [String!]
+  description: String!
+  coins: Int @default(value: "2")
+  active: Boolean
+  title: String!
+  text: Boolean!
+  audio: Boolean!
+  video: Boolean!
+  duration: Int! @default(value: "5")
+  answeredBy: User @relation(name: "AnswerUser")
+  createdAt: DateTime!
 }

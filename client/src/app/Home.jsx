@@ -6,6 +6,7 @@ export default class Home extends Component {
     super(props);
     this.state = { authenticated: false };
   }
+
   render() {
     return (
       <div>

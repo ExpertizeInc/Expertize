@@ -9,7 +9,8 @@ import 'dotenv/config'
 
 const resolvers = {
   Query: {
-    user: (parent: {user: User}, {uid}, ctx: {prisma: Prisma}, info) => {
+    user: (parent, {uid}, ctx: {prisma: Prisma}, info) => {
+      console.log(uid, 'asd')
       return ctx.prisma.query.user({ where: {uid} }, info);
     },
     users: (_, __, ctx: {prisma: Prisma}, info) => {
@@ -42,13 +43,13 @@ const resolvers = {
     // sessionsWhereRejectedExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
     //   return ctx.prisma.query.sessions({ where: { accepted: false, completed: null, expert: { username } }}, info);
     // },
-    sessionsForExpert: (_, { username }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.query.sessions({ where: { accepted: !null , completed: null, expert: { username } }}, info);
+    sessionsForExpert:  (_, { username }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({ where: { accepted_not: null , completed: null, expert: { username } }}, info);
     }
   },
   Mutation: {
     createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.mutation.createUser({ data: { username, email, uid } }), info;
+      return ctx.prisma.mutation.createUser({ data: { username, email, uid } }, info);
     },
     createMessage: (_, { title, sender, recipient, message }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.createMessage({ data: { title, sender, recipient, message } }), info;
@@ -87,7 +88,11 @@ const resolvers = {
     }
   },
 }
-
+const prisma = new Prisma({
+  endpoint: process.env.PRISMA_ENDPOINT,
+  secret: process.env.PRISMA_SECRET,
+  debug: true
+ })
 
 const server = new GraphQLServer({
   typeDefs: 'yoga-server/src/schema.graphql',
@@ -95,11 +100,6 @@ const server = new GraphQLServer({
   context: async req => {
     const userId = getUserIdFromRequest(req);
     let user;
-    const prisma = new Prisma({
-     endpoint: process.env.PRISMA_ENDPOINT,
-     secret: process.env.PRISMA_SECRET,
-     debug: true
-    })
     if (userId) {
       user = await prisma.query.user({ where: { id: userId }});
     }

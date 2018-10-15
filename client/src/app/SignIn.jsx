@@ -1,41 +1,20 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Col, Button, ControlLabel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Row } from 'react-bootstrap';
 import LinkedInLogin from './LinkedInLogin.jsx';
 
 export default class Signin extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-        email:'',
-        password: ''
-    }
-    this.onChange = this.onChange.bind(this)
-    this.submitSignIn = this.submitSignIn.bind(this)
+    this.state = { email: '', password: '' };
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange(e, type) {
-    e.preventDefault()
-    this.setState({
-      [type]: e.target.value
-    })
-  }
-
-  submitSignIn(e) {
-    //send to firebase/server
-    e.preventDefault()
-    console.log('submitting sign in to firebase')
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then(() => this.props.history.push('/home'))
-    .catch(error => {
-      let errorCode = error.code;
-      let errorMessage = error.message;
-      console.error('error code:',errorCode, 'with message: ', errorMessage)
-      window.alert('incorrect username/password')
-    });
+    e.preventDefault();
+    this.setState({ [type]: e.target.value });
   }
 
   render() {
-    let { signInLI } = this.props
     return (
       <div>
         <Form className="form-panel-signup" horizontal>
@@ -44,7 +23,11 @@ export default class Signin extends Component {
               Email
             </Col>
             <Col sm={3}>
-              <FormControl onChange={(e) => this.onChange(e, 'email')} type="email" placeholder="Email" />
+              <FormControl
+                onChange={e => this.onChange(e, 'email')}
+                type="email"
+                placeholder="Email"
+              />
             </Col>
           </FormGroup>
           <FormGroup controlId="formHorizontalPassword">
@@ -52,17 +35,23 @@ export default class Signin extends Component {
               Password
             </Col>
             <Col sm={3}>
-              <FormControl onChange={(e) => this.onChange(e, 'password')} type="password" placeholder="Password" />
+              <FormControl
+                onChange={e => this.onChange(e, 'password')}
+                type="password"
+                placeholder="Password"
+              />
             </Col>
           </FormGroup>
           <FormGroup>
-            <Col smOffset={6} sm={3}>
-              <Button onClick={this.submitSignIn} type="submit">Log In</Button>
-            </Col>
+            <Row>
+              <Col smOffset={6} sm={3}>
+                <Button onClick={(e) => this.props.fbSignIn(e, this.state.email, this.state.password)} type="submit">Log In</Button>
+                <br/><LinkedInLogin authenticateLinkedInUser={this.props.authenticateLinkedInUser}/>
+              </Col>
+            </Row>
           </FormGroup>
         </Form>
-        <LinkedInLogin signInLI={(e) => {signInLI(e)}} text="LINKEDIN SIGNIN"/>
       </div>
     );
   }
-};
+}

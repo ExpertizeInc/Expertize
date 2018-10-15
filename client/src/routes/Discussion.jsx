@@ -11,7 +11,6 @@ import ChatBox from '../sessions/ChatBox.jsx'
 export default class Discussion extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
   }
 
   render() {

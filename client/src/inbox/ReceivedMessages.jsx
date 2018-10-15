@@ -3,7 +3,7 @@ import Moment from 'react-moment';
 import { Panel, PanelGroup } from 'react-bootstrap';
 
 const ReceivedMessages = (props) => (
-  <PanelGroup accordion>
+  <PanelGroup id="receive-panel" accordion>
     {props.messages.map((message, i) => (
       <Panel eventKey={i + 1}>
       <Panel.Heading className="link-alt-blk">

@@ -77,10 +77,10 @@
   top: 6px;
 }
 
+/* ========= Input ========== */
 
 textarea, input, .form-control {
   -webkit-appearance: none;
-  /* outline: none; */
   outline-style:none;
   box-shadow: none;
   border-radius: 0px !important;
@@ -93,6 +93,27 @@ input:focus, .btn:focus, .form-control:focus {
   outline-style:none;
   border-radius: 0px;
   box-shadow:none;
+}
+
+.form-control {
+  background-color: transparent;
+  color:white;
+}
+
+.form-inline {
+  width: 100% !important
+}
+
+.form-group {
+  width: 100% !important;
+}
+
+.input-group {
+  width: 100% !important;
+}
+
+.form-control {
+  width: 100% !important;
 }
 
 .footer {
@@ -120,4 +141,17 @@ color: white;
 
 .link-alt {
   background-color: #13c8d9;
+}
+
+.btn-white {
+  background-color: #fcfcfc;
+}
+
+/* ===== OVERRIDE ====== */
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  background-color: #13c8d9;
+}
+
+.panel {
+  color: black;
 }

@@ -1,15 +1,14 @@
-# endpoint: http://localhost:4467
 endpoint: https://us1.prisma.sh/alon-bibring-d051d8/expertizedb/dev
-datamodel: datamodel.graphql
+datamodel: datamodel.prisma
 secret: mysecret123
-
 generate:
-  - generator: typescript-client
+  - generator: javascript-client
     output: ./generated
 
 hooks:
   post-deploy:
     - prisma generate
     - graphql get-schema --project database
-    - graphql codegen
     - graphql prepare
+
+    

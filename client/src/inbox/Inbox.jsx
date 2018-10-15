@@ -21,10 +21,9 @@ export default class Inbox extends Component {
           <Row className="clearfix">
             <Col xs={6} md={3}>
               <Nav bsStyle="pills" stacked>
-                <NavItem className="link-alt" eventKey="first">Inbox</NavItem>
-                <NavItem className="link-alt" eventKey="second">Recieved</NavItem>
-                <NavItem className="link-alt" eventKey="third">Sent</NavItem>
-                <NavItem className="link-alt" eventKey="fourth">Compose</NavItem>
+                <NavItem className="link-alt" eventKey="first">Recieved</NavItem>
+                <NavItem className="link-alt" eventKey="second">Sent</NavItem>
+                <NavItem className="link-alt" eventKey="third">Compose</NavItem>
               </Nav>
             </Col>
             <Query query={GET_ALL_MESSAGES} variables={{ username: user.username }}>
@@ -34,10 +33,10 @@ export default class Inbox extends Component {
                 return (
                   <Col sm={9}>
                     <Tab.Content animation>
-                      <Tab.Pane eventKey="first">Tab 1 content</Tab.Pane>
-                      <Tab.Pane eventKey="second"><ReceivedMessages messages={data.messagesReceived} /></Tab.Pane>
-                      <Tab.Pane eventKey="third"><SentMessages messages={data.messagesSent} /></Tab.Pane>
-                      <Tab.Pane eventKey="fourth"><MessageForm user={user} /></Tab.Pane>
+                      <Tab.Pane eventKey="first"><ReceivedMessages messages={data.messagesReceived} /></Tab.Pane>
+                      <Tab.Pane eventKey="second"><SentMessages messages={data.messagesSent} /></Tab.Pane>
+                      <Tab.Pane eventKey="third"><MessageForm user={user} /></Tab.Pane>
+
                     </Tab.Content>
                   </Col>)
               }}
