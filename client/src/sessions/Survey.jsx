@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { UPDATE_USER_INFO } from '../apollo/gql.js'
 
 class Survey extends Component {
   constructor(props) {

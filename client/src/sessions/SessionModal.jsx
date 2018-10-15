@@ -22,7 +22,7 @@ class SessionModal extends Component {
     const { user, question } = this.props;
     return (
         <React.Fragment>
-          {console.log(this.props)}
+          {console.log('sessioinmodal',this.props)}
         {user 
           ? 
           <React.Fragment>
@@ -37,7 +37,7 @@ class SessionModal extends Component {
             >
               <Modal.Header closeButton>
                 <Modal.Title>
-                  Begin your discussion with {question.user} - SessionModal.jsx
+                  Begin your discussion with {question.user.username} - SessionModal.jsx
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -50,7 +50,7 @@ class SessionModal extends Component {
               </Modal.Body>
               <Modal.Footer className="centered ">
 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : {connect: { username: question.user}}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : {connect: { username: question.user.username}}}}>
                   {createSession => (
                     // <span>{question.text && <Link to={`${match.url}/discussion/text/${question.username}`}><Button onClick={()=>console.log('text clicked')} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
                     <span>{question.text && <Button onClick={() => {createSession()
@@ -59,7 +59,7 @@ class SessionModal extends Component {
                   )}
                 </Mutation>
                 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : {connect: { username: question.user}}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : {connect: { username: question.user.username}}}}>
                   {createSession => (
                     <span>{question.video && <Button onClick={() => {createSession()
                       this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="comment" />Send request to video chat</Button>
@@ -70,7 +70,7 @@ class SessionModal extends Component {
             </Modal>
           </React.Fragment>
           :
-          <div />
+          <div></div>
           }
           </React.Fragment> 
         

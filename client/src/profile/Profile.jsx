@@ -54,7 +54,7 @@ export default class Profile extends Component {
                   </Col>
                   <Col xs={6} md={4}>
                     <Thumbnail className="centered">
-                    <h3>4</h3>
+                    <h3>{user.questions && user.quetions.length ? user.questions.length : 0}</h3>
                     Questions asked
                   </Thumbnail>
                   </Col>

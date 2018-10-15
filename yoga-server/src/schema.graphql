@@ -40,7 +40,7 @@ type User {
   inSession: Boolean
   online: Boolean
   dailyClaimed: Boolean
-  questions: [Question!]!
+  questions: [Question!]
   debt: Int
   coins: Int 
   ranking: Int
@@ -92,6 +92,7 @@ type Message {
   message: String
   read: Boolean
   createdAt: DateTime!
+  title: String!
 }
 
 input UserCreateOneInput {

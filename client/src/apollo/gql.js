@@ -121,6 +121,9 @@ query user($uid: String!) {
     online
     dailyClaimed
     debt
+    questions {
+      title
+    }
   }
 }
 `;

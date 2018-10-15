@@ -29,14 +29,15 @@ export default class App extends React.Component {
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
     console.log('YES', userId, authType)
-    if (userId !== 'null') {
+    if (userId !== null) {
+      console.log('userid check???')
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase') {
       this.checkFirebaseUser();
     } else if (authType === 'linkedIn') {
       this.checkLinkedInUser();
     } else {
-
+      console.log('didnt find anything')
     }
   }
 
@@ -51,6 +52,7 @@ export default class App extends React.Component {
             // if (data.user.dailyClaimed === false) {
             //   show popup to let them claim 1 coin freebie 
             // }
+            console.log('data.user', data.user)
             history.push('/home')
           })
         })
