@@ -106,11 +106,7 @@ input:focus, .btn:focus, .form-control:focus {
 
 .form-control {
   background-color: transparent;
-<<<<<<< HEAD
   color:black;
-=======
-  color:grey;
->>>>>>> dev
 }
 
 .form-inline {
