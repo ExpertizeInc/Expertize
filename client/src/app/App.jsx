@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-// import Particles from "react-particles-js";
-// import params from "../particles.js";
+import Particles from "react-particles-js";
+import params from "../particles.js";
 import { Query } from 'react-apollo';
 import { GET_USER_UID, CREATE_USER } from "../apollo/gql.js";
 import Footer from './Footer.jsx';
@@ -114,7 +114,8 @@ export default class App extends React.Component {
     localStorage.setItem('userId', user.uid || user.id);
     localStorage.setItem('fbOrLi', 'firebase');
     localStorage.setItem('timestamp', Date.now());
-    this.setState({ authenticated: true, user }, () => history.push("/home"));
+    console.log('ugh', user)
+    this.setState({ authenticated: true, uid: user.uid, user }, () => history.push("/home"));
   }
 
   firebaseSignIn(e, email, password) {
@@ -156,14 +157,12 @@ export default class App extends React.Component {
           // backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
         }} /> */}
         {(authenticated && !user) && 
-            <Query query={ GET_USER_UID } variables={{ uid: this.state.uid.toString() }} >
+            <Query query={ GET_USER_UID } variables={{ uid: this.state.uid }} >
               {({ loading, error, data, refetch, networkStatus }) => {
-                if (loading) return <div>Loading...</div>;
-                if (error) return <div>Error{console.log(error)}</div>;
+                if (loading) return <div></div>;
+                if (error) return <div>{console.log(error)}</div>;
                 return (
                   <div>
-                    Ok
-                  {/* {console.log('????', data)} */}
                     {this.setState({ user: data.user })}
                   </div>
                 );
