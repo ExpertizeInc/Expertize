@@ -3,6 +3,8 @@ import QuickView from './QuickView.jsx';
 import Moment from 'react-moment';
 import SessionModal from '../sessions/SessionModal.jsx'
 import { Col, Button, Panel, Grid, Row, Glyphicon, Badge } from "react-bootstrap";
+import greenCircle from '../../dist/images/green_circle.png';
+import redCircle from '../../dist/images/red_circle.png';
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
@@ -17,13 +19,14 @@ export default class QuestionFeedItem extends Component {
 
 
   render() {
-    let { question, user, match } = this.props
+    const { question, user, match } = this.props
+    const { show } = this.state;
     return (
       <Panel>
-      <QuickView user={user} show={this.state.show} toggleShow={this.toggleShow} />
+      <QuickView user={user} show={show} toggleShow={this.toggleShow} />
         <Panel.Heading>
           <Panel.Title componentClass="h3">
-           <strong>{question.title}</strong>
+           <strong>{question.title}</strong><p>{}</p>
           </Panel.Title>
         </Panel.Heading>
         <Panel.Body>
@@ -32,16 +35,17 @@ export default class QuestionFeedItem extends Component {
                 <img src='http://placecorgi.com/150' onClick={() => this.toggleShow()} />
            
                 <span className="centered" onClick={() => this.toggleShow()}><h4>{question.user.username}</h4></span>
-           <div className="centered">
-                <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
-                  : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
-                }</span>
-                <span>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                  : <Button className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                }</span>
-                <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                  : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                }</span></div>
+                <div className="centered">
+                  <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
+                    : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
+                  }</span>
+                  <span>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
+                    : <Button className="round-btn"><Glyphicon glyph="earphone" /></Button>
+                  }</span>
+                  <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
+                    : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
+                  }</span>
+                </div>
               
               </Col>
               <Col sm={3}>{question.description}

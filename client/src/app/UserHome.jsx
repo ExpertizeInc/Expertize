@@ -19,11 +19,8 @@ import { isNull } from 'util';
 export default class UserHome extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      session: [],
-      dailyShow: true
-    }
-    this.toggleDaily = this.toggleDaily.bind(this)
+    this.state = { session: [], dailyShow: true }
+    this.toggleDaily = this.toggleDaily.bind(this);
   }
 
   toggleDaily() {
