@@ -14,8 +14,8 @@ type Query {
 }
 
 type Mutation {
-   createUser(email: String!, uid: String!, username: String!): User
-   updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, coins: Int, tags: [String], username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int, ranking: Int): User
+   createUser(email: String!, uid: String!, username: String!, linkedProfile: String): User
+   updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, linkedProfile: String, coins: Int, tags: [String], username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int, ranking: Int): User
    updateManyUsers(dailyClaimed: Boolean): BatchPayload!
    createMessage(title: String, sender: UserCreateOneInput, recipient: UserCreateOneInput, message: String): Message
    updateManyMessages: BatchPayload!
@@ -39,6 +39,7 @@ type User {
   tags: [String!]
   description: String
   inSession: Boolean
+  linkedProfile: String
   online: Boolean
   dailyClaimed: Boolean
   questions: [Question!]

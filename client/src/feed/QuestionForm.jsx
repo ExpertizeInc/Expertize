@@ -64,7 +64,7 @@ export default class QuestionForm extends Component {
     }
   }
   render() {
-    const { user } = this.props;
+    const { user, client } = this.props;
     const {
       description,
       tags,
@@ -80,6 +80,7 @@ export default class QuestionForm extends Component {
       <Grid>
         <Row>
           <Col xs={6} md={4}>
+          {console.log(user)}
             <Form className="form-panel-signup centered" horizontal>
               {/* {questionInfo.map((question, i) => (
                 <FormGroup
@@ -155,7 +156,7 @@ export default class QuestionForm extends Component {
                   <h5>
                     {tags.length > 1 ? tags.map(tag => <Badge>{tag}</Badge>) : <Badge>{tags}</Badge>}
                   </h5>
-                  <TagDropdown userId={user ? user.id : ''} addTags={this.addTags} />
+                  <TagDropdown userId={user ? user.id : ''} client={client} addTags={this.addTags} />
                 </Col>
               </FormGroup>
               <FormGroup>
