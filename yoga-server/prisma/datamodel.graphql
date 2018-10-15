@@ -12,7 +12,7 @@ type User {
   description: String
   coins: Int @default(value: "0")
   inSession: Boolean
-  online: Boolean
+  online: Boolean 
   privacy: String
   reviews: String
   dailyClaimed: Boolean

@@ -97,7 +97,7 @@ input:focus, .btn:focus, .form-control:focus {
 
 .form-control {
   background-color: transparent;
-  color:white;
+  color:grey;
 }
 
 .form-inline {
@@ -154,4 +154,14 @@ color: white;
 
 .panel {
   color: black;
+}
+
+/* ===== DROPDOWN ====== */
+
+.Select-option:nth-child(n+6) {
+  display: none;
+}
+.dropdown-menu {
+  height: 70px;
+  overflow-y: scroll;
 }

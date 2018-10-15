@@ -36,16 +36,17 @@ export default class QuestionFeed extends Component {
             if (loading) return <div>Q Loading...</div>;
             if (error) return <div> Error {console.log(error)} </div>;
             return (
-            <div>
-                  <Button>
-                    <Glyphicon glyph="pencil" />
-                    <Link to={`${match.url}/create`}> Create</Link>
-                  </Button>
-               {data.questions.map((question, i) => <QuestionFeedItem question={question} user={user} match={match} key={i} /> )}
-
-            </div>)
+              <div>
+                <Button>
+                  <Glyphicon glyph="pencil" />
+                  <Link to={`${match.url}/create`}>Create</Link>
+                </Button>
+                {data.questions.map((question, i) => <QuestionFeedItem question={question} user={user} match={match} key={i} /> )}
+              </div>
+            )
           }}
         </Query>
+ 
     )
   }
 }

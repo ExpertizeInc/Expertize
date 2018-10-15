@@ -5,7 +5,7 @@ import { CREATE_SESSION } from '../apollo/gql.js';
 import { connect } from 'tls';
 
 
-class SessionModal extends Component {
+export default class SessionModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,18 +49,20 @@ class SessionModal extends Component {
               </Modal.Body>
               <Modal.Footer className="centered ">
 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : {connect: { username: question.user.username }}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
                     // <span>{question.text && <Link to={`${match.url}/discussion/text/${question.username}`}><Button onClick={()=>console.log('text clicked')} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
-                    <span>{question.text && <Button onClick={() => {createSession()
-                    this.setState({ show: false }, () => console.log('session was created'))}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
+                    <span>{question.text && <Button onClick={() => {
+                      createSession()
+                      this.setState({ show: false }, () => console.log('session was created'))}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
                     }</span>
                   )}
                 </Mutation>
                 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : {connect: { username: question.user.username }}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
-                    <span>{question.video && <Button onClick={() => {createSession()
+                    <span>{question.video && <Button onClick={() => {
+                      createSession()
                       this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="comment" />Send request to video chat</Button>
                     }</span>
                   )}
@@ -69,12 +71,10 @@ class SessionModal extends Component {
             </Modal>
           </div>
           :
-          <div />
+          <div></div>
           }
           </div> 
         
     );
   }
-}
-
-export default SessionModal
+};

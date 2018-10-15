@@ -17,6 +17,7 @@ export default class Signin extends Component {
   render() {
     return (
       <div>
+        {console.log(this.props)}
         <Form className="form-panel-signup" horizontal>
           <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} sm={5}>
