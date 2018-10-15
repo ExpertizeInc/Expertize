@@ -38,6 +38,7 @@ type User {
   tags: [String!]
   description: String
   inSession: Boolean
+  linkedProfile: String
   online: Boolean
   dailyClaimed: Boolean
   questions: [Question!]!
