@@ -11,7 +11,7 @@ const DailyNotification = (props) => (
     </Modal.Header>
     <Modal.Body>
       <h4>{dailyMessage[Math.floor(Math.random() * 6)].message}</h4>
-      <div><Image src="../../dist/images/coin.gif" style={{ width: "50px" }} /></div>
+      <div><Image src="../../images/coin.gif" style={{ width: "50px" }} /></div>
       <Mutation mutation={ UPDATE_USER_INFO } variables={{ id: props.user.id, coins: props.user.coins + 1, dailyClaimed: true }}>
       {updateUser => <Button className="btn-2g bttn" onClick={() => {
         updateUser()

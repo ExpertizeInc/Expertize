@@ -16,10 +16,10 @@ const resolvers = {
     users: (_, __, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.users({}, info);
     },
-    messagesWhereSender: (_, { username }, ctx: {prisma: Prisma}, info) => {
+    messagesSent: (_, { username }, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.messages({ where: { sender: { username }, expired: false } }, info);
     },
-    messagesWhereRecipient: (_, { username }, ctx: {prisma: Prisma}, info) => {
+    messagesReceived: (_, { username }, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.messages({ where: { recipient: { username }, expired: false } }, info);
     },
     questions: (_, __, ctx, info) => {
@@ -59,9 +59,15 @@ const resolvers = {
         data: { user, tags: { set: tags }, description, coins, title, text, audio, video, duration }
       }, info);
     },
-    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
+    updateQuestion: (_, { id, answeredBy, description, tags, coins, title, text, audio, video, duration }, ctx, info) => {
+      return ctx.prisma.mutation.updateQuestion({ 
+        data: { answeredBy, description, tags, coins, title, text, audio, video, duration },
+        where: { id }
+      }, info)
+    }, 
+    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image, ranking }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
-        data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image },
+        data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image, ranking },
         where: { id } 
       }, info);
     },

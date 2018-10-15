@@ -2,8 +2,8 @@ type Query {
   user(uid: String!): User!
   tags: [Tag!]!
   users: [User]!
-  messagesWhereSender(username: String!): [Message]
-  messagesWhereRecipient(username: String!): [Message]
+  messagesSent(username: String!): [Message]
+  messagesReceived(username: String!): [Message]
   questions: [Question]!
   questionsByUser(username: String!): [Question]
   sessions: [Session!]!
@@ -15,7 +15,7 @@ type Query {
 
 type Mutation {
    createUser(email: String!, uid: String!, username: String!): User
-   updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, coins: Int, tags: [String], username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int): User
+   updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, coins: Int, tags: [String], username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int, ranking: Int): User
    updateManyUsers(dailyClaimed: Boolean): BatchPayload!
    createMessage(title: String, sender: UserCreateOneInput, recipient: UserCreateOneInput, message: String): Message
    updateManyMessages: BatchPayload!
@@ -24,6 +24,7 @@ type Mutation {
    createSession(type: String!, question: QuestionCreateOneInput, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    updateSession(id: String!, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    addTag(name: String!): Tag
+   updateQuestion(id: ID!, answeredBy: UserCreateOneInput, description: String, coins: Int, title: String, text: Boolean, audio: Boolean, video: Boolean, duration: Int): Question
 }
 
 type BatchPayload {
@@ -83,16 +84,17 @@ type Question {
   video: Boolean!
   duration: Int!
   answeredBy: User
+  createdAt: DateTime!
 }
 
 type Message {
   id: ID!
   sender: User 
   recipient: User
+  title: String
   message: String
   read: Boolean
   createdAt: DateTime!
-  title: String!
 }
 
 input UserCreateOneInput {

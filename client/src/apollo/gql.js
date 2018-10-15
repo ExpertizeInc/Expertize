@@ -13,6 +13,28 @@ mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: Strin
 }
 `;
 
+export const FINISH_SESSION = gql`
+mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $user: ID!, $expertUser: ID!, $answeredBy: UserCreateOneInput, $expertRating: Int, $pupilRating: Int, $expertCoins: Int, $pupilCoins: Int, $endedAt: DateTime) {
+  updateSession(id: $id, completed: $completed, endedAt: $endedAt) { 
+    id
+    completed
+    endedAt
+  } updateQuestion( id: $questionId, answeredBy: $answeredBy) {
+    id 
+    user{
+      username
+    }
+    answeredBy {
+      username
+    }
+  } updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
+    id
+  } updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
+    id
+  }
+}
+`;
+
 export const GET_QUESTIONS = gql`
   query {
     questions {
@@ -21,10 +43,10 @@ export const GET_QUESTIONS = gql`
       }
       id
       description
-      active
       coins
       title
       text
+      createdAt
       audio
       video
       duration
@@ -43,16 +65,16 @@ export const GET_TAGS = gql`
 `;
 
 export const CREATE_MESSAGE = gql`
-mutation createMessage($message: String, $sender: UserCreateOneInput, $recipient: UserCreateOneInput) {
-  createMessage(message: $message, sender: $sender, recipient: $recipient) {
+mutation createMessage($title: String, $message: String, $sender: UserCreateOneInput, $recipient: UserCreateOneInput) {
+  createMessage(title: $title, message: $message, sender: $sender, recipient: $recipient) {
     message
   }
 }
 `
 
 export const GET_ALL_MESSAGES = gql`
-query allMessages($username: username) {
-  messagesWhereSender(username: $username) {
+query allMessages($username: String!) {
+  messagesSent(username: $username) {
     createdAt
     title
     message
@@ -60,7 +82,7 @@ query allMessages($username: username) {
       username
     }
   }
-  messagesWhereRecipient(username: $username) {
+  messagesReceived(username: $username) {
     createdAt
     title
     message
@@ -177,15 +199,23 @@ query sessionsWhereUnacceptedPupil($username: String) {
     id
     type
     expert {
+      id
       username
+      coins
+      ranking
     }
     pupil {
+      id
       username
+      coins
+      ranking
     }
     accepted
     completed
     question{
       duration
+      id
+      coins
     }
   }
 }
@@ -197,15 +227,21 @@ query sessionsForExpert($username: String) {
     id
     type
     expert {
+      id
       username
+      coins
     }
     pupil {
+      id
       username
+      coins
     }
     accepted
     completed
     question{
       duration
+      id
+      coins
     }
   }
 }

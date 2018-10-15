@@ -84,7 +84,7 @@ class Chat extends Component {
     return (
       this.state.online.length === 2 ? 
       <div>
-        {<Timer minutes={match.location.state.session.question.duration}/>}
+        {<Timer session={match.location.state.session} minutes={match.location.state.session.question.duration}/>}
         <div>
           <div>
             <h3>Online Users - I am {this.state.userOne}</h3>
