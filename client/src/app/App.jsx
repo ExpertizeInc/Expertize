@@ -29,14 +29,14 @@ export default class App extends React.Component {
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
     console.log('YES', userId, authType)
-    if (userId !== 'null') {
+    if (userId !== null) {
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase') {
       this.checkFirebaseUser();
     } else if (authType === 'linkedIn') {
       this.checkLinkedInUser();
     } else {
-
+  
     }
   }
 
@@ -83,15 +83,15 @@ export default class App extends React.Component {
   checkLinkedInUser() {
     axios.post('/users')
     .then((res) => {
-      console.log(res.headers)
+      // console.log(res.headers)
       const user = JSON.parse(res.headers.user);
-      console.log(user)
+      // console.log(user)
       if (user) {
         console.log(user)
         localStorage.setItem('userId', user.id);
         localStorage.setItem('fbOrLi', 'linkedIn');
         localStorage.setItem('timestamp', Date.now());
-        this.setState({ authenticated: true })
+        // this.setState({ authenticated: true })
         this.props.client 
           .query({  query: GET_USER_UID, variables: { uid: user.id }})
             .then(({ data }) => {
@@ -130,10 +130,10 @@ export default class App extends React.Component {
 
   signOut() {
     firebase.auth().signOut();
-    localStorage.setItem('user', 'null');
-    localStorage.setItem('userId', 'null');
-    localStorage.setItem('timestamp', 'null');
-    localStorage.setItem('fbOrLi', 'null');
+    localStorage.setItem('user', null);
+    localStorage.setItem('userId', null);
+    localStorage.setItem('timestamp', null);
+    localStorage.setItem('fbOrLi', null);
     this.setState({ authenticated: false, user: null }, () => history.push('/'));
   }
 
