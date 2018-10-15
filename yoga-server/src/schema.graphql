@@ -2,8 +2,8 @@ type Query {
   user(uid: String!): User!
   tags: [Tag!]!
   users: [User]!
-  messagesWhereSender(username: String!): [Message]
-  messagesWhereRecipient(username: String!): [Message]
+  messagesSent(username: String!): [Message]
+  messagesReceived(username: String!): [Message]
   questions: [Question]!
   questionsByUser(username: String!): [Question]
   sessions: [Session!]!
@@ -83,12 +83,14 @@ type Question {
   video: Boolean!
   duration: Int!
   answeredBy: User
+  createdAt: DateTime!
 }
 
 type Message {
   id: ID!
   sender: User 
   recipient: User
+  title: String
   message: String
   read: Boolean
   createdAt: DateTime!
