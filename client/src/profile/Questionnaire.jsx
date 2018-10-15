@@ -77,7 +77,7 @@ export default class Questionnaire extends Component {
 
   render() { 
     const { description, coins, tags, key, username, value } = this.state
-    const { user } = this.props;
+    const { user, client } = this.props;
     return (
       <div>
       {user 
@@ -142,7 +142,7 @@ export default class Questionnaire extends Component {
               <h2>{username}</h2>
               <div>{description}</div>
               Select your experience:
-              <TagDropdown userId={user ? user.id : ''} addTags={this.addTags}/>
+              <TagDropdown userId={user ? user.id : ''} client={client} addTags={this.addTags}/>
               <div>{value.map(tag => <div key={tag}><Label>{tag}</Label>{' '}</div>)}</div>
               <div>What are you interested in?</div>
               {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''}

@@ -8,6 +8,7 @@ const DailyNotification = (props) => (
   <Modal bsSize="small" className="centered daily-modal" show={ props.show } >
     <Modal.Header>
       <Modal.Title>Daily login achieved!</Modal.Title>
+      {console.log(props)}
     </Modal.Header>
     <Modal.Body>
       <h4>{dailyMessage[Math.floor(Math.random() * 6)].message}</h4>

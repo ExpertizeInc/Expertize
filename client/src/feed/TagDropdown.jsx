@@ -11,16 +11,16 @@ export default class TagDropdown extends Component {
         if (loading) return <div>Loading...</div>
         if (error) return <div>Error {console.log(error)}</div>
         return (
-          <DropdownButton className="round-input" title="Tags" id="dropdown-basic-default">
-            {data.tags.map((tag, i) => (
-              <MenuItem 
-                key={tag.name}
-                id="bg-nested-dropdown"
-                eventKey={tag.name}
-                onSelect={this.props.addTags}
-              >
-                {tag.name}
-              </MenuItem>
+          <DropdownButton className="round-input" title="Tags" id="dropdown-basic-default" >
+            {data.tags.map((tag) => (
+                <MenuItem 
+                  key={tag.name}
+                  id="bg-nested-dropdown"
+                  eventKey={tag.name}
+                  onSelect={this.props.addTags}
+                >
+                  {tag.name}
+                </MenuItem>
             ))}
         </DropdownButton>
         )

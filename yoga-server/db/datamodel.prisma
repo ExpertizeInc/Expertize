@@ -18,7 +18,7 @@ type User {
   dailyClaimed: Boolean
   debt: Int @default(value:"0")
   sentMessages: [Message!]! @relation(name: "SendingUser")
-  receivedMessages: [Message!]! @relation(name: "RecievingUser")
+  receivedMessages: [Message!]! @relation(name: "ReceivingUser")
   questionsAsked: [Question!]! @relation(name: "AskingUser")
   questionsAnswered: [Question!]! @relation(name: "AnswerUser")
   sessionPupil: [Session!]! @relation(name: "PupilSessions")
@@ -28,7 +28,7 @@ type User {
 type Message {
   id: ID! @unique
   sender: User @relation(name: "SendingUser")
-  recipient: User @relation(name: "RecievingUser")
+  recipient: User @relation(name: "ReceivingUser")
   message: String
   read: Boolean
   createdAt: DateTime!
