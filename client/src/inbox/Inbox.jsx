@@ -21,7 +21,7 @@ export default class Inbox extends Component {
           <Row className="clearfix">
             <Col xs={6} md={3}>
               <Nav bsStyle="pills" stacked>
-                <NavItem className="link-alt" eventKey="first">Recieved</NavItem>
+                <NavItem className="link-alt" eventKey="first">Received</NavItem>
                 <NavItem className="link-alt" eventKey="second">Sent</NavItem>
                 <NavItem className="link-alt" eventKey="third">Compose</NavItem>
               </Nav>

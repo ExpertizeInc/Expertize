@@ -104,7 +104,7 @@ export default class App extends React.Component {
             })
             .catch(() => {
               this.props.client
-                .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName }})
+                .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName, linkedProfile: user._json.publicProfileUrl  }})
                 .then(({data}) => this.setState({ authenticated: true, user: data.createUser}, () => history.push('/questionnaire')))
                 .catch(e => history.push('/signin'))
             });
