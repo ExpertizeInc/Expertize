@@ -48,8 +48,8 @@ const resolvers = {
     }
   },
   Mutation: {
-    createUser: (_, { username, email, uid, linkedProfile }, ctx: { prisma: Prisma }, info) => {
-      return ctx.prisma.mutation.createUser({ data: { username, email, uid, linkedProfile } }, info);
+    createUser: (_, { username, email, uid }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.mutation.createUser({ data: { username, email, uid } }, info);
     },
     createMessage: (_, { title, sender, recipient, message }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.createMessage({ data: { title, sender, recipient, message } }), info;
