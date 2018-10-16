@@ -87,9 +87,10 @@ export default class Profile extends Component {
                           if (true) console.log('data from get all finished sessions', data)
                           return (
                             <div>
-                              {data.getAllFinishedSessions.map((session, i) => 
-                                <div key={i}>{`${session.expert.username} helped ${session.pupil.username} | ${session.question.coins} coins`}</div>
-                              )}
+                              {data.getAllFinishedSessions.length > 0 ? data.getAllFinishedSessions.map((session, i) => 
+                              <div key={i}>{`${session.expert.username} helped ${session.pupil.username} | ${session.question.coins} coins`}</div>) :
+                                <div>Uh Oh, no sessions</div>
+                              }
                             </div>
                           )
                         }}
