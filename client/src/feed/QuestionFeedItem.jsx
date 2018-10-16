@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import QuickView from './QuickView.jsx';
 import Moment from 'react-moment';
 import SessionModal from '../sessions/SessionModal.jsx'
-import { Col, Button, Panel, Grid, Row, Glyphicon, Badge } from "react-bootstrap";
-import greenCircle from '../../dist/images/green_circle.png';
-import redCircle from '../../dist/images/red_circle.png';
-import { Query } from 'react-apollo';
-import { GET_USER_BY_USERNAME } from '../apollo/gql.js';
+import { Col, Button, Panel, Row, Glyphicon, Badge } from "react-bootstrap";
+import greenCircle from '../../dist/images/green_button.png';
+import redCircle from '../../dist/images/grey_button.png';
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
@@ -32,7 +30,7 @@ export default class QuestionFeedItem extends Component {
            <strong>{question.title}</strong> 
            {question 
            ?
-          <img src={question.user.online === true ? greenCircle : redCircle} alt={question.user.online === true ? 'online' : 'offline'}/>
+          <img style={{ width: 20, height: 20, marginLeft: 3}} src={question.user && question.user.online === true ? greenCircle : redCircle} alt={question.user && question.user.online === true ? 'online' : 'offline'}/>
           :
           ''
           }
@@ -43,7 +41,7 @@ export default class QuestionFeedItem extends Component {
               <Col sm={3}>
                 <img src='http://placecorgi.com/150' onClick={() => this.toggleShow()} />
            
-                <span className="centered" onClick={() => this.toggleShow()}><h4>{question.user.username}</h4></span>
+                <span className="centered" onClick={() => this.toggleShow()}><h4>{question.user ? question.user.username : '' }</h4></span>
                 <div className="centered">
                   <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
                     : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>

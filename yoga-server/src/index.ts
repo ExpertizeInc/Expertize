@@ -3,7 +3,7 @@ import { Prisma, User } from '../prisma/generated';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
-import 'dotenv/config'
+import 'dotenv/config';
 // const express = require('express');
 // const path = require('path');
 
@@ -25,8 +25,8 @@ const resolvers = {
     questions: (_, __, ctx, info) => {
       return ctx.prisma.query.questions({}, info);
     },
-    getUserByUsername: (_, {username}, ctx: {prisma: Prisma}, info) => {
-      return ctx.prisma.query.user({ where: { username }}, info);
+    questionsByUser: (_, {username}, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.questions({ where: { user: {username} }}, info);
     },
     tags: (_, __, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.query.tags({}); 

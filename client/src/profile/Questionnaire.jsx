@@ -89,7 +89,7 @@ export default class Questionnaire extends Component {
               <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
                 <Col xsOffset={5} sm={2}>
                   <ControlLabel>Pick a unique username.</ControlLabel>
-                  <FormControl type="text" value={username} onChange={(e) => this.handleInput(e, 'username')} />
+                  <FormControl type="text" value={username} placeholder={user.username} onChange={(e) => this.handleInput(e, 'username')} />
                   <FormControl.Feedback />
                   <HelpBlock>Pick a username.</HelpBlock>
                 </Col>

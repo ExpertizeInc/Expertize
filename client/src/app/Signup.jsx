@@ -59,10 +59,7 @@ export default class Signup extends Component {
                   {signUpLinkedIn
                   ?
                   <div>
-                    <br/><LinkedInLogin onClick={() => {
-                      localStorage.setItem('fbOrLi', 'linkedIn');
-                      localStorage.setItem('timestamp', Date.now());
-                    }}/>
+                    <br/><LinkedInLogin signUp="signUp" authenticateLinkedInUser={this.props.authenticateLinkedInUser} signInType="signUp"/>
                     <h5>Don't have a linkedin account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>click here</Button></h5>
                   </div>
                   :

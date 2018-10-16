@@ -1,5 +1,5 @@
 var authMiddleware = function (req, res, next) {
-  console.log(req.user)
+  console.log('MIDDLEWARE', req.user)
   res.append('user', JSON.stringify(req.user));
   next();
 }

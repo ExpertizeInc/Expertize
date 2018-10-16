@@ -53,7 +53,7 @@ export default class UserHome extends Component {
   render() {
     const { match, user } = this.props
     const { dailyShow, status, order, tags } = this.state
-    console.log(this.state.order)
+    // console.log(this.state.order)
     return (
         <React.Fragment>{user && 
         <div>
