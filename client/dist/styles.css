@@ -1,0 +1,367 @@
+html,body{
+  height: 100%;
+  /* background-color: #F4F5F6; */
+  background-color: #333;
+  color: white;
+  font-size: 13px;
+  margin: 0;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  margin-bottom: 60px; 
+}
+
+.form-panel-signup {
+  justify-content: center
+}
+
+.navbar {
+  border-radius: 0px;
+  background: #13c8d9;
+  color:white;
+  padding: 10px 160px 20px 140px;
+  border: none;
+  font-size: 13px;
+  margin-bottom: 0px
+}
+
+.nav-item {
+  padding: 10px 20px 0px 20px;
+}
+
+img {
+  border-radius: 14px;
+}
+.btn {
+  background-color: #13c8d9;
+  border: none;
+}
+
+a {
+  color:white;
+}
+
+
+.profile-nav {
+  background: grey;
+  height: 100%;
+}
+
+#videos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#subscriber {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+#publisher {
+  position: relative;
+  width: 360px;
+  height: 240px;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100;
+  border: 3px solid white;
+  border-radius: 3px;
+}
+
+.mode-toggle {
+  border-radius: 30px;
+}
+
+.right {
+ text-align: right;
+}
+
+.round-btn {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.42857;
+}
+
+.btn:focus {
+    outline: none !important;
+    outline-offset: none !important;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+.flex-row.row:after, 
+.flex-row.row:before {
+  display: flex;
+}
+
+.centered {
+  text-align: center;
+  align-items: center;
+  vertical-align: middle;
+  justify-content: center;
+}
+
+.center {
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tags {
+  font-size: 12px;
+}
+
+.nav-img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px
+}
+/* a {
+  text-decoration: none;
+} */
+
+/* a {
+  transition: 0.4s;
+  color: #ffffff;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 0 10px;
+  margin: 0 10px;
+}
+a:hover {
+  background-color: #ffffff;
+  color: black;
+  padding: 24px 10px;
+} */
+
+a:hover {
+  text-decoration: none;
+}
+
+
+.cl-effect-1 a {
+	color: rgb(255, 255, 255);
+	font-weight: 700;
+	text-shadow: none;
+}
+
+.cl-effect-1 a::before {
+	color: #fff;
+	content: attr(data-hover);
+	position: absolute;
+	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+	-moz-transition: -moz-transform 0.3s, opacity 0.3s;
+	transition: transform 0.3s, opacity 0.3s;
+}
+
+.cl-effect-1 a:hover::before,
+.cl-effect-1 a:focus::before {
+	-webkit-transform: scale(0.9);
+	-moz-transform: scale(0.9);
+	transform: scale(0.9);
+	opacity: 0;
+}
+
+/* 
+.hidden-tabs ul > li > a {
+  background-color: transparent;
+  color: transparent;
+} */
+/* .hidden-tabs ul > li > a:hover {
+  background-color: pink;
+}
+
+/* Active tab */
+/* .hidden-tabs ul > li.active > a,
+.hidden-tabs ul > li.active > a:hover,
+.hidden-tabs ul > li.active > a:focus {
+  background-color: red;
+  color: white;
+} */
+
+/* Disabled tab */
+/* .hidden-tabs ul > li.disabled > a {
+  background-color: lightgray;
+  color: darkgray; */
+/* }  */
+
+
+
+/* =========== Progress Bar =========== */
+
+.CircularProgressbar {
+  width: 100%;
+}
+
+.CircularProgressbar .CircularProgressbar-path {
+  stroke: #3e98c7;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: #d6d6d6;
+}
+
+.CircularProgressbar .CircularProgressbar-text {
+  fill: #3e98c7;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+.CircularProgressbar .CircularProgressbar-background {
+  fill: #d6d6d6;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-background {
+  fill: #3e98c7;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-text {
+  fill: #fff;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-path {
+  stroke: #fff;
+}
+
+.CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-trail {
+  stroke: transparent;
+}
+
+#chatbox-body{
+	margin: 0;
+	padding: 0;
+	font-family: tahoma, sans-serif;
+	box-sizing: border-box;
+}
+
+.chatbox {
+  width: 100%;
+	min-width: 390px;
+	height: 600px;
+	background: #fff;
+	padding: 25px;
+	margin: 20px auto;
+	box-shadow: 0 3px #ccc;
+}
+
+.chatlogs {
+	padding: 10px;
+	width: 100%;
+	height: 450px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.chatlogs::-webkit-scrollbar {
+	width: 10px;
+}
+
+.chatlogs::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: rgba(0,0,0,.1);
+}
+
+.chat {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	margin-bottom: 10px;
+}
+
+
+.chat .user-photo {
+	width: 60px;
+	height: 60px;
+	background: #ccc;
+	border-radius: 50%;
+}
+
+.chat .chat-message {
+	width: 80%;
+	padding: 15px;
+	margin: 5px 10px 0;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 20px;
+}
+
+.target .chat-message {
+	background: #1adda4;
+}
+
+.userOne .chat-message {
+	background: #1ddced;
+	order: -1;
+}
+
+.chat-form {
+	margin-top: 20px;
+	display: flex;
+	align-items: flex-start;
+}
+
+.chat-form textarea {
+	background: #fbfbfb;
+	width: 75%;
+	height: 50px;
+	border: 2px solid #eee;
+	border-radius: 3px;
+	resize: none;
+	padding: 10px;
+	font-size: 18px;
+	color: #333;
+}
+
+.chat-form textarea:focus {
+	background: #fff;
+}
+
+.chat-form button {
+	background: #1ddced;
+	padding: 5px 15px;
+	font-size: 30px;
+	color: #fff;
+	border: none;
+	margin: 0 10px;
+	border-radius: 3px;
+	box-shadow: 0 3px 0 #0eb2c1;
+	cursor: pointer;
+
+	-webkit-transaction: background .2s ease;
+	-moz-transaction: backgroud .2s ease;
+	-o-transaction: backgroud .2s ease;
+}
+
+.chat-form button:hover {
+	background: #13c8d9;
+}
