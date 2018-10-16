@@ -46,8 +46,8 @@ class ChatBox extends Component {
               <div className="user-photo"></div>
               <p className="chat-message">What's up, Brother ..!!</p>	
             </div> */}
-            {messages && messages.map(message => (
-              <div className={`chat ${check(message.from)}`}>
+            {messages && messages.map((message, i) => (
+              <div key={i} className={`chat ${check(message.from)}`}>
                 <div className="user-photo"></div>
                 <p className="chat-message">{message.msg}</p>	
               </div>

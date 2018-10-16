@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row, PageHeader, Thumbnail, Label, Glyphicon, Button } from 'react-bootstrap'
 import { Mutation, Query } from 'react-apollo';
-import { UPDATE_USER_INFO, GET_USER_QUESTIONS, GET_USER_UID } from '../apollo/gql.js';
+import { GET_USER_QUESTIONS, GET_ALL_FINISHED_SESSIONS } from '../apollo/gql.js';
 import Rating from 'react-rating';
 
 
@@ -18,6 +18,7 @@ export default class Profile extends Component {
 
   render() {
     const { user } = this.props;
+    console.log('profileeeeee', user)
     return (
       <div>
         {user &&
@@ -62,7 +63,7 @@ export default class Profile extends Component {
                 <Row>
                   <Thumbnail className="centered">
                     <h3>Alt stats/graphs</h3>
-                    {/* <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
+                    <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
                       {({ loading, error, data }) => {
                         if (loading) return <div>Loading...</div>
                         if (error) return <div>Error</div>
@@ -72,7 +73,7 @@ export default class Profile extends Component {
                           </div>
                         )
                       }}
-                    </Query> */}
+                    </Query>
                   </Thumbnail>
                   {/* Will show user activity, progress, session history, recently interacted */}
                 </Row>
@@ -80,7 +81,14 @@ export default class Profile extends Component {
                   <Col>
                     <Thumbnail className="centered">
                       <h3>Interaction History, etc</h3>
-                      Map out session history for user
+                      <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
+                        {({ loading, error, data }) => {
+                          if (loading) return <div>Loading...</div>
+                          if (error) return <div>Error</div>
+                          return (<div>hello</div>
+                          )
+                        }}
+                      </Query>
                 </Thumbnail>
                     {/* Will show user activity, progress, session history, recently interacted */}
                   </Col>

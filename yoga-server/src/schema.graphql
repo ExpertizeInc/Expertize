@@ -11,6 +11,7 @@ type Query {
   # sessionsWhereAcceptedExpert(username: String): [Session!]!
   # sessionsWhereRejectedExpert(username: String): [Session!]!
   sessionsForExpert(username: String): [Session!]!
+  getAllFinishedSessions(id: String): [Session!]!
 }
 
 type Mutation {

@@ -27,9 +27,9 @@ mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $use
     answeredBy {
       username
     }
-  } updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
+  } pupil:updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
     id
-  } updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
+  } expert:updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
     id
   }
 }
@@ -94,8 +94,8 @@ query allMessages($username: String!) {
 `
 
 export const GET_USER_QUESTIONS = gql`
-  query questionsByUser($userId: String!) {
-    questionsByUser(userId: $userId) {
+  query questionsByUser($username: String!) {
+    questionsByUser(username: $username) {
       title
       description
       tags
@@ -129,9 +129,6 @@ query user($uid: String!) {
     online
     dailyClaimed
     debt
-    questions {
-      title
-    }
   }
 }
 `;
@@ -265,4 +262,22 @@ query sessionsWhereRejectedExpert($username: String) {
     completed
   }
 }
+`
+
+export const GET_ALL_FINISHED_SESSIONS = gql`
+  query getAllFinishedSessions($id: String) {
+    getAllFinishedSessions(id: $id) {
+      pupil {
+        username
+      }
+      expert {
+        username
+      }
+      question{
+        description
+        title
+      }
+      completed
+    }
+  }
 `

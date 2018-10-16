@@ -30,7 +30,7 @@ export default class App extends React.Component {
     var authType = localStorage.getItem('fbOrLi');
     console.log('TYPEOF', typeof userId)
     console.log('YES', userId, authType)
-    if (userId !== null) {
+    if (userId !== 'null' || userId !== null) {
       console.log('userid check???')
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase') {
@@ -153,10 +153,11 @@ export default class App extends React.Component {
     this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: this.state.user.id, online: false }})
       .then(({data}) => this.setState({ authenticated: false, user: null }, () => history.push('/')))
       .catch(err => console.error('error in sign out mutation', err));
-    localStorage.setItem('user', null);
-    localStorage.setItem('userId', null);
-    localStorage.setItem('timestamp', null);
-    localStorage.setItem('fbOrLi', null);
+    // localStorage.setItem('user', null);
+    // localStorage.setItem('userId', null);
+    // localStorage.setItem('timestamp', null);
+    // localStorage.setItem('fbOrLi', null);
+    localStorage.clear()
   }
 
   render() {

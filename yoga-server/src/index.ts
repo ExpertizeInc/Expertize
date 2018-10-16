@@ -23,7 +23,7 @@ const resolvers = {
       return ctx.prisma.query.messages({ where: { recipient: { username }, expired: false } }, info);
     },
     questions: (_, __, ctx, info) => {
-      return ctx.prisma.query.questions({}, info);
+      return ctx.prisma.query.questions({where: {answeredBy: null}}, info);
     },
     questionsByUser: (_, { username }, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.questions({ where: { user: { username }} }, info);
@@ -45,6 +45,9 @@ const resolvers = {
     // },
     sessionsForExpert:  (_, { username }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.query.sessions({ where: { accepted_not: null , completed: null, expert: { username } }}, info);
+    },
+    getAllFinishedSessions: (_, { id }, ctx: { prisma: Prisma }, info) => {
+      return ctx.prisma.query.sessions({ where: {OR:[{ expert: {id}}, {pupil: {id}}], completed: true}}, info);
     }
   },
   Mutation: {
@@ -59,15 +62,9 @@ const resolvers = {
         data: { user, tags: { set: tags }, description, coins, title, text, audio, video, duration }
       }, info);
     },
-    updateQuestion: (_, { id, answeredBy, description, tags, coins, title, text, audio, video, duration }, ctx, info) => {
-      return ctx.prisma.mutation.updateQuestion({ 
-        data: { answeredBy, description, tags, coins, title, text, audio, video, duration },
-        where: { id }
-      }, info)
-    }, 
-    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image, ranking }, ctx: { prisma: Prisma }, info) => {
+    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
-        data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image, ranking },
+        data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image },
         where: { id } 
       }, info);
     },
@@ -90,7 +87,13 @@ const resolvers = {
       return ctx.prisma.mutation.updateSession({
         data: { accepted, completed, startedAt, endedAt },
         where: { id }
-      });
+      }, info);
+    },
+    updateQuestion: (_, { id, answeredBy, description, coins, title, text, audio, video, duration }, ctx, info) => {
+      return ctx.prisma.mutation.updateQuestion({
+        data:{ answeredBy, description, coins, title, text, audio, video, duration },
+        where: { id }
+      },info)
     }
   },
 }
