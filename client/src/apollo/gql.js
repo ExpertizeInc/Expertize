@@ -41,6 +41,8 @@ export const GET_QUESTIONS = gql`
       user {
         username
         online
+        linkedInProfile
+        description
       }
       id
       description
@@ -65,6 +67,7 @@ export const GET_FILTERED_QUESTIONS = gql`
         online
         image
         description
+        linkedInProfile
       }
       id
       description
