@@ -14,7 +14,7 @@ const Stats = props => {
       </Panel.Heading>
       <Panel.Body className="centered">
         <Button className="round-btn">
-          <Link to={`${match.url}/`}>
+          <Link to={`${match.url}`}>
             <Glyphicon glyph="home" />
           </Link>
         </Button>{' '}
