@@ -80,7 +80,6 @@ export default class QuestionForm extends Component {
       <Grid>
         <Row>
           <Col xs={6} md={4}>
-          {console.log(user)}
             <Form className="form-panel-signup centered" horizontal>
               {/* {questionInfo.map((question, i) => (
                 <FormGroup
@@ -162,7 +161,6 @@ export default class QuestionForm extends Component {
               <FormGroup>
                 <Col className="centered">
                   <h5 className="centered">This will cost: {user.debt > 0 ? 2 + user.debt : 2} <Image style={{ width: "20px" }} src="../../images/coin.gif"></Image></h5>
-                  <h5>You have: {user.coins}<Image style={{ width: "20px" }} src="../../images/coin.gif"></Image></h5>
                   <Mutation
                     mutation={ CREATE_QUESTION }
                     variables={{

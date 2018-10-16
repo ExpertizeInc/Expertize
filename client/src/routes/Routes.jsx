@@ -6,10 +6,9 @@ import Signup from '../app/Signup.jsx';
 import NavBar from '../app/NavBar.jsx';
 import Chat from '../sessions/Chat.jsx';
 import Questionnaire from '../profile/Questionnaire.jsx';
-import Profile from '../profile/Profile.jsx'
 import Error from '../app/Error.jsx';
-import Footer from '../app/Footer.jsx';
-import Inbox from '../inbox/Inbox.jsx'
+import Faq from '../app/Faq.jsx';
+import Bio from '../app/Bio.jsx';
 import UserHome from '../app/UserHome.jsx';
 // import QuestionFeed from '../feed/QuestionFeed.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
@@ -23,11 +22,9 @@ const Routes = ({ authenticated, user, history, linkedInSignIn, signOut, fbSignI
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated} client={client}></PrivateRoute>
           <Route exact strict path="/signin" render={(props) => <SignIn {...props}  fbSignIn={fbSignIn} linkedInSignIn={linkedInSignIn} client={client} />}></Route>
           <Route exact strict path="/signup" render={(props) => <Signup {...props} client={client} linkedInSignIn={linkedInSignIn} />}></Route>
+          <Route exact strict path="/faq" component={Faq}></Route>
+          <Route exact strict path="/aboutus" component={Bio}></Route>
           <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} client={client} />}></Route>
-          {/* <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route> */}
-          <Route exact strict path="/chat" component={Chat}></Route>
-          {/* <Route exact strict path="/inbox" component={Inbox}></Route> */}
-          <Route exact strict path="/video" component={Video}></Route>
           <Route exact strict path="/*" component={Error}></Route>
       </Switch>
     </div>

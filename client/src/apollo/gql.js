@@ -161,6 +161,12 @@ query user($uid: String!) {
     online
     dailyClaimed
     debt
+    questionsAsked {
+      title
+      answeredBy {
+        username
+      }
+    }
   }
 }`;
 
