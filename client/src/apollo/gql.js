@@ -13,6 +13,28 @@ mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: Strin
 }
 `;
 
+export const FINISH_SESSION = gql`
+mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $user: ID!, $expertUser: ID!, $answeredBy: UserCreateOneInput, $expertRating: Int, $pupilRating: Int, $expertCoins: Int, $pupilCoins: Int, $endedAt: DateTime) {
+  updateSession(id: $id, completed: $completed, endedAt: $endedAt) { 
+    id
+    completed
+    endedAt
+  } updateQuestion( id: $questionId, answeredBy: $answeredBy) {
+    id 
+    user{
+      username
+    }
+    answeredBy {
+      username
+    }
+  } pupil:updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
+    id
+  } expert:updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
+    id
+  }
+}
+`;
+
 export const GET_QUESTIONS = gql`
   query {
     questions {
@@ -199,15 +221,23 @@ query sessionsWhereUnacceptedPupil($username: String) {
     id
     type
     expert {
+      id
       username
+      coins
+      ranking
     }
     pupil {
+      id
       username
+      coins
+      ranking
     }
     accepted
     completed
     question{
       duration
+      id
+      coins
     }
   }
 }
@@ -219,15 +249,23 @@ query sessionsForExpert($username: String) {
     id
     type
     expert {
+      id
       username
+      coins
+      ranking
     }
     pupil {
+      id
       username
+      coins
+      ranking
     }
     accepted
     completed
     question{
       duration
+      id
+      coins
     }
   }
 }
@@ -265,4 +303,23 @@ query sessionsWhereRejectedExpert($username: String) {
     completed
   }
 }
+`
+
+export const GET_ALL_FINISHED_SESSIONS = gql`
+  query getAllFinishedSessions($id: String) {
+    getAllFinishedSessions(id: $id) {
+      pupil {
+        username
+      }
+      expert {
+        username
+      }
+      question{
+        description
+        title
+        coins
+      }
+      completed
+    }
+  }
 `

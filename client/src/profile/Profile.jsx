@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row, PageHeader, Thumbnail, Label, Glyphicon, Button } from 'react-bootstrap'
 import { Mutation, Query } from 'react-apollo';
-import { UPDATE_USER_INFO, GET_USER_QUESTIONS, GET_USER_UID } from '../apollo/gql.js';
+import { GET_USER_QUESTIONS, GET_ALL_FINISHED_SESSIONS } from '../apollo/gql.js';
 import Rating from 'react-rating';
 
 
@@ -18,6 +18,7 @@ export default class Profile extends Component {
 
   render() {
     const { user } = this.props;
+    console.log('profileeeeee', user)
     return (
       <div>
         {user &&
@@ -52,8 +53,8 @@ export default class Profile extends Component {
                   </Col>
                   <Col xs={6} md={4}>
                     <Thumbnail className="centered">
-                    <h3>4</h3>
-                    {}
+                    <h3>{user.questions && user.quetions.length ? user.questions.length : 0}</h3>
+                    Questions asked
                   </Thumbnail>
                   </Col>
                 </Row>
@@ -79,7 +80,20 @@ export default class Profile extends Component {
                   <Col>
                     <Thumbnail className="centered">
                       <h3>Interaction History, etc</h3>
-                      Map out session history for user
+                      <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
+                        {({ loading, error, data }) => {
+                          if (loading) return <div>Loading...</div>
+                          if (error) return <div>Error</div>
+                          if (true) console.log('data from get all finished sessions', data)
+                          return (
+                            <div>
+                              {data.getAllFinishedSessions.map((session, i) => 
+                                <div key={i}>{`${session.expert.username} helped ${session.pupil.username} | ${session.question.coins} coins`}</div>
+                              )}
+                            </div>
+                          )
+                        }}
+                      </Query>
                 </Thumbnail>
                     {/* Will show user activity, progress, session history, recently interacted */}
                   </Col>
