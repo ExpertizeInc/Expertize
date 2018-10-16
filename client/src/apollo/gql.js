@@ -29,7 +29,7 @@ mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $use
     }
   } pupil:updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
     id
-  } expert:updateUser(id: $expertUser, coins: $expertCoins, rating: $expertRating) {
+  } expert:updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
     id
   }
 }
@@ -75,6 +75,9 @@ export const GET_FILTERED_QUESTIONS = gql`
       duration
       tags
       id
+      answeredBy{
+        username
+      }
     }
   }
 `
@@ -161,8 +164,11 @@ query user($uid: String!) {
     online
     dailyClaimed
     debt
-    questions{
+    questionsAsked {
       title
+      answeredBy {
+        username
+      }
       id
     }
   }

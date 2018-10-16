@@ -35,7 +35,7 @@ export default class Profile extends Component {
                     <Thumbnail className="centered">
                       <img src={user.image}/>
                       <span><h2>{user.username}</h2></span>
-                      <Rating readonly initialRating={user.ranking} /> <br />
+                      <Rating readonly initialRating={user.ranking / data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length} /> <br />
                       <div>{user.description}</div>
                       <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div>
                     
@@ -60,7 +60,7 @@ export default class Profile extends Component {
                       </Col>
                       <Col xs={6} md={4}>
                         <Thumbnail className="centered">
-                        <h3>{this.state.asked}</h3>
+                        <h3>{user.questionsAsked.length}</h3>
                         Questions asked
                       </Thumbnail>
                       </Col>
@@ -92,7 +92,8 @@ export default class Profile extends Component {
                           <h3>Interaction History, etc</h3>
                             <div>
                               {data.getAllFinishedSessions.length > 0 ? data.getAllFinishedSessions.map((session, i) => 
-                              <div key={i}>{`${session.expert.username} helped ${session.pupil.username} | ${session.question.coins} coins`}</div>) :
+                              <div key={i}>{user.username === session.expert.username ? `You helped ${session.pupil.username} | +${session.question.coins} coins` : 
+                                `${session.expert.username} helped you | -${session.question.coins} coins`}</div>) :
                                 <div>Uh Oh, no sessions</div>
                               }
                             </div>

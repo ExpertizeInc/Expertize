@@ -9,7 +9,7 @@ export default class NavBar extends Component {
   }
 
   render() {
-    const routes = ['Questionnaire', 'Profile'];
+    const routes = ['Questionnaire'];
     const { authenticated } = this.props;
     return (
       <Navbar fluid>
@@ -28,7 +28,10 @@ export default class NavBar extends Component {
             ))
             : null}
           <NavItem  componentClass='span' className="nav-item">
-            <Link to="/home/inbox"><Glyphicon glyph="envelope" /> Inbox</Link>
+            <Link to="/aboutus"> About Us</Link>
+          </NavItem>
+          <NavItem  componentClass='span' className="nav-item">
+            <Link to="/faq"> FAQ</Link>
           </NavItem>
           {!authenticated && <NavItem  componentClass='span' className="nav-item">
             <Link to="/signin">Sign In </Link>
