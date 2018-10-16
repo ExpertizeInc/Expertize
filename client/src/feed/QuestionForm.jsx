@@ -19,7 +19,7 @@ import {
   Image
 } from 'react-bootstrap';
 import TagDropdown from './TagDropdown.jsx';
-import { CREATE_QUESTION, GET_QUESTIONS, GET_USER_QUESTIONS, GET_USER_UID } from '../apollo/gql.js';
+import { CREATE_QUESTION, GET_FILTERED_QUESTIONS, GET_USER_QUESTIONS, GET_USER_UID } from '../apollo/gql.js';
 import { times, questionInfo } from '../constants.js';
 import { Link } from 'react-router-dom';
 
@@ -64,7 +64,7 @@ export default class QuestionForm extends Component {
     }
   }
   render() {
-    const { user, client } = this.props;
+    const { user, status, order, client } = this.props;
     const {
       description,
       tags,
@@ -178,7 +178,7 @@ export default class QuestionForm extends Component {
                       audio: chat.includes('audio'),
                       video: chat.includes('video'),
                       duration}} 
-                      refetchQueries={() => [{ query: GET_USER_UID , variables: { uid: user.uid }}, { query: GET_QUESTIONS },{ query: GET_USER_QUESTIONS, variables: { username: user.username } }  ]}
+                      refetchQueries={() => [{ query: GET_USER_UID , variables: { uid: user.uid }}, { query: GET_USER_QUESTIONS, variables: { username: user.username } }  ]}
                       >
                     {createQuestion => {
                       return (

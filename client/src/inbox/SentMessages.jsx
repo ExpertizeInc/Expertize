@@ -9,7 +9,7 @@ const SentMessages = (props) => (
     <Panel eventKey={i + 1}>
     <Panel.Heading className="link-alt-blk">
       <Panel.Title toggle className="link-alt-blk">
-        <div style={{ fontSize: "10px" }}>To <strong>{message.recipient.username}</strong> on <Moment>{message.createdAt.toLocaleString()}</Moment></div>
+        <div style={{ fontSize: "10px" }}>To <strong>{message.recipient.username}</strong> <Moment fromNow>{message.createdAt.toLocaleString()}</Moment></div>
         <strong>{message.title}</strong> 
       </Panel.Title>
       </Panel.Heading>

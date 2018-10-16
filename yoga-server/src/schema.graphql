@@ -6,6 +6,7 @@ type Query {
   messagesReceived(username: String!): [Message]
   questions: [Question]!
   questionsByUser(username: String!): [Question]
+  questionsByFilter(online: Boolean, offline: Boolean, sort: String, username: String, audio: Boolean, video: Boolean, text: Boolean): [Question]
   sessions: [Session!]!
   sessionsWhereUnacceptedPupil(username: String): [Session!]!
   # sessionsWhereAcceptedExpert(username: String): [Session!]!
@@ -77,7 +78,7 @@ type Question {
   id: ID!
   user: User
   description: String!
-  tags: [String!]
+  tags: [String!]!
   coins: Int!
   active: Boolean
   title: String!

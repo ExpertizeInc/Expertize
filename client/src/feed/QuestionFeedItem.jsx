@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import QuickView from './QuickView.jsx';
-import Moment from 'react-moment';
 import SessionModal from '../sessions/SessionModal.jsx'
 import { Col, Button, Panel, Grid, Row, Glyphicon, Badge } from "react-bootstrap";
+import Moment from 'react-moment';
+import moment from 'moment'
+
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
@@ -17,13 +19,13 @@ export default class QuestionFeedItem extends Component {
 
 
   render() {
-    let { question, user, match } = this.props
+    let { question, user } = this.props
     return (
       <Panel>
       <QuickView user={user} show={this.state.show} toggleShow={this.toggleShow} />
         <Panel.Heading>
           <Panel.Title componentClass="h3">
-           <strong>{question.title}</strong>
+           <strong>{question.title} at <Moment fromNow>{question.createdAt.toLocaleString()}</Moment></strong>
           </Panel.Title>
         </Panel.Heading>
         <Panel.Body>
@@ -45,7 +47,7 @@ export default class QuestionFeedItem extends Component {
               
               </Col>
               <Col sm={3}>{question.description}
-              {question.tags.length > 1 ? question.tags.map((tag, i) => <Badge>{tag}</Badge>)
+              {question.tags.length > 1 ? question.tags.map((tag, i) => <Badge key={i+1}>{tag}</Badge>)
               : 
               <Badge>{question.tags}</Badge>} </Col>
               {/* <Col sm={3}>
@@ -60,7 +62,7 @@ export default class QuestionFeedItem extends Component {
                 }</div>
               </Col> */}
               <Col sm={1}>
-                <SessionModal match={match} question={question} user={user} />
+                <SessionModal question={question} user={user} />
               </Col>
             </Row>
         </Panel.Body>
