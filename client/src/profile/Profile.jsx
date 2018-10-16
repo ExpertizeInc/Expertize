@@ -85,7 +85,13 @@ export default class Profile extends Component {
                         {({ loading, error, data }) => {
                           if (loading) return <div>Loading...</div>
                           if (error) return <div>Error</div>
-                          return (<div>hello</div>
+                          if (true) console.log('data from get all finished sessions', data)
+                          return (
+                            <div>
+                              {data.getAllFinishedSessions.map((session, i) => 
+                                <div key={i}>{`${session.expert.username} helped ${session.pupil.username} | ${session.question.coins} coins`}</div>
+                              )}
+                            </div>
                           )
                         }}
                       </Query>

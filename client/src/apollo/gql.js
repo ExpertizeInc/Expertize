@@ -234,11 +234,13 @@ query sessionsForExpert($username: String) {
       id
       username
       coins
+      ranking
     }
     pupil {
       id
       username
       coins
+      ranking
     }
     accepted
     completed
@@ -297,6 +299,7 @@ export const GET_ALL_FINISHED_SESSIONS = gql`
       question{
         description
         title
+        coins
       }
       completed
     }

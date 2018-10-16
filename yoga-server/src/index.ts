@@ -31,6 +31,7 @@ const resolvers = {
     questionsByFilter: (_, { online, offline, sort, username, audio, video, text }, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.questions({ 
         where: {
+          answeredBy: null,
           user: { username_not: username }, 
           OR: [{user: { online: online}}, { user: { online: offline }}, { AND: [{ audio}, {video}, {text}]}]},
         orderBy: sort }, info)
