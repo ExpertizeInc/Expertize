@@ -30,7 +30,7 @@ class Survey extends Component {
     return (
       <div>
         <h1>rate your Expert!</h1>
-        <Rating onClick={(value) => console.log('the value of the rating is ', value)}/> <br/>
+        <Rating onClick={(value) => this.handleRatingClick(value)}/> <br/>
         <Mutation mutation={FINISH_SESSION} variables={{ id: session.id, completed: true, user: session.pupil.id, answeredBy: { connect: { username: session.expert.username }}, questionId: session.question.id, endedAt: now, expertCoins: session.expert.coins + session.question.coins, pupilCoins: session.pupil.coins - session.question.coins, expertUser: session.expert.id, expertRating: session.expert.ranking + this.state.rating, pupilRating: session.pupil.ranking}}> 
         {updateSession => <Link to="/"><Button onClick={updateSession}>Okay</Button></Link>}
         </Mutation>
