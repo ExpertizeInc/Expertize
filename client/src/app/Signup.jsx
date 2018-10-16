@@ -31,11 +31,12 @@ export default class Signup extends Component {
 
   submitSignUp(e, cb) {
     const { email, password } = this.state;
-    e.preventDefault()
+    e.preventDefault();
+    localStorage.setItem('fbOrLi', 'firebase');
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(({user}) => {
-      this.setState({ uid: user.uid })
-      localStorage.setItem('userId', this.state.uid);
+      this.setState({ uid: user.uid });
+      localStorage.setItem('userId', user.uid);
       localStorage.setItem('user', user);
       localStorage.setItem('fbOrLi', 'firebase');
       localStorage.setItem('timestamp', Date.now());
@@ -59,7 +60,7 @@ export default class Signup extends Component {
                   {signUpLinkedIn
                   ?
                   <div>
-                    <br/><LinkedInLogin signUp="signUp" authenticateLinkedInUser={this.props.authenticateLinkedInUser} signInType="signUp"/>
+                    <br/><LinkedInLogin linkedInSignIn={this.props.linkedInSignIn} signInType="signUp"/>
                     <h5>Don't have a linkedin account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>click here</Button></h5>
                   </div>
                   :
@@ -80,10 +81,7 @@ export default class Signup extends Component {
                       </FormGroup>
                     ))}
                       <Button 
-                        onClick={e => {
-                          localStorage.setItem('fbOrLi', 'firebase')
-                          this.submitSignUp(e, (uid) => createUser({ variables: { username, email, uid } }))
-                        }} 
+                        onClick={e => this.submitSignUp(e, (uid) => createUser({ variables: { username, email, uid } }))} 
                         type="submit"
                       >
                         Create An Account

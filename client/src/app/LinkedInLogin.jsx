@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
 import linkedInButton from '../../dist/images/LIButton.png';
 
-const LinkedInLogin = ({ authenticateLinkedInUser, signInType }) => {
+const LinkedInLogin = ({ linkedInSignIn, signInType }) => {
   if (signInType === 'signIn') {
     return (
       <div>
-        <a href="/auth/linkedin"><img src={linkedInButton} onClick={(e) => {
+        <a href="/auth/linkedin"><img src={linkedInButton} 
+        onClick={(e) => {
           {localStorage.setItem('fbOrLi', 'linkedIn')};
           {localStorage.setItem('linkedInLoginType', 'signIn')}
-          authenticateLinkedInUser(e)
+          linkedInSignIn(e)
         }}/></a>
       </div>
     )
   } else {
     return (
       <div>
-        <a href="/auth/linkedin"><img src={linkedInButton} onClick={(e) => {
+        <a href="/auth/linkedin"><img src={linkedInButton} 
+        onClick={(e) => {
             {localStorage.setItem('fbOrLi', 'linkedIn')};
             {localStorage.setItem('linkedInLoginType', 'signUp')}
-            authenticateLinkedInUser(e)
+            linkedInSignIn(e)
         }}/></a>
       </div>
     )

@@ -50,7 +50,7 @@ export default class Signin extends Component {
                   this.props.fbSignIn(e, this.state.email, this.state.password);
                   }} 
                   type="submit">Log In</Button>
-                <br/><LinkedInLogin authenticateLinkedInUser={this.props.authenticateLinkedInUser} signInType="signIn"/>
+                <br/><LinkedInLogin linkedInSignIn={this.props.linkedInSignIn} signInType="signIn"/>
               </Col>
             </Row>
           </FormGroup>
