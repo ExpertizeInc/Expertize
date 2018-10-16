@@ -75,6 +75,9 @@ export const GET_FILTERED_QUESTIONS = gql`
       duration
       tags
       id
+      answeredBy{
+        username
+      }
     }
   }
 `
@@ -166,6 +169,7 @@ query user($uid: String!) {
       answeredBy {
         username
       }
+      id
     }
   }
 }`;
