@@ -24,9 +24,8 @@ class Survey extends Component {
 
   render() {
     const { session, match } = this.props
-    console.log('the props in survey', this.props)
     const now = new Date().toISOString()
-    console.log('id', session.id, 'completed:', true, 'user:', session.pupil.id, 'answeredBy:', session.expert.username, 'question:', session.question.id, 'endedAt', new Date().toISOString(), 'expertCoins:', session.expert.coins + session.question.coins, 'pupilCoins:', session.pupil.coins - session.question.coins, 'expertRating', session.expert.ranking + 10, 'pupilRating:', session.pupil.ranking)
+    // console.log('id', session.id, 'completed:', true, 'user:', session.pupil.id, 'answeredBy:', session.expert.username, 'question:', session.question.id, 'endedAt', new Date().toISOString(), 'expertCoins:', session.expert.coins + session.question.coins, 'pupilCoins:', session.pupil.coins - session.question.coins, 'expertRating', session.expert.ranking + 10, 'pupilRating:', session.pupil.ranking)
     return (
       <div>
         <h1>rate your Expert!</h1>

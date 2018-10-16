@@ -18,12 +18,10 @@ export default class Profile extends Component {
 
   render() {
     const { user } = this.props;
-    console.log('profileeeeee', user)
     return (
       <div>
         {user &&
           <Grid >
-            {console.log(user, 'PROPS')}
             <PageHeader style={{ display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
             <Row >
               <Col xs={6} md={3} >
@@ -67,7 +65,6 @@ export default class Profile extends Component {
                         if (error) return <div>Error</div>
                         return (
                           <div>
-                            {console.log(data)}
                             {data.questionsByUser.map((question, i) => <div key={i}>{i + 1} Title: {question.title} | Description: {question.description}</div>)}
                           </div>
                         )
@@ -84,7 +81,6 @@ export default class Profile extends Component {
                         {({ loading, error, data }) => {
                           if (loading) return <div>Loading...</div>
                           if (error) return <div>Error</div>
-                          if (true) console.log('data from get all finished sessions', data)
                           return (
                             <div>
                               {data.getAllFinishedSessions.map((session, i) => 

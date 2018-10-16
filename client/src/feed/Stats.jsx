@@ -5,6 +5,7 @@ import { Panel, Button, Image, Glyphicon, ListGroup, ListGroupItem } from "react
 const Stats = ({ user, match }) => {
   return (
     <React.Fragment>
+      {console.log('PLEASE', user)}
       <Panel.Heading className="centered">
         <Panel.Title componentClass="h3" style={{ paddingTop: "20px" }}>
         <Image src="http://placecorgi.com/100" style={{ borderRadius: "400px" }}></Image>

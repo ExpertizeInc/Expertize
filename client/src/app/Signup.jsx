@@ -25,72 +25,59 @@ export default class Signup extends Component {
     })
   }
 
-  submitSignUp(e, cb) {
-    const { email, password } = this.state;
-    const { checkIfUserIsInDB, history } = this.props;
-    // e.preventDefault();
+  submitSignUp(e) {
+    const { email, password, username } = this.state;
+    const { addFirebaseUser } = this.props;
+    e.preventDefault();
     localStorage.setItem('fbOrLi', 'firebase');
     localStorage.setItem('loginType', 'signUp');
-    checkIfUserIsInDB(e, email, password);
-      // firebase.auth().createUserWithEmailAndPassword(email, password)
-      //   .then(({user}) => {
-      //     this.setState({ uid: user.uid })
-      //     localStorage.setItem('userId', user.uid)
-      //     cb(user.uid)
-      //   })
-      //   .catch((error) => console.error(`errorCode: ${error.code}, errorMessage: ${error.message}`));
+    addFirebaseUser(e, email, password, username);
   }
 
   render() { 
     const { username, email, password, signUpLinkedIn } = this.state;
-    const { linkedInSignIn, checkIfUserIsInDB } = this.props;
+    const { linkedInSignIn, addFirebaseUser } = this.props;
     const formInfo = [{value: username, placeholder: 'Username'}, {value: email, placeholder: 'Email'}, {value: password, placeholder: 'Password'}];
     return (
         <FormGroup>
           <Row>
           <Col smOffset={4} sm={3}>
-          {/* <Mutation mutation={CREATE_USER} onError={(err) => console.error('Error in createUser mutation', err)} onComplete={() => localStorage.setItem('fbOrLi', 'firebase')}> */}
-            {/* {(createUser, { data }) => { */}
-              {/* return ( */}
-                <div>
-                  {signUpLinkedIn
-                  ?
-                  <div>
-                    <br/><LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signUp"/>
-                    <h5>Don't have a linkedin account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>click here</Button></h5>
-                  </div>
-                  :
-                  ''
-                  }
-                  {!signUpLinkedIn 
-                  ? 
-                  <Form className="form-panel-signup centered" horizontal>
-                    <Panel>
-                      {formInfo.map(info => (
-                        <FormGroup controlId={`formHorizontal${info.placeholder}`} key={info.placeholder}>
-                          <Col componentClass={ControlLabel} sm={5}>
-                            {info.placeholder}
-                          </Col>
-                          <Col sm={8}>
-                          <FormControl value={info.value} onChange={(e) => this.onChange(e, info.placeholder.toLowerCase())} type={info.placeholder.toLowerCase()} placeholder={info.placeholder} />
-                          </Col>
-                        </FormGroup>
-                      ))}
-                        <Button 
-                          onClick={this.submitSignUp} 
-                          type="submit"
-                        >
-                          Create An Account
-                        </Button>
-                    </Panel>
-                  </Form>
-                :
-                ''
-                }
-                </div>
-              {/* ) */}
-            {/* }} */}
-          {/* </Mutation> */}
+            <div>
+              {signUpLinkedIn
+              ?
+              <div>
+                <br/><LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signUp"/>
+                <h5>Don't have a linkedin account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>click here</Button></h5>
+              </div>
+              :
+              ''
+              }
+              {!signUpLinkedIn 
+              ? 
+              <Form className="form-panel-signup centered" horizontal>
+                <Panel>
+                  {formInfo.map(info => (
+                    <FormGroup controlId={`formHorizontal${info.placeholder}`} key={info.placeholder}>
+                      <Col componentClass={ControlLabel} sm={5}>
+                        {info.placeholder}
+                      </Col>
+                      <Col sm={8}>
+                      <FormControl value={info.value} onChange={(e) => this.onChange(e, info.placeholder.toLowerCase())} type={info.placeholder.toLowerCase()} placeholder={info.placeholder} />
+                      </Col>
+                    </FormGroup>
+                  ))}
+                    <Button 
+                      onClick={this.submitSignUp} 
+                      type="submit"
+                    >
+                      Create An Account
+                    </Button>
+                </Panel>
+              </Form>
+            :
+            ''
+            }
+            </div>
           </Col>
           </Row>
         </FormGroup>

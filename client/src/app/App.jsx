@@ -17,6 +17,7 @@ export default class App extends React.Component {
     this.checkFirebaseUser = this.checkFirebaseUser.bind(this);
     this.checkIfUserIsInDB = this.checkIfUserIsInDB.bind(this);
     this.firebaseSignIn = this.firebaseSignIn.bind(this);
+    this.signUpFirebaseUser = this.signUpFirebaseUser.bind(this);
   }
 
   UNSAFE_componentWillMount(nextProps, nextState) {
@@ -27,24 +28,21 @@ export default class App extends React.Component {
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
     var signInType = localStorage.getItem('loginType');
-    console.log(signInType == 'signUp')
-    console.log(authType, 'authType')
     if (JSON.stringify(userId) !== 'null' || userId !== null && signInType != 'signUp') {
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase' && signInType != 'signUp') {
       this.checkFirebaseUser();
-    } else if (authType === 'linkedIn' && signInType != 'signUp') {
+    } else if (authType === 'linkedIn') {
       this.checkLinkedInUser();
     } else {
-      console.log('XXX')
+      console.log('ComponentDidMount in App')
     }
   }
 
   checkIfUserIsInDB(uid) {
-    const { client } = this.props;
+    const { client } = this.props; 
     client.query({ query: GET_USER_UID, variables: { uid } })
       .then(({ data }) => {
-        console.log(data)
         this.setState({ authenticated: true, user: data.user, uid }, () => {
           localStorage.setItem('userId', uid);
           localStorage.setItem('fbOrLi', 'firebase');
@@ -115,17 +113,19 @@ export default class App extends React.Component {
     });
   }
 
-  signUpFirebaseUser(email, password) {
+  signUpFirebaseUser(e, email, password, username) {
     const { client } = this.props;
+    e.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(({user}) => {
         client.mutate({ mutation: CREATE_USER, variables: { uid: user.uid, email, username }})
         .then(({ data }) => {
-            localStorage.setItem('userId', data.user.uid);
+            localStorage.setItem('userId', data.createUser.id);
             localStorage.setItem('loginType', null);
-              client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true } })
-                .then(({data}) => { console.log(data, "DATA")
-                this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/questionnaire'))})
+              client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.createUser.id, online: true } })
+                .then(({data}) => { 
+                  this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/questionnaire'))
+                })
                 .catch(e => history.push('/signup'))
           })
           .catch(() => history.push('/signup'));
@@ -185,7 +185,7 @@ export default class App extends React.Component {
             history={history}
             linkedInSignIn={this.checkLinkedInUser}
             fbSignIn={this.firebaseSignIn}
-            checkIfUserIsInDB={this.signUpFirebaseUser}
+            addFirebaseUser={this.signUpFirebaseUser}
             client={client}
           />
         </ApolloProvider>

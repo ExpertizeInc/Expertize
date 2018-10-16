@@ -32,9 +32,11 @@ export default class Questionnaire extends Component {
     this.handleButtonToggle = this.handleButtonToggle.bind(this);
     this.addTags = this.addTags.bind(this);
     this.handleDismiss = this.handleDismiss.bind(this);
+    this.updateUserInfo = this.updateUserInfo.bind(this);
   }
 
-  getValidationState () {
+  getValidationState (e) {
+    e.preventDefault();
     const length = this.state.username.length;
     if (length > 12 || length === 0) return 'error';
   }
@@ -75,18 +77,25 @@ export default class Questionnaire extends Component {
     }
   }
 
+  updateUserInfo() {
+    const { client, user, history } = this.props;
+    const { description, coins, tags, username } = this.state;
+    client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id, email: user.email, description, coins, tags: tags || [], username } })
+      .then(({data}) => history.push('/home/profile'))
+      .catch((err) => console.error('FUCK', err))
+  }
+
   render() { 
     const { description, coins, tags, key, username, value } = this.state
-    const { user, client } = this.props;
+    const { user, client, history } = this.props;
     return (
       <div>
       {user 
         ? 
         <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
-        {console.log('IIIIII', user)}
           <Tab eventKey={1} title="Pick a username">
             <Form className="form-panel-question">
-              <FormGroup controlId="formBasicText" validationState={this.getValidationState()}>
+              <FormGroup controlId="formBasicText" validationState={this.getValidationState(e)}>
                 <Col xsOffset={5} sm={2}>
                   <ControlLabel>Pick a unique username.</ControlLabel>
                   <FormControl type="text" value={username} placeholder={user.username} onChange={(e) => this.handleInput(e, 'username')} />
@@ -146,18 +155,15 @@ export default class Questionnaire extends Component {
               <div>{value.map(tag => <div key={tag}><Label>{tag}</Label>{' '}</div>)}</div>
               <div>What are you interested in?</div>
               {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''}
-              {/* // todo: add a search or give some recommendations */}
               <div>
-                {/* // submit compiled user details to database. render user's profile complete w/ details */}
-                {user ?
-                  <Mutation mutation={UPDATE_USER_INFO} variables={{ id: user.id, email: user.email, description, coins, tags: tags || [], username }}>
-                    {updateUser => (
-                      <Link to="/profile">
-                      <Button type="submit" onClick={updateUser}>
-                        Update My Information
-                    </Button>
-                    </Link>)}
-                  </Mutation> : ''}
+                {user 
+                ?
+                  <Button type="submit" onClick={this.updateUserInfo}>
+                    Update My Information
+                  </Button>
+                :
+                  ''
+                }
               </div>
             </Col>
           </Tab>

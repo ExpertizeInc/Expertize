@@ -17,7 +17,6 @@ passport.use(new LinkedInStrategy({
   scope: ['r_emailaddress', 'r_basicprofile'],
   passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
-  console.log(req.user, 'BALLS')
   process.nextTick(() => {
     return done(null, profile);
   });
