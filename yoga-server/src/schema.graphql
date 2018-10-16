@@ -44,7 +44,7 @@ type User {
   linkedInProfile: String
   online: Boolean
   dailyClaimed: Boolean
-  questions: [Question!]
+  questionsAsked: [Question!]
   debt: Int
   coins: Int 
   ranking: Int

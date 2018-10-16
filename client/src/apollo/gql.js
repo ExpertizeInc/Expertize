@@ -167,6 +167,12 @@ query user($uid: String!) {
     dailyClaimed
     debt
     linkedInProfile
+    questionsAsked {
+      title
+      answeredBy {
+        username
+      }
+    }
   }
 }`;
 

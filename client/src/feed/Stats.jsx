@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Panel, Button, Glyphicon } from "react-bootstrap";
+import { Panel, Button, Image, Glyphicon, ListGroup, ListGroupItem } from "react-bootstrap";
 
-const Stats = ({user, match }) => {
-  console.log("stats", match);
+const Stats = ({ user, match }) => {
   return (
     <React.Fragment>
       <Panel.Heading className="centered">
-        <Panel.Title componentClass="h3">
-          <strong>{user.username}</strong>
+        <Panel.Title componentClass="h3" style={{ paddingTop: "20px" }}>
+        <Image src="http://placecorgi.com/100" style={{ borderRadius: "400px" }}></Image>
         </Panel.Title>
+          <strong>{user.username}</strong>
       </Panel.Heading>
       <Panel.Body className="centered">
         <Button className="round-btn">
@@ -32,6 +32,18 @@ const Stats = ({user, match }) => {
             <Glyphicon glyph="envelope" />
           </Link>
         </Button>
+      </Panel.Body>
+      <ListGroup className="centered">
+    <ListGroupItem><h4>{user.coins} <Image style={{ width: "20px" }} src="../../images/coin.gif"></Image></h4>
+    <div style={{ fontSize: "10px", color: "grey"}}>TOTAL COINS</div>
+    </ListGroupItem>
+    <ListGroupItem><h4>{user.questionsAsked.filter(question => {
+      return question.answeredBy === null
+    }).length}</h4>
+    <div style={{ fontSize: "10px", color: "grey"}}>ACTIVE QUESTIONS</div>
+    </ListGroupItem>
+    </ListGroup>
+      <Panel.Body style={{ backgroundColor: "#f5f5f5"}}>
       </Panel.Body>
     </React.Fragment>
   );
