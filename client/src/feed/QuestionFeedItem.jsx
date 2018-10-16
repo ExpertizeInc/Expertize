@@ -28,7 +28,7 @@ export default class QuestionFeedItem extends Component {
       <QuickView user={user} show={show} toggleShow={this.toggleShow} />
         <Panel.Heading>
           <Panel.Title componentClass="h3">
-          <img style={{ width: 20, height: 20, marginLeft: 3}} src={user.online === true ? greenCircle : greyCircle} alt={question.user && question.user.online === true ? 'online' : 'offline'}/>
+          <img style={{ width: 20, height: 20, marginLeft: 3}} src={question.user && question.user.online === true ? greenCircle : greyCircle} alt={question.user && question.user.online === true ? 'online' : 'offline'}/>
            <strong>{question.title} at <Moment fromNow>{question.createdAt.toLocaleString()}</Moment></strong>
           </Panel.Title>
         </Panel.Heading>
