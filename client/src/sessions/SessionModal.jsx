@@ -49,7 +49,7 @@ export default class SessionModal extends Component {
               </Modal.Body>
               <Modal.Footer className="centered ">
 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user ? question.user.username : '' }}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username }}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
                     <span>{question.text && <Button onClick={() => {
                       createSession()
@@ -58,7 +58,7 @@ export default class SessionModal extends Component {
                   )}
                 </Mutation>
                 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user ? question.user.username : '' }}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
                     <span>{question.video && <Button onClick={() => {
                       createSession()
