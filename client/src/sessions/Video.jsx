@@ -99,7 +99,7 @@ export default class Video extends Component {
     console.log(roomname, 'expert', expert, 'pupil',pupil)
     return (
       <React.Fragment>
-        <Timer minutes={this.props.location .state.session.question.duration}/>
+        <Timer session={this.props.location.state.session} minutes={this.props.location.state.session.question.duration}/>
         <h1>Video</h1>
         {/* <form>
           <input type="text" onChange={this.handleChange} value={roomname}/>
