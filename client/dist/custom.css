@@ -86,6 +86,18 @@
   background-color: #e6e6e6
 }
 
+.btn-online {
+  border: none;
+  color: white;
+  padding: 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 4px;
+  border-radius: 50%;
+}
+
+
 /* ========= Input ========== */
 
 textarea, input, .form-control {
@@ -178,3 +190,4 @@ color: white;
   height: 120px;
   overflow-y: scroll;
 }
+

@@ -15,14 +15,14 @@ import UserHome from '../app/UserHome.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
 import Video from '../sessions/Video.jsx';
 
-const Routes = ({ authenticated, user, history, linkedInSignIn, signOut, fbSignIn, client }) => (
+const Routes = ({ authenticated, user, history, linkedInSignIn, signOut, fbSignIn, client, checkIfUserIsInDB }) => (
     <div className="content">
       <NavBar user={user} authenticated={authenticated} history={history} signOut={signOut} />
       <Switch>
           <Route exact strict path="/" render={(props) => (authenticated ? <Redirect to="/home"/> : <Home {...props} client={client}/>)}></Route>
           <PrivateRoute path='/home' component={UserHome} user={user} authenticated={authenticated} client={client}></PrivateRoute>
           <Route exact strict path="/signin" render={(props) => <SignIn {...props}  fbSignIn={fbSignIn} linkedInSignIn={linkedInSignIn} client={client} />}></Route>
-          <Route exact strict path="/signup" render={(props) => <Signup {...props} client={client} linkedInSignIn={linkedInSignIn} />}></Route>
+          <Route exact strict path="/signup" render={(props) => <Signup {...props} checkIfUserIsInDB={checkIfUserIsInDB} client={client} linkedInSignIn={linkedInSignIn} fbSignIn={fbSignIn}/>}></Route>
           <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} client={client} />}></Route>
           {/* <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route> */}
           <Route exact strict path="/chat" component={Chat}></Route>

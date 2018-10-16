@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import QuickView from './QuickView.jsx';
 import SessionModal from '../sessions/SessionModal.jsx'
-import { Col, Button, Panel, Row, Glyphicon, Badge } from "react-bootstrap";
+import { Col, Button, Panel, Row, Glyphicon, Badge, Grid, Image, Thumbnail } from "react-bootstrap";
 import greenCircle from '../../dist/images/green_button.png';
 import greyCircle from '../../dist/images/grey_button.png';
 import Moment from 'react-moment';
-import moment from 'moment'
-
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
@@ -16,18 +14,23 @@ export default class QuestionFeedItem extends Component {
   }
 
   toggleShow() {
-    this.setState({ show: !this.state.show})
+    const { show } = this.state;
+    this.setState({ show: !show})
   }
 
   render() {
-    const { question, user, match } = this.props;
+    const { question, user } = this.props;
     const { show } = this.state;
     return (
       <Panel>
       <QuickView user={user} show={show} toggleShow={this.toggleShow} question={question} />
         <Panel.Heading>
           <Panel.Title componentClass="h3">
-          <img style={{ width: 20, height: 20, marginLeft: 3}} src={question.user && question.user.online === true ? greenCircle : greyCircle} alt={question.user && question.user.online === true ? 'online' : 'offline'}/>
+          {/* <img 
+            style={{ width: 20, height: 20, marginLeft: 3 }} 
+            src={question.user && question.user.online === true ? greenCircle : greyCircle} 
+            alt={question.user && question.user.online === true ? 'online' : 'offline'}/> */}
+            <button className="btn-online" style={{ backgroundColor: question.user && question.user.online === true ? '#1adda4' : '#999999' }}></button>
            <strong>{question.title} at <Moment fromNow>{question.createdAt.toLocaleString()}</Moment></strong>
           </Panel.Title>
         </Panel.Heading>

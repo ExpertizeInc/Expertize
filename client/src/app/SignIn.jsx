@@ -15,6 +15,7 @@ export default class Signin extends Component {
   }
 
   render() {
+    const { fbSignIn, linkedInSignIn } = this.props;
     return (
       <div>
         <Form className="form-panel-signup" horizontal>
@@ -47,10 +48,10 @@ export default class Signin extends Component {
               <Col smOffset={6} sm={3}>
                 <Button onClick={(e) => {
                   localStorage.setItem('fbOrLi', 'firebase');
-                  this.props.fbSignIn(e, this.state.email, this.state.password);
+                  fbSignIn(e, this.state.email, this.state.password);
                   }} 
                   type="submit">Log In</Button>
-                <br/><LinkedInLogin linkedInSignIn={this.props.linkedInSignIn} signInType="signIn"/>
+                <br/><LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signIn"/>
               </Col>
             </Row>
           </FormGroup>
