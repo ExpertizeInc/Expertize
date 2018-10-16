@@ -31,11 +31,12 @@ export default class Signup extends Component {
 
   submitSignUp(e, cb) {
     const { email, password } = this.state;
-    e.preventDefault()
+    e.preventDefault();
+    localStorage.setItem('fbOrLi', 'firebase');
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(({user}) => {
-      this.setState({ uid: user.uid })
-      localStorage.setItem('userId', this.state.uid);
+      this.setState({ uid: user.uid });
+      localStorage.setItem('userId', user.uid);
       localStorage.setItem('user', user);
       localStorage.setItem('fbOrLi', 'firebase');
       localStorage.setItem('timestamp', Date.now());
@@ -59,10 +60,7 @@ export default class Signup extends Component {
                   {signUpLinkedIn
                   ?
                   <div>
-                    <br/><LinkedInLogin onClick={() => {
-                      localStorage.setItem('fbOrLi', 'linkedIn');
-                      localStorage.setItem('timestamp', Date.now());
-                    }}/>
+                    <br/><LinkedInLogin linkedInSignIn={this.props.linkedInSignIn} signInType="signUp"/>
                     <h5>Don't have a linkedin account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>click here</Button></h5>
                   </div>
                   :

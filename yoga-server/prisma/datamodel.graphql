@@ -8,7 +8,7 @@ type User {
   tags: [String!]!
   image: String
   industry: String
-  linkedProfile: String
+  linkedInProfile: String
   ranking: Int @default(value:"0")
   description: String
   coins: Int @default(value: "0")
