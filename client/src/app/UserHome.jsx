@@ -23,13 +23,15 @@ export default class UserHome extends Component {
       session: [],
       dailyShow: true,
       status: ['online', 'offline'],
-      order: 'most',
+      order: 'createdAt_DESC',
+      chat: ['text', 'audio', 'video'],
       tags: []
     }
     this.toggleDaily = this.toggleDaily.bind(this)
     this.handleStatusFilter = this.handleStatusFilter.bind(this)
     this.handleOrderFilter = this.handleOrderFilter.bind(this)
     this.handleTagFilter = this.handleTagFilter.bind(this)
+    this.handleChatFilter = this.handleChatFilter.bind(this)
   }
 
   toggleDaily() {
@@ -37,11 +39,15 @@ export default class UserHome extends Component {
   }
 
   handleStatusFilter(e) {
-    this.setState({ status: e})
+    this.setState({ status: e })
   }
 
   handleOrderFilter(e) {
-    this.setState({ order: e})
+    this.setState({ order: e })
+  }
+
+  handleChatFilter(e) {
+    this.setState({ chat: e })
   }
 
   handleTagFilter() {
@@ -52,14 +58,14 @@ export default class UserHome extends Component {
 
   render() {
     const { match, user } = this.props
-    const { dailyShow, status, order, tags } = this.state
-    // console.log(this.state.order)
+    const { dailyShow, status, order, chat, tags } = this.state
+    console.log(this.state.order)
     return (
         <React.Fragment>{user && 
         <div>
           {!user.dailyClaimed && <DailyNotification toggle={this.toggleDaily} show={dailyShow} user={user} />}
           {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
-          <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={5000}>
+          <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={50000}>
             {({ loading, error, data }) => {
               if (loading) return <div></div>
               if (error) return <div>{console.log(error)}</div>
@@ -71,7 +77,7 @@ export default class UserHome extends Component {
               }
             }}
           </Query>
-          <Query query={GET_EXPERT_SESSIONS} variables={{ username: user.username }} pollInterval={5000}>
+          <Query query={GET_EXPERT_SESSIONS} variables={{ username: user.username }} pollInterval={50000}>
             {({ loading, error, data }) => {
               if (loading) return <div></div>
               if (error) return <div>{console.log(error)}</div>
@@ -103,21 +109,23 @@ export default class UserHome extends Component {
             <Row>
               <Col md={3}>
                 <Panel>
-                  <QuestionFilter
-                    handleStatus={this.handleStatusFilter}
-                    status={status}
-                    handleOrder={this.handleOrderFilter}
-                    order={order}
-                    handleTag={this.handleTagFilter}
-                    tags={tags} />
+                <QuestionFilter
+                  handleStatus={this.handleStatusFilter}
+                  handleOrder={this.handleOrderFilter}
+                  handleChat={this.handleChatFilter}
+                  handleTag={this.handleTagFilter}
+                  status={status}
+                  order={order}
+                  chat={chat}
+                  tags={tags} />
                 </Panel>
               </Col>
               <Col md={9}>
                 <Switch>
-                  <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} />} />
+                  <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} status={status} order={order} tags={tags} />} />
                   <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />
                   <Route path={`${match.url}/inbox`} render={({ match }) => <Inbox user={user} match={match} />} />
-                  <QuestionFeed status={status} order={order} tags={tags} match={match} user={user} />
+                  <QuestionFeed status={status} order={order} tags={tags} match={match} user={user} chat={chat} />
                 </Switch>
               </Col>
             </Row>

@@ -6,6 +6,7 @@ import Footer from './Footer.jsx';
 import Routes from "../routes/Routes.jsx";
 import history from "./history.js";
 import axios from 'axios';
+// import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -23,17 +24,14 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    var userId = JSON.stringify(localStorage.getItem('userId'));
-    var authType = JSON.stringify(localStorage.getItem('fbOrLi'));
-    var signInType = JSON.stringify(localStorage.getItem('linkedInLoginType'));
-    console.log(userId, 'userID');
-    console.log(authType === '"linkedIn"', 'AUTHTYPE')
-    console.log(signInType === '"signIn"', 'signInType')
-    if (userId !== '"null"' && signInType !== '"signUp"') {
-      this.checkIfUserIsInDB(JSON.stringify(userId));
-    } else if (authType === '"firebase"') {
+    var userId = localStorage.getItem('userId');
+    var authType = localStorage.getItem('fbOrLi');
+    var signInType = localStorage.getItem('linkedInLoginType');
+    if (JSON.stringify(userId) !== 'null' || userId !== null && signInType !== 'signUp') {
+      this.checkIfUserIsInDB(userId);
+    } else if (authType === 'firebase') {
       this.checkFirebaseUser();
-    } else if (authType === '"linkedIn"') {
+    } else if (authType === 'linkedIn') {
       this.checkLinkedInUser();
     } else {
       
@@ -55,70 +53,46 @@ export default class App extends React.Component {
   }
 
   checkLinkedInUser() {
-    // e.preventDefault()
-    const check = localStorage.getItem('linkedInLoginType');
-
-    console.log('CHECK', JSON.stringify(check))
-    if (JSON.stringify(check) === 'signIn') {
-      axios.post('/users')
-      .then((res) => {
-        console.log('YYYYY', res.headers)
-        localStorage.setItem('signingIn', 'false');
-        const user = JSON.parse(res.headers.user);
-        if (user !== "undefined") {
-          localStorage.setItem('userId', user.id);
-          localStorage.setItem('fbOrLi', 'linkedIn');
-          localStorage.setItem('timestamp', Date.now());
-          this.props.client.query({ query: GET_USER_UID, variables: { uid: user.id }})
+    axios.post('/users')
+    .then((res) => {
+      // console.log(res.headers)
+      const user = JSON.parse(res.headers.user);
+      if (user) {
+        console.log(user)
+        localStorage.setItem('userId', user.id);
+        localStorage.setItem('fbOrLi', 'linkedIn');
+        localStorage.setItem('timestamp', Date.now());
+        this.props.client 
+          .query({  query: GET_USER_UID, variables: { uid: user.id }})
             .then(({ data }) => {
-              console.log(data, 'XXXXXPP')
-              localStorage.setItem('signingIn', 'false');
-              this.setState({ authenticated: true})
-              this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true } })
+              // console.log('DATA', data)
+              this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
                 .then(({data}) => {
-                  console.log('data', data)
-                  this.setState({ user: data.updateUser, uid: data.updateUser.uid }, () => {
-                    history.push('/home')
-                  })
+                  console.log('DATA', data)
+                  this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/home'))
                 })
                 .catch(err => console.error('Error in changing status', err));
             })
-            .catch(() => history.push('/signup'));
-        } else if (JSON.stringify(check) === 'signUp') {
-          axios.post('/users')
-            .then((res) => {
-              const user = JSON.parse(res.headers.user);
-              console.log('YYYYYY', user)
-              if (user !== "undefined") {
-                localStorage.setItem('userId', user.id);
-                localStorage.setItem('fbOrLi', 'linkedIn')
-                this.props.client.mutate({ mutation: CREATE_USER, variables: { uid: user.id, email: user._json.emailAddress, username: user._json.formattedName  } })
-                  .then(({ data }) => {
-                    console.log('UUUU', data)
-                    localStorage.setItem('signingIn', 'false');
-                    this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl  } })
-                      .then(({data}) => {
-                        console.log('user', data)
-                        this.setState({ authenticated: true, user: data.updateUser }, () => {
-                          history.push('/home')
-                        })
-                      })
-                      .catch(err => console.error('Error in changing status', err));
-                  })
-                  .catch(() => {
-                    localStorage.clear();
-                    history.push('/signup')}
-                    );
-              } else {
-                localStorage.clear();
-                history.push('/')
-              }
-          })
-          .catch(err => console.log('not signed in linkedIn', err))
+            .catch(() => {
+              this.props.client
+                .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName  }})
+                .then(({data}) => {
+                  // console.log('DATA', user._json.pictureUrl, user._json.publicProfileUrls)
+                  this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
+                    .then(({data}) => {
+                      // console.log('dddd', data);
+                      this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/home'))
+                    })
+                    .catch(err => console.error('Error in changing status', err));
+                })
+                .catch(e => history.push('/signin'))
+            });
+      } else {
+        history.push('/signin');
       }
-    }).catch(e => console.error('FUCK', e));
-}
-}
+  })
+  .catch(err => console.log('not signed in linkedIn', err))
+  }
 
   firebaseSignIn(e, email, password) {
     e.preventDefault();
@@ -141,32 +115,35 @@ export default class App extends React.Component {
         this.setState({ authenticated: false }, () => {
           localStorage.clear();
           history.push('/');
-        }) ;
+        });
       }
     });
   }
 
   signOut() {
     const { user } = this.state;
+    console.log(user, 'signOut')
     let authType = localStorage.getItem('fbOrLi');
     if (authType === 'firebase') {
       firebase.auth().signOut();
       localStorage.clear();
-      this.setState({ authenticated: false, user: null}, () =>  history.push('/'))
+      this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
+      .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
+      .catch(err => console.error('error in sign out mutation', err));
     } else {
       axios.get('/logout')
         .then(() => {
           localStorage.clear();
-          this.setState({ authenticated: false, user: null, uid: null}, () => history.push('/'))
+          this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
+          .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
+          .catch(err => console.error('error in sign out mutation', err));
         })
         .catch(() => {
           localStorage.clear();
           history.push('/')}
           )
     }
-    this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
-      .then(() => this.setState({ authenticated: false, user: null }, () => history.push('/')))
-      .catch(err => console.error('error in sign out mutation', err));
+
 
   }
 

@@ -8,7 +8,7 @@ export default class QuestionFilter extends Component {
     this.state = {}
   }
   render() {
-    let { handleStatus, status, handleOrder, order, handleTag, tags } = this.props
+    let { handleStatus, handleOrder, handleTag, handleChat, status, order, chat, tag } = this.props
     return (
       <React.Fragment>
         <Panel.Heading className="centered">
@@ -23,14 +23,19 @@ export default class QuestionFilter extends Component {
               <ToggleButton className="btn-grp" value={'online'}>Online</ToggleButton>
               <ToggleButton className="btn-grp" value={'offline'}>Offline</ToggleButton>
             </ToggleButtonGroup>
-            <h4>user's questions in </h4>
-            <ToggleButtonGroup type="radio" name="options" onChange={handleOrder} value={order} defaultValue={'most'}>
-              <ToggleButton className="btn-grp" value='most'>Most recent</ToggleButton>
-              <ToggleButton className="btn-grp" value='least'>Least recent</ToggleButton>
+            <h4>Users' questions sorted by</h4>
+            <ToggleButtonGroup type="radio" name="radio" value={order} onChange={handleOrder} >
+              <ToggleButton className="btn-grp" value='createdAt_DESC'>Most recent</ToggleButton>
+              <ToggleButton className="btn-grp" value='createdAt_ASC'>Least recent</ToggleButton>
             </ToggleButtonGroup>
-            <h4>order containing</h4>
+            <h4>Interested in</h4>
+            <ToggleButtonGroup type="checkbox" value={chat} onChange={handleChat}>
+              <ToggleButton className="btn-grp" value={'text'}>Text</ToggleButton>
+              <ToggleButton className="btn-grp" value={'audio'}>Audio</ToggleButton>
+              <ToggleButton className="btn-grp" value={'video'}>Video</ToggleButton>
+            </ToggleButtonGroup>
+            <h4>Containing</h4>
             <TagDropdown />
-            <h4>tags.</h4>
           </Form>
         </Panel.Body>
       </React.Fragment>

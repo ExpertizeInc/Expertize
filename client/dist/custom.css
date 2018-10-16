@@ -169,4 +169,12 @@ color: white;
   color: black;
 }
 
-/* ===== online status ====== */
+/* ===== DROPDOWN ====== */
+
+.Select-option:nth-child(n+6) {
+  display: none;
+}
+.dropdown-menu {
+  height: 120px;
+  overflow-y: scroll;
+}

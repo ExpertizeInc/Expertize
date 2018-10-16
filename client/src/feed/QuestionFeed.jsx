@@ -1,52 +1,60 @@
 import React, { Component } from "react";
 import { Query, Mutation } from "react-apollo";
 import { Col, Button, Panel, Grid, Row, Glyphicon } from "react-bootstrap";
-// import TopicDropdown from './TagDropdown.jsx';
-import { GET_QUESTIONS } from '../apollo/gql.js';
-import QuestionFeedItem from './QuestionFeedItem.jsx';
-import { Link } from 'react-router-dom';
+import { GET_QUESTIONS, GET_FILTERED_QUESTIONS } from "../apollo/gql.js";
+import QuestionFeedItem from "./QuestionFeedItem.jsx";
+import { Link } from "react-router-dom";
+import MDSpinner from "react-md-spinner";
 import { userInfo } from "os";
-
 
 export default class QuestionFeed extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      questions: []
-    };
-    this.onChange = this.onChange.bind(this);
-    this.handleChatChoice = this.handleChatChoice.bind(this);
-  }
-
-  onChange(e, type) {
-    e.preventDefault()
-    this.setState({ [type]: e.target.value });
-  }
-
-  handleChatChoice(e) {
-    this.setState({ chat: e });
+    this.state = {};
   }
 
   render() {
-    const { user, match, status, order, tags } = this.props;
+    const { user, match, status, order, chat, tags } = this.props;
+    console.log(chat)
     return (
       <div>
         <Button>
           <Glyphicon glyph="pencil" />
           <Link to={`${match.url}/create`}> Create</Link>
         </Button>
-        <Query query={GET_QUESTIONS}>
+        <Query
+          query={GET_FILTERED_QUESTIONS}
+          variables={{
+            sort: order,
+            online: status.includes("online"),
+            offline: !status.includes("offline"),
+            audio: chat.includes("audio"),
+            video: chat.includes("video"),
+            text: chat.includes("text")
+          }}
+        >
           {({ loading, error, data }) => {
-            if (loading) return <div>Q Loading...</div>;
+            if (loading)
+              return (
+                <div>
+                  <MDSpinner size="50" />
+                </div>
+              );
             if (error) return <div> Error {console.log(error)} </div>;
             return (
               <div>
-                {/* {console.log(data, 'QUESTION DATA')} */}
-              {data.questions.map((question, i) => <QuestionFeedItem question={question} user={user} match={match} key={i} />)}
+                {data.questionsByFilter.map((question, i) => (
+                  <QuestionFeedItem
+                    question={question}
+                    user={user}
+                    key={question.id}
+                  />
+                ))}
               </div>
-            )}}
+            );
+          }}
         </Query>
       </div>
-    )
+    );
   }
 }

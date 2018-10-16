@@ -22,18 +22,16 @@ export default class Profile extends Component {
       <div>
         {user &&
           <Grid >
+            {console.log(user, 'PROPS')}
             <PageHeader style={{ display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
             <Row >
               <Col xs={6} md={3} >
                 <Thumbnail className="centered">
-                  <div className="hexagon" style={{ backgroundImage: `url(${user.image})` }}>
-                    <div className="hexTop" />
-                    <div className="hexBottom" />
-                  </div>
+                  <img src={user.image}/>
                   <span><h2>{user.username}</h2></span>
                   <Rating readonly initialRating={user.ranking} /> <br />
                   <div>{user.description}</div>
-                  <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">user.tags</Label>}</div>
+                  <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div>
                 
                 <Button><Glyphicon glyph="cog" /> Edit preferences</Button>
                 </Thumbnail>
@@ -42,7 +40,7 @@ export default class Profile extends Component {
                 <Row>
                   <Col xs={6} md={4}>
                     <Thumbnail className="centered">
-                      <h3>12</h3>
+                      <h3></h3>
                       Questions answered
                     </Thumbnail>
                   </Col>
@@ -55,7 +53,7 @@ export default class Profile extends Component {
                   <Col xs={6} md={4}>
                     <Thumbnail className="centered">
                     <h3>4</h3>
-                    Questions asked
+                    {}
                   </Thumbnail>
                   </Col>
                 </Row>

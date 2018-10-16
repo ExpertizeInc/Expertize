@@ -35,6 +35,28 @@ export const GET_QUESTIONS = gql`
   }
 `;
 
+export const GET_FILTERED_QUESTIONS = gql`
+  query($online: Boolean, $offline: Boolean, $sort: String, $username: String, $audio: Boolean, $video: Boolean, $text: Boolean) {
+    questionsByFilter(online: $online, offline: $offline, sort: $sort, username: $username, audio: $audio, video: $video, text: $text) {
+      user {
+        username
+        online
+      }
+      id
+      description
+      coins
+      title
+      text
+      createdAt
+      audio
+      video
+      duration
+      tags
+      id
+    }
+  }
+`
+
 export const GET_TAGS = gql`
   query {
     tags {
@@ -124,12 +146,19 @@ export const UPDATE_USER_INFO = gql`
 mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String], $username: String, $image: String, $dailyClaimed: Boolean, $debt: Int, $online: Boolean, $inSession: Boolean, $linkedInProfile: String) {
     updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags, username: $username, image: $image, dailyClaimed: $dailyClaimed, debt: $debt, online: $online, inSession: $inSession, linkedInProfile: $linkedInProfile) {
         id
+        uid
         description
         image
         description
         coins
         username
         linkedInProfile
+        tags
+        image
+        dailyClaimed
+        online
+        debt
+        inSession
     }
   }
 `;

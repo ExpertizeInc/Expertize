@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import QuickView from './QuickView.jsx';
-import Moment from 'react-moment';
 import SessionModal from '../sessions/SessionModal.jsx'
 import { Col, Button, Panel, Row, Glyphicon, Badge } from "react-bootstrap";
 import greenCircle from '../../dist/images/green_button.png';
-import redCircle from '../../dist/images/grey_button.png';
+import greyCircle from '../../dist/images/grey_button.png';
+import Moment from 'react-moment';
+import moment from 'moment'
+
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
@@ -19,26 +21,21 @@ export default class QuestionFeedItem extends Component {
 
 
   render() {
-    const { question, user, match } = this.props
+    const { question, user, match } = this.props;
     const { show } = this.state;
-    const greyCircle = <span className="dot"></span>
     return (
       <Panel>
       <QuickView user={user} show={show} toggleShow={this.toggleShow} />
         <Panel.Heading>
           <Panel.Title componentClass="h3">
-           <strong>{question.title}</strong> 
-           {question 
-           ?
-          <img style={{ width: 20, height: 20, marginLeft: 3}} src={question.user && question.user.online === true ? greenCircle : redCircle} alt={question.user && question.user.online === true ? 'online' : 'offline'}/>
-          :
-          ''
-          }
+          <img style={{ width: 20, height: 20, marginLeft: 3}} src={user.online === true ? greenCircle : greyCircle} alt={question.user && question.user.online === true ? 'online' : 'offline'}/>
+           <strong>{question.title} at <Moment fromNow>{question.createdAt.toLocaleString()}</Moment></strong>
           </Panel.Title>
         </Panel.Heading>
         <Panel.Body>
             <Row>
               <Col sm={3}>
+              {console.log(question, 'QUESTION')}
                 <img src='http://placecorgi.com/150' onClick={() => this.toggleShow()} />
            
                 <span className="centered" onClick={() => this.toggleShow()}><h4>{question.user ? question.user.username : '' }</h4></span>
@@ -63,7 +60,7 @@ export default class QuestionFeedItem extends Component {
               } 
               </Col>
               <Col sm={1}>
-                <SessionModal match={match} question={question} user={user} />
+                <SessionModal question={question} user={user} />
               </Col>
             </Row>
         </Panel.Body>

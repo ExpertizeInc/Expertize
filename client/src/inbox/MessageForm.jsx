@@ -29,13 +29,13 @@ class MessageForm extends Component {
       <Form>
         <FormGroup>
           <div>To<FormControl onChange={(e) => this.onChange(e, 'recipient')} value={this.state.recipient} type="text" /></div>
-          <div>Subject<FormControl  onChange={(e) => this.onChange(e, 'title')} value={this.state.title} type="text" /></div>
-          <div>Message<FormControl  onChange={(e) => this.onChange(e, 'message')} value={this.state.message} type="text" /></div>
+          <div>Subject<FormControl onChange={(e) => this.onChange(e, 'title')} value={this.state.title} type="text" /></div>
+          <div>Message<FormControl onChange={(e) => this.onChange(e, 'message')} value={this.state.message} type="text" /></div>
           <Mutation
-            mutation={CREATE_MESSAGE}
+            mutation={ CREATE_MESSAGE }
             variables={{ title, message, recipient: { connect: { username: recipient } }, sender: { connect: { username: user.username } } }}
             refetchQueries={() => [{ query: GET_ALL_MESSAGES, variables: { username: user.username } }]}
-            onComplete={() => this.setState({ title: '', message: '', recipient: ''})}>
+            onComplete={(data) => this.setState({ title: '', message: '', recipient: ''})}>
             {createMessage => {
               return (
                 <Row>
