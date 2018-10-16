@@ -6,12 +6,14 @@ import SessionChoice from '../sessions/SessionChoice.jsx';
 import SessionAccepted from '../sessions/SessionAccepted.jsx';
 import SessionRejected from '../sessions/SessionRejected.jsx';
 import DailyNotification from '../profile/DailyNotification.jsx';
-import Inbox from '../inbox/Inbox.jsx'
+import QuestionFilter from '../feed/QuestionFilter.jsx';
+import Profile from '../profile/Profile.jsx';
+import Inbox from '../inbox/Inbox.jsx';
+import Stats from '../feed/Stats.jsx';
 import { Route, Switch } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../apollo/gql.js';
 import { Grid, Row, Col, Thumbnail, Panel } from "react-bootstrap";
-import QuestionFilter from '../feed/QuestionFilter.jsx';
 import Survey from '../sessions/Survey.jsx'
 // import OpenSocket from 'socket.io-client';
 import { isNull } from 'util';
@@ -59,7 +61,6 @@ export default class UserHome extends Component {
   render() {
     const { match, user } = this.props
     const { dailyShow, status, order, chat, tags } = this.state
-    console.log(this.state.order)
     return (
         <React.Fragment>{user && 
         <div>
@@ -108,6 +109,9 @@ export default class UserHome extends Component {
             </Row>
             <Row>
               <Col md={3}>
+              <Panel>
+                <Stats match={match} user={user} />
+              </Panel>
                 <Panel>
                 <QuestionFilter
                   handleStatus={this.handleStatusFilter}
@@ -123,8 +127,9 @@ export default class UserHome extends Component {
               <Col md={9}>
                 <Switch>
                   <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} status={status} order={order} tags={tags} />} />
+                  <Route path={`${match.url}/profile`} render={(props) => <Profile {...props} user={user} />} />
+                  <Route path={`${match.url}/inbox`} render={(props) => <Inbox {...props} user={user} />} />
                   <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />
-                  <Route path={`${match.url}/inbox`} render={({ match }) => <Inbox user={user} match={match} />} />
                   <QuestionFeed status={status} order={order} tags={tags} match={match} user={user} chat={chat} />
                 </Switch>
               </Col>

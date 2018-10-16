@@ -24,7 +24,7 @@ const Routes = ({ authenticated, user, signIn, history, authenticateLinkedInUser
           <Route exact strict path="/signin" render={(props) => <SignIn {...props}  fbSignIn={fbSignIn} authenticateLinkedInUser={authenticateLinkedInUser} client={client} />}></Route>
           <Route exact strict path="/signup" render={(props) => <Signup {...props} signIn={signIn} client={client} />}></Route>
           <Route exact strict path="/questionnaire" render={(props) => <Questionnaire {...props} user={user} client={client} />}></Route>
-          <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route>
+          {/* <Route exact strict path="/profile" render={(props) => <Profile {...props} user={user} />}></Route> */}
           <Route exact strict path="/chat" component={Chat}></Route>
           {/* <Route exact strict path="/inbox" component={Inbox}></Route> */}
           <Route exact strict path="/video" component={Video}></Route>

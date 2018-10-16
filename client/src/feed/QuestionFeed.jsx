@@ -15,13 +15,8 @@ export default class QuestionFeed extends Component {
 
   render() {
     const { user, match, status, order, chat, tags } = this.props;
-    console.log(chat)
     return (
       <div>
-        <Button>
-          <Glyphicon glyph="pencil" />
-          <Link to={`${match.url}/create`}> Create</Link>
-        </Button>
         <Query
           query={GET_FILTERED_QUESTIONS}
           variables={{

@@ -37,13 +37,13 @@ export default class QuestionFeedItem extends Component {
            <div className="centered">
                 <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
                   : <Button className="round-btn"><Glyphicon glyph="comment" /></Button>
-                }</span>
+                }</span>{' '}
                 <span>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
                   : <Button className="round-btn"><Glyphicon glyph="earphone" /></Button>
-                }</span>
+                }</span>{' '}
                 <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
                   : <Button className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                }</span></div>
+                }</span>{' '}</div>
               
               </Col>
               <Col sm={3}>{question.description}
