@@ -1,6 +1,6 @@
 const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } =  require('../db/generated');
-require('dotenv/config')
+require('dotenv/config').config();
 // const express = require('express');
 // const path = require('path');
 

@@ -13,11 +13,34 @@ mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: Strin
 }
 `;
 
+export const FINISH_SESSION = gql`
+mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $user: ID!, $expertUser: ID!, $answeredBy: UserCreateOneInput, $expertRating: Int, $pupilRating: Int, $expertCoins: Int, $pupilCoins: Int, $endedAt: DateTime) {
+  updateSession(id: $id, completed: $completed, endedAt: $endedAt) { 
+    id
+    completed
+    endedAt
+  } updateQuestion( id: $questionId, answeredBy: $answeredBy) {
+    id 
+    user{
+      username
+    }
+    answeredBy {
+      username
+    }
+  } pupil:updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
+    id
+  } expert:updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
+    id
+  }
+}
+`;
+
 export const GET_QUESTIONS = gql`
   query {
     questions {
       user {
         username
+        online
       }
       id
       description
@@ -39,6 +62,7 @@ export const GET_FILTERED_QUESTIONS = gql`
     questionsByFilter(online: $online, offline: $offline, sort: $sort, username: $username, audio: $audio, video: $video, text: $text) {
       user {
         username
+        online
       }
       id
       description
@@ -102,8 +126,18 @@ export const GET_USER_QUESTIONS = gql`
   }
 `;
 
+export const GET_USER_BY_USERNAME = gql`
+  query getUserByUsername($username: String!) {
+    getUserByUsername(username: $username) {
+      id
+      username
+      online
+    }
+  }
+`;
+
 export const CREATE_USER = gql`
-mutation createUser($username: String! $email: String!, $uid: String!) {
+  mutation createUser($username: String! $email: String!, $uid: String!) {
     createUser(username: $username, email: $email, uid: $uid) {
       id
       username
@@ -124,23 +158,29 @@ query user($uid: String!) {
     ranking
     description
     coins
-    inSession
     online
     dailyClaimed
     debt
   }
-}
-`;
+}`;
 
 export const UPDATE_USER_INFO = gql`
-mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String], $username: String, $image: String, $dailyClaimed: Boolean, $debt: Int, $online: Boolean, $inSession: Boolean) {
-    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags, username: $username, image: $image, dailyClaimed: $dailyClaimed, debt: $debt, online: $online, inSession: $inSession) {
+mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String], $username: String, $image: String, $dailyClaimed: Boolean, $debt: Int, $online: Boolean, $inSession: Boolean, $linkedInProfile: String) {
+    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags, username: $username, image: $image, dailyClaimed: $dailyClaimed, debt: $debt, online: $online, inSession: $inSession, linkedInProfile: $linkedInProfile) {
         id
+        uid
         description
         image
         description
         coins
         username
+        linkedInProfile
+        tags
+        image
+        dailyClaimed
+        online
+        debt
+        inSession
     }
   }
 `;
@@ -181,15 +221,23 @@ query sessionsWhereUnacceptedPupil($username: String) {
     id
     type
     expert {
+      id
       username
+      coins
+      ranking
     }
     pupil {
+      id
       username
+      coins
+      ranking
     }
     accepted
     completed
     question{
       duration
+      id
+      coins
     }
   }
 }
@@ -201,15 +249,23 @@ query sessionsForExpert($username: String) {
     id
     type
     expert {
+      id
       username
+      coins
+      ranking
     }
     pupil {
+      id
       username
+      coins
+      ranking
     }
     accepted
     completed
     question{
       duration
+      id
+      coins
     }
   }
 }
@@ -247,4 +303,23 @@ query sessionsWhereRejectedExpert($username: String) {
     completed
   }
 }
+`
+
+export const GET_ALL_FINISHED_SESSIONS = gql`
+  query getAllFinishedSessions($id: String) {
+    getAllFinishedSessions(id: $id) {
+      pupil {
+        username
+      }
+      expert {
+        username
+      }
+      question{
+        description
+        title
+        coins
+      }
+      completed
+    }
+  }
 `

@@ -27,6 +27,7 @@ export default class QuestionFeed extends Component {
             video: chat.includes("video"),
             text: chat.includes("text")
           }}
+          pollInterval={500}
         >
           {({ loading, error, data }) => {
             if (loading)

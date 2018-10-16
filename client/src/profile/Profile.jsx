@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row, PageHeader, Thumbnail, Label, Glyphicon, Button } from 'react-bootstrap'
 import { Mutation, Query } from 'react-apollo';
-import { UPDATE_USER_INFO, GET_USER_QUESTIONS, GET_USER_UID } from '../apollo/gql.js';
+import { GET_USER_QUESTIONS, GET_ALL_FINISHED_SESSIONS } from '../apollo/gql.js';
 import Rating from 'react-rating';
 
 
@@ -18,22 +18,21 @@ export default class Profile extends Component {
 
   render() {
     const { user } = this.props;
+    console.log('profileeeeee', user)
     return (
       <div>
         {user &&
           <Grid >
+            {console.log(user, 'PROPS')}
             <PageHeader style={{ display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
             <Row >
               <Col xs={6} md={3} >
                 <Thumbnail className="centered">
-                  <div className="hexagon" style={{ backgroundImage: `url(${user.image})` }}>
-                    <div className="hexTop" />
-                    <div className="hexBottom" />
-                  </div>
+                  <img src={user.image}/>
                   <span><h2>{user.username}</h2></span>
                   <Rating readonly initialRating={user.ranking} /> <br />
                   <div>{user.description}</div>
-                  <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">user.tags</Label>}</div>
+                  <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div>
                 
                 <Button><Glyphicon glyph="cog" /> Edit preferences</Button>
                 </Thumbnail>
@@ -42,7 +41,7 @@ export default class Profile extends Component {
                 <Row>
                   <Col xs={6} md={4}>
                     <Thumbnail className="centered">
-                      <h3>12</h3>
+                      <h3></h3>
                       Questions answered
                     </Thumbnail>
                   </Col>
@@ -54,7 +53,7 @@ export default class Profile extends Component {
                   </Col>
                   <Col xs={6} md={4}>
                     <Thumbnail className="centered">
-                    <h3>4</h3>
+                    <h3>{user.questions && user.quetions.length ? user.questions.length : 0}</h3>
                     Questions asked
                   </Thumbnail>
                   </Col>
@@ -68,6 +67,7 @@ export default class Profile extends Component {
                         if (error) return <div>Error</div>
                         return (
                           <div>
+                            {console.log(data)}
                             {data.questionsByUser.map((question, i) => <div key={i}>{i + 1} Title: {question.title} | Description: {question.description}</div>)}
                           </div>
                         )
@@ -80,7 +80,20 @@ export default class Profile extends Component {
                   <Col>
                     <Thumbnail className="centered">
                       <h3>Interaction History, etc</h3>
-                      Map out session history for user
+                      <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
+                        {({ loading, error, data }) => {
+                          if (loading) return <div>Loading...</div>
+                          if (error) return <div>Error</div>
+                          if (true) console.log('data from get all finished sessions', data)
+                          return (
+                            <div>
+                              {data.getAllFinishedSessions.map((session, i) => 
+                                <div key={i}>{`${session.expert.username} helped ${session.pupil.username} | ${session.question.coins} coins`}</div>
+                              )}
+                            </div>
+                          )
+                        }}
+                      </Query>
                 </Thumbnail>
                     {/* Will show user activity, progress, session history, recently interacted */}
                   </Col>
