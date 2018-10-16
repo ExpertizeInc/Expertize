@@ -39,6 +39,7 @@
     "graphql-tools": "^4.0.0",
     "graphql-yoga": "^1.16.2",
     "lodash": "^4.17.11",
+    "moment": "^2.22.2",
     "net": "^1.0.2",
     "node-linkedin": "^0.5.6",
     "nodemon": "^1.18.4",

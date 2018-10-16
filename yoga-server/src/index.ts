@@ -28,6 +28,13 @@ const resolvers = {
     questionsByUser: (_, { username }, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.questions({ where: { user: { username }} }, info);
     },
+    questionsByFilter: (_, { online, offline, sort, username, audio, video, text }, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.questions({ 
+        where: {
+          user: { username_not: username }, 
+          OR: [{user: { online: online}}, { user: { online: offline }}, { AND: [{ audio}, {video}, {text}]}]},
+        orderBy: sort }, info)
+    },
     tags: (_, __, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.query.tags({}); 
     },

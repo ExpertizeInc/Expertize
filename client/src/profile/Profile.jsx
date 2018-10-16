@@ -62,7 +62,7 @@ export default class Profile extends Component {
                 <Row>
                   <Thumbnail className="centered">
                     <h3>Alt stats/graphs</h3>
-                    {/* <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
+                    <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
                       {({ loading, error, data }) => {
                         if (loading) return <div>Loading...</div>
                         if (error) return <div>Error</div>
@@ -72,7 +72,7 @@ export default class Profile extends Component {
                           </div>
                         )
                       }}
-                    </Query> */}
+                    </Query>
                   </Thumbnail>
                   {/* Will show user activity, progress, session history, recently interacted */}
                 </Row>
