@@ -3,7 +3,7 @@ import { Prisma, User } from '../prisma/generated';
 import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
 import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
-import 'dotenv/config'
+import 'dotenv/config';
 // const express = require('express');
 // const path = require('path');
 
@@ -25,8 +25,8 @@ const resolvers = {
     questions: (_, __, ctx, info) => {
       return ctx.prisma.query.questions({where: {answeredBy: null}}, info);
     },
-    questionsByUser: (_, { username }, ctx: {prisma: Prisma}, info) => {
-      return ctx.prisma.query.questions({ where: { user: { username }} }, info);
+    questionsByUser: (_, {username}, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.questions({ where: { user: {username} }}, info);
     },
     questionsByFilter: (_, { online, offline, sort, username, audio, video, text }, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.questions({ 
@@ -70,9 +70,9 @@ const resolvers = {
         data: { user, tags: { set: tags }, description, coins, title, text, audio, video, duration }
       }, info);
     },
-    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image }, ctx: { prisma: Prisma }, info) => {
+    updateUser: (_, { email, uid, description, coins, inSession, dailyClaimed, debt, online, id, tags, username, image, linkedInProfile }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
-        data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image },
+        data: { email, uid, description, coins, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image, linkedInProfile },
         where: { id } 
       }, info);
     },

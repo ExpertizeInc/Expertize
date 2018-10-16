@@ -1,7 +1,7 @@
 const passport = require('passport');
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 const OauthParams = require('./OauthParams.js');
-require('dotenv').config();
+require('dotenv');
 
 passport.serializeUser((user, done) => {
   done(null, user)
@@ -17,13 +17,8 @@ passport.use(new LinkedInStrategy({
   scope: ['r_emailaddress', 'r_basicprofile'],
   passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
-  // asynchronous verification, for effect...
-  // console.log(req.user, 'BALLS')
+  console.log(req.user, 'BALLS')
   process.nextTick(() => {
-    // To keep the example simple, the user's LinkedIn profile is returned to
-    // represent the logged-in user. In a typical application, you would want
-    // to associate the LinkedIn account with a user record in your database,
-    // and return that user instead.
     return done(null, profile);
   });
 }));

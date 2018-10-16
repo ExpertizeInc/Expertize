@@ -36,7 +36,7 @@ export default class SessionModal extends Component {
             >
               <Modal.Header closeButton>
                 <Modal.Title>
-                  Begin your discussion with {question.user.username} - SessionModal.jsx
+                  Begin your discussion with {question.user ? question.user.username : ''} - SessionModal.jsx
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -49,7 +49,7 @@ export default class SessionModal extends Component {
               </Modal.Body>
               <Modal.Footer className="centered ">
 
-                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
+                <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username }}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
                     <span>{question.text && <Button onClick={() => {
                       createSession()

@@ -1,20 +1,18 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import Particles from "react-particles-js";
-import params from "../particles.js";
 import { Query } from 'react-apollo';
 import { GET_USER_UID, CREATE_USER, UPDATE_USER_INFO } from "../apollo/gql.js";
 import Footer from './Footer.jsx';
 import Routes from "../routes/Routes.jsx";
 import history from "./history.js";
 import axios from 'axios';
+// import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { user: null, authenticated: false, uid: null, isLoading: true };
     this.signOut = this.signOut.bind(this);
-    this.signIn = this.signIn.bind(this);
     this.checkLinkedInUser = this.checkLinkedInUser.bind(this);
     this.checkFirebaseUser = this.checkFirebaseUser.bind(this);
     this.checkIfUserIsInDB = this.checkIfUserIsInDB.bind(this);
@@ -22,66 +20,55 @@ export default class App extends React.Component {
   }
 
   UNSAFE_componentWillMount(nextProps, nextState) {
-    localStorage.getItem('userId') && this.setState({ authenticated: true, uid: localStorage.getItem('user'), user: localStorage.getItem('userData'), isLoading: false})
+    localStorage.getItem('userId') && this.setState({ authenticated: true, uid: localStorage.getItem('userId'), isLoading: false})
   }
 
   componentDidMount() {
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
+<<<<<<< HEAD
     console.log('TYPEOF', typeof userId)
     console.log('YES', userId, authType)
     if (userId !== 'null' || userId !== null) {
       console.log('userid check???')
+=======
+    var signInType = localStorage.getItem('linkedInLoginType');
+    if (JSON.stringify(userId) !== 'null' || userId !== null && signInType !== 'signUp') {
+>>>>>>> dev
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase') {
       this.checkFirebaseUser();
     } else if (authType === 'linkedIn') {
       this.checkLinkedInUser();
     } else {
+<<<<<<< HEAD
       console.log('didnt find anything')
       history.push('/signin')
+=======
+      
+>>>>>>> dev
     }
   }
 
   checkIfUserIsInDB(uid) {
-    this.props.client
-      .query({ query: GET_USER_UID, variables: { uid } })
+    this.props.client.query({ query: GET_USER_UID, variables: { uid } })
         .then(({ data }) => {
-          this.setState({ authenticated: true, user: data.user }, () => {
+          console.log(data)
+          this.setState({ authenticated: true, user: data.user, uid }, () => {
             localStorage.setItem('userId', uid);
             localStorage.setItem('fbOrLi', 'firebase');
             localStorage.setItem('timestamp', Date.now());
+<<<<<<< HEAD
             // if (data.user.dailyClaimed === false) {
             //   show popup to let them claim 1 coin freebie 
             // }
             console.log('data.user', data.user)
+=======
+>>>>>>> dev
             history.push('/home')
           })
         })
-        .catch(err => console.error("auth failed", err));
-  }
-
-  checkFirebaseUser() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        localStorage.setItem('userId', user.uid);
-        localStorage.setItem('fbOrLi', 'firebase');
-        localStorage.setItem('timestamp', Date.now());
-        this.props.client
-          .query({ query: GET_USER_UID, variables: { uid: user.uid } })
-          .then(({ data }) => {
-            this.setState({ authenticated: true, user: data.user }, () => {
-              // if (data.user.dailyClaimed === false) {
-              //   show popup to let them claim 1 coin freebie 
-              // }
-              history.push('/home')
-            })
-          })
-          .catch(err => console.error("auth failed", err));
-      } else {
-        this.setState({ authenticated: false });
-      }
-    });
+        .catch(err => history.push('/signin'));
   }
 
   checkLinkedInUser() {
@@ -89,26 +76,34 @@ export default class App extends React.Component {
     .then((res) => {
       // console.log(res.headers)
       const user = JSON.parse(res.headers.user);
-      console.log(user, 'PPP')
       if (user) {
         console.log(user)
         localStorage.setItem('userId', user.id);
         localStorage.setItem('fbOrLi', 'linkedIn');
         localStorage.setItem('timestamp', Date.now());
-        // this.setState({ authenticated: true })
         this.props.client 
           .query({  query: GET_USER_UID, variables: { uid: user.id }})
             .then(({ data }) => {
-              this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true } })
+              // console.log('DATA', data)
+              this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
                 .then(({data}) => {
-                  this.setState({ authenticated: true, user: data.user }, () => history.push('/home'))
+                  console.log('DATA', data)
+                  this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/home'))
                 })
                 .catch(err => console.error('Error in changing status', err));
             })
             .catch(() => {
               this.props.client
-                .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName, linkedProfile: user._json.publicProfileUrl  }})
-                .then(({data}) => this.setState({ authenticated: true, user: data.createUser}, () => history.push('/questionnaire')))
+                .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName  }})
+                .then(({data}) => {
+                  // console.log('DATA', user._json.pictureUrl, user._json.publicProfileUrls)
+                  this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
+                    .then(({data}) => {
+                      // console.log('dddd', data);
+                      this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/home'))
+                    })
+                    .catch(err => console.error('Error in changing status', err));
+                })
                 .catch(e => history.push('/signin'))
             });
       } else {
@@ -118,37 +113,56 @@ export default class App extends React.Component {
   .catch(err => console.log('not signed in linkedIn', err))
   }
 
-  signIn(user) {
-    console.log('PPP', user);
-    this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true } })
-    .then(({data}) => this.setState({ authenticated: true, user: data.createUser}, () => history.push('/questionnaire')))
-    .catch(e => history.push('/signin'))
-    localStorage.setItem('userId', user.uid || user.id);
-    localStorage.setItem('fbOrLi', 'firebase');
-    localStorage.setItem('timestamp', Date.now());
-    this.setState({ authenticated: true, uid: user.uid, user }, () => history.push("/home"));
-  }
-
   firebaseSignIn(e, email, password) {
-    this.checkFirebaseUser();
     e.preventDefault();
-    console.log('submitting sign in to firebase');
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(({user}) => this.signIn(user))
-      .catch(error => {
-        console.error('error code:', error.code, 'with message: ', error.message);
-      });  
+      .then(() => this.checkFirebaseUser())
+      .catch(error => console.error('error code:', error.code, 'with message: ', error.message));  
+  }
+  checkFirebaseUser() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.props.client.query({ query: GET_USER_UID, variables: { uid: user.uid } })
+          .then(({ data }) => {
+            localStorage.setItem('userId', data.user.uid);
+              this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true } })
+                .then(({data}) => this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/home')))
+                .catch(e => history.push('/signin'))
+          })
+          .catch(() => history.push('/signup'));
+      } else {
+        this.setState({ authenticated: false }, () => {
+          localStorage.clear();
+          history.push('/');
+        });
+      }
+    });
   }
 
   signOut() {
+    const { user } = this.state;
+    console.log(user, 'signOut')
     let authType = localStorage.getItem('fbOrLi');
     if (authType === 'firebase') {
       firebase.auth().signOut();
-    } else if (authType === 'linkedIn') {
+      localStorage.clear();
+      this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
+      .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
+      .catch(err => console.error('error in sign out mutation', err));
+    } else {
       axios.get('/logout')
-        .then(() => history.push('/'))
-        .catch(err => console.error('error in signout', err))
+        .then(() => {
+          localStorage.clear();
+          this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
+          .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
+          .catch(err => console.error('error in sign out mutation', err));
+        })
+        .catch(() => {
+          localStorage.clear();
+          history.push('/')}
+          )
     }
+<<<<<<< HEAD
     this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: this.state.user.id, online: false }})
       .then(({data}) => this.setState({ authenticated: false, user: null }, () => history.push('/')))
       .catch(err => console.error('error in sign out mutation', err));
@@ -157,48 +171,38 @@ export default class App extends React.Component {
     // localStorage.setItem('timestamp', null);
     // localStorage.setItem('fbOrLi', null);
     localStorage.clear()
+=======
+
+
+>>>>>>> dev
   }
 
   render() {
-    const { user, authenticated } = this.state;
+    const { user, authenticated, uid } = this.state;
+    const { client } = this.props;
     return (
       <React.Fragment>
         <div className="main">
-        <ApolloProvider client={this.props.client}>
-          {/* particles is buggy, but might fix later during refinement phase */}
-          {/* <Particles params={params} style={{
-          position: 'absolute',
-          display: 'block',
-          zIndex: -10,
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: "url('http://www.sompaisoscatalans.cat/simage/96/965205/black-gradient-wallpaper.png')"
-          // backgroundImage: "url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/moving-through-stars-in-space_-1zccenlb__F0000.png')"
-        }} /> */}
-        {(authenticated && !user) && 
-            <Query query={ GET_USER_UID } variables={{ uid: this.state.uid }} >
+        <ApolloProvider client={client}>
+        {(authenticated && user) && 
+            <Query query={ GET_USER_UID } variables={{ uid }} >
               {({ loading, error, data, refetch, networkStatus }) => {
                 if (loading) return <div></div>;
                 if (error) return <div>{console.log(error)}</div>;
                 return (
-                  <div>
-                    {this.setState({ user: data.user })}
-                  </div>
+                  <div />
                 );
               }}
             </Query>}
           <Routes
             history={history}
             user={user}
-            signIn={this.signIn}
             signOut={this.signOut}
             authenticated={authenticated}
             history={history}
-            authenticateLinkedInUser={this.checkLinkedInUser}
+            linkedInSignIn={this.checkLinkedInUser}
             fbSignIn={this.firebaseSignIn}
-            client={this.props.client}
+            client={client}
           />
         </ApolloProvider>
         </div>
