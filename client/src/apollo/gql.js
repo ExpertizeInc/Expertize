@@ -34,6 +34,27 @@ export const GET_QUESTIONS = gql`
   }
 `;
 
+export const GET_FILTERED_QUESTIONS = gql`
+  query($online: Boolean, $offline: Boolean, $sort: String, $username: String, $audio: Boolean, $video: Boolean, $text: Boolean) {
+    questionsByFilter(online: $online, offline: $offline, sort: $sort, username: $username, audio: $audio, video: $video, text: $text) {
+      user {
+        username
+      }
+      id
+      description
+      coins
+      title
+      text
+      createdAt
+      audio
+      video
+      duration
+      tags
+      id
+    }
+  }
+`
+
 export const GET_TAGS = gql`
   query {
     tags {
@@ -72,8 +93,8 @@ query allMessages($username: String!) {
 `
 
 export const GET_USER_QUESTIONS = gql`
-  query questionsByUser($userId: String!) {
-    questionsByUser(userId: $userId) {
+  query questionsByUser($username: String!) {
+    questionsByUser(username: $username) {
       title
       description
       tags

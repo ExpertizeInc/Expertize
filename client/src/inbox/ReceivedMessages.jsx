@@ -8,7 +8,7 @@ const ReceivedMessages = (props) => (
       <Panel eventKey={i + 1}>
       <Panel.Heading className="link-alt-blk">
         <Panel.Title toggle className="link-alt-blk">
-          <div style={{ fontSize: "10px" }}><strong>{message.sender.username}</strong> - Message received on <Moment>{message.createdAt.toLocaleString()}</Moment></div>
+          <div style={{ fontSize: "10px" }}><strong>{message.sender.username}</strong> - Message received <Moment fromNow>{message.createdAt.toLocaleString()}</Moment></div>
           <strong>{message.title}</strong> 
         </Panel.Title>
         </Panel.Heading>

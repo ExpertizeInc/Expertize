@@ -123,7 +123,6 @@ export default class App extends React.Component {
     localStorage.setItem('userId', user.uid || user.id);
     localStorage.setItem('fbOrLi', 'firebase');
     localStorage.setItem('timestamp', Date.now());
-    console.log('ugh', user)
     this.setState({ authenticated: true, uid: user.uid, user }, () => history.push("/home"));
   }
 
