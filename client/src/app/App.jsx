@@ -26,27 +26,15 @@ export default class App extends React.Component {
   componentDidMount() {
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
-<<<<<<< HEAD
-    console.log('TYPEOF', typeof userId)
-    console.log('YES', userId, authType)
-    if (userId !== 'null' || userId !== null) {
-      console.log('userid check???')
-=======
     var signInType = localStorage.getItem('linkedInLoginType');
     if (JSON.stringify(userId) !== 'null' || userId !== null && signInType !== 'signUp') {
->>>>>>> dev
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase') {
       this.checkFirebaseUser();
     } else if (authType === 'linkedIn') {
       this.checkLinkedInUser();
     } else {
-<<<<<<< HEAD
-      console.log('didnt find anything')
-      history.push('/signin')
-=======
       
->>>>>>> dev
     }
   }
 
@@ -58,13 +46,6 @@ export default class App extends React.Component {
             localStorage.setItem('userId', uid);
             localStorage.setItem('fbOrLi', 'firebase');
             localStorage.setItem('timestamp', Date.now());
-<<<<<<< HEAD
-            // if (data.user.dailyClaimed === false) {
-            //   show popup to let them claim 1 coin freebie 
-            // }
-            console.log('data.user', data.user)
-=======
->>>>>>> dev
             history.push('/home')
           })
         })
@@ -162,19 +143,8 @@ export default class App extends React.Component {
           history.push('/')}
           )
     }
-<<<<<<< HEAD
-    this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: this.state.user.id, online: false }})
-      .then(({data}) => this.setState({ authenticated: false, user: null }, () => history.push('/')))
-      .catch(err => console.error('error in sign out mutation', err));
-    // localStorage.setItem('user', null);
-    // localStorage.setItem('userId', null);
-    // localStorage.setItem('timestamp', null);
-    // localStorage.setItem('fbOrLi', null);
-    localStorage.clear()
-=======
 
 
->>>>>>> dev
   }
 
   render() {
