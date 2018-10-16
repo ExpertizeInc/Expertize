@@ -51,7 +51,6 @@ export default class SessionModal extends Component {
 
                 <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
-                    // <span>{question.text && <Link to={`${match.url}/discussion/text/${question.username}`}><Button onClick={()=>console.log('text clicked')} bsStyle="success" ><Glyphicon glyph="comment" /> Start text</Button></Link>
                     <span>{question.text && <Button onClick={() => {
                       createSession()
                       this.setState({ show: false }, () => console.log('session was created'))}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
