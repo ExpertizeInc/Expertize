@@ -65,24 +65,16 @@ export default class App extends React.Component {
         this.props.client 
           .query({  query: GET_USER_UID, variables: { uid: user.id }})
             .then(({ data }) => {
-              // console.log('DATA', data)
               this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
-                .then(({data}) => {
-                  console.log('DATA', data)
-                  this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/home'))
-                })
+                .then(({data}) => this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/home')))
                 .catch(err => console.error('Error in changing status', err));
             })
             .catch(() => {
               this.props.client
                 .mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName  }})
                 .then(({data}) => {
-                  // console.log('DATA', user._json.pictureUrl, user._json.publicProfileUrls)
                   this.props.client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
-                    .then(({data}) => {
-                      // console.log('dddd', data);
-                      this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/home'))
-                    })
+                    .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/home')))
                     .catch(err => console.error('Error in changing status', err));
                 })
                 .catch(e => history.push('/signin'))

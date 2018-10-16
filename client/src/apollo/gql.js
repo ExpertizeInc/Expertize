@@ -41,6 +41,8 @@ export const GET_FILTERED_QUESTIONS = gql`
       user {
         username
         online
+        image
+        description
       }
       id
       description

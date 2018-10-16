@@ -10,22 +10,21 @@ import moment from 'moment'
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
-    super(props)
-    this.state = { show: false }
-    this.toggleShow = this.toggleShow.bind(this)
+    super(props);
+    this.state = { show: false };
+    this.toggleShow = this.toggleShow.bind(this);
   }
 
   toggleShow() {
     this.setState({ show: !this.state.show})
   }
 
-
   render() {
     const { question, user, match } = this.props;
     const { show } = this.state;
     return (
       <Panel>
-      <QuickView user={user} show={show} toggleShow={this.toggleShow} />
+      <QuickView user={user} show={show} toggleShow={this.toggleShow} question={question} />
         <Panel.Heading>
           <Panel.Title componentClass="h3">
           <img style={{ width: 20, height: 20, marginLeft: 3}} src={question.user && question.user.online === true ? greenCircle : greyCircle} alt={question.user && question.user.online === true ? 'online' : 'offline'}/>
@@ -35,9 +34,7 @@ export default class QuestionFeedItem extends Component {
         <Panel.Body>
             <Row>
               <Col sm={3}>
-              {console.log(question, 'QUESTION')}
-                <img src='http://placecorgi.com/150' onClick={() => this.toggleShow()} />
-           
+                <img src={question.user.image} onClick={() => this.toggleShow()} />
                 <span className="centered" onClick={() => this.toggleShow()}><h4>{question.user ? question.user.username : '' }</h4></span>
                 <div className="centered">
                   <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
