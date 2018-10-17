@@ -121,9 +121,8 @@ a {
 
 .centered {
   text-align: center;
-  align-items: center;
-  vertical-align: middle;
   justify-content: center;
+  vertical-align: middle;
 }
 
 .center {
@@ -131,7 +130,6 @@ a {
   align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .tags {

@@ -14,9 +14,9 @@ export default class QuestionFeed extends Component {
   }
 
   render() {
-    const { user, match, status, order, chat, tags } = this.props;
+    const { user, status, order, chat, tags } = this.props;
     return (
-      <div>
+      <div className="centered">
         <Query
           query={GET_FILTERED_QUESTIONS}
           variables={{

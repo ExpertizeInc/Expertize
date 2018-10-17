@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TagDropdown from './TagDropdown.jsx';
-import { Form, Panel, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+import { Form, Panel, ToggleButton, ToggleButtonGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 export default class QuestionFilter extends Component {
   constructor(props) {
@@ -16,28 +16,32 @@ export default class QuestionFilter extends Component {
             <strong>Filter Results</strong>
           </Panel.Title>
         </Panel.Heading>
-        <Panel.Body>
-          <Form>
-            <h4>Currently showing:</h4>
+          <ListGroup>
+            <ListGroupItem>
+          <Form className="centered">
+            <h5>Currently showing</h5>
             <ToggleButtonGroup type="checkbox" value={status} onChange={handleStatus}>
               <ToggleButton className="btn-grp" value={'online'}>Online</ToggleButton>
               <ToggleButton className="btn-grp" value={'offline'}>Offline</ToggleButton>
             </ToggleButtonGroup>
-            <h4>Users' questions sorted by</h4>
+            <h5>Users' questions sorted by</h5>
             <ToggleButtonGroup type="radio" name="radio" value={order} onChange={handleOrder} >
               <ToggleButton className="btn-grp" value='createdAt_DESC'>Most recent</ToggleButton>
               <ToggleButton className="btn-grp" value='createdAt_ASC'>Least recent</ToggleButton>
             </ToggleButtonGroup>
-            <h4>Interested in</h4>
+            <h5>Interested in</h5>
             <ToggleButtonGroup type="checkbox" value={chat} onChange={handleChat}>
               <ToggleButton className="btn-grp" value={'text'}>Text</ToggleButton>
               <ToggleButton className="btn-grp" value={'audio'}>Audio</ToggleButton>
               <ToggleButton className="btn-grp" value={'video'}>Video</ToggleButton>
             </ToggleButtonGroup>
-            <h4>Containing</h4>
+            <h5>Containing</h5>
             <TagDropdown />
           </Form>
-        </Panel.Body>
+          </ListGroupItem>
+          </ListGroup>
+        <Panel.Body style={{ backgroundColor: "#f5f5f5"}}>
+      </Panel.Body>
       </React.Fragment>
     );
   }
