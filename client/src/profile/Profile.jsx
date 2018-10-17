@@ -76,14 +76,12 @@ export default class Profile extends Component {
                             return (
                               <div>
                                 {console.log('aaaaaaaaaa',data)}
-                                {/* {this.setState({asked: data.questionsByUser.length})} */}
                                 {data.questionsByUser.map((question, i) => <div key={i}>{i + 1} Title: {question.title} | Description: {question.description}</div>)}
                               </div>
                             )
                           }}
                         </Query>
                       </Thumbnail>
-                      {/* Will show user activity, progress, session history, recently interacted */}
                     </Row>
 
                     <Row>

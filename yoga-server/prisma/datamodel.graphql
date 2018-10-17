@@ -26,30 +26,30 @@ type User {
 }
 
 type Message {
-  id: ID! @unique
-  sender: User @relation(name: "SendingUser")
-  recipient: User @relation(name: "ReceivingUser")
-  title: String
-  message: String
-  read: Boolean @default(value: false)
-  expired: Boolean @default(value: false)
-  createdAt: DateTime!
+ id: ID! @unique
+ sender: User @relation(name: "SendingUser")
+ recipient: User @relation(name: "ReceivingUser")
+ title: String
+ message: String
+ read: Boolean @default(value: false)
+ expired: Boolean @default(value: false)
+ createdAt: DateTime!
 }
 
 type Session {
- id: ID! @unique
- type: String!
- question: Question
- expert: User @relation(name: "UserSessions")
- pupil: User @relation(name: "PupilSessions")
- duration: Int
- accepted: Boolean
- completed: Boolean
- startedAt: DateTime
- endedAt: DateTime
- scheduledFor: DateTime
- createdAt: DateTime!
- updatedAt: DateTime!
+id: ID! @unique
+type: String!
+question: Question
+expert: User @relation(name: "UserSessions")
+pupil: User @relation(name: "PupilSessions")
+duration: Int
+accepted: Boolean
+completed: Boolean
+startedAt: DateTime
+endedAt: DateTime
+scheduledFor: DateTime
+createdAt: DateTime!
+updatedAt: DateTime!
 }
 
 type Tag {

@@ -41,8 +41,6 @@ export const GET_QUESTIONS = gql`
       user {
         username
         online
-        linkedInProfile
-        description
       }
       id
       description
@@ -67,9 +65,6 @@ export const GET_FILTERED_QUESTIONS = gql`
       user {
         username
         online
-        image
-        description
-        linkedInProfile
       }
       id
       description
@@ -80,7 +75,6 @@ export const GET_FILTERED_QUESTIONS = gql`
       audio
       video
       duration
-
     }
   }
 `
@@ -151,27 +145,26 @@ export const CREATE_USER = gql`
   mutation createUser($username: String! $email: String!, $uid: String!) {
     createUser(username: $username, email: $email, uid: $uid) {
     id
-    username
-    email
     uid
     tag {
       name
     }
     image
-    ranking
     description
     coins
-    online
-    dailyClaimed
-    debt
+    username
     linkedInProfile
+    image
+    dailyClaimed
+    online
+    debt
+    inSession
     questionsAsked {
       title
       answeredBy {
         username
       }
-      id
-    }
+    }  
     }
   }
 `;
@@ -182,7 +175,6 @@ query user($uid: String!) {
     id
     uid
     description
-    email
     image
     description
     coins
@@ -224,11 +216,11 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
         debt
         inSession
         questionsAsked {
-          title
-          answeredBy {
-            username
-          }
+        title
+        answeredBy {
+          username
         }
+      }
     }
   }
 `;
