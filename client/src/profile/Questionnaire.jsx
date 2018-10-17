@@ -152,7 +152,7 @@ export default class Questionnaire extends Component {
                 {user ?
                   <Mutation mutation={UPDATE_USER_INFO} variables={{ id: user.id, email: user.email, description, coins, tags: tags || [], username }}>
                     {updateUser => (
-                      <Link to="/profile">
+                      <Link to="/home/profile">
                       <Button type="submit" onClick={updateUser}>
                         Update My Information
                     </Button>

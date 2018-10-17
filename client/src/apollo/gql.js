@@ -191,6 +191,12 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
         online
         debt
         inSession
+        questionsAsked {
+        title
+        answeredBy {
+          username
+        }
+      }
     }
   }
 `;
