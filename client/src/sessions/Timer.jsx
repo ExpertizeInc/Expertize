@@ -15,9 +15,9 @@ export default class Timer extends Component {
   }
 
   componentDidMount() {
-    // this.setState({
-    //   time: this.props.minutes * 60
-    // }, () => this.startTimer())  
+    this.setState({
+      time: this.props.minutes * 60
+    }, () => this.startTimer())  
     this.startTimer()
   }
 
@@ -49,11 +49,13 @@ export default class Timer extends Component {
     const min = Math.floor(time / 60)
     const sec = time % 60 === 0 ? '00' : time % 60 > 9 ?  time % 60 : ('0' + (time % 60).toString())
     return (
-      // this.state.survey ? 
+      // this.state.survey ?
+      <div>
       <Survey session={this.props.session} /> 
-      // <div>
-      //   {time > 0 ? <h3>{min} MIN : {sec} SEC Remaining</h3> : <button onClick={this.handleClick}>Finish</button>}
-      // </div> 
+      <div>
+        {time > 0 ? <h3>{min} MIN : {sec} SEC Remaining</h3> : <button onClick={this.handleClick}>Finish</button>}
+      </div> 
+      </div> 
     )
   }
 }

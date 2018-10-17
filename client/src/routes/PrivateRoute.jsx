@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import { Query } from "react-apollo";
 import { GET_USER_UID } from '../apollo/gql.js';
 
-const PrivateRoute = ({ component: Component, ...prop, client }) => {
+const PrivateRoute = ({ component: Component, ...prop, client, history }) => {
 
 
   return (
@@ -17,7 +17,7 @@ if(error) return <div>ERROR</div>
 return(
     <Route {...prop} render={({ match }) => (
       prop.authenticated
-        ? <Component match={match} client={client} user={data.user} />
+        ? <Component match={match} client={client} user={data.user} history={history} />
         : <Redirect to='/' />
     )} />
 )

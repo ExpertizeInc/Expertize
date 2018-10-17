@@ -32,6 +32,7 @@ export default class QuestionFeed extends Component {
           {({ loading, error, data, fetchMore }) => {
             if (loading) return <div><MDSpinner size="50" /></div>
             if (error) return <div> Error {console.log(error)} </div>;
+            if (true) console.log('this is feed data, checking if answeredby is all null', data)
             return (
               <div>
                 {data.questionsByFilter.map((question, i) => (

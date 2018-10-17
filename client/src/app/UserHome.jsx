@@ -13,7 +13,7 @@ import Stats from '../feed/Stats.jsx';
 import { Route, Switch } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_UNACCEPTED_SESSIONS, GET_EXPERT_SESSIONS } from '../apollo/gql.js';
-import { Grid, Row, Col, Thumbnail, Panel } from "react-bootstrap";
+import { Grid, Row, Col, Panel } from "react-bootstrap";
 import Survey from '../sessions/Survey.jsx'
 // import OpenSocket from 'socket.io-client';
 import { isNull } from 'util';
@@ -58,9 +58,9 @@ export default class UserHome extends Component {
 
 
   render() {
-    const { match, user } = this.props
-    const { dailyShow, status, order, chat, tags } = this.state
-    console.log(user)
+    const { match, user } = this.props;
+    const { dailyShow, status, order, chat, tags } = this.state;
+    console.log('tes~~~t',user)
     return (
       <React.Fragment>
         {user &&
