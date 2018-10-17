@@ -19,7 +19,7 @@ export default class SessionChoice extends Component {
       {(session && session.pupil) && 
         <Modal show={true} >
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading - SessionChoice.jsx {session.id}</Modal.Title>
+            <Modal.Title>Session request{session.id}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
            <h4>{session.expert.username} has selected to {session.type} chat with you!</h4>

@@ -167,16 +167,6 @@ export default class App extends React.Component {
       <React.Fragment>
         <div className="main">
         <ApolloProvider client={client}>
-        {(authenticated && user) && 
-            <Query query={ GET_USER_UID } variables={{ uid }} >
-              {({ loading, error, data, refetch, networkStatus }) => {
-                if (loading) return <div></div>;
-                if (error) return <div>{console.log(error)}</div>;
-                return (
-                  <div />
-                );
-              }}
-            </Query>}
           <Routes
             history={history}
             user={user}

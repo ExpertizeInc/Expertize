@@ -5,7 +5,7 @@ type User {
   uid: String @unique
   linkedInEmail: String @unique
   linkedInId: String @unique
-  tags: [String!]!
+  tag: Tag
   image: String
   industry: String
   linkedInProfile: String
@@ -14,7 +14,6 @@ type User {
   coins: Int @default(value: "0")
   inSession: Boolean
   online: Boolean 
-  privacy: String
   reviews: String
   dailyClaimed: Boolean
   debt: Int @default(value:"0")
@@ -61,7 +60,7 @@ name: String! @unique
 type Question {
  id: ID! @unique
  user: User @relation(name: "AskingUser")
- tags: [String!]
+ tag: Tag
  description: String!
  coins: Int @default(value: "2")
  active: Boolean
