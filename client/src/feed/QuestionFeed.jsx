@@ -14,9 +14,9 @@ export default class QuestionFeed extends Component {
   }
 
   render() {
-    const { user, match, status, order, chat, tags } = this.props;
+    const { user, status, order, chat, tags } = this.props;
     return (
-      <div>
+      <div className="centered">
         <Query
           query={GET_FILTERED_QUESTIONS}
           variables={{
@@ -29,13 +29,8 @@ export default class QuestionFeed extends Component {
           }}
           pollInterval={500}
         >
-          {({ loading, error, data }) => {
-            if (loading)
-              return (
-                <div>
-                  <MDSpinner size="50" />
-                </div>
-              );
+          {({ loading, error, data, fetchMore }) => {
+            if (loading) return <div><MDSpinner size="50" /></div>
             if (error) return <div> Error {console.log(error)} </div>;
             if (true) console.log('this is feed data, checking if answeredby is all null', data)
             return (

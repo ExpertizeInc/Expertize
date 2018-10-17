@@ -10,7 +10,7 @@ export default class NavBar extends Component {
 
   render() {
     const routes = ['Questionnaire'];
-    const { authenticated } = this.props;
+    const { authenticated, signOut } = this.props;
     return (
       <Navbar fluid>
         <Nav>
@@ -37,7 +37,7 @@ export default class NavBar extends Component {
             <Link to="/signin">Sign In </Link>
           </NavItem>}
           <NavItem componentClass='span' className="nav-item">
-            {authenticated ? <Link to="/" onClick={this.props.signOut}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
+            {authenticated ? <Link to="/" onClick={signOut}>Sign Out</Link> : <Link to="/signup">Sign Up</Link>}
           </NavItem>
         </Nav>
       </Navbar>

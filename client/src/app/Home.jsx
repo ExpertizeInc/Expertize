@@ -27,21 +27,3 @@ export default class Home extends Component {
     );
   }
 };
-
-{
-  /* {this.state.authenticated === false ?
-  (<div>
-    <Query query={user}>
-      {({ loading, error, data }) => {
-        if (loading) return <div>Fetching</div>
-        if (error) return <div>Error</div>
-        return (
-          <div>
-            {console.log(data)}
-            </div>
-        )
-      }}
-    </Query>
-  </div>) : <div>Not Logged In</div>
-} */
-}

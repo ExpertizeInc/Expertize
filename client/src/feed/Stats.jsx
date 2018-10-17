@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Panel, Button, Image, Glyphicon, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Panel, Button, Image, Glyphicon, ListGroup, ListGroupItem, PanelGroup } from "react-bootstrap";
 
-const Stats = props => {
-  let { user, match } = props;
+const Stats = ({ user, match }) => {
   return (
     <React.Fragment>
       <Panel.Heading className="centered">

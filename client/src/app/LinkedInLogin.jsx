@@ -8,7 +8,7 @@ const LinkedInLogin = ({ linkedInSignIn, signInType }) => {
         <a href="/auth/linkedin"><img src={linkedInButton} 
         onClick={(e) => {
           {localStorage.setItem('fbOrLi', 'linkedIn')};
-          {localStorage.setItem('linkedInLoginType', 'signIn')}
+          {localStorage.setItem('loginType', 'signIn')}
           linkedInSignIn(e)
         }}/></a>
       </div>
@@ -19,7 +19,7 @@ const LinkedInLogin = ({ linkedInSignIn, signInType }) => {
         <a href="/auth/linkedin"><img src={linkedInButton} 
         onClick={(e) => {
             {localStorage.setItem('fbOrLi', 'linkedIn')};
-            {localStorage.setItem('linkedInLoginType', 'signUp')}
+            {localStorage.setItem('loginType', 'signUp')}
             linkedInSignIn(e)
         }}/></a>
       </div>
