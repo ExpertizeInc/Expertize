@@ -28,7 +28,7 @@ export default class App extends React.Component {
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
     var signInType = localStorage.getItem('loginType');
-    if (JSON.stringify(userId) !== 'null' || userId !== null && signInType != 'signUp') {
+    if (JSON.stringify(userId) !== 'null' || userId !== null || signInType != 'signUp') {
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase' && signInType != 'signUp') {
       this.checkFirebaseUser();
@@ -41,8 +41,10 @@ export default class App extends React.Component {
 
   checkIfUserIsInDB(uid) {
     const { client } = this.props; 
+    console.log('UID', uid)
     client.query({ query: GET_USER_UID, variables: { uid } })
       .then(({ data }) => {
+        console.log('data', data)
         this.setState({ authenticated: true, user: data.user, uid }, () => {
           localStorage.setItem('userId', uid);
           localStorage.setItem('fbOrLi', 'firebase');
@@ -139,6 +141,7 @@ export default class App extends React.Component {
     const { user } = this.state;
     const { client } = this.props;
     let authType = localStorage.getItem('fbOrLi');
+    console.log('LOCAL', localStorage.getItem('userId'))
     if (authType === 'firebase') {
       firebase.auth().signOut();
       localStorage.clear();
@@ -149,7 +152,7 @@ export default class App extends React.Component {
       axios.get('/logout')
         .then(() => {
           localStorage.clear();
-          client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
+          client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: JSON.stringify(localStorage.getItem('userId')) , online: false }})
             .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
             .catch(err => console.error('error in sign out mutation', err));
         })

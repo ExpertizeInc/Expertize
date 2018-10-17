@@ -23,7 +23,7 @@ export default class UserHome extends Component {
     super(props);
     this.state = {
       session: [],
-      dailyShow: true,
+      dailyShow: false,
       status: ['online', 'offline'],
       order: 'createdAt_DESC',
       chat: ['text', 'audio', 'video'],

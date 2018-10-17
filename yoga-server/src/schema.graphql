@@ -78,7 +78,7 @@ type Question {
   id: ID!
   user: User
   description: String!
-  tags: [String!]!
+  tags: [String!]
   coins: Int!
   active: Boolean
   title: String!

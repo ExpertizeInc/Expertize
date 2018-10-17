@@ -21,7 +21,8 @@ export default class Profile extends Component {
     console.log('profileeeeee', user)
     return (
       <div>
-        <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
+
+        {/* <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
           {({ loading, error, data }) => {
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error</div>
@@ -76,14 +77,12 @@ export default class Profile extends Component {
                             return (
                               <div>
                                 {console.log('aaaaaaaaaa',data)}
-                                {/* {this.setState({asked: data.questionsByUser.length})} */}
                                 {data.questionsByUser.map((question, i) => <div key={i}>{i + 1} Title: {question.title} | Description: {question.description}</div>)}
                               </div>
                             )
                           }}
                         </Query>
                       </Thumbnail>
-                      {/* Will show user activity, progress, session history, recently interacted */}
                     </Row>
 
                     <Row>
@@ -106,7 +105,7 @@ export default class Profile extends Component {
                 </Row>
               </Grid>)
           }}
-        </Query>
+        </Query> */}
       </div>)
   }
 }

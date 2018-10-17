@@ -95,7 +95,7 @@ export default class Questionnaire extends Component {
         <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
           <Tab eventKey={1} title="Pick a username">
             <Form className="form-panel-question">
-              <FormGroup controlId="formBasicText" validationState={(e) => this.getValidationState(e)}>
+              <FormGroup controlId="formBasicText" onClick={(e) => this.getValidationState(e)}>
                 <Col xsOffset={5} sm={2}>
                   <ControlLabel>Pick a unique username.</ControlLabel>
                   <FormControl type="text" value={username} placeholder={user.username} onChange={(e) => this.handleInput(e, 'username')} />
