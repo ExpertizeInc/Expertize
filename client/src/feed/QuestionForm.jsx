@@ -28,13 +28,13 @@ export default class QuestionForm extends Component {
     super(props);
     this.state = {
       description: '',
-      tags: [],
+      tag: '',
       chat: [],
       title: '',
       duration: 5
     };
     this.onChange = this.onChange.bind(this);
-    this.addTags = this.addTags.bind(this);
+    this.addTag = this.addTag.bind(this);
     this.setDuration = this.setDuration.bind(this);
     this.handleChatChoice = this.handleChatChoice.bind(this);
   }
@@ -54,20 +54,21 @@ export default class QuestionForm extends Component {
     this.setState({ duration: this.state.duration + e}) : null
   }
 
-  addTags(e) {
-    if (this.state.tags.includes(e)) {
-      alert('You have already added this tag')
-    } else if (this.state.tags.length >= 5) {
-      alert('No more than 5 tags per question please')
-    } else {
-      this.setState({ tags: [e, ...this.state.tags] });
-    }
+  addTag(e) {
+    console.log('deeeeee', e)
+    // if (this.state.tags.includes(e)) {
+    //   alert('You have already added this tag')
+    // } else if (this.state.tags.length >= 5) {
+    //   alert('No more than 5 tags per question please')
+    // } else {
+      this.setState({ tag: e });
+    // }
   }
   render() {
     const { user, status, order, client } = this.props;
     const {
       description,
-      tags,
+      tag,
       chat,
       title,
       duration,
@@ -149,13 +150,13 @@ export default class QuestionForm extends Component {
               </FormGroup>
               <FormGroup controlId="formControlsSelect">
                 <Col componentClass={ControlLabel}>
-                  <ControlLabel>Add Some Tags</ControlLabel>
+                  <ControlLabel>Add A Tag</ControlLabel>
                 </Col>
                 <Col>
                   <h5>
-                    {tags.length > 1 ? tags.map(tag => <Badge>{tag}</Badge>) : <Badge>{tags}</Badge>}
+                    {tag}
                   </h5>
-                  <TagDropdown userId={user ? user.id : ''} client={client} addTags={this.addTags} />
+                  <TagDropdown userId={user ? user.id : ''} client={client} addTag={this.addTag} />
                 </Col>
               </FormGroup>
               <FormGroup>
@@ -167,7 +168,7 @@ export default class QuestionForm extends Component {
                       id: user.id,
                       user: { connect: { username: user.username }},
                       description,
-                      tags,
+                      tag: { connect: { name: tag }},
                       debt: user.coins >= (user.debt > 0 ? 2 + user.debt : 2) ? 0 : user.coins - (user.debt > 0 ? 2 + user.debt : 2) - user.debt,
                       userCoins: user.coins - (user.debt > 0 ? 2 + user.debt : 2),
                       coins: user.debt > 0 ? 2 + user.debt : 2,

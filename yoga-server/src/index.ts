@@ -67,14 +67,14 @@ const resolvers = {
     createMessage: (_, { title, sender, recipient, message }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.createMessage({ data: { title, sender, recipient, message } }), info;
     },
-    createQuestion: (_, { user, tags, description, coins, title, text, audio, video, duration }, ctx, info) => {
+    createQuestion: (_, { user, tag, description, coins, title, text, audio, video, duration }, ctx, info) => {
       return ctx.prisma.mutation.createQuestion({
-        data: { user, tags: { set: tags }, description, coins, title, text, audio, video, duration }
+        data: { user, tag, description, coins, title, text, audio, video, duration }
       }, info);
     },
-    updateUser: (_, { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, id, tags, username, image, linkedInProfile }, ctx: { prisma: Prisma }, info) => {
+    updateUser: (_, { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, id, tag, username, image, linkedInProfile }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
-        data: { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, tags: { set: tags }, username, image, linkedInProfile },
+        data: { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, tag, username, image, linkedInProfile },
         where: { id } 
       }, info);
     },
