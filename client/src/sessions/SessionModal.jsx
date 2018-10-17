@@ -8,9 +8,7 @@ import { connect } from 'tls';
 export default class SessionModal extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      show: false
-    }
+    this.state = { show: false }
     this.handleHide = this.handleHide.bind(this);
   }
 
