@@ -1,28 +1,28 @@
 type User {
-  id: ID! @unique
-  username: String! @unique
-  email: String! @unique
-  uid: String @unique
-  linkedInEmail: String @unique
-  linkedInId: String @unique
-  tag: Tag
-  image: String
-  industry: String
-  linkedInProfile: String
-  ranking: Int @default(value:"0")
-  description: String
-  coins: Int @default(value: "0")
-  inSession: Boolean
-  online: Boolean 
-  reviews: String
-  dailyClaimed: Boolean
-  debt: Int @default(value:"0")
-  sentMessages: [Message!]! @relation(name: "SendingUser")
-  receivedMessages: [Message!]! @relation(name: "ReceivingUser")
-  questionsAsked: [Question!]! @relation(name: "AskingUser")
-  questionsAnswered: [Question!]! @relation(name: "AnswerUser")
-  sessionPupil: [Session!]! @relation(name: "PupilSessions")
-  sessionExpert: [Session!]! @relation(name: "UserSessions")
+ id: ID! @unique
+ username: String! @unique
+ email: String! @unique
+ uid: String @unique
+ linkedInEmail: String @unique
+ linkedInId: String @unique
+ tag: Tag
+ image: String
+ industry: String
+ linkedInProfile: String
+ ranking: Int @default(value:"0")
+ description: String
+ coins: Int @default(value: "0")
+ inSession: Boolean
+ online: Boolean
+ reviews: String
+ dailyClaimed: Boolean
+ debt: Int @default(value:"0")
+ sentMessages: [Message!]! @relation(name: "SendingUser")
+ receivedMessages: [Message!]! @relation(name: "ReceivingUser")
+ questionsAsked: [Question!]! @relation(name: "AskingUser")
+ questionsAnswered: [Question!]! @relation(name: "AnswerUser")
+ sessionPupil: [Session!]! @relation(name: "PupilSessions")
+ sessionExpert: [Session!]! @relation(name: "UserSessions")
 }
 
 type Message {
@@ -58,17 +58,17 @@ name: String! @unique
 }
 
 type Question {
- id: ID! @unique
- user: User @relation(name: "AskingUser")
- tag: Tag
- description: String!
- coins: Int @default(value: "2")
- active: Boolean
- title: String!
- text: Boolean!
- audio: Boolean!
- video: Boolean!
- duration: Int! @default(value: "5")
- answeredBy: User @relation(name: "AnswerUser")
- createdAt: DateTime!
+id: ID! @unique
+user: User @relation(name: "AskingUser")
+tag: Tag
+description: String!
+coins: Int @default(value: "2")
+active: Boolean
+title: String!
+text: Boolean!
+audio: Boolean!
+video: Boolean!
+duration: Int! @default(value: "5")
+answeredBy: User @relation(name: "AnswerUser")
+createdAt: DateTime!
 }

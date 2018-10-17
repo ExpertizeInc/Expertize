@@ -104,6 +104,11 @@ const resolvers = {
         data:{ answeredBy, description, coins, title, text, audio, video, duration },
         where: { id }
       },info)
+    },
+    deleteSession: (_, { id }, ctx, info) => {
+      return ctx.prisma.mutation.deleteSession({
+        where: {id}
+      },info)
     }
   },
 }

@@ -26,6 +26,7 @@ export default class Profile extends Component {
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error</div>
             if (true) console.log('data from get all finished sessions', data)
+            console.log('user ranking', user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length))
             return (
             <Grid>
                 {console.log(user, 'PROPS')}
@@ -35,7 +36,7 @@ export default class Profile extends Component {
                     <Thumbnail className="centered">
                       <img src={user.image}/>
                       <span><h2>{user.username}</h2></span>
-                      <Rating readonly initialRating={user.ranking / data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length} /> <br />
+                      <Rating readonly initialRating={data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length === 0 ? 0 : user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length)  } /> <br />
                       <div>{user.description}</div>
                       {/* <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div> */}
                     
