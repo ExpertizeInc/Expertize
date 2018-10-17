@@ -5,6 +5,7 @@ import openSocket from 'socket.io-client';
 import Timer from './Timer.jsx'
 import MDSpinner from 'react-md-spinner'
 import ReactLoading from 'react-loading'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const socket = openSocket('http://localhost:3001');
 
@@ -80,11 +81,14 @@ class Chat extends Component {
   }
 
   render() { 
-    const { match } = this.props
+    const { match, user } = this.props
+    const { messages } = this.state
+    const text = []
+    messages.forEach(x => text.concat(x))
     return (
       this.state.online.length === 2 ? 
       <div>
-        {<Timer session={match.location.state.session} minutes={match.location.state.session.question.duration}/>}
+        {<Timer user={user} session={match.location.state.session} minutes={match.location.state.session.question.duration}/>}
         <div>
           <div>
             <h3>Online Users - I am {this.state.userOne}</h3>
@@ -92,15 +96,11 @@ class Chat extends Component {
               {this.state.online.map((user) => <li key={user}>{user}</li>)}
             </ul>
           </div>
-          {/* <Well>
-          <div><p>message box with {this.state.target}</p></div><br/>
-          {this.state.messages.map(message => <div>{console.log(message)}{message}</div>)}
-          <Form>
-            <FormControl onChange={(e) => this.onChange(e)} value={this.state.text} placeholder="Chat" />
-            <Button onClick={(e) => {this.sendMessage(this.state.target, this.state.text, e)}} >BUTTON to send text</Button>
-          </Form>
-          </Well>  */}
           <ChatBox messages={this.state.messages} me={this.state.userOne} target={this.state.target} onChange={this.onChange} sendMessage={this.sendMessage} />
+          <CopyToClipboard text={this.state.messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' - '), '')}
+          onCopy={() => console.log('copied!', this.state.messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' - '), ''))}>
+          <button>Copy to clipboard with button</button>
+        </CopyToClipboard>
         </div>
       </div> :
       <div>

@@ -46,7 +46,6 @@ export default class App extends React.Component {
         console.log('data', data)
         this.setState({ authenticated: true, user: data.user, uid }, () => {
           localStorage.setItem('userId', uid);
-          localStorage.setItem('fbOrLi', 'firebase');
           localStorage.setItem('timestamp', Date.now());
           history.push('/home')
         })
@@ -74,7 +73,7 @@ export default class App extends React.Component {
             client.mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName  }})
               .then(({data}) => {
                 client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
-                  .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/home')))
+                  .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/questionnaire')))
                   .catch(err => console.error('Error in changing status', err));
               })
               .catch(e => history.push('/signin'))

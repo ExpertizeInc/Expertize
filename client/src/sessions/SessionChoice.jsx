@@ -8,7 +8,7 @@ export default class SessionChoice extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toggle: false
+      toggle: true
     }
   }
 

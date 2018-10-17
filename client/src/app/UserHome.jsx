@@ -67,7 +67,7 @@ export default class UserHome extends Component {
           <div>
             {!user.dailyClaimed && <DailyNotification toggle={this.toggleDaily} show={dailyShow} user={user} />}
             {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
-            <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={3000}>
+            <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={1000}>
               {({ loading, error, data }) => {
                 if (loading) return <div></div>
                 if (error) return <div>{console.log(error)}</div>
@@ -78,7 +78,7 @@ export default class UserHome extends Component {
                 }
               }}
             </Query>
-            <Query query={GET_EXPERT_SESSIONS} variables={{ username: user.username }} pollInterval={3000}>
+            <Query query={GET_EXPERT_SESSIONS} variables={{ username: user.username }} pollInterval={1000}>
               {({ loading, error, data }) => {
                 if (loading) return <div></div>
                 if (error) return <div>{console.log(error)}</div>

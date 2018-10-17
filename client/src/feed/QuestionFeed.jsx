@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import { Query, Mutation } from "react-apollo";
-import { Col, Button, Panel, Grid, Row, Glyphicon } from "react-bootstrap";
+import { Query } from "react-apollo";
 import { GET_QUESTIONS, GET_FILTERED_QUESTIONS } from "../apollo/gql.js";
 import QuestionFeedItem from "./QuestionFeedItem.jsx";
-import { Link } from "react-router-dom";
 import MDSpinner from "react-md-spinner";
 import { userInfo } from "os";
+import userImage from '../../dist/images/user.png';
 
 export default class QuestionFeed extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   render() {

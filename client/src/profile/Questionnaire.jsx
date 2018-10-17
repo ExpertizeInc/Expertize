@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import CircularProgressbar from 'react-circular-progressbar';
-import { Link } from 'react-router-dom';
-import { Form, FormGroup, FormControl, Panel, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, Label, Alert, Grid, Row } from 'react-bootstrap';
-import { Mutation } from 'react-apollo';
+import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, Label } from 'react-bootstrap';
 import TagDropdown from '../feed/TagDropdown.jsx';
 import { UPDATE_USER_INFO } from '../apollo/gql.js'; 
 
@@ -23,7 +21,10 @@ export default class Questionnaire extends Component {
       linkedInEmail: '',
       linkedInId: '',
       email: '',
-      percentage: 0
+      percentage: 0,
+      image: '',
+      addPicture: false, 
+      useLinkedInImage: false
     }
     this.handleSelect = this.handleSelect.bind(this);
     this.nextStep = this.nextStep.bind(this);
@@ -79,14 +80,14 @@ export default class Questionnaire extends Component {
 
   updateUserInfo() {
     const { client, user, history } = this.props;
-    const { description, coins, tags, username } = this.state;
-    client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id, email: user.email, description, coins, tags: tags || [], username } })
+    const { description, coins, tags, username, image, useLinkedInImage } = this.state;
+    client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id, email: user.email, description, coins, tags: tags || [], username, image } })
       .then(({data}) => history.push('/home'))
       .catch((err) => console.error('FUCK', err))
   }
 
   render() { 
-    const { description, coins, tags, key, username, value } = this.state
+    const { description, coins, tags, key, username, value, image, addPicture } = this.state
     const { user, client, history } = this.props;
     return (
       <div>
@@ -97,27 +98,21 @@ export default class Questionnaire extends Component {
             <Form className="form-panel-question">
               <FormGroup controlId="formBasicText" onClick={(e) => this.getValidationState(e)}>
                 <Col xsOffset={5} sm={2}>
-                  <ControlLabel>Pick a unique username.</ControlLabel>
+                  <ControlLabel>Pick a unique username</ControlLabel>
                   <FormControl type="text" value={username} placeholder={user.username} onChange={(e) => this.handleInput(e, 'username')} />
                   <FormControl.Feedback />
-                  <HelpBlock>Pick a username.</HelpBlock>
+                  <HelpBlock>Pick a username</HelpBlock>
                 </Col>
               </FormGroup>
               <FormGroup>
                 <Col smOffset={5} sm={2}>
-                  <Button type="submit" onClick={this.nextStep}>
-                    Submit
-                  </Button>
+                  <Button type="submit" onClick={this.nextStep}>Submit</Button>
                 </Col>
               </FormGroup>
             </Form>
           </Tab>
-          <Tab eventKey={2} title="Set up profile">
+          <Tab eventKey={2} title="Set Up Profile">
             <Col smOffset={4} sm={3}>
-              <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-                <div className="hexTop"></div>
-                <div className="hexBottom"></div>
-              </div>
               <FormGroup controlId="formControlsTextarea">
                 <h2>{username}, </h2>
                 <ControlLabel>Let us know a little about yourself</ControlLabel>
@@ -135,24 +130,45 @@ export default class Questionnaire extends Component {
           <Tab eventKey={3} title="Set up profile">
             {/* // only show if user did not select linkedin oauth signup. maybe pick avatar here too */}
             <Col smOffset={4} sm={3}>
-              <div>We use LinkedIn to tailor the experience for you. Would you like to connect in order to:</div>
-              <div>- Automatically create your profile</div>
-              <div>- Receive recommendations based on your interests</div>
-              <div>- or -</div>
-              <a onClick={this.nextStep}>Skip this step for now</a>
+            {console.log(localStorage.getItem('fbOrLi'))}
+              {localStorage.getItem('fbOrLi') === "linkedIn" 
+                ?
+                <div>
+                  Would you like to use your linkedIn profile picture?<br/><br/>
+                  <Button 
+                    onClick={(e) => {
+                      this.setState({ useLinkedInImage: true, image: user.image })
+                      this.nextStep(e)
+                    }}
+                  >Yes</Button>
+                </div>
+                :
+                <div>
+                  <Button onClick={() => this.setState({ addPicture: true })}>Would you like to add a photo?</Button>
+                  {addPicture 
+                  ? 
+                  <FormGroup>
+                    <FormControl onChange={(e) => this.setState({ image: e.target.value })} placeholder="Add a profile image"/><br/><br />
+                    <Button onClick={this.nextStep}>Add Image</Button>
+                  </FormGroup>
+                  :
+                  ''
+                  }
+                </div>
+              }
+              <br/>
+              <div>- or -</div><br/>
+              <Button onClick={this.nextStep}>Skip this step for now</Button>
             </Col>
           </Tab>
           <Tab eventKey={4} title="Expertize">
             <Col xsOffset={4} sm={4}>
-              <div className="hexagon" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-                <div className="hexTop"></div>
-                <div className="hexBottom"></div>
-              </div>
+              <img src={image} alt="profile image" style={{ height: 70, width: 110 }}/>
               <h2>{username}</h2>
               <div>{description}</div>
               Select your experience:
               <TagDropdown userId={user ? user.id : ''} client={client} addTags={this.addTags}/>
-              <div>{value.map(tag => <div key={tag}><Label>{tag}</Label>{' '}</div>)}</div>
+              <div>{value.map(tag => <div key={tag}><Label>{tag}</Label></div>)}</div>
               <div>What are you interested in?</div>
               {/* {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''} */}
               <div>

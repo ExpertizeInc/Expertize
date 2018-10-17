@@ -65,6 +65,7 @@ export const GET_FILTERED_QUESTIONS = gql`
       user {
         username
         online
+        image
       }
       id
       description
@@ -361,6 +362,13 @@ export const GET_ALL_FINISHED_SESSIONS = gql`
         coins
       }
       completed
+    }
+  }
+`
+export const DELETE_SESSION = gql`
+  mutation deleteSession($id: ID!) {
+    deleteSession(id: $id) {
+      id
     }
   }
 `
