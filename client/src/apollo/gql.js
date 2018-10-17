@@ -58,8 +58,8 @@ export const GET_QUESTIONS = gql`
 `;
 
 export const GET_FILTERED_QUESTIONS = gql`
-  query($online: Boolean, $offline: Boolean, $sort: String, $username: String, $audio: Boolean, $video: Boolean, $text: Boolean) {
-    questionsByFilter(online: $online, offline: $offline, sort: $sort, username: $username, audio: $audio, video: $video, text: $text) {
+  query($online: Boolean, $offline: Boolean, $sort: String, $username: String, $audio: Boolean, $video: Boolean, $text: Boolean, $after: String, $before: String) {
+    questionsByFilter(online: $online, offline: $offline, sort: $sort, username: $username, audio: $audio, video: $video, text: $text, after: $after, before: $before) {
       user {
         username
         online
@@ -74,7 +74,6 @@ export const GET_FILTERED_QUESTIONS = gql`
       video
       duration
       tags
-      id
     }
   }
 `

@@ -29,13 +29,8 @@ export default class QuestionFeed extends Component {
           }}
           pollInterval={500}
         >
-          {({ loading, error, data }) => {
-            if (loading)
-              return (
-                <div>
-                  <MDSpinner size="50" />
-                </div>
-              );
+          {({ loading, error, data, fetchMore }) => {
+            if (loading) return <div><MDSpinner size="50" /></div>
             if (error) return <div> Error {console.log(error)} </div>;
             return (
               <div>

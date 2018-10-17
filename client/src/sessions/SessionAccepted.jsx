@@ -11,7 +11,7 @@ const SessionAccepted = (props) => {
   {(session && session.pupil) && 
     <Modal show={true} >
       <Modal.Header closeButton>
-        <Modal.Title>Success! - SessionAccepted.jsx</Modal.Title>
+        <Modal.Title>Success!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h4>{session.pupil.username} has accepted the {session.type} chat with you!</h4>

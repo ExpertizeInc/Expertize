@@ -57,87 +57,86 @@ export default class UserHome extends Component {
   }
 
 
-
   render() {
     const { match, user } = this.props
     const { dailyShow, status, order, chat, tags } = this.state
+    console.log(user)
     return (
-        <React.Fragment>{user && 
-        <div>
-          {!user.dailyClaimed && <DailyNotification toggle={this.toggleDaily} show={dailyShow} user={user} />}
-          {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
-          <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={50000}>
-            {({ loading, error, data }) => {
-              if (loading) return <div></div>
-              if (error) return <div>{console.log(error)}</div>
-              if (true) console.log('get_unaccepted-session fired', data.sessionsWhereUnacceptedPupil)
-              if (data.sessionsWhereUnacceptedPupil.length > 0) {
-                return <SessionChoice session={data.sessionsWhereUnacceptedPupil[0]} user={user} match={match} />
-              } else {
-                return null
-              }
-            }}
-          </Query>
-          <Query query={GET_EXPERT_SESSIONS} variables={{ username: user.username }} pollInterval={50000}>
-            {({ loading, error, data }) => {
-              if (loading) return <div></div>
-              if (error) return <div>{console.log(error)}</div>
-              if (true) console.log('get_expert-session fired', data.sessionsForExpert)
-              if (data.sessionsForExpert && data.sessionsForExpert.length > 0) {
-                if (data.sessionsForExpert[0].accepted === true) {
-                  return <SessionAccepted session={data.sessionsForExpert[0]} user={user} match={match} />
+      <React.Fragment>
+        {user &&
+          <div>
+            {!user.dailyClaimed && <DailyNotification toggle={this.toggleDaily} show={dailyShow} user={user} />}
+            {/* this will listen for all sessions where user has asked a question and then someone choose to start a session w/ them */}
+            <Query query={GET_UNACCEPTED_SESSIONS} variables={{ username: user.username }} pollInterval={50000}>
+              {({ loading, error, data }) => {
+                if (loading) return <div></div>
+                if (error) return <div>{console.log(error)}</div>
+                if (data.sessionsWhereUnacceptedPupil.length > 0) {
+                  return <SessionChoice session={data.sessionsWhereUnacceptedPupil[0]} user={user} match={match} />
                 } else {
-                  return <SessionRejected session={data.sessionsForExpert[0]} user={user} match={match} />
+                  return null
                 }
-              } else {
-                return null
-              }
-            }}
-          </Query>
-          <Grid style={{ display: 'block', padding: "60px" }}>
-            <Row style={{ padding: "14px" }}>
-              <Col>
-                <Panel>
-                  <div>SOMETHINGGGG</div>
-                  <div>SOMETHINGGGG</div>
-                  <div>SOMETHINGGGG</div>
-                  <div>SOMETHINGGGG</div>
-                  <div>SOMETHINGGGG</div>
-                  <div>SOMETHINGGGG</div>
-                </Panel>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={3}>
-              <Panel>
-                <Stats match={match} user={user} />
-              </Panel>
-                <Panel>
-                <QuestionFilter
-                  handleStatus={this.handleStatusFilter}
-                  handleOrder={this.handleOrderFilter}
-                  handleChat={this.handleChatFilter}
-                  handleTag={this.handleTagFilter}
-                  status={status}
-                  order={order}
-                  chat={chat}
-                  tags={tags} />
-                </Panel>
-              </Col>
-              <Col md={9}>
-                <Switch>
-                  <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} status={status} order={order} tags={tags} />} />
-                  <Route path={`${match.url}/profile`} render={(props) => <Profile {...props} user={user} />} />
-                  <Route path={`${match.url}/inbox`} render={(props) => <Inbox {...props} user={user} />} />
-                  <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />
-                  <QuestionFeed status={status} order={order} tags={tags} match={match} user={user} chat={chat} />
-                </Switch>
-              </Col>
-            </Row>
-          </Grid>
-        </div>}
+              }}
+            </Query>
+            <Query query={GET_EXPERT_SESSIONS} variables={{ username: user.username }} pollInterval={50000}>
+              {({ loading, error, data }) => {
+                if (loading) return <div></div>
+                if (error) return <div>{console.log(error)}</div>
+                if (data.sessionsForExpert && data.sessionsForExpert.length > 0) {
+                  if (data.sessionsForExpert[0].accepted === true) {
+                    return <SessionAccepted session={data.sessionsForExpert[0]} user={user} match={match} />
+                  } else {
+                    return <SessionRejected session={data.sessionsForExpert[0]} user={user} match={match} />
+                  }
+                } else {
+                  return null
+                }
+              }}
+            </Query>
+            <Grid style={{ display: 'block', padding: "60px" }}>
+              <Row style={{ padding: "14px" }}>
+                <Col>
+                  <Panel>
+                    <div>SOMETHINGGGG</div>
+                    <div>SOMETHINGGGG</div>
+                    <div>SOMETHINGGGG</div>
+                    <div>SOMETHINGGGG</div>
+                    <div>SOMETHINGGGG</div>
+                    <div>SOMETHINGGGG</div>
+                  </Panel>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={3}>
+                  <Panel>
+                    <Stats match={ match } user={ user } />
+                  </Panel>
+                  <Panel>
+                    <QuestionFilter
+                      handleStatus={this.handleStatusFilter}
+                      handleOrder={this.handleOrderFilter}
+                      handleChat={this.handleChatFilter}
+                      handleTag={this.handleTagFilter}
+                      status={status}
+                      order={order}
+                      chat={chat}
+                      tags={tags} />
+                  </Panel>
+                </Col>
+                <Col md={9}>
+                  <Switch>
+                    <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} status={status} order={order} tags={tags} />} />
+                    <Route path={`${match.url}/profile`} render={(props) => <Profile {...props} user={user} />} />
+                    <Route path={`${match.url}/inbox`} render={(props) => <Inbox {...props} user={user} />} />
+                    <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />
+                    <QuestionFeed status={status} order={order} tags={tags} match={match} user={user} chat={chat} />
+                  </Switch>
+                </Col>
+              </Row>
+            </Grid>
+          </div>
+        }
       </React.Fragment>
-    );
+    )
   }
 }
-

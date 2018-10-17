@@ -21,10 +21,10 @@ export default class QuestionFeedItem extends Component {
 
 
   render() {
-    const { question, user, match } = this.props;
+    const { question, user } = this.props;
     const { show } = this.state;
     return (
-      <Col md={6} style={{ display: "inline"}}>
+      <Col md={12}>
       <Row>
       <Panel >
       <QuickView user={user} show={show} toggleShow={this.toggleShow} />
@@ -36,12 +36,14 @@ export default class QuestionFeedItem extends Component {
         </Panel.Heading>
         <Panel.Body> 
           {/* <Grid fluid> */}
-          <Row>
-          <Col md={12}>
-            <img src='http://placecorgi.com/100' onClick={() => this.toggleShow()} />
-            <span className="centered" onClick={() => this.toggleShow()}><h4>{question.user.username}</h4></span>
+          
+          <Col md={2}>
+            <img src='http://placecorgi.com/70' onClick={() => this.toggleShow()} />
+            <span className="centered" onClick={() => this.toggleShow()}><h5>{question.user.username}</h5></span>
             <Moment fromNow>{question.createdAt.toLocaleString()}</Moment>
-        <div className="centered">
+        </Col>
+        <Col md={10}>
+        <div>
             <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="comment" /></Button>
             }</span>{' '}
@@ -51,7 +53,6 @@ export default class QuestionFeedItem extends Component {
             <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
             }</span>{' '}</div>
-          
           <div>{question.description}</div>
           {question.tags.length > 1 
             ? 
@@ -61,7 +62,7 @@ export default class QuestionFeedItem extends Component {
           } 
           <SessionModal question={question} user={user} />
           </Col>
-      </Row>
+    
       {/* </Grid> */}
         </Panel.Body>
       </Panel>
