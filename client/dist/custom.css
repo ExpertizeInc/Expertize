@@ -86,11 +86,11 @@
   background-color: #e6e6e6
 }
 
-<<<<<<< HEAD
+
 .btn-online {
   border: none;
   color: white;
-  padding: 11px;
+  padding: 7px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -98,13 +98,10 @@
   border-radius: 50%;
 }
 
-
-=======
 #disabled {
   background-color: grey
 }
 
->>>>>>> dev
 /* ========= Input ========== */
 
 textarea, input, .form-control {

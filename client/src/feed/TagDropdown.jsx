@@ -17,8 +17,7 @@ export default class TagDropdown extends Component {
                   key={tag.name}
                   id="bg-nested-dropdown"
                   eventKey={tag.name}
-                  onSelect={this.props.addTags}
-                >
+                  onSelect={this.props.addTags}>
                   {tag.name}
                 </MenuItem>
             ))}

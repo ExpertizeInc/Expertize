@@ -9,9 +9,9 @@ const SessionRejected = (props) => {
   return (
 <div>
   {(session && session.pupil) && 
-    <Modal show={true} >
+    <Modal show={false} >
       <Modal.Header closeButton>
-        <Modal.Title>Oh no - SessionRejected.jsx</Modal.Title>
+        <Modal.Title>Oh no</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h4><strong>{session.pupil.username}</strong> has cancelled the {session.type} chat with you! id:{session.id}</h4>

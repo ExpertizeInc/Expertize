@@ -41,7 +41,7 @@ export default class App extends React.Component {
 
   checkIfUserIsInDB(uid) {
     const { client } = this.props; 
-    console.log('UID', uid)
+    // console.log('UID', uid === "cjndk7nqk7bse0b949zety7k8")
     client.query({ query: GET_USER_UID, variables: { uid } })
       .then(({ data }) => {
         console.log('data', data)
@@ -126,6 +126,7 @@ export default class App extends React.Component {
             localStorage.setItem('loginType', null);
               client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.createUser.id, online: true } })
                 .then(({data}) => { 
+                  localStorage.setItem('userId', data.updateUser.id);
                   this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/questionnaire'))
                 })
                 .catch(e => history.push('/signup'))
@@ -170,16 +171,6 @@ export default class App extends React.Component {
       <React.Fragment>
         <div className="main">
         <ApolloProvider client={client}>
-        {(authenticated && user) && 
-            <Query query={ GET_USER_UID } variables={{ uid }} >
-              {({ loading, error, data, refetch, networkStatus }) => {
-                if (loading) return <div></div>;
-                if (error) return <div>{console.log(error)}</div>;
-                return (
-                  <div />
-                );
-              }}
-            </Query>}
           <Routes
             history={history}
             user={user}

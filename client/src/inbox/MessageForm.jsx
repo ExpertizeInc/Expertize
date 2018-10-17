@@ -34,7 +34,7 @@ class MessageForm extends Component {
           <Mutation
             mutation={ CREATE_MESSAGE }
             variables={{ title, message, recipient: { connect: { username: recipient } }, sender: { connect: { username: user.username } } }}
-            refetchQueries={() => [{ query: GET_ALL_MESSAGES, variables: { username: user.username } }]}
+            refetchQueries={() => [{ query: GET_ALL_MESSAGES, variables: { username: user.username } }, { query: GET_USER_UID, variables: { uid: user.uid } }]}
             onComplete={(data) => this.setState({ title: '', message: '', recipient: ''})}>
             {createMessage => {
               return (

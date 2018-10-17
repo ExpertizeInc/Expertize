@@ -6,7 +6,7 @@ type Query {
   messagesReceived(username: String!): [Message]
   questions: [Question]!
   questionsByUser(username: String!): [Question]
-  questionsByFilter(online: Boolean, offline: Boolean, sort: String, username: String, audio: Boolean, video: Boolean, text: Boolean): [Question]
+  questionsByFilter(online: Boolean, offline: Boolean, sort: String, username: String, audio: Boolean, video: Boolean, text: Boolean, after: String, before: String): [Question]
   sessions: [Session!]!
   sessionsWhereUnacceptedPupil(username: String): [Session!]!
   # sessionsWhereAcceptedExpert(username: String): [Session!]!
@@ -17,12 +17,12 @@ type Query {
 
 type Mutation {
    createUser(email: String!, uid: String!, username: String!, linkedProfile: String): User
-   updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, linkedInProfile: String, coins: Int, tags: [String], username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int, ranking: Int): User
+   updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, linkedInProfile: String, coins: Int, tag: TagCreateOneInput, username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int, ranking: Int): User
    updateManyUsers(dailyClaimed: Boolean): BatchPayload!
    createMessage(title: String, sender: UserCreateOneInput, recipient: UserCreateOneInput, message: String): Message
    updateManyMessages: BatchPayload!
    login(email: String!, password: String!): LoginPayload!
-   createQuestion(user: UserCreateOneInput, description: String!, tags: [String!]!, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
+   createQuestion(user: UserCreateOneInput, description: String!, tag: TagCreateOneInput, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
    createSession(type: String!, question: QuestionCreateOneInput, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    updateSession(id: String!, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    addTag(name: String!): Tag
@@ -38,7 +38,8 @@ type User {
   username: String!
   email: String!
   uid: String!
-  tags: [String!]
+  # tags: [String!]
+  tag: Tag
   description: String
   inSession: Boolean
   linkedInProfile: String
@@ -78,7 +79,7 @@ type Question {
   id: ID!
   user: User
   description: String!
-  tags: [String!]
+  tag: Tag
   coins: Int!
   active: Boolean
   title: String!
@@ -106,6 +107,14 @@ input UserCreateOneInput {
 
 input UserInput {
   username: String
+}
+
+input TagCreateOneInput {
+  connect: TagInput
+}
+
+input TagInput {
+  name: String
 }
 
 input QuestionCreateOneInput {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Panel, Button, Image, Glyphicon, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Panel, Button, Image, Glyphicon, ListGroup, ListGroupItem, PanelGroup } from "react-bootstrap";
 
 const Stats = ({ user, match }) => {
   return (
@@ -17,22 +17,22 @@ const Stats = ({ user, match }) => {
           <Link to={`${match.url}`}>
             <Glyphicon glyph="home" />
           </Link>
-        </Button>
+        </Button>{' '}
         <Button className="round-btn">
           <Link to={`${match.url}/profile`}>
             <Glyphicon glyph="user" />
           </Link>
-        </Button>
+        </Button>{' '}
         <Button className="round-btn">
           <Link to={`${match.url}/create`}>
             <Glyphicon glyph="pencil" />
           </Link>
-        </Button>
+        </Button>{' '}
         <Button className="round-btn">
           <Link to={`${match.url}/inbox`}>
             <Glyphicon glyph="envelope" />
           </Link>
-        </Button>
+        </Button>{' '}
       </Panel.Body>
       <ListGroup className="centered">
     <ListGroupItem><h4>{user.coins} <Image style={{ width: "20px" }} src="../../images/coin.gif"></Image></h4>

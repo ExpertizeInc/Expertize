@@ -21,8 +21,7 @@ export default class Profile extends Component {
     console.log('profileeeeee', user)
     return (
       <div>
-
-        {/* <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
+        <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
           {({ loading, error, data }) => {
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error</div>
@@ -38,7 +37,7 @@ export default class Profile extends Component {
                       <span><h2>{user.username}</h2></span>
                       <Rating readonly initialRating={user.ranking / data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length} /> <br />
                       <div>{user.description}</div>
-                      <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div>
+                      {/* <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div> */}
                     
                     <Button><Glyphicon glyph="cog" /> Edit preferences</Button>
                     </Thumbnail>
@@ -105,7 +104,7 @@ export default class Profile extends Component {
                 </Row>
               </Grid>)
           }}
-        </Query> */}
+        </Query>
       </div>)
   }
 }
