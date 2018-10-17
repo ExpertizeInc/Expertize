@@ -53,12 +53,7 @@ export default class QuestionFeedItem extends Component {
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
             }</span>{' '}</div>
           <div>{question.description}</div>
-          {question.tags.length > 1 
-            ? 
-            question.tags.map(tag => <Badge key={tag}>{tag}</Badge>)
-            : 
-            <Badge>{question.tags}</Badge>
-          } 
+          {/* {question.tag.name} */}
           <SessionModal question={question} user={user} />
           </Col>
     

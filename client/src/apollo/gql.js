@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const CREATE_QUESTION = gql`
-mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: String!, $userCoins: Int!, $coins: Int!, $debt: Int, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
-  createQuestion(user: $user, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: String!, $userCoins: Int!, $coins: Int!, $debt: Int, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tag: TagCreateOneInput) {
+  createQuestion(user: $user, description: $description, tag: $tag, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
     description
     title
   }
@@ -53,7 +53,9 @@ export const GET_QUESTIONS = gql`
       audio
       video
       duration
-      tags
+      tag {
+        name
+      }
       id
     }
   }
@@ -78,7 +80,7 @@ export const GET_FILTERED_QUESTIONS = gql`
       audio
       video
       duration
-      tags
+
     }
   }
 `
@@ -125,7 +127,6 @@ export const GET_USER_QUESTIONS = gql`
     questionsByUser(username: $username) {
       title
       description
-      tags
     }
   }
 `;
@@ -153,7 +154,9 @@ export const CREATE_USER = gql`
     username
     email
     uid
-    tags
+    tag {
+      name
+    }
     image
     ranking
     description
@@ -185,12 +188,13 @@ query user($uid: String!) {
     coins
     username
     linkedInProfile
-    tags
     image
     dailyClaimed
     online
     debt
-    tags
+    tag {
+      name
+    }
     questionsAsked {
       title
       answeredBy {
@@ -201,8 +205,8 @@ query user($uid: String!) {
 }`;
 
 export const UPDATE_USER_INFO = gql`
-mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tags: [String], $username: String, $image: String, $dailyClaimed: Boolean, $debt: Int, $online: Boolean, $inSession: Boolean, $linkedInProfile: String) {
-    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tags: $tags, username: $username, image: $image, dailyClaimed: $dailyClaimed, debt: $debt, online: $online, inSession: $inSession, linkedInProfile: $linkedInProfile) {
+mutation updateUser($id: ID!, $email: String, $uid: String, $description: String, $coins: Int, $tag: TagCreateOneInput, $username: String, $image: String, $dailyClaimed: Boolean, $debt: Int, $online: Boolean, $inSession: Boolean, $linkedInProfile: String) {
+    updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tag: $tag, username: $username, image: $image, dailyClaimed: $dailyClaimed, debt: $debt, online: $online, inSession: $inSession, linkedInProfile: $linkedInProfile) {
         id
         uid
         description
@@ -211,7 +215,9 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
         coins
         username
         linkedInProfile
-        tags
+        tag {
+          name
+        }
         image
         dailyClaimed
         online

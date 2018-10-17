@@ -154,7 +154,7 @@ export default class Questionnaire extends Component {
               <TagDropdown userId={user ? user.id : ''} client={client} addTags={this.addTags}/>
               <div>{value.map(tag => <div key={tag}><Label>{tag}</Label>{' '}</div>)}</div>
               <div>What are you interested in?</div>
-              {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''}
+              {/* {tags.length > 0 ? tags.map(tag => <li key={tag}>{tag}</li>) : ''} */}
               <div>
                 {user 
                 ?
