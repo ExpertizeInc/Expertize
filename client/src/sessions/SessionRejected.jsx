@@ -9,7 +9,7 @@ const SessionRejected = (props) => {
   return (
 <div>
   {(session && session.pupil) && 
-    <Modal show={false} >
+    <Modal show={true} >
       <Modal.Header closeButton>
         <Modal.Title>Oh no</Modal.Title>
       </Modal.Header>
