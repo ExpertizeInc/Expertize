@@ -82,6 +82,9 @@ class Chat extends Component {
 
   render() { 
     const { match, user } = this.props
+    const { messages } = this.state
+    const text = []
+    messages.forEach(x => text.concat(x))
     return (
       this.state.online.length === 2 ? 
       <div>
@@ -94,8 +97,8 @@ class Chat extends Component {
             </ul>
           </div>
           <ChatBox messages={this.state.messages} me={this.state.userOne} target={this.state.target} onChange={this.onChange} sendMessage={this.sendMessage} />
-          <CopyToClipboard text={this.state.messages}
-          onCopy={() => console.log('copied!')}>
+          <CopyToClipboard text={text.join()}
+          onCopy={() => console.log('copied!', this.state.messages.reduce((a,b) => a + b[0], ''))}>
           <button>Copy to clipboard with button</button>
         </CopyToClipboard>
         </div>

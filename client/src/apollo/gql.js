@@ -80,14 +80,6 @@ export const GET_FILTERED_QUESTIONS = gql`
       audio
       video
       duration
-<<<<<<< HEAD
-      id
-      answeredBy{
-        username
-      }
-=======
-
->>>>>>> dev
     }
   }
 `
@@ -231,19 +223,11 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
         debt
         inSession
         questionsAsked {
-<<<<<<< HEAD
-        title
-        answeredBy {
-          username
-        }
-      }
-=======
           title
           answeredBy {
             username
           }
         }
->>>>>>> dev
     }
   }
 `;
