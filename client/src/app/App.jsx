@@ -151,7 +151,7 @@ export default class App extends React.Component {
       axios.get('/logout')
         .then(() => {
           localStorage.clear();
-          client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: localStorage.getItem('userId') , online: false }})
+          client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
             .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
             .catch(err => console.error('error in sign out mutation', err));
         })
