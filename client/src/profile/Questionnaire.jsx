@@ -36,7 +36,7 @@ export default class Questionnaire extends Component {
   }
 
   getValidationState (e) {
-    e.preventDefault();
+    e.preventDefault()
     const length = this.state.username.length;
     if (length > 12 || length === 0) return 'error';
   }
@@ -81,7 +81,7 @@ export default class Questionnaire extends Component {
     const { client, user, history } = this.props;
     const { description, coins, tags, username } = this.state;
     client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id, email: user.email, description, coins, tags: tags || [], username } })
-      .then(({data}) => history.push('/home/profile'))
+      .then(({data}) => history.push('/home'))
       .catch((err) => console.error('FUCK', err))
   }
 
@@ -95,7 +95,7 @@ export default class Questionnaire extends Component {
         <Tabs defaultActiveKey={1} id="controlled-tab" activeKey={key} onSelect={this.handleSelect}>
           <Tab eventKey={1} title="Pick a username">
             <Form className="form-panel-question">
-              <FormGroup controlId="formBasicText" validationState={this.getValidationState(e)}>
+              <FormGroup controlId="formBasicText" validationState={(e) => this.getValidationState(e)}>
                 <Col xsOffset={5} sm={2}>
                   <ControlLabel>Pick a unique username.</ControlLabel>
                   <FormControl type="text" value={username} placeholder={user.username} onChange={(e) => this.handleInput(e, 'username')} />

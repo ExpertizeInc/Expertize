@@ -80,6 +80,9 @@ export const GET_FILTERED_QUESTIONS = gql`
       duration
       tags
       id
+      answeredBy{
+        username
+      }
     }
   }
 `
@@ -162,6 +165,7 @@ export const CREATE_USER = gql`
       answeredBy {
         username
       }
+      id
     }
     }
   }
