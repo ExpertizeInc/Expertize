@@ -19,7 +19,6 @@ export default class Timer extends Component {
     this.setState({
       time: this.props.minutes * 60
     }, () => this.startTimer())  
-    this.startTimer()
   }
 
   tick() {
@@ -42,7 +41,7 @@ export default class Timer extends Component {
   handleClick(){
     // e.preventDefault()
     console.log(this.state.survey, 'stateo f survey at handleclick')
-    this.setState({ survey: true, time: null }, () => console.log('handleclick!1!!', this.state))
+    this.setState({ survey: true, time: null }, () => clearInterval(this.intervalHandle))
   }
 
   render() {
@@ -67,10 +66,10 @@ export default class Timer extends Component {
               </div>
             :
             time <= 0 ? 
-              <Link to='/'>Finish Session</Link> : 
+              <button onClick={() => this.props.history.push('/')}>Finish Session</button> : 
               <div>
               <h3>{min} MIN : {sec} SEC Remaining</h3>
-            <Link to='/'><button>Finish Session</button></Link>
+              <button onClick={this.handleClick}>Finish Session</button>
             </div>
         }
       </div> 

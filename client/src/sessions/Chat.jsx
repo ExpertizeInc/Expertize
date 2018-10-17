@@ -5,6 +5,7 @@ import openSocket from 'socket.io-client';
 import Timer from './Timer.jsx'
 import MDSpinner from 'react-md-spinner'
 import ReactLoading from 'react-loading'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const socket = openSocket('http://localhost:3001');
 
@@ -93,6 +94,10 @@ class Chat extends Component {
             </ul>
           </div>
           <ChatBox messages={this.state.messages} me={this.state.userOne} target={this.state.target} onChange={this.onChange} sendMessage={this.sendMessage} />
+          <CopyToClipboard text={this.state.messages}
+          onCopy={() => console.log('copied!')}>
+          <button>Copy to clipboard with button</button>
+        </CopyToClipboard>
         </div>
       </div> :
       <div>

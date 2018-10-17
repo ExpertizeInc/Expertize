@@ -50,12 +50,12 @@ export default class QuestionFeedItem extends Component {
               
               </Col>
               <Col sm={3}>{question.description}
-              {question.tags.length > 1 
+              {/* {question.tags.length > 1 
                 ? 
                 question.tags.map(tag => <Badge key={tag}>{tag}</Badge>)
                 : 
                 <Badge>{question.tags}</Badge>
-              } 
+              }  */}
               </Col>
               <Col sm={1}>
                 <SessionModal question={question} user={user} />

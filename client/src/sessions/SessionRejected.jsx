@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { Modal, Button } from 'react-bootstrap';
-import { UPDATE_SESSION } from '../apollo/gql.js';
+import { DELETE_SESSION } from '../apollo/gql.js';
 import { Link } from 'react-router-dom'
 
 const SessionRejected = (props) => {
@@ -17,8 +17,8 @@ const SessionRejected = (props) => {
         <h4><strong>{session.pupil.username}</strong> has cancelled the {session.type} chat with you! id:{session.id}</h4>
       </Modal.Body>
       <Modal.Footer>
-      <Mutation mutation={UPDATE_SESSION} variables={{ id: session.id, completed: null }}>
-        {updateSession => <Link to={match.url}><Button onClick={updateSession}>Okay</Button></Link>}
+      <Mutation mutation={DELETE_SESSION} variables={{ id: session.id }}>
+        {deleteSession => <Link to={match.url}><Button onClick={deleteSession}>Okay</Button></Link>}
         </Mutation>
       </Modal.Footer>
     </Modal>}

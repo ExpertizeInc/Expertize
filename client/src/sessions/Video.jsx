@@ -35,9 +35,9 @@ export default class Video extends Component {
     console.log(roomname, 'expert', expert, 'pupil',pupil)
     return (
       <React.Fragment>
-        <Timer user={user} session={this.props.match.location.state.session} minutes={this.props.match.location.state.session.question.duration}/>
-        <h1>Video</h1>
-        <iframe src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=91632a05-517e-4418-bcd2-ab58ff889970&iframe=true&room=${roomname}`} width='800' height='640' allow="microphone; camera"/>
+        <Timer history={this.props.match.history} user={user} session={this.props.match.location.state.session} minutes={this.props.match.location.state.session.question.duration}/>
+        <h1>{this.props.match.location.state.session.question.title}</h1>
+        <iframe src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=91632a05-517e-4418-bcd2-ab58ff889970&iframe=true&room=${roomname}`} width='700' height='640' allow="microphone; camera"/>
       </React.Fragment>
     )
   }

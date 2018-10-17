@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const CREATE_QUESTION = gql`
-mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: String!, $userCoins: Int!, $coins: Int!, $debt: Int, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tags: [String!]!) {
-  createQuestion(user: $user, description: $description, tags: $tags, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: String!, $userCoins: Int!, $coins: Int!, $debt: Int, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!) {
+  createQuestion(user: $user, description: $description, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
     description
     title
   }
@@ -73,7 +73,6 @@ export const GET_FILTERED_QUESTIONS = gql`
       audio
       video
       duration
-      tags
       id
       answeredBy{
         username
@@ -336,6 +335,13 @@ export const GET_ALL_FINISHED_SESSIONS = gql`
         coins
       }
       completed
+    }
+  }
+`
+export const DELETE_SESSION = gql`
+  mutation deleteSession($id: ID!) {
+    deleteSession(id: $id) {
+      id
     }
   }
 `
