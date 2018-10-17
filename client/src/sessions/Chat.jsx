@@ -97,7 +97,7 @@ class Chat extends Component {
             </ul>
           </div>
           <ChatBox messages={this.state.messages} me={this.state.userOne} target={this.state.target} onChange={this.onChange} sendMessage={this.sendMessage} />
-          <CopyToClipboard text={text.join()}
+          <CopyToClipboard text={this.state.messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' - '), '')}
           onCopy={() => console.log('copied!', this.state.messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' - '), ''))}>
           <button>Copy to clipboard with button</button>
         </CopyToClipboard>

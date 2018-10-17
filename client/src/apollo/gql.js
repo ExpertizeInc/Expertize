@@ -193,6 +193,7 @@ query user($uid: String!) {
         username
       }
     }
+    ranking
   }
 }`;
 
