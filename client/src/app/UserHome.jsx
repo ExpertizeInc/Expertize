@@ -79,11 +79,10 @@ export default class UserHome extends Component {
     this.setState({ tag: 'All'})
   }
 
+
   render() {
-    const { match, user } = this.props;
+    const { match, user, client } = this.props;
     const { dailyShow, status, order, chat, tag, showPupil, showExpert } = this.state;
-    console.log('tes~~~t',user)
-    console.log('test~~~t', this.state)
     return (
       <React.Fragment>
         {user &&
@@ -106,7 +105,7 @@ export default class UserHome extends Component {
                 if (loading) return <div></div>
                 if (error) return <div>{console.log(error)}</div>
                 if (true) console.log('get_expert_session', data)
-                if (showExpert && data.sessionsForExpert && data.sessionsForExpert.length > 0) {
+                if (this.state.showExpert && data.sessionsForExpert && data.sessionsForExpert.length > 0) {
                   if (data.sessionsForExpert[0].accepted === true) {
                     return <SessionAccepted toggleExpert={this.toggleExpert} session={data.sessionsForExpert[0]} user={user} match={match} />
                   } else {
@@ -133,7 +132,7 @@ export default class UserHome extends Component {
               <Row>
                 <Col md={3}>
                   <Panel>
-                    <Stats match={ match } user={ user } />
+                    <Stats match={match} user={user} client={client}/>
                   </Panel>
                   <Panel>
                     <QuestionFilter

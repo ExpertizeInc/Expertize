@@ -55,6 +55,10 @@ export const GET_QUESTIONS = gql`
         name
       }
       id
+      sessions {
+        id
+      }
+      createdAt
     }
   }
 `;
@@ -67,6 +71,7 @@ export const GET_FILTERED_QUESTIONS = gql`
         online
         image
         linkedInProfile
+        description
       }
       id
       description
@@ -95,7 +100,9 @@ export const GET_TAGS = gql`
 export const CREATE_MESSAGE = gql`
 mutation createMessage($title: String, $message: String, $sender: UserCreateOneInput, $recipient: UserCreateOneInput) {
   createMessage(title: $title, message: $message, sender: $sender, recipient: $recipient) {
+    id
     message
+    createdAt
   }
 }
 `
@@ -178,27 +185,27 @@ export const GET_USER_UID = gql`
 query user($uid: String!) {
   user(uid: $uid) {
     id
-    uid
-    description
-    image
-    description
-    coins
     username
-    linkedInProfile
-    image
-    dailyClaimed
-    online
-    debt
+    email
+    uid
     tag {
       name
     }
-    questionsAsked {
-      title
-      answeredBy {
-        username
-      }
-    }
+    description
+    inSession
+    linkedInProfile
+    online
+    dailyClaimed
+    debt
+    coins
     ranking
+    image
+    questionsAsked {
+        title
+        answeredBy {
+          username
+        }
+      }
   }
 }`;
 

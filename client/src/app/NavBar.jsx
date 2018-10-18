@@ -9,7 +9,6 @@ export default class NavBar extends Component {
   }
 
   render() {
-    const routes = ['Questionnaire'];
     const { authenticated, signOut } = this.props;
     return (
       <Navbar fluid>
@@ -19,14 +18,6 @@ export default class NavBar extends Component {
           </NavItem>
         </Nav>
         <Nav  pullRight>
-          {authenticated
-            ?
-            routes.map(route => (
-              <NavItem  key={route} componentClass='span' className="nav-item">
-                <Link to={`/${route.toLowerCase()}`}>{route}</Link>
-              </NavItem>
-            ))
-            : null}
           <NavItem  componentClass='span' className="nav-item">
             <Link to="/aboutus"> About Us</Link>
           </NavItem>

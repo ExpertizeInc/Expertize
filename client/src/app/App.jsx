@@ -1,12 +1,10 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import { Query } from 'react-apollo';
 import { GET_USER_UID, CREATE_USER, UPDATE_USER_INFO } from "../apollo/gql.js";
 import Footer from './Footer.jsx';
 import Routes from "../routes/Routes.jsx";
 import history from "./history.js";
 import axios from 'axios';
-import MDSpinner from "react-md-spinner";
 // import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export default class App extends React.Component {
@@ -26,12 +24,6 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const { isLoading } = this.state;
-    if (isLoading) {
-      return (<div><MDSpinner size="50" /></div>)
-    } else {
-      
-    }
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
     var loginType = localStorage.getItem('loginType');
@@ -54,6 +46,7 @@ export default class App extends React.Component {
   }
 
   checkIfUserIsInDB(uid) {
+    console.log('XXX', uid)
     const { client } = this.props; 
     client.query({ query: GET_USER_UID, variables: { uid } })
       .then(({ data }) => {
@@ -107,9 +100,6 @@ export default class App extends React.Component {
         })
       }
     }
-    
-
-  
 
   firebaseSignIn(e, email, password) {
     e.preventDefault();

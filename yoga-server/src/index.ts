@@ -13,10 +13,14 @@ const resolvers = {
       return ctx.prisma.query.users({}, info);
     },
     messagesSent: (_, { username }, ctx: {prisma: Prisma}, info) => {
-      return ctx.prisma.query.messages({ where: { sender: { username }, expired: false } }, info);
+      return ctx.prisma.query.messages({ 
+        where: { sender: { username }, expired: false },
+        orderBy: 'createdAt_DESC' }, info);
     },
     messagesReceived: (_, { username }, ctx: {prisma: Prisma}, info) => {
-      return ctx.prisma.query.messages({ where: { recipient: { username }, expired: false } }, info);
+      return ctx.prisma.query.messages({ 
+        where: { recipient: { username }, expired: false },
+        orderBy: 'createdAt_DESC' }, info);
     },
     questions: (_, __, ctx, info) => {
       return ctx.prisma.query.questions({where: {answeredBy: null}}, info);
