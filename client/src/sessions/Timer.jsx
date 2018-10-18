@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Survey from './Survey.jsx'
 import { Link } from 'react-router-dom'
+import { Button, Panel } from 'react-bootstrap'
 
 export default class Timer extends Component {
   constructor(props) {
@@ -40,19 +41,17 @@ export default class Timer extends Component {
 
   handleClick(){
     // e.preventDefault()
-    console.log(this.state.survey, 'stateo f survey at handleclick')
     this.setState({ survey: true, time: null }, () => clearInterval(this.intervalHandle))
   }
 
   render() {
     const { time, survey } = this.state
     const { user, session } = this.props
-    console.log('the props in timer', )
     const min = Math.floor(time / 60)
     const sec = time % 60 === 0 ? '00' : time % 60 > 9 ?  time % 60 : ('0' + (time % 60).toString())
     return (
       // this.state.survey ?
-      <div>
+      <React.Fragment>
         {/* {(time <= 0 || survey) && user.username === session.pupil.username ? 
         <Survey session={session} /> : <h3>{min} MIN : {sec} SEC Remaining</h3>} 
         {(time <= 0 || survey) && user.username === session.pupil.username ? 
@@ -62,18 +61,18 @@ export default class Timer extends Component {
             time <= 0 || survey ?
               <Survey session={session} /> :
               <div>
-              <h3>{min} MIN : {sec} SEC Remaining</h3>
-              <button onClick={this.handleClick}>Finish Session</button>
+              <h3 style={{"font-family": 'Orbitron'}} >{min} : {sec} Remaining</h3>
+              <Button bsStyle='primary' onClick={this.handleClick}>Finish Session</Button>
               </div>
             :
             time <= 0 ? 
-              <button onClick={() => {this.props.history.push('/')}}>Finish Session</button> : 
+              <Button bsStyle='primary' onClick={() => {this.props.history.push('/')}}>Finish Session</Button> : 
               <div>
-              <h3>{min} MIN : {sec} SEC Remaining</h3>
-              <button onClick={this.handleClick}>Finish Session</button>
+              <h3 style={{"font-family": 'Orbitron'}} >{min} : {sec} Remaining</h3>
+              <Button bsStyle='primary' onClick={this.handleClick}>Finish Session</Button>
             </div>
         }
-      </div> 
+      </React.Fragment> 
     )
   }
 }

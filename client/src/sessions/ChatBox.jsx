@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormControl, Button, Well } from 'react-bootstrap';
+import userImage from '../../dist/images/user.png';
 // import openSocket from 'socket.io-client';
 
 // const socket = openSocket('http://localhost:3001');
@@ -34,6 +35,9 @@ class ChatBox extends Component {
   render() {
     let { messages, me, sendMessage, target } = this.props
     let check = (str) => str === me ? 'userOne' : 'target'
+    const { user, session } = this.props
+    const pupilImage = session.pupil.image ? session.pupil.image : userImage
+    const expertImage = session.expert.image ? session.expert.image : userImage
     return (
       <div id="chatbox-body">
         <div className="chatbox">
@@ -48,14 +52,14 @@ class ChatBox extends Component {
             </div> */}
             {messages && messages.map((message, i) => (
               <div key={i} className={`chat ${check(message.from)}`}>
-                <div className="user-photo"></div>
+                <div className="user-photo"><img src={message.from === session.expert.username ? expertImage : pupilImage}></img></div>
                 <p className="chat-message">{message.msg}</p>	
               </div>
             ))}
           </div>
           <div className="chat-form">
             <textarea onChange={(e) => this.onChange(e)} value={this.state.text} placeholder='Message'></textarea>
-            <button onClick={() => {sendMessage(target, this.state.text); this.setState({text:''})}}>Send</button>
+            <Button bsStyle='primary' onClick={() => {sendMessage(target, this.state.text); this.setState({text:''})}}>Send</Button>
           </div>
         </div>
       </div>

@@ -270,12 +270,14 @@ query sessionsWhereUnacceptedPupil($username: String) {
       username
       coins
       ranking
+      image
     }
     pupil {
       id
       username
       coins
       ranking
+      image
     }
     accepted
     completed
@@ -283,6 +285,8 @@ query sessionsWhereUnacceptedPupil($username: String) {
       duration
       id
       coins
+      title
+      description
     }
   }
 }
@@ -298,12 +302,14 @@ query sessionsForExpert($username: String) {
       username
       coins
       ranking
+      image
     }
     pupil {
       id
       username
       coins
       ranking
+      image
     }
     accepted
     completed
@@ -311,6 +317,8 @@ query sessionsForExpert($username: String) {
       duration
       id
       coins
+      title
+      description
     }
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormControl, Button, Well } from 'react-bootstrap';
+import { Panel, Form, FormControl, Button, Well, Row, Col, Grid } from 'react-bootstrap';
 import ChatBox from './ChatBox.jsx'
 import openSocket from 'socket.io-client';
 import Timer from './Timer.jsx'
@@ -62,26 +62,40 @@ class Chat extends Component {
   render() { 
     const { match, user } = this.props
     const { messages, userOne, target } = this.state
+    console.log('this.state in chat', this.state, 'this.props in chat', this.props)
     return (
       this.state.online.length === 2 ? 
       <div>
-        {<Timer history={this.props.match.history} user={user} session={match.location.state.session} minutes={match.location.state.session.question.duration}/>}
-        <div>
-          <div>
-            <h3>Online Users - I am {this.state.userOne}</h3>
-            <ul>
+        <Grid fluid='true'>
+          <Panel>
+            <Panel.Body>
+              <h3>{match.location.state.session.question.title}</h3>
+              <h5>{match.location.state.session.question.description}</h5>
+              <h5>Expert: {match.location.state.session.expert.username} || Pupil: {match.location.state.session.pupil.username}</h5>
+            </Panel.Body>
+            {/* <Panel.Body>
+              <ul>
               {this.state.online.map((user) => <li key={user}>{user}</li>)}
-            </ul>
-          </div>
-          <ChatBox messages={messages} me={userOne} target={target} onChange={this.onChange} sendMessage={this.sendMessage} />
-          <CopyToClipboard text={messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' - '), '')}
-          onCopy={() => console.log('copied!', messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' - '), ''))}>
-          <button>Copy to clipboard with button</button>
-        </CopyToClipboard>
-        </div>
+              </ul>
+            </Panel.Body> */}
+          </Panel>
+          <Panel>
+            <Timer history={this.props.match.history} user={user} session={match.location.state.session} minutes={match.location.state.session.question.duration}/>
+          </Panel>
+          <Panel>
+            <ChatBox user={user} session={match.location.state.session} messages={messages} me={userOne} target={target} onChange={this.onChange} sendMessage={this.sendMessage} />
+          </Panel>
+          <Panel>
+            <CopyToClipboard text={messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' \n '), '')}
+              onCopy={() => console.log('copied!', messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' - '), ''))}>
+              <Button bsStyle='primary'>Copy to clipboard with button</Button>
+            </CopyToClipboard>
+          </Panel>
+        </Grid>
       </div> :
       <div>
         <MDSpinner size="50"/>
+        <h4>Loading...</h4>
       </div>
   
     );
