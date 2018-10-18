@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Panel, Button, Image, Glyphicon, ListGroup, ListGroupItem, PanelGroup } from "react-bootstrap";
-
+import { Panel, Button, Image, Glyphicon, ListGroup, ListGroupItem } from "react-bootstrap";
+import userImage from '../../dist/images/user.png';
 const Stats = ({ user, match }) => {
   return (
     <React.Fragment>
-      {console.log(user, "USER")}
       <Panel.Heading className="centered">
-        <Panel.Title componentClass="h3" style={{ paddingTop: "20px" }}>
-        <Image src="http://placecorgi.com/100" style={{ borderRadius: "400px" }}></Image>
+        <Panel.Title componentClass="h3" style={{ paddingTop: 10 }}>
+        <Image src={user.image || userImage} style={{ height: 95, width: 110 }}></Image>
         </Panel.Title>
           <strong>{user.username}</strong>
       </Panel.Heading>

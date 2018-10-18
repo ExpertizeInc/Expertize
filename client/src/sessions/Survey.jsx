@@ -10,16 +10,12 @@ import { Checkbox } from 'react-bootstrap'
 class Survey extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      rating: 3
-    }
+    this.state = { rating: 3 }; 
     this.handleRatingClick = this.handleRatingClick.bind(this)
   }
 
   handleRatingClick(value) {
-    this.setState({
-      rating: value
-    }, () => console.log('rating after click', this.state.rating))
+    this.setState({rating: value }, () => console.log('rating after click', this.state.rating))
   }
 
   render() {

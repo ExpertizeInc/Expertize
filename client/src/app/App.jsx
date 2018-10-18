@@ -41,13 +41,11 @@ export default class App extends React.Component {
 
   checkIfUserIsInDB(uid) {
     const { client } = this.props; 
-    // console.log('UID', uid === "cjndk7nqk7bse0b949zety7k8")
     client.query({ query: GET_USER_UID, variables: { uid } })
       .then(({ data }) => {
         console.log('data', data)
         this.setState({ authenticated: true, user: data.user, uid }, () => {
           localStorage.setItem('userId', uid);
-          localStorage.setItem('fbOrLi', 'firebase');
           localStorage.setItem('timestamp', Date.now());
           history.push('/home')
         })
@@ -75,7 +73,7 @@ export default class App extends React.Component {
             client.mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName  }})
               .then(({data}) => {
                 client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
-                  .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/home')))
+                  .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/questionnaire')))
                   .catch(err => console.error('Error in changing status', err));
               })
               .catch(e => history.push('/signin'))
@@ -153,7 +151,7 @@ export default class App extends React.Component {
       axios.get('/logout')
         .then(() => {
           localStorage.clear();
-          client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: JSON.stringify(localStorage.getItem('userId')) , online: false }})
+          client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
             .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
             .catch(err => console.error('error in sign out mutation', err));
         })
