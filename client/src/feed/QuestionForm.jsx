@@ -14,8 +14,8 @@ import {
   ButtonGroup,
   ToggleButtonGroup,
   ToggleButton,
-  DropdownButton,
-  MenuItem,
+  ListGroup,
+  ListGroupItem,
   Image
 } from 'react-bootstrap';
 import TagDropdown from './TagDropdown.jsx';
@@ -50,19 +50,13 @@ export default class QuestionForm extends Component {
   }
 
   setDuration(e) {
-    (this.state.duration + e < 25 && this.state.duration + e !== 0) ?
+    (this.state.duration + e < 35 && this.state.duration + e !== 0) ?
     this.setState({ duration: this.state.duration + e}) : null
   }
 
   addTag(e) {
     console.log('deeeeee', e)
-    // if (this.state.tags.includes(e)) {
-    //   alert('You have already added this tag')
-    // } else if (this.state.tags.length >= 5) {
-    //   alert('No more than 5 tags per question please')
-    // } else {
-      this.setState({ tag: e });
-    // }
+    this.setState({ tag: e });
   }
   render() {
     const { user, status, order, client } = this.props;
@@ -77,11 +71,16 @@ export default class QuestionForm extends Component {
     const stateForQuestionInfo = [title, description];
     const toggleInfo = ['Text', 'Audio', 'Video'];
     return (
-      // modularize questions
-      <Grid>
-        <Row>
-          <Col xs={6} md={4}>
-            <Form className="form-panel-signup centered" horizontal>
+          <Panel>
+          <Panel.Heading className="centered">
+        <Panel.Title componentClass="h3">
+        </Panel.Title>
+          <h1><strong>Create a question</strong></h1>
+      </Panel.Heading>
+          <ListGroup>
+            <ListGroupItem className="centered">
+           
+            <Form className="form-panel-signup centered" horizontal style={{paddingLeft: 40}}>
               {/* {questionInfo.map((question, i) => (
                 <FormGroup
                   controlId={`formHorizontal${question.type}`}
@@ -116,13 +115,13 @@ export default class QuestionForm extends Component {
                 </Col>
                 <Col>
                   <ButtonGroup>
-                    <Button className={'mode-toggle btn-white'} onClick={() => this.setDuration(-5)} value="-" key="-">
+                    <Button className={'mode-toggle btn-grp'} onClick={() => this.setDuration(-5)} value="-" key="-">
                       -
                     </Button>
-                    <Button  className={'mode-toggle btn-white'} value={this.state.duration} key="test">
+                    <Button  className={'mode-toggle btn-grp'} value={this.state.duration} key="test">
                      {this.state.duration} minutes
                     </Button>
-                    <Button className={'mode-toggle btn-white'} onClick={() => this.setDuration(5)} value="+"  key="+">
+                    <Button className={'mode-toggle btn-grp'} onClick={() => this.setDuration(5)} value="+"  key="+">
                       +
                     </Button>
                   </ButtonGroup>
@@ -139,7 +138,7 @@ export default class QuestionForm extends Component {
                     onChange={this.handleChatChoice}>
                     {toggleInfo.map(info => (
                       <ToggleButton
-                        className={'mode-toggle'}
+                        className={'mode-toggle btn-grp'}
                         value={info.toLowerCase()}
                         key={info}>
                         {info}
@@ -154,7 +153,7 @@ export default class QuestionForm extends Component {
                 </Col>
                 <Col>
                   <h5>
-                    {tag}
+                    <Badge>{tag}</Badge>
                   </h5>
                   <TagDropdown userId={user ? user.id : ''} client={client} addTag={this.addTag} />
                 </Col>
@@ -162,6 +161,7 @@ export default class QuestionForm extends Component {
               <FormGroup>
                 <Col className="centered">
                   <h5 className="centered">This will cost: {user.debt > 0 ? 2 + user.debt : 2} <Image style={{ width: "20px" }} src="../../images/coin.gif"></Image></h5>
+                  <div style={{ fontSize: "10px", color: "grey"}}>{user.debt > 0 ? (`You're ${user.debt} coins in debt!`).toUpperCase() : ''}</div>
                   <Mutation
                     mutation={ CREATE_QUESTION }
                     variables={{
@@ -190,9 +190,12 @@ export default class QuestionForm extends Component {
                 </Col>
               </FormGroup>
             </Form>
-          </Col>
-        </Row>
-      </Grid>
+            </ListGroupItem>
+          </ListGroup>
+          <Panel.Body style={{ backgroundColor: "#f5f5f5"}}>
+      </Panel.Body>
+          </Panel>
+
     );
   }
 };

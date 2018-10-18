@@ -38,7 +38,7 @@ html,body{
 }
 
 img {
-  border-radius: 14px;
+  border-radius: 4px;
 }
 .btn {
   background-color: #13c8d9;
@@ -362,4 +362,9 @@ a:hover {
 
 .chat-form button:hover {
 	background: #13c8d9;
+}
+
+.grey {
+  font-size: 10px;
+  color: grey
 }

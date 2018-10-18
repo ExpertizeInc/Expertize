@@ -28,13 +28,17 @@ const resolvers = {
     questionsByUser: (_, {username}, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.questions({ where: { user: {username} }}, info);
     },
-    questionsByFilter: (_, { online, offline, sort, username, audio, video, text, after, before }, ctx: {prisma: Prisma}, info) => {
+    questionsByFilter: (_, { online, offline, sort, username, audio, video, text, after, before, tag}, ctx: {prisma: Prisma}, info) => {
+     let name = 'name'
+      if (tag === 'All') {
+        name = 'name_not'
+     }
       return ctx.prisma.query.questions({ 
         where: {
           answeredBy: null,
           user: { username_not: username },
           OR: [{ user: { online: online }}, { user: { online: offline }}],
-          AND: [{ OR: [{ audio }, { video }, { text }] }]
+          AND: [{ OR: [{ audio }, { video }, { text }] }, { OR: [{ tag: { [name]: tag }}] }]
         },
         orderBy: sort }, info)
     },

@@ -62,8 +62,8 @@ export const GET_QUESTIONS = gql`
 `;
 
 export const GET_FILTERED_QUESTIONS = gql`
-  query($online: Boolean, $offline: Boolean, $sort: String, $username: String, $audio: Boolean, $video: Boolean, $text: Boolean, $after: String, $before: String) {
-    questionsByFilter(online: $online, offline: $offline, sort: $sort, username: $username, audio: $audio, video: $video, text: $text, after: $after, before: $before) {
+  query($online: Boolean, $offline: Boolean, $sort: String, $username: String, $audio: Boolean, $video: Boolean, $text: Boolean, $after: String, $before: String, $tag: String, $all: String) {
+    questionsByFilter(online: $online, offline: $offline, sort: $sort, username: $username, audio: $audio, video: $video, text: $text, after: $after, before: $before, tag: $tag, all: $all) {
       user {
         username
         online
@@ -80,7 +80,9 @@ export const GET_FILTERED_QUESTIONS = gql`
       audio
       video
       duration
-
+      tag {
+        name
+      }
     }
   }
 `
