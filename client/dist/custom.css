@@ -19,6 +19,10 @@
   border-radius: 20px !important; 
 }
 
+.modal-body {
+  color: black;
+}
+
 /* ======== BUTTONS ======= */
 
 
@@ -90,7 +94,7 @@
 .btn-online {
   border: none;
   color: white;
-  padding: 7px;
+  padding: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;

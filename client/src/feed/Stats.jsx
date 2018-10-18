@@ -7,7 +7,7 @@ const Stats = ({ user, match }) => {
     <React.Fragment>
       <Panel.Heading className="centered">
         <Panel.Title componentClass="h3" style={{ paddingTop: 10 }}>
-        <Image src={user.image || userImage} style={{ height: 95, width: 110 }}></Image>
+        <Image src={user.image || userImage} style={{ height: 100, width: 100, borderRadius: 400 }}></Image>
         </Panel.Title>
           <strong>{user.username}</strong>
       </Panel.Heading>

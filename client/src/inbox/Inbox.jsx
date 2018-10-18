@@ -35,12 +35,12 @@ export default class Inbox extends Component {
               if (loading)
                 return (
                   <div>
-                    <MDSpinner size="50" />
+                    <MDSpinner className="centered" size="50" />
                   </div>
                 );
               if (error) return <div> Error {console.log(error)} </div>;
               return (
-                <Col sm={9}>
+                <Col className="centered" sm={9}>
                   <Tab.Content animation>
                     <Tab.Pane eventKey="first">
                       <ReceivedMessages messages={data.messagesReceived} />
