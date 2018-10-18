@@ -125,6 +125,16 @@ a {
   vertical-align: middle;
 }
 
+.right {
+  text-align: right;
+  justify-content: right;
+  vertical-align: middle;
+}
+
+.bottom {
+  vertical-align: bottom;
+}
+
 .center {
   text-align: center;
   align-items: center;

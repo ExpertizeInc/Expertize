@@ -23,7 +23,7 @@ export default class UserHome extends Component {
     super(props);
     this.state = {
       session: [],
-      dailyShow: false,
+      dailyShow: true,
       status: ['online', 'offline'],
       order: 'createdAt_DESC',
       chat: ['text', 'audio', 'video'],
@@ -83,8 +83,6 @@ export default class UserHome extends Component {
   render() {
     const { match, user } = this.props;
     const { dailyShow, status, order, chat, tag, showPupil, showExpert } = this.state;
-    console.log('tes~~~t',user)
-    console.log('test~~~t', this.state)
     return (
       <React.Fragment>
         {user &&
