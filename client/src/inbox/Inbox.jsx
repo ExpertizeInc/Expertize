@@ -40,7 +40,7 @@ export default class Inbox extends Component {
                 );
               if (error) return <div> Error {console.log(error)} </div>;
               return (
-                <Col className="centered" sm={9}>
+                <Col sm={9}>
                   <Tab.Content animation>
                     <Tab.Pane eventKey="first">
                       <ReceivedMessages messages={data.messagesReceived} />
