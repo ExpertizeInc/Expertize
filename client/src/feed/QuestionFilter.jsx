@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TagDropdown from './TagDropdown.jsx';
-import { Form, Panel, ToggleButton, ToggleButtonGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Form, Panel, ToggleButton, ToggleButtonGroup, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 export default class QuestionFilter extends Component {
   constructor(props) {
@@ -35,8 +35,9 @@ export default class QuestionFilter extends Component {
               <ToggleButton className="btn-grp" value={'audio'}>Audio</ToggleButton>
               <ToggleButton className="btn-grp" value={'video'}>Video</ToggleButton>
             </ToggleButtonGroup>
-            <h5>Containing</h5>
-            <TagDropdown />
+            <h5>Chatting about</h5>
+            <Button onClick={this.props.resetTag}>{tag}</Button>
+            <div><TagDropdown addTag={handleTag} /></div>
           </Form>
           </ListGroupItem>
           </ListGroup>

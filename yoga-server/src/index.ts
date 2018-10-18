@@ -1,5 +1,6 @@
-const { GraphQLServer } = require('graphql-yoga')
-const { Prisma } = require('prisma-binding')
+import { GraphQLServer } from 'graphql-yoga';
+import { Prisma } from '../prisma/generated';
+import 'dotenv/config';
 
 const resolvers = {
   Query: {
@@ -22,13 +23,17 @@ const resolvers = {
     questionsByUser: (_, {username}, ctx, info) => {
       return ctx.prisma.query.questions({ where: { user: {username} }}, info);
     },
-    questionsByFilter: (_, { online, offline, sort, username, audio, video, text, after, before }, ctx, info) => {
+    questionsByFilter: (_, { online, offline, sort, username, audio, video, text, after, before, tag}, ctx, info) => {
+     let name = 'name'
+      if (tag === 'All') {
+        name = 'name_not'
+     }
       return ctx.prisma.query.questions({ 
         where: {
           answeredBy: null,
           user: { username_not: username },
           OR: [{ user: { online: online }}, { user: { online: offline }}],
-          AND: [{ OR: [{ audio }, { video }, { text }] }]
+          AND: [{ OR: [{ audio }, { video }, { text }] }, { OR: [{ tag: { [name]: tag }}] }]
         },
         orderBy: sort }, info)
     },
@@ -101,14 +106,13 @@ const resolvers = {
   },
 }
 const prisma = new Prisma({
-  typeDefs: './prisma/generated/prisma.graphql', 
-  endpoint: process.env.PRISMA_ENDPOINT,
+  endpoint: 'https://us1.prisma.sh/alon-bibring-d051d8/expertizedb/dev',
   secret: process.env.PRISMA_SECRET,
   debug: true
  })
 
 const server = new GraphQLServer({
-  typeDefs: './src/schema.graphql',
+  typeDefs: 'yoga-server/src/schema.graphql',
   resolvers,
   context: req => {
     return {

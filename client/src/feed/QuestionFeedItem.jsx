@@ -29,36 +29,36 @@ export default class QuestionFeedItem extends Component {
         <Panel.Heading>
           <Panel.Title componentClass="h3">
           <button className="btn-online centered" style={{ backgroundColor: question.user && question.user.online === true ? '#1adda4' : '#999999' }}></button>
-          {/* <img style={{ width: 20, height: 20, marginLeft: 3}} src={question.user && question.user.online === true ? greenCircle : greyCircle} alt={question.user && question.user.online === true ? 'online' : 'offline'}/> */}
            <strong>{question.title}</strong>
           </Panel.Title>
         </Panel.Heading>
+          <Grid fluid>   
         <Panel.Body> 
-          {/* <Grid fluid> */}
           
-          <Col md={2}>
-            <img src={question.user.image || userImage} style={{ height: 75, width: 75 }} onClick={() => this.toggleShow()} />
-            <span className="centered" onClick={() => this.toggleShow()}><h5>{question.user.username}</h5></span>
-            <Moment fromNow>{question.createdAt.toLocaleString()}</Moment>
+          <Col md={3}>
+            <img src={question.user.image || userImage} style={{ height: 100, width: 100 }} onClick={() => this.toggleShow()} />
+           
         </Col>
-        <Col md={10}>
+        <Col md={9}>
+            <span className="centered" onClick={() => this.toggleShow()}><h5><strong>{question.user.username}</strong></h5></span>
+            <div style={{ fontSize: "10px", color: "grey"}}><Moment fromNow>{(question.createdAt.toLocaleString()).toUpperCase()}</Moment></div> 
         <div>
             <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="comment" /></Button>
-            }</span>
+            }</span>{' '}
             <span>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="earphone" /></Button>
-            }</span>
+            }</span>{' '}
             <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-            }</span></div>
+            }</span>{' '}</div>
           <div>{question.description}</div>
-          {/* {question.tag.name} */}
+          <Badge>{question.tag.name}</Badge>
           <SessionModal question={question} user={user} />
           </Col>
     
-      {/* </Grid> */}
         </Panel.Body>
+      </Grid>
       </Panel>
       </Row>
       </Col>

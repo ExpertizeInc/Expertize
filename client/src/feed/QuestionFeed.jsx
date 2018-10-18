@@ -10,8 +10,12 @@ export default class QuestionFeed extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.toggleBoth()
+  }
+
   render() {
-    const { user, status, order, chat, tags } = this.props;
+    const { user, status, order, chat, tag } = this.props;
     return (
       <div className="centered">
         <Query
@@ -22,7 +26,8 @@ export default class QuestionFeed extends Component {
             offline: !status.includes("offline"),
             audio: chat.includes("audio"),
             video: chat.includes("video"),
-            text: chat.includes("text")
+            text: chat.includes("text"),
+            tag: tag
           }}
           pollInterval={500}
         >

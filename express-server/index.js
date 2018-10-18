@@ -42,7 +42,7 @@ app.post('/users', (req, res) => {
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/../client/dist/index.html')));
 
 
-const port = process.env.PORT || 3001;
+const port = 3001 || process.env.APOLLO_CLIENT_URI
 
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
