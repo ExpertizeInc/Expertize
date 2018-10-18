@@ -27,7 +27,7 @@ class Survey extends Component {
         <h1>rate your Expert!</h1>
         <Rating placeholderRating={this.state.rating} onClick={(value) => this.handleRatingClick(value)}/> <br/>
         <Mutation mutation={FINISH_SESSION} variables={{ id: session.id, completed: true, user: session.pupil.id, answeredBy: { connect: { username: session.expert.username }}, questionId: session.question.id, endedAt: now, expertCoins: session.expert.coins + 2, pupilCoins: session.pupil.coins, expertUser: session.expert.id, expertRating: session.expert.ranking + this.state.rating, pupilRating: session.pupil.ranking}}> 
-        {updateSession => <Link to="/"><Button onClick={updateSession}>Okay</Button></Link>}
+        {updateSession => <Link to="/"><Button onClick={() => {updateSession()}}>Okay</Button></Link>}
         </Mutation>
       </div>
     )
