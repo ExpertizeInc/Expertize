@@ -141,6 +141,9 @@ export default class Questionnaire extends Component {
                       this.nextStep(e)
                     }}
                   >Yes</Button>
+                  <br />
+                  Or add your own picture:<br/>
+                    <FormControl onChange={(e) => this.setState({ image: e.target.value })} placeholder="Add a profile image"/><br/><br />
                 </div>
                 :
                 <div>

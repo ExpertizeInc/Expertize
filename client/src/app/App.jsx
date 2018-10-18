@@ -6,6 +6,7 @@ import Footer from './Footer.jsx';
 import Routes from "../routes/Routes.jsx";
 import history from "./history.js";
 import axios from 'axios';
+import MDSpinner from "react-md-spinner";
 // import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export default class App extends React.Component {
@@ -73,7 +74,7 @@ export default class App extends React.Component {
             client.mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName  }})
               .then(({data}) => {
                 client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
-                  .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/questionnaire')))
+                  .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid, isLoading: false }, () => history.push('/questionnaire')))
                   .catch(err => console.error('Error in changing status', err));
               })
               .catch(e => history.push('/signin'))
@@ -100,7 +101,7 @@ export default class App extends React.Component {
             localStorage.setItem('userId', data.user.uid);
             localStorage.setItem('loginType', null)
               client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true } })
-                .then(({data}) => this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/home')))
+                .then(({data}) => this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid, isLoading: false }, () => history.push('/home')))
                 .catch(e => history.push('/signin'))
           })
           .catch(() => history.push('/signup'));
@@ -125,7 +126,7 @@ export default class App extends React.Component {
               client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.createUser.id, online: true } })
                 .then(({data}) => { 
                   localStorage.setItem('userId', data.updateUser.id);
-                  this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/questionnaire'))
+                  this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid, isLoading: false }, () => history.push('/questionnaire'))
                 })
                 .catch(e => history.push('/signup'))
           })
@@ -145,13 +146,13 @@ export default class App extends React.Component {
       firebase.auth().signOut();
       localStorage.clear();
       client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
-        .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
+        .then(() => this.setState({ authenticated: false, user: null, uid: null, isLoading: false }, () => history.push('/')))
         .catch(err => console.error('error in sign out mutation', err));
     } else {
       axios.get('/logout')
         .then(() => {
           localStorage.clear();
-          client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false }})
+          client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id , online: false, isLoading: false }})
             .then(() => this.setState({ authenticated: false, user: null, uid: null }, () => history.push('/')))
             .catch(err => console.error('error in sign out mutation', err));
         })
@@ -163,9 +164,15 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { user, authenticated, uid } = this.state;
+    const { user, authenticated, uid, isLoading } = this.state;
     const { client } = this.props;
     return (
+      isLoading 
+        ?
+        <div>
+          <MDSpinner size="50" />
+        </div>
+        :
       <React.Fragment>
         <div className="main">
         <ApolloProvider client={client}>
@@ -184,6 +191,7 @@ export default class App extends React.Component {
         </div>
         <Footer />
       </React.Fragment>
+      
     );
   }
 }
