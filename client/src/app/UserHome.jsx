@@ -27,7 +27,9 @@ export default class UserHome extends Component {
       status: ['online', 'offline'],
       order: 'createdAt_DESC',
       chat: ['text', 'audio', 'video'],
-      tag: 'All' 
+      tags: 'All',
+      showPupil: true,
+      showExpert: true
     }
     this.toggleDaily = this.toggleDaily.bind(this)
     this.handleStatusFilter = this.handleStatusFilter.bind(this)
@@ -36,6 +38,21 @@ export default class UserHome extends Component {
     this.handleChatFilter = this.handleChatFilter.bind(this)
     this.handleTagFilter = this.handleTagFilter.bind(this)
     this.resetTag = this.resetTag.bind(this)
+    this.toggleExpert = this.toggleExpert.bind(this)
+    this.togglePupil = this.togglePupil.bind(this)
+    this.togglePupilAndExpert = this.togglePupilAndExpert.bind(this)
+  }
+
+  togglePupil() {
+    this.setState({showPupil: false}, () => console.log('toggled pupil:', this.state))
+  }
+
+  toggleExpert() {
+    this.setState({showExpert: false}, () => console.log('toggled expert', this.state))
+  }
+
+  togglePupilAndExpert() {
+    this.setState({showPupil: true, showExpert: true}, () => console.log('toggled both back on'))
   }
 
   toggleDaily() {
@@ -65,7 +82,9 @@ export default class UserHome extends Component {
 
   render() {
     const { match, user } = this.props;
-    const { dailyShow, status, order, chat, tag } = this.state;
+    const { dailyShow, status, order, chat, tags, showPupil, showExpert } = this.state;
+    console.log('tes~~~t',user)
+    console.log('test~~~t', this.state)
     return (
       <React.Fragment>
         {user &&
@@ -76,8 +95,8 @@ export default class UserHome extends Component {
               {({ loading, error, data }) => {
                 if (loading) return <div></div>
                 if (error) return <div>{console.log(error)}</div>
-                if (data.sessionsWhereUnacceptedPupil.length > 0) {
-                  return <SessionChoice session={data.sessionsWhereUnacceptedPupil[0]} user={user} match={match} />
+                if (data.sessionsWhereUnacceptedPupil.length > 0 && showPupil) {
+                  return <SessionChoice togglePupil={this.togglePupil} session={data.sessionsWhereUnacceptedPupil[0]} user={user} match={match} />
                 } else {
                   return null
                 }
@@ -87,11 +106,12 @@ export default class UserHome extends Component {
               {({ loading, error, data }) => {
                 if (loading) return <div></div>
                 if (error) return <div>{console.log(error)}</div>
-                if (data.sessionsForExpert && data.sessionsForExpert.length > 0) {
+                if (true) console.log('get_expert_session', data)
+                if (this.state.showExpert && data.sessionsForExpert && data.sessionsForExpert.length > 0) {
                   if (data.sessionsForExpert[0].accepted === true) {
-                    return <SessionAccepted session={data.sessionsForExpert[0]} user={user} match={match} />
+                    return <SessionAccepted toggleExpert={this.toggleExpert} session={data.sessionsForExpert[0]} user={user} match={match} />
                   } else {
-                    return <SessionRejected session={data.sessionsForExpert[0]} user={user} match={match} />
+                    return <SessionRejected toggleExpert={this.toggleExpert} session={data.sessionsForExpert[0]} user={user} match={match} />
                   }
                 } else {
                   return null
@@ -135,7 +155,7 @@ export default class UserHome extends Component {
                     <Route path={`${match.url}/profile`} render={(props) => <Profile {...props} user={user} />} />
                     <Route path={`${match.url}/inbox`} render={(props) => <Inbox {...props} user={user} />} />
                     <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />
-                    <QuestionFeed status={status} order={order} tag={tag} match={match} user={user} chat={chat} />
+                    <QuestionFeed toggleBoth={this.togglePupilAndExpert} status={status} order={order} tag={tag} match={match} user={user} chat={chat} />
                   </Switch>
                 </Col>
               </Row>

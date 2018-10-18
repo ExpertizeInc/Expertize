@@ -4,7 +4,8 @@ import { Modal, Button } from 'react-bootstrap';
 import { UPDATE_SESSION } from '../apollo/gql.js';
 import { Link } from 'react-router-dom';
 
-const SessionAccepted = (props) => {  
+const SessionAccepted = (props) => { 
+  console.log('props in sessionaccepted', props) 
   const { session, match } = props
   return (
   <div>
@@ -19,7 +20,7 @@ const SessionAccepted = (props) => {
       <Modal.Footer>
       <Mutation mutation={UPDATE_SESSION} variables={{ id: session.id, completed: true }}>
         {updateSession => (
-        <Link to={{pathname:`${match.url}/discussion/${session.type}`, state:{session}}}><Button onClick={() => updateSession()}>Continue to {session.type}</Button></Link>
+        <Link to={{pathname:`${match.url}/discussion/${session.type}`, state:{session}}}><Button onClick={() => {updateSession(); props.toggleExpert()}}>Continue to {session.type}</Button></Link>
         )}
         </Mutation>
       </Modal.Footer>
