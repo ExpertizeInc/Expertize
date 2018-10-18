@@ -47,7 +47,7 @@ export default class Signup extends Component {
               ?
               <div>
                 <br/><LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signUp"/>
-                <h5>Don't have a linkedin account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>click here</Button></h5>
+                <h5>Don't have a LinkedIn account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>Click Here</Button></h5>
               </div>
               :
               ''

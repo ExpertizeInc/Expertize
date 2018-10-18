@@ -34,7 +34,7 @@ export default class SessionModal extends Component {
             >
               <Modal.Header closeButton>
                 <Modal.Title>
-                  Begin your discussion with {question.user ? question.user.username : ''} - SessionModal.jsx
+                  Begin your discussion with {question.user ? question.user.username : ''}
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -59,7 +59,7 @@ export default class SessionModal extends Component {
                   {createSession => (
                     <span>{question.video && <Button onClick={() => {
                       createSession()
-                      this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="facetime-video" />Send request to video chat</Button>
+                      this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="facetime-video" /> Send request to video chat</Button>
                     }</span>
                   )}
                 </Mutation>
