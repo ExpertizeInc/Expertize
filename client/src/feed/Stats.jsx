@@ -37,6 +37,9 @@ const Stats = ({ user, match }) => {
     <ListGroupItem><h4>{user.coins} <Image style={{ width: "20px" }} src="../../images/coin.gif"></Image></h4>
     <div style={{ fontSize: "10px", color: "grey"}}>TOTAL COINS</div>
     </ListGroupItem>
+    <ListGroupItem><h4>{user.debt}</h4>
+    <div style={{ fontSize: "10px", color: "grey"}}>TOTAL DEBT</div>
+    </ListGroupItem>
     <ListGroupItem><h4>{user.questionsAsked.filter(question => {
       return question.answeredBy === null
     }).length}</h4>

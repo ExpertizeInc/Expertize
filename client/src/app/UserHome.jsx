@@ -27,7 +27,7 @@ export default class UserHome extends Component {
       status: ['online', 'offline'],
       order: 'createdAt_DESC',
       chat: ['text', 'audio', 'video'],
-      tags: [],
+      tags: 'All',
       showPupil: true,
       showExpert: true
     }
@@ -36,6 +36,8 @@ export default class UserHome extends Component {
     this.handleOrderFilter = this.handleOrderFilter.bind(this)
     this.handleTagFilter = this.handleTagFilter.bind(this)
     this.handleChatFilter = this.handleChatFilter.bind(this)
+    this.handleTagFilter = this.handleTagFilter.bind(this)
+    this.resetTag = this.resetTag.bind(this)
     this.toggleExpert = this.toggleExpert.bind(this)
     this.togglePupil = this.togglePupil.bind(this)
     this.togglePupilAndExpert = this.togglePupilAndExpert.bind(this)
@@ -69,8 +71,12 @@ export default class UserHome extends Component {
     this.setState({ chat: e })
   }
 
-  handleTagFilter() {
+  handleTagFilter(e) {
+    this.setState({ tag: e})
+  }
 
+  resetTag() {
+    this.setState({ tag: 'All'})
   }
 
 
@@ -132,6 +138,7 @@ export default class UserHome extends Component {
                   </Panel>
                   <Panel>
                     <QuestionFilter
+                      resetTag={this.resetTag}
                       handleStatus={this.handleStatusFilter}
                       handleOrder={this.handleOrderFilter}
                       handleChat={this.handleChatFilter}
@@ -139,16 +146,16 @@ export default class UserHome extends Component {
                       status={status}
                       order={order}
                       chat={chat}
-                      tags={tags} />
+                      tag={tag} />
                   </Panel>
                 </Col>
                 <Col md={9}>
                   <Switch>
-                    <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} status={status} order={order} tags={tags} />} />
+                    <Route path={`${match.url}/create`} render={(props) => <QuestionForm {...props} user={user} status={status} order={order} tag={tag} />} />
                     <Route path={`${match.url}/profile`} render={(props) => <Profile {...props} user={user} />} />
                     <Route path={`${match.url}/inbox`} render={(props) => <Inbox {...props} user={user} />} />
                     <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />
-                    <QuestionFeed toggleBoth={this.togglePupilAndExpert} status={status} order={order} tags={tags} match={match} user={user} chat={chat} />
+                    <QuestionFeed toggleBoth={this.togglePupilAndExpert} status={status} order={order} tag={tag} match={match} user={user} chat={chat} />
                   </Switch>
                 </Col>
               </Row>

@@ -11,7 +11,7 @@ export default class TagDropdown extends Component {
         if (loading) return <div>Loading...</div>
         if (error) return <div>Error {console.log(error)}</div>
         return (
-          <DropdownButton className="round-input" title="Tags" id="dropdown-basic-default" >
+          <DropdownButton className="round-input btn-white" title="Tags" id="dropdown-basic-default" >
             {data.tags.map((tag) => (
                 <MenuItem 
                   key={tag.name}
