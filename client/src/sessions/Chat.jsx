@@ -6,6 +6,8 @@ import Timer from './Timer.jsx'
 import MDSpinner from 'react-md-spinner'
 import ReactLoading from 'react-loading'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { Mutation } from 'react-apollo';
+import { CREATE_MESSAGE } from '../apollo/gql.js';
 
 const socket = openSocket('http://localhost:3001');
 
@@ -62,11 +64,13 @@ class Chat extends Component {
   render() { 
     const { match, user } = this.props
     const { messages, userOne, target } = this.state
+    const me = user.username === match.location.state.session.expert.username ? match.location.state.session.expert.username : match.location.state.session.pupil.username
+    const opponent = user.username === match.location.state.session.expert.username ? match.location.state.session.pupil.username : match.location.state.session.expert.username
     console.log('this.state in chat', this.state, 'this.props in chat', this.props)
     return (
       this.state.online.length === 2 ? 
       <div>
-        <Grid fluid='true'>
+        <Grid fluid={true}>
           <Panel>
             <Panel.Body>
               <h3>{match.location.state.session.question.title}</h3>
@@ -86,10 +90,29 @@ class Chat extends Component {
             <ChatBox user={user} session={match.location.state.session} messages={messages} me={userOne} target={target} onChange={this.onChange} sendMessage={this.sendMessage} />
           </Panel>
           <Panel>
+            <Col md={6} xs={6}>
             <CopyToClipboard text={messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' \n '), '')}
               onCopy={() => console.log('copied!', messages.reduce((a,b) => a + (b.from + ': ' + b.msg + ' - '), ''))}>
               <Button bsStyle='primary'>Copy to clipboard with button</Button>
             </CopyToClipboard>
+            </Col >
+            <Col md={6} xs={6}>
+            <Mutation
+                  mutation={ CREATE_MESSAGE }
+                  variables={{ 
+                    title: `Hi ${opponent}, ${me} would like to share their LinkedIn profile with you!`, 
+                    message: `I would love to connect with you on LinkedIn! Here is my profile: ${user.linkedInProfile}`, 
+                    recipient: { connect: { username: opponent } }, 
+                    sender: { connect: { username: me } } 
+                  }}
+                >
+                  {createMessage => {
+                    return (
+                      <Button className="primary" onClick={createMessage}>Send LinkedIn</Button>
+                    );
+                  }}
+                </Mutation>
+            </Col>
           </Panel>
         </Grid>
       </div> :

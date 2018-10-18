@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Timer from './Timer.jsx'
+import { Grid, Row, Col, Panel } from 'react-bootstrap'
 
 export default class Video extends Component {
   constructor(props) {
@@ -29,15 +30,27 @@ export default class Video extends Component {
     const expert = this.props.match.location.state.session.expert.username
     const pupil = this.props.match.location.state.session.pupil.username
     const roomname = expert + pupil
-    const { user } = this.props
+    const { user, match } = this.props
     // console.log('duration of video', match.location.state.session.question.duration)
     console.log('session', this.props.match.location.state.session)
     console.log(roomname, 'expert', expert, 'pupil',pupil)
     return (
       <React.Fragment>
-        <Timer history={this.props.match.history} user={user} session={this.props.match.location.state.session} minutes={this.props.match.location.state.session.question.duration}/>
-        <h1>{this.props.match.location.state.session.question.title}</h1>
-        <iframe src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=91632a05-517e-4418-bcd2-ab58ff889970&iframe=true&room=${roomname}`} width='700' height='640' allow="microphone; camera"/>
+      <Grid fluid={true}>
+      <Panel>
+        <Panel.Body>
+          <h3>{match.location.state.session.question.title}</h3>
+          <h5>{match.location.state.session.question.description}</h5>
+          <h5>Expert: {match.location.state.session.expert.username} || Pupil: {match.location.state.session.pupil.username}</h5>
+        </Panel.Body>
+      </Panel>
+      <Panel>
+        <Timer history={match.history} user={user} session={match.location.state.session} minutes={match.location.state.session.question.duration}/>
+      </Panel>
+      <Panel>
+      <iframe src={`https://tokbox.com/embed/embed/ot-embed.js?embedId=91632a05-517e-4418-bcd2-ab58ff889970&iframe=true&room=${roomname}`} width='700' height='640' allow="microphone; camera"/>
+      </Panel>
+      </Grid>
       </React.Fragment>
     )
   }
