@@ -23,7 +23,7 @@ export default class Discussion extends Component {
         <Link to={`${match.url}/chatbox`}>ToText</Link>
         <div>
         <Switch>
-          <Route path={`${match.url}/video`} component={Video} />
+          <Route path={`${match.url}/video`} render={(match) => <Video match={match} user={user} />} />
           <Route path={`${match.url}/text`} render={(match)=> <Chat match={match} user={user} />} />
           <Route path={`${match.url}/chatbox`} component={ChatBox} />
         </Switch>

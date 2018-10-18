@@ -28,7 +28,7 @@ export default class App extends React.Component {
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
     var signInType = localStorage.getItem('loginType');
-    if (JSON.stringify(userId) !== 'null' || userId !== null && signInType != 'signUp') {
+    if (JSON.stringify(userId) !== 'null' || userId !== null || signInType != 'signUp') {
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase' && signInType != 'signUp') {
       this.checkFirebaseUser();
@@ -43,9 +43,9 @@ export default class App extends React.Component {
     const { client } = this.props; 
     client.query({ query: GET_USER_UID, variables: { uid } })
       .then(({ data }) => {
+        console.log('data', data)
         this.setState({ authenticated: true, user: data.user, uid }, () => {
           localStorage.setItem('userId', uid);
-          localStorage.setItem('fbOrLi', 'firebase');
           localStorage.setItem('timestamp', Date.now());
           history.push('/home')
         })
@@ -73,7 +73,7 @@ export default class App extends React.Component {
             client.mutate({ mutation: CREATE_USER, variables: { uid: user.id , email: user._json.emailAddress, username: user._json.formattedName  }})
               .then(({data}) => {
                 client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true, image: user._json.pictureUrl, linkedInProfile: user._json.publicProfileUrl } })
-                  .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/home')))
+                  .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/questionnaire')))
                   .catch(err => console.error('Error in changing status', err));
               })
               .catch(e => history.push('/signin'))
@@ -124,6 +124,7 @@ export default class App extends React.Component {
             localStorage.setItem('loginType', null);
               client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.createUser.id, online: true } })
                 .then(({data}) => { 
+                  localStorage.setItem('userId', data.updateUser.id);
                   this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/questionnaire'))
                 })
                 .catch(e => history.push('/signup'))
@@ -139,6 +140,7 @@ export default class App extends React.Component {
     const { user } = this.state;
     const { client } = this.props;
     let authType = localStorage.getItem('fbOrLi');
+    console.log('LOCAL', localStorage.getItem('userId'))
     if (authType === 'firebase') {
       firebase.auth().signOut();
       localStorage.clear();

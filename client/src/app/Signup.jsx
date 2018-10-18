@@ -36,7 +36,7 @@ export default class Signup extends Component {
 
   render() { 
     const { username, email, password, signUpLinkedIn } = this.state;
-    const { linkedInSignIn, addFirebaseUser } = this.props;
+    const { linkedInSignIn } = this.props;
     const formInfo = [{value: username, placeholder: 'Username'}, {value: email, placeholder: 'Email'}, {value: password, placeholder: 'Password'}];
     return (
         <FormGroup>

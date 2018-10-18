@@ -13,7 +13,7 @@ export default class Profile extends Component {
   }
 
   completed(questions) {
-    this.setState({ questions })
+    this.setState({ questions });
   }
 
   render() {
@@ -26,25 +26,23 @@ export default class Profile extends Component {
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error</div>
             if (true) console.log('data from get all finished sessions', data)
+            console.log('user ranking', user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length))
             return (
-            <Grid>
-                {console.log(user, 'PROPS')}
+              <Grid>
                 <PageHeader style={{ display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
                 <Row >
                   <Col xs={6} md={3} >
                     <Thumbnail className="centered">
                       <img src={user.image}/>
                       <span><h2>{user.username}</h2></span>
-                      <Rating readonly initialRating={user.ranking / data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length} /> <br />
+                      <Rating readonly initialRating={data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length === 0 ? 0 : user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length)  } /> <br />
                       <div>{user.description}</div>
                       {/* <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div> */}
-                    
                     <Button><Glyphicon glyph="cog" /> Edit preferences</Button>
                     </Thumbnail>
                   </Col>
                   
                   <Col xs={18} md={9}>
-
                     <Row>
                       <Col xs={6} md={4}>
                         <Thumbnail className="centered">
@@ -76,14 +74,12 @@ export default class Profile extends Component {
                             return (
                               <div>
                                 {console.log('aaaaaaaaaa',data)}
-                                {/* {this.setState({asked: data.questionsByUser.length})} */}
                                 {data.questionsByUser.map((question, i) => <div key={i}>{i + 1} Title: {question.title} | Description: {question.description}</div>)}
                               </div>
                             )
                           }}
                         </Query>
                       </Thumbnail>
-                      {/* Will show user activity, progress, session history, recently interacted */}
                     </Row>
 
                     <Row>
@@ -104,9 +100,11 @@ export default class Profile extends Component {
                   </Col>
 
                 </Row>
-              </Grid>)
+              </Grid>
+            )
           }}
         </Query>
-      </div>)
+      </div>
+    )
   }
 }
