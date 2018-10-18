@@ -19,7 +19,7 @@ export default class SessionModal extends Component {
   render() { 
     const { user, question } = this.props;
     return (
-        <div>
+      <div>
         {user 
           ? 
           <div>

@@ -28,21 +28,10 @@ export default class Profile extends Component {
             if (true) console.log('data from get all finished sessions', data)
             console.log('user ranking', user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length))
             return (
-              <Grid>
-                <PageHeader style={{ display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
+              // <Grid>
+              <div>
                 <Row >
-                  <Col xs={6} md={3} >
-                    <Thumbnail className="centered">
-                      <img src={user.image}/>
-                      <span><h2>{user.username}</h2></span>
-                      <Rating readonly initialRating={data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length === 0 ? 0 : user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length)  } /> <br />
-                      <div>{user.description}</div>
-                      {/* <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div> */}
-                    <Button><Glyphicon glyph="cog" /> Edit preferences</Button>
-                    </Thumbnail>
-                  </Col>
-                  
-                  <Col xs={18} md={9}>
+                  <Col md={12}>
                     <Row>
                       <Col xs={6} md={4}>
                         <Thumbnail className="centered">
@@ -67,6 +56,7 @@ export default class Profile extends Component {
                     <Row>
                       <Thumbnail className="centered">
                         <h3>Alt stats/graphs</h3>
+                      <Rating readonly initialRating={data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length === 0 ? 0 : user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length)  } /> <br />
                         <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
                           {({ loading, error, data }) => {
                             if (loading) return <div>Loading...</div>
@@ -100,7 +90,8 @@ export default class Profile extends Component {
                   </Col>
 
                 </Row>
-              </Grid>
+                </div>
+              // </Grid>
             )
           }}
         </Query>
