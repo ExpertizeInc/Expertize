@@ -13,6 +13,10 @@ export default class QuestionFeed extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.props.toggleBoth()
+  }
+
   render() {
     const { user, status, order, chat, tags } = this.props;
     return (
