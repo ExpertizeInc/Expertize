@@ -47,7 +47,6 @@ export default class Timer extends Component {
   render() {
     const { time, survey } = this.state
     const { user, session } = this.props
-    console.log('the props in timer', )
     const min = Math.floor(time / 60)
     const sec = time % 60 === 0 ? '00' : time % 60 > 9 ?  time % 60 : ('0' + (time % 60).toString())
     return (
@@ -67,7 +66,7 @@ export default class Timer extends Component {
               </div>
             :
             time <= 0 ? 
-              <button onClick={() => {this.props.history.push('/')}}>Finish Session</button> : 
+              <button onClick={() => this.props.history.push('/')}>Finish Session</button> : 
               <div>
               <h3>{min} MIN : {sec} SEC Remaining</h3>
               <button onClick={this.handleClick}>Finish Session</button>
