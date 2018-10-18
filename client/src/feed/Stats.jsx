@@ -16,22 +16,22 @@ const Stats = ({ user, match }) => {
           <Link to={`${match.url}`}>
             <Glyphicon glyph="home" />
           </Link>
-        </Button>
+        </Button>{' '}
         <Button className="round-btn">
           <Link to={`${match.url}/profile`}>
             <Glyphicon glyph="user" />
           </Link>
-        </Button>
+        </Button>{' '}
         <Button className="round-btn">
           <Link to={`${match.url}/create`}>
             <Glyphicon glyph="pencil" />
           </Link>
-        </Button>
+        </Button>{' '}
         <Button className="round-btn">
           <Link to={`${match.url}/inbox`}>
             <Glyphicon glyph="envelope" />
           </Link>
-        </Button>
+        </Button>{' '}
       </Panel.Body>
       <ListGroup className="centered">
     <ListGroupItem><h4>{user.coins} <Image style={{ width: "20px" }} src="../../images/coin.gif"></Image></h4>
@@ -40,7 +40,7 @@ const Stats = ({ user, match }) => {
     <ListGroupItem><h4>{user.questionsAsked.filter(question => {
       return question.answeredBy === null
     }).length}</h4>
-    <div style={{ fontSize: "10px", color: "grey"}}>Answer A Question!</div>
+    <div style={{ fontSize: "10px", color: "grey"}}>ACTIVE QUESTIONS</div>
     </ListGroupItem>
     </ListGroup>
       <Panel.Body style={{ backgroundColor: "#f5f5f5"}}>
