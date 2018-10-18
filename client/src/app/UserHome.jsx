@@ -120,12 +120,12 @@ export default class UserHome extends Component {
               <Row style={{ padding: "14px" }}>
                 <Col>
                   <Panel>
+                    {/* <div>SOMETHINGGGG</div>
                     <div>SOMETHINGGGG</div>
                     <div>SOMETHINGGGG</div>
                     <div>SOMETHINGGGG</div>
                     <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div>
+                    <div>SOMETHINGGGG</div> */}
                   </Panel>
                 </Col>
               </Row>

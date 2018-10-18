@@ -165,22 +165,24 @@ export default class App extends React.Component {
   render() {
     const { user, authenticated, uid } = this.state;
     const { client } = this.props;
+    const styleSplash = { backgroundImage: "url('https://i.gifer.com/F1hh.gif')", opacity: .8, backgroundColor: "#000"}
+    const style = {backgroundColor: "#333"}
     return (
       <React.Fragment>
-        <div className="main">
-        <ApolloProvider client={client}>
-          <Routes
-            history={history}
-            user={user}
-            signOut={this.signOut}
-            authenticated={authenticated}
-            history={history}
-            linkedInSignIn={this.checkLinkedInUser}
-            fbSignIn={this.firebaseSignIn}
-            addFirebaseUser={this.signUpFirebaseUser}
-            client={client}
-          />
-        </ApolloProvider>
+        <div className="main fit" style={authenticated ? style : styleSplash}>
+          <ApolloProvider client={client}>
+            <Routes
+              history={history}
+              user={user}
+              signOut={this.signOut}
+              authenticated={authenticated}
+              history={history}
+              linkedInSignIn={this.checkLinkedInUser}
+              fbSignIn={this.firebaseSignIn}
+              addFirebaseUser={this.signUpFirebaseUser}
+              client={client}
+            />
+          </ApolloProvider>
         </div>
         <Footer />
       </React.Fragment>

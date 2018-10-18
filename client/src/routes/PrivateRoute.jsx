@@ -13,7 +13,6 @@ const PrivateRoute = ({ component: Component, ...prop, client, history }) => {
 if(loading) return <div>LOADING</div>
 if(error) return <div>ERROR</div>
 
-
 return(
     <Route {...prop} render={({ match }) => (
       prop.authenticated

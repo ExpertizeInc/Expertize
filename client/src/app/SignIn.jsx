@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Row } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Row, Panel } from 'react-bootstrap';
 import LinkedInLogin from './LinkedInLogin.jsx';
 
 export default class Signin extends Component {
@@ -17,8 +17,10 @@ export default class Signin extends Component {
   render() {
     const { fbSignIn, linkedInSignIn } = this.props;
     return (
-      <div>
+      <Panel>
+        <Panel.Body>
         <Form className="form-panel-signup" horizontal>
+          <Row>
           <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} sm={5}>
               Email
@@ -43,6 +45,7 @@ export default class Signin extends Component {
               />
             </Col>
           </FormGroup>
+            </Row>
           <FormGroup>
             <Row>
               <Col smOffset={6} sm={3}>
@@ -51,12 +54,13 @@ export default class Signin extends Component {
                   fbSignIn(e, this.state.email, this.state.password);
                   }} 
                   type="submit">Log In</Button>
-                <br/><LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signIn"/>
+                <LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signIn"/>
               </Col>
             </Row>
           </FormGroup>
         </Form>
-      </div>
+        </Panel.Body>
+      </Panel>
     );
   }
 }
