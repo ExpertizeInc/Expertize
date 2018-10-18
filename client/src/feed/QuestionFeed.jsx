@@ -4,7 +4,6 @@ import { GET_QUESTIONS, GET_FILTERED_QUESTIONS } from "../apollo/gql.js";
 import QuestionFeedItem from "./QuestionFeedItem.jsx";
 import MDSpinner from "react-md-spinner";
 import { userInfo } from "os";
-import userImage from '../../dist/images/user.png';
 
 export default class QuestionFeed extends Component {
   constructor(props) {

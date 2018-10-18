@@ -6,6 +6,7 @@ docker-compose.yml
 .env
 .DS_Store
 logfile
-docker-compose.yml
 generated
 OauthParams.js
+rsa_private
+prisma-1.pub

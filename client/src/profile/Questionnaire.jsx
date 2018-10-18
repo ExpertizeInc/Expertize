@@ -140,7 +140,8 @@ export default class Questionnaire extends Component {
                       this.setState({ useLinkedInImage: true, image: user.image })
                       this.nextStep(e)
                     }}
-                  >Yes</Button>
+                  >Yes</Button><br />
+                  <Button onClick={() => this.setState({ addPicture: true })}>Or click here to add your own picture?</Button>
                 </div>
                 :
                 <div>

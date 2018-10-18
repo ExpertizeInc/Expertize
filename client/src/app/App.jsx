@@ -1,12 +1,11 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import { Query } from 'react-apollo';
+// import { Query } from 'react-apollo';
 import { GET_USER_UID, CREATE_USER, UPDATE_USER_INFO } from "../apollo/gql.js";
 import Footer from './Footer.jsx';
 import Routes from "../routes/Routes.jsx";
 import history from "./history.js";
 import axios from 'axios';
-// import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -163,7 +162,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { user, authenticated, uid } = this.state;
+    const { user, authenticateddock } = this.state;
     const { client } = this.props;
     return (
       <React.Fragment>

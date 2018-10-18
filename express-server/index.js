@@ -58,7 +58,6 @@ io.on('connect', (socket) => {
     console.log('this is sock nickname', data)
     console.log('this is the sock-id', socket.id, data)
     console.log('user', data)
-    // console.log('this is the users object', users)
     updateNicknames(); 
   });
   console.log('a user connected, id is:',socket.id)
