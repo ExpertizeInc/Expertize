@@ -41,6 +41,8 @@ export const GET_QUESTIONS = gql`
       user {
         username
         online
+        description
+        linkedInProfile
       }
       id
       description
@@ -188,9 +190,6 @@ query user($uid: String!) {
     username
     email
     uid
-    tag {
-      name
-    }
     description
     inSession
     linkedInProfile

@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import CircularProgressbar from 'react-circular-progressbar';
+// import CircularProgressbar from 'react-circular-progressbar';
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, Label } from 'react-bootstrap';
 import TagDropdown from '../feed/TagDropdown.jsx';
 import { UPDATE_USER_INFO } from '../apollo/gql.js'; 
 import userImage from '../../dist/images/user.png';
-import TinyURL from 'tinyurl';
-// import axios from 'axios';
-import { UserInputError } from 'apollo-server';
+import axios from 'axios';
 
 export default class Questionnaire extends Component {
   constructor(props) {
@@ -84,7 +82,7 @@ export default class Questionnaire extends Component {
   updateUserInfo() {
     const { client, user, history } = this.props;
     const { description, coins, tags, username, image } = this.state;
-    client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id, email: user.email, description, coins, tags: tags || [], username, image: image !== '' ? image : user.image } })
+    client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id, email: user.email, description, coins, tags: tags || [], username, image: image !== '' ? image : userImage } })
       .then(({data}) => history.push('/home'))
       .catch((err) => console.error('FUCK', err))
   }
@@ -148,11 +146,13 @@ export default class Questionnaire extends Component {
                   <FormControl 
                     onChange={(e) => this.setState({ image: e.target.value })} 
                     placeholder="Add a profile image"/><br/><br />
-                  {/* <Button onClick={() => {
-                    axios.post('/shorten', {image})
-                      .then((data) => this.setState({ image: data }, () => this.nextStep()))
-                      .catch(err => console.error('err in saving photo:', err));
-                  }}>Add Image</Button>                   */}
+                  <Button 
+                    onClick={() => {
+                      axios.post('/shorten', { image })
+                        .then(({data}) => this.setState({ image: data }, console.log(data, "DATA")))
+                        .catch(err => alert('Image Could Not Be Saved!'))
+                    }}
+                  >Add Image</Button>                  
                 </div>
                 :
                 <div>
