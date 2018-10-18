@@ -45,13 +45,13 @@ export default class QuestionFeedItem extends Component {
         <div>
             <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="comment" /></Button>
-            }</span>
+            }</span>{' '}
             <span>{question.audio ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="earphone" /></Button>
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="earphone" /></Button>
-            }</span>
+            }</span>{' '}
             <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
               : <Button id="disabled" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-            }</span></div>
+            }</span>{' '}</div>
           <div>{question.description}</div>
           {/* {question.tag.name} */}
           <SessionModal question={question} user={user} />
