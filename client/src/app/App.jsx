@@ -162,7 +162,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { user, authenticateddock } = this.state;
+    const { user, authenticated } = this.state;
     const { client } = this.props;
     return (
       <React.Fragment>

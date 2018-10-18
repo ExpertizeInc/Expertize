@@ -4,9 +4,6 @@ import { Panel } from 'react-bootstrap';
 import Video from '../sessions/Video.jsx';
 import Chat from '../sessions/Chat.jsx'
 import ChatBox from '../sessions/ChatBox.jsx'
-// import openSocket from 'socket.io-client'
-
-// const socket = openSocket('http://localhost:3001');
 
 export default class Discussion extends Component {
   constructor(props) {

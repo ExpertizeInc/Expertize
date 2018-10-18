@@ -10,7 +10,6 @@
     "worker-dev": "nodemon worker/worker.js",
     "start": "nodemon express-server/index.js webpack -d --watch",
     "graphql-dev": "nodemon -e ts,graphql -x ts-node yoga-server/src/index.ts",
-    "dockstart": "node express-server/index.js",
     "dev": "npm-run-all --parallel start playground"
   },
   "author": "Alon, Paul, Shirley",

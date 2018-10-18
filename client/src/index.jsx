@@ -6,7 +6,7 @@ import history from './app/history.js';
 import App from './app/App.jsx';
  
 const client = new ApolloClient({
-  uri: "https://expertize-backend-vtyrrnttdh.now.sh/"
+  uri: 'https://expertize-backend-smrsuvkrdp.now.sh'
 });
 
 render(<Router history={history}><App client={client} /></Router>, document.getElementById('app'));
