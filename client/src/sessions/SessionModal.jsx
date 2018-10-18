@@ -55,7 +55,6 @@ export default class SessionModal extends Component {
                     }</span>
                   )}
                 </Mutation>
-                {' '}
                 <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
                     <span>{question.video && <Button onClick={() => {

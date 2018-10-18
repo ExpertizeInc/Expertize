@@ -14,7 +14,7 @@ export default class QuestionFeedItem extends Component {
 
   toggleShow() {
     const { show } = this.state;
-    this.setState({ show: !show})
+    this.setState({ show: !show })
   }
 
   render() {
@@ -27,6 +27,12 @@ export default class QuestionFeedItem extends Component {
             <QuickView question={question} user={user} show={show} toggleShow={this.toggleShow} />
             <Panel.Heading className="centered">
               <Panel.Title componentClass="h3">
+              {question.user.linkedInProfile 
+                ? 
+              <div className="btn-online left" style={{ fontSize: "10px", color: 'grey', paddingLeft: 20 }}>linkedIn Verified &#10004; </div>
+              :
+              ''
+              }
                 <strong>{question.title} </strong>
               </Panel.Title>
             </Panel.Heading>
@@ -48,7 +54,7 @@ export default class QuestionFeedItem extends Component {
                   }</span>{' '}
                   <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
                     : <Button id="disabled" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
-                  }</span>{' '}</div>
+                  }</span></div>{' '}
                   <div style={{ fontSize: "10px", color: "grey" }}>DESCRIPTION</div>
                 <div>{question.description}</div>
                 <Badge>{question.tag.name}</Badge>

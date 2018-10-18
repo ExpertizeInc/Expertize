@@ -1,11 +1,7 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma, User } from '../prisma/generated';
-import { permissions } from './permissions'; 
 import { createTextChangeRange } from 'typescript';
-import { getUserIdFromRequest, getAuthToken } from './permissions/my-utils';
 import 'dotenv/config';
-// const express = require('express');
-// const path = require('path');
 
 const resolvers = {
   Query: {
@@ -129,14 +125,8 @@ const prisma = new Prisma({
 const server = new GraphQLServer({
   typeDefs: 'yoga-server/src/schema.graphql',
   resolvers,
-  context: async req => {
-    const userId = getUserIdFromRequest(req);
-    let user;
-    if (userId) {
-      user = await prisma.query.user({ where: { id: userId }});
-    }
+  context:  req => {
     return {
-      user,
       ...req,
       prisma
     };
