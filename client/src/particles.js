@@ -1,14 +1,14 @@
 module.exports = {
   "particles": {
     "number": {
-      "value": 232,
+      "value": 80,
       "density": {
         "enable": true,
-        "value_area": 4730.065579553293
+        "value_area": 800
       }
     },
     "color": {
-      "value": "#ffffff"
+      "value": "#13c8d9"
     },
     "shape": {
       "type": "circle",
@@ -17,7 +17,7 @@ module.exports = {
         "color": "#000000"
       },
       "polygon": {
-        "nb_sides": 4
+        "nb_sides": 5
       },
       "image": {
         "src": "img/github.svg",
@@ -54,7 +54,7 @@ module.exports = {
     },
     "move": {
       "enable": true,
-      "speed": 0.5,
+      "speed": 1,
       "direction": "none",
       "random": false,
       "straight": false,
@@ -68,10 +68,10 @@ module.exports = {
     }
   },
   "interactivity": {
-    "detect_on": "window",
+    "detect_on": "canvas",
     "events": {
       "onhover": {
-        "enable": false,
+        "enable": true,
         "mode": "repulse"
       },
       "onclick": {
@@ -106,5 +106,5 @@ module.exports = {
       }
     }
   },
-  "retina_detect": false
+  "retina_detect": true
 }

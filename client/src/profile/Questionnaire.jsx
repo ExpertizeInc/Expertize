@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
-import CircularProgressbar from 'react-circular-progressbar';
+// import CircularProgressbar from 'react-circular-progressbar';
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, Label } from 'react-bootstrap';
 import TagDropdown from '../feed/TagDropdown.jsx';
 import { UPDATE_USER_INFO } from '../apollo/gql.js'; 
 import userImage from '../../dist/images/user.png';
+<<<<<<< HEAD
+=======
+import axios from 'axios';
+>>>>>>> dev
 
 export default class Questionnaire extends Component {
   constructor(props) {
@@ -20,7 +24,6 @@ export default class Questionnaire extends Component {
       firstName: '',
       lastName: '',
       linkedInEmail: '',
-      linkedInId: '',
       email: '',
       percentage: 0,
       image: '',
@@ -82,7 +85,11 @@ export default class Questionnaire extends Component {
   updateUserInfo() {
     const { client, user, history } = this.props;
     const { description, coins, tags, username, image } = this.state;
+<<<<<<< HEAD
     client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id, email: user.email, description, coins, tags: tags || [], username, image: image !== '' ? user.image : userImage } })
+=======
+    client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: user.id, email: user.email, description, coins, tags: tags || [], username, image: image !== '' ? image : userImage } })
+>>>>>>> dev
       .then(({data}) => history.push('/home'))
       .catch((err) => console.error('FUCK', err))
   }
@@ -143,8 +150,21 @@ export default class Questionnaire extends Component {
                     }}
                   >Yes</Button><br/>
                   Or add your own photo:<br/>
+<<<<<<< HEAD
                   <FormControl onChange={(e) => this.setState({ image: e.target.value })} placeholder="Add a profile image"/><br/><br />
                   <Button onClick={this.nextStep}>Add Image</Button>                  
+=======
+                  <FormControl 
+                    onChange={(e) => this.setState({ image: e.target.value })} 
+                    placeholder="Add a profile image"/><br/><br />
+                  <Button 
+                    onClick={() => {
+                      axios.post('/shorten', { image })
+                        .then(({data}) => this.setState({ image: data }, console.log(data, "DATA")))
+                        .catch(err => alert('Image Could Not Be Saved!'))
+                    }}
+                  >Add Image</Button>                  
+>>>>>>> dev
                 </div>
                 :
                 <div>

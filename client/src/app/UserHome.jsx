@@ -23,7 +23,7 @@ export default class UserHome extends Component {
     super(props);
     this.state = {
       session: [],
-      dailyShow: true,
+      dailyShow: false,
       status: ['online', 'offline'],
       order: 'createdAt_DESC',
       chat: ['text', 'audio', 'video'],
@@ -52,7 +52,7 @@ export default class UserHome extends Component {
   }
 
   togglePupilAndExpert() {
-    this.setState({showPupil: true, showExpert: true}, () => console.log('toggled both back on'))
+    this.setState({showPupil: true, showExpert: true})
   }
 
   toggleDaily() {
@@ -81,7 +81,7 @@ export default class UserHome extends Component {
 
 
   render() {
-    const { match, user } = this.props;
+    const { match, user, client } = this.props;
     const { dailyShow, status, order, chat, tag, showPupil, showExpert } = this.state;
     return (
       <React.Fragment>
@@ -120,19 +120,19 @@ export default class UserHome extends Component {
               <Row style={{ padding: "14px" }}>
                 <Col>
                   <Panel>
+                    {/* <div>SOMETHINGGGG</div>
                     <div>SOMETHINGGGG</div>
                     <div>SOMETHINGGGG</div>
                     <div>SOMETHINGGGG</div>
                     <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div>
+                    <div>SOMETHINGGGG</div> */}
                   </Panel>
                 </Col>
               </Row>
               <Row>
                 <Col md={3}>
                   <Panel>
-                    <Stats match={ match } user={ user } />
+                    <Stats match={match} user={user} client={client}/>
                   </Panel>
                   <Panel>
                     <QuestionFilter
