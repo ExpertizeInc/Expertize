@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import QuickView from './QuickView.jsx';
 import SessionModal from '../sessions/SessionModal.jsx'
 import { Col, Button, Panel, Row, Glyphicon, Badge, Grid, Image, Thumbnail } from "react-bootstrap";
-import greenCircle from '../../dist/images/green_button.png';
-import greyCircle from '../../dist/images/grey_button.png';
 import Moment from 'react-moment';
+import userImage from '../../dist/images/user.png';
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
@@ -23,6 +22,7 @@ export default class QuestionFeedItem extends Component {
     const { show } = this.state;
     return (
       <Col md={12}>
+      {console.log(question)}
       <Row>
       <Panel >
       <QuickView question={question} user={user} show={show} toggleShow={this.toggleShow} />
@@ -37,7 +37,7 @@ export default class QuestionFeedItem extends Component {
           {/* <Grid fluid> */}
           
           <Col md={2}>
-            <img src='http://placecorgi.com/70' onClick={() => this.toggleShow()} />
+            <img src={question.user.image || userImage} style={{ height: 75, width: 75 }} onClick={() => this.toggleShow()} />
             <span className="centered" onClick={() => this.toggleShow()}><h5>{question.user.username}</h5></span>
             <Moment fromNow>{question.createdAt.toLocaleString()}</Moment>
         </Col>
