@@ -160,8 +160,7 @@ export default class Questionnaire extends Component {
                   {addPicture 
                   ? 
                   <FormGroup>
-                    <FormControl onChange={(e) => console.log(e.target.value, e)} placeholder="Add a profile image"/><br/><br />
-                    <Button onClick={this.nextStep}>Add Image</Button>
+                    <FormControl onChange={(e) => this.setState({ image: e.target.value })} placeholder="Add a profile image"/><br/><br />
                   </FormGroup>
                   :
                   ''
