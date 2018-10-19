@@ -28,6 +28,7 @@ type Mutation {
    addTag(name: String!): Tag
    updateQuestion(id: ID!, answeredBy: UserCreateOneInput, description: String, coins: Int, title: String, text: Boolean, audio: Boolean, video: Boolean, duration: Int): Question
    deleteSession(id: ID!): Session
+   updateUserQuestion(id: ID!, title: String, description: String, text: Boolean, audio: Boolean, video: Boolean, duration: Int): Question
 }
 
 type BatchPayload {

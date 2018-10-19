@@ -4,6 +4,7 @@ import SessionModal from '../sessions/SessionModal.jsx'
 import { Col, Button, Panel, Row, Glyphicon, Badge, Grid, Image, Thumbnail, ListGroup, ListGroupItem } from "react-bootstrap";
 import Moment from 'react-moment';
 import userImage from '../../dist/images/user.png';
+import UpdateQuestionModal from './UpdateQuestionModal.jsx';
 
 export default class QuestionFeedItem extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class QuestionFeedItem extends Component {
   render() {
     const { question, user } = this.props;
     const { show } = this.state;
+    const style = { fontSize: '10px', color: 'grey '};
     return (
       <Col md={12}>
         <Row>
@@ -27,22 +29,29 @@ export default class QuestionFeedItem extends Component {
             <QuickView question={question} user={user} show={show} toggleShow={this.toggleShow} />
             <Panel.Heading className="centered">
               <Panel.Title componentClass="h3">
-              {question.user.linkedInProfile 
-                ? 
-              <div className="btn-online left" style={{ fontSize: "10px", color: 'grey', paddingLeft: 20 }}>linkedIn Verified &#10004; </div>
-              :
-              ''
-              }
                 <strong>{question.title} </strong>
               </Panel.Title>
             </Panel.Heading>
             <ListGroup>
               <ListGroupItem>
                 <Row>
-                <Col md={2}>
-                <img src={question.user.image || userImage} style={{ height: 100, width: 100 }} onClick={() => this.toggleShow()} />
-                <span className="centered" onClick={() => this.toggleShow()}><h5><strong>{question.user.username} </strong><button className="btn-online centered" style={{ backgroundColor: question.user && question.user.online === true ? '#1adda4' : '#999999' }}></button></h5></span>
-                <div style={{ fontSize: "10px", color: "grey" }}>Added <Moment fromNow>{(question.createdAt.toLocaleString()).toUpperCase()}</Moment></div>
+                <Col md={3}>     
+                  <img src={question.user.image || userImage} style={{ height: 100, width: 100 }} onClick={this.toggleShow} />
+                  <div className="centered" onClick={() => this.toggleShow()}>
+                    <h5><strong>{question.user.username}</strong>
+                      <button 
+                        className="btn-online centered" 
+                        style={{ backgroundColor: question.user && question.user.online === true ? '#1adda4' : '#999999' }}
+                      />
+                    </h5>
+                  </div>               
+                {question.user.linkedInProfile 
+                ? 
+                  <p className="btn-online left" style={style}>linkedIn Verified &#10004; </p>
+                :
+                  ''
+                }
+                <div style={{ fontSize: '10px', color: 'grey' }}>Added <Moment fromNow>{(question.createdAt.toLocaleString()).toUpperCase()}</Moment></div>
                 </Col>
                 <Col md={8}>
                 <div style={{paddingBottom: 20}}>
@@ -55,17 +64,18 @@ export default class QuestionFeedItem extends Component {
                   <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
                     : <Button id="disabled" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
                   }</span></div>{' '}
-                  <div style={{ fontSize: "10px", color: "grey" }}>DESCRIPTION</div>
+                  <div style={style}>DESCRIPTION</div>
                 <div>{question.description}</div>
                 <Badge>{question.tag.name}</Badge>
                 </Col>
                 <Col className="center" md={1}>
-                {question.user.username === user.username ? '' : <SessionModal question={question} user={user} /> }
+                  {question.user.username === user.username ? '' : <SessionModal question={question} user={user} /> }
+                  {question.user.username === user.username ? <UpdateQuestionModal user={user} question={question}/> : ''}
                 </Col>
                 </Row>
               </ListGroupItem>
             </ListGroup>
-            <Panel.Body style={{ backgroundColor: "#f5f5f5" }}>
+            <Panel.Body style={{ backgroundColor: '#f5f5f5' }}>
             </Panel.Body>
           </Panel>
         </Row>
