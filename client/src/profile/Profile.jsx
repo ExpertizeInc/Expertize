@@ -28,7 +28,6 @@ export default class Profile extends Component {
             if (true) console.log('data from get all finished sessions', data)
             console.log('user ranking', user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length))
             return (
-              // <Grid>
               <div>
                 <Row >
                   <Col md={12}>
@@ -86,12 +85,9 @@ export default class Profile extends Component {
                         </Thumbnail>
                       </Col>
                     </Row>
-
                   </Col>
-
                 </Row>
-                </div>
-              // </Grid>
+              </div>
             )
           }}
         </Query>

@@ -46,5 +46,5 @@ module.exports = {
   optimization: {
     minimizer: [new UglifyJsPlugin()]
   }, 
-  mode: 'development'
+  mode: 'development',
 };
