@@ -103,6 +103,7 @@ export default class App extends React.Component {
 
   firebaseSignIn(e, email, password) {
     e.preventDefault();
+    
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => this.checkFirebaseUser())
       .catch(error => console.error('error code:', error.code, 'with message: ', error.message));  

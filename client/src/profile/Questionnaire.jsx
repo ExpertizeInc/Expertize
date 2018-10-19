@@ -174,7 +174,7 @@ export default class Questionnaire extends Component {
           </Tab>
           <Tab eventKey={4} title="Expertize">
             <Col xsOffset={4} sm={4}>
-              <img src={image} alt="profile image" style={{ height: 70, width: 110 }}/>
+              <img src={image} alt="profile image" style={{ height: 90, width: 120 }}/>
               <h2>{username}</h2>
               <div>{description}</div>
               Select your experience:

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Button, Input } from 'react-bootstrap';
+import { Modal, Button, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { UPDATE_USER_INFO, GET_USER_UID } from '../apollo/gql.js';
@@ -27,12 +27,13 @@ export default class EditProfile extends Component {
           {addImage
           ?
           <div>
-            <input onChange={(e) => this.setState({ newImage: e.target.value })} placeholder="Add New Profile Image Link Here"/><br />
+            <FormControl onChange={(e) => this.setState({ newImage: e.target.value })} placeholder="Add New Profile Image Link Here"/><br />
             <Button onClick={() => {
               axios.post('/shorten', {image: newImage})
                 .then(({data}) =>  this.setState({ hide: true, addImage: false, addDescription: false, image: data, showImageButton: true, showDescriptionButton: true }))
                 .catch(err => console.error('err in adding pic editProfile', err));
             }}>Add Profile Photo</Button>
+            <Button onClick={(e) => this.setState({ hide: true, addImage: false, addDescription: false, showImageButton: true, showDescriptionButton: true })} placeholder="Cancel">Cancel</Button>
           </div>
           :
           <p/>
@@ -41,8 +42,9 @@ export default class EditProfile extends Component {
         {addDescription
         ? 
           <div>
-            <input onChange={(e) => this.setState({ newDescription: e.target.value })} placeholder="Add New Description Here"/><br/>
+            <FormControl onChange={(e) => this.setState({ newDescription: e.target.value })} placeholder="Add New Description Here"/><br/>
             <Button onClick={() => this.setState({ hide: true, addDescription: false, addImage: false, showDescriptionButton: true, showImageButton: true })}>Update Your Description</Button>
+            <Button onClick={(e) => this.setState({ hide: true, addImage: false, addDescription: false, showImageButton: true, showDescriptionButton: true })} placeholder="Cancel">Cancel</Button>
           </div>
         :
         <p />

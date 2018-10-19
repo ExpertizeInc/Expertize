@@ -15,7 +15,23 @@ mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: Strin
 export const UPDATE_USER_QUESTION = gql`
   mutation updateUserQuestion($id: ID!, $description: String, $title: String, $text: Boolean, $audio: Boolean, $video: Boolean, $duration: Int) {
     updateQuestion(id: $id, description: $description, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+      user {
+        username
+        online
+        description
+        linkedInProfile
+      }
       id
+      description
+      coins
+      title
+      text
+      createdAt
+      audio
+      video
+      duration
+      id
+      createdAt
     }
 }`;
 
@@ -288,7 +304,7 @@ query sessionsWhereUnacceptedPupil($username: String) {
     }
     accepted
     completed
-    question{
+    question {
       duration
       id
       coins

@@ -101,9 +101,9 @@ const resolvers = {
         data: { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt }
       });
     },
-    updateSession: (_, { id, accepted, completed, startedAt, endedAt, type, description, title}, ctx, info) => {
+    updateSession: (_, { id, accepted, completed, startedAt, endedAt, type, duration, title}, ctx, info) => {
       return ctx.prisma.mutation.updateSession({
-        data: { accepted, completed, startedAt, endedAt, type, description, title },
+        data: { accepted, completed, startedAt, endedAt, type, duration, title },
         where: { id }
       }, info);
     },
@@ -123,7 +123,7 @@ const resolvers = {
 const prisma = new Prisma({
   endpoint: process.env.PRISMA_ENDPOINT,
   secret: process.env.PRISMA_SECRET,
-  debug: true
+  // debug: true
  })
 
 const server = new GraphQLServer({

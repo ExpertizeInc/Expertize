@@ -19,7 +19,7 @@ export default class QuestionFeedItem extends Component {
   }
 
   render() {
-    const { question, user } = this.props;
+    const { question, user, client } = this.props;
     const { show } = this.state;
     const style = { fontSize: '10px', color: 'grey '};
     return (
@@ -64,13 +64,13 @@ export default class QuestionFeedItem extends Component {
                   <span>{question.video ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
                     : <Button id="disabled" className="round-btn"><Glyphicon glyph="facetime-video" /></Button>
                   }</span></div>{' '}
-                  <div style={style}>DESCRIPTION</div>
+                  <div style={style}>Description</div>
                 <div>{question.description}</div>
                 <Badge>{question.tag.name}</Badge>
                 </Col>
                 <Col className="center" md={1}>
                   {question.user.username === user.username ? '' : <SessionModal question={question} user={user} /> }
-                  {question.user.username === user.username ? <UpdateQuestionModal user={user} question={question}/> : ''}
+                  {question.user.username === user.username ? <UpdateQuestionModal user={user} question={question} client={client} /> : ''}
                 </Col>
                 </Row>
               </ListGroupItem>
