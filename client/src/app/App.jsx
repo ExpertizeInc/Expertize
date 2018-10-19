@@ -32,37 +32,40 @@ export default class App extends React.Component {
     console.log('authType', authType)
     if (JSON.stringify(userId) !== 'null' || userId !== null || loginType != 'signUp') {
       this.checkIfUserIsInDB(userId);
-    } else if (authType === 'firebase' && loginType != 'signUp') {
+    } else if (authType === 'firebase' && loginType == 'signUp') {
       this.checkFirebaseUser();
-    } else if (authType === 'linkedIn' && loginType != 'signUp') {
-      this.checkLinkedInUser();
-    } else if (authType === 'linkedIn' && loginType == 'signIn') {
+    } else if (authType === 'linkedIn') {
       this.checkLinkedInUser();
     } else if (authType === 'firebase' && loginType == 'signIn') {
       this.checkFirebaseUser();
     } else {
-      console.log('HERERERER')
+      console.log('ComponentDidMount Got Here')
     }
   }
 
   checkIfUserIsInDB(uid) {
-    console.log('XXX', uid)
     const { client } = this.props; 
     client.query({ query: GET_USER_UID, variables: { uid } })
       .then(({ data }) => {
         console.log('data', data)
-        this.setState({ authenticated: true, user: data.user, uid }, () => {
-          localStorage.setItem('userId', uid);
-          localStorage.setItem('timestamp', Date.now());
-          localStorage.setItem('loginType', null);
-          history.push('/home')
-        })
+        client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true}})
+          .then(({data}) => {
+            console.log('DATA2', data)
+            this.setState({ authenticated: true, user: data.updateUser, uid }, () => {
+              localStorage.setItem('userId', uid);
+              localStorage.setItem('timestamp', Date.now());
+              localStorage.setItem('loginType', null);
+              history.push('/home')
+            })
+          })
+          .catch(() => history.push('/signin'));
       })
       .catch(() => history.push('/signup'));
   }
 
   checkLinkedInUser() {
     const { client } = this.props;
+    console.log('AAA', localStorage.getItem('loginType') == 'signIn')
     if (localStorage.getItem('loginType') == 'signIn') {
       axios.post('/users').then((res) => {
         const user = JSON.parse(res.headers.user);
@@ -95,7 +98,10 @@ export default class App extends React.Component {
                 .then(({data}) => this.setState({ authenticated: true, user: data.user, uid: data.user.uid }, () => history.push('/questionnaire')))
                 .catch(err => console.error('Error in changing status', err));
             })
-            .catch(e => history.push('/signin'))
+            .catch(() => {
+              alert('You are already signed up with linkedIn. Please sign in.');
+              history.push('/signin');
+            })
           }
         })
       }
@@ -103,6 +109,7 @@ export default class App extends React.Component {
 
   firebaseSignIn(e, email, password) {
     e.preventDefault();
+    
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => this.checkFirebaseUser())
       .catch(error => console.error('error code:', error.code, 'with message: ', error.message));  
@@ -116,7 +123,9 @@ export default class App extends React.Component {
             localStorage.setItem('userId', data.user.uid);
             localStorage.setItem('loginType', null)
               client.mutate({ mutation: UPDATE_USER_INFO, variables: { id: data.user.id, online: true } })
-                .then(({data}) => this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/home')))
+                .then(({data}) => {
+                this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/home'))})
+                console.log('USERRR', this.state.user)
                 .catch(e => history.push('/signin'))
           })
           .catch(() => history.push('/signup'));
@@ -142,6 +151,7 @@ export default class App extends React.Component {
                 .then(({data}) => { 
                   localStorage.setItem('userId', data.updateUser.id);
                   this.setState({ authenticated: true, user: data.updateUser, uid: data.updateUser.uid }, () => history.push('/questionnaire'))
+                  console.log('USERRRRR', this.state.user)
                 })
                 .catch(e => history.push('/signup'))
           })
