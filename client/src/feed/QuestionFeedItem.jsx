@@ -38,19 +38,19 @@ export default class QuestionFeedItem extends Component {
                 <Col md={3}>     
                   <img src={question.user.image || userImage} style={{ height: 100, width: 100 }} onClick={this.toggleShow} />
                   <div className="centered" onClick={() => this.toggleShow()}>
-                    <h5><strong>{question.user.username}</strong>
+                    <h5><strong>{question.user.username}</strong>{' '}
                       <button 
                         className="btn-online centered" 
                         style={{ backgroundColor: question.user && question.user.online === true ? '#1adda4' : '#999999' }}
                       />
                     </h5>
+                    {question.user.linkedInProfile 
+                     ? 
+                    <p className="btn-online left" style={style}>linkedIn Verified &#10004; </p>
+                    :
+                    ''
+                    }
                   </div>               
-                {question.user.linkedInProfile 
-                ? 
-                  <p className="btn-online left" style={style}>linkedIn Verified &#10004; </p>
-                :
-                  ''
-                }
                 <div style={{ fontSize: '10px', color: 'grey' }}>Added <Moment fromNow>{(question.createdAt.toLocaleString()).toUpperCase()}</Moment></div>
                 </Col>
                 <Col md={8}>

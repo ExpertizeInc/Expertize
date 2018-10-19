@@ -25,7 +25,7 @@ export default class SessionModal extends Component {
           ? 
           <div>
             <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
-              PICK ME
+              Answer
             </Button>
             <Modal
               show={this.state.show}

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Modal, Button, FormControl } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { UPDATE_USER_INFO, GET_USER_UID } from '../apollo/gql.js';
 import userImage from '../../dist/images/user.png';
 import axios from 'axios';
+import MDSpinner from "react-md-spinner";
 
 export default class EditProfile extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ export default class EditProfile extends Component {
         ?
           <Mutation
             mutation={ UPDATE_USER_INFO }
-            variables={{ id: user.id, description: newDescription !== '' ? newDescription : user.description, image: newImage !== '' ? newImage : user.image  }} 
+            variables={{ id: user.id, description: newDescription !== '' ? newDescription : user.description, image: newImage !== '' ? newImage : user.image ? user.image : userImage }} 
             refetchQueries={() => [{ query: GET_USER_UID , variables: { uid: user.uid }} ]}
             onCompleted={toggle}>
             {updateUser => {
