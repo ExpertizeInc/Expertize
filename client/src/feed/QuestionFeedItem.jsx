@@ -60,8 +60,7 @@ export default class QuestionFeedItem extends Component {
                 <Badge>{question.tag.name}</Badge>
                 </Col>
                 <Col className="center" md={1}>
-                {question.user.username === user.username ? '' : <SessionModal question={question} user={user} /> }
-                </Col>
+                {question.user.username === user.username ? '' : <SessionModal question={question} user={user} /> }                </Col>
                 </Row>
               </ListGroupItem>
             </ListGroup>

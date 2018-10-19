@@ -119,14 +119,7 @@ export default class UserHome extends Component {
             <Grid style={{ display: 'block', padding: "60px" }}>
               <Row style={{ padding: "14px" }}>
                 <Col>
-                  <Panel>
-                    {/* <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div>
-                    <div>SOMETHINGGGG</div> */}
-                  </Panel>
+
                 </Col>
               </Row>
               <Row>
