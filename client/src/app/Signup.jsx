@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Col, Row, Button, Panel, ControlLabel } from 'react-bootstrap'
+import { Form, FormGroup, FormControl, Col, Row, Button, Panel, ControlLabel, Grid } from 'react-bootstrap'
 import LinkedInLogin from './LinkedInLogin.jsx';
 
 export default class Signup extends Component {
@@ -37,49 +37,48 @@ export default class Signup extends Component {
     const { linkedInSignIn } = this.props;
     const formInfo = [{value: username, placeholder: 'Username'}, {value: email, placeholder: 'Email'}, {value: password, placeholder: 'Password'}];
     return (
-        <FormGroup>
-          <Row>
-          <Col smOffset={4} sm={3}>
-            <div>
-              {signUpLinkedIn
-              ?
-              <div>
-                <br/><LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signUp"/>
-                <h5>Don't have a LinkedIn account? <Button placeholder="Click Here"onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>Click Here</Button></h5>
-              </div>
-              :
-              ''
-              }
-              {!signUpLinkedIn 
-              ? 
-              <Form className="form-panel-signup centered" horizontal>
-                <Panel>
-                  {formInfo.map(info => (
-                    <FormGroup controlId={`formHorizontal${info.placeholder}`} key={info.placeholder}>
-                      <Col componentClass={ControlLabel} sm={5}>
-                        {info.placeholder}
-                      </Col>
-                      <Col sm={8}>
-                      <FormControl value={info.value} onChange={(e) => this.onChange(e, info.placeholder.toLowerCase())} type={info.placeholder.toLowerCase()} placeholder={info.placeholder} />
-                      </Col>
-                    </FormGroup>
-                  ))}
-                    <Button 
-                      onClick={this.submitSignUp} 
-                      type="submit"
-                    >
-                      Create An Account
-                    </Button>
-                </Panel>
-              </Form>
-            :
-            ''
-            }
-            </div>
-          </Col>
-          </Row>
-        </FormGroup>
-     
+      <Grid style={{ marginTop: 150 }}>
+        <Col md={4}>
+        </Col>
+        <Col style={{ backgroundColor: "#000", opacity: .9, borderRadius: 15, padding: 30 }} md={4}>
+          <Row className="center" style={{ marginBottom: 15}}><h3>Sign Up</h3></Row>
+          {signUpLinkedIn &&
+            <Form className="form-panel-signup" horizontal>
+              <Row className="centered">
+              <LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signUp" />
+              </Row>
+              <Row style={{ marginTop: 50 }} className="centered">
+              <h5>Don't have a LinkedIn account?</h5>
+                <Button className="bttn btn-2g" placeholder="Click Here" onClick={() => this.setState({ signUpLinkedIn: !signUpLinkedIn })}>
+                Click Here
+                </Button>
+                </Row>
+              
+            </Form>
+          }
+          {!signUpLinkedIn &&
+            <Form className="form-panel-signup centered" horizontal>
+              {formInfo.map(info => (
+                <FormGroup controlId={`formHorizontal${info.placeholder}`} key={info.placeholder}>
+                  <Col componentClass={ControlLabel} md={3}>
+                    {info.placeholder}
+                  </Col>
+                  <Col md={9}>
+                    <FormControl className="white" value={info.value} onChange={(e) => this.onChange(e, info.placeholder.toLowerCase())} type={info.placeholder.toLowerCase()} />
+                  </Col>
+                </FormGroup>
+              ))}
+              <Row className="center">
+              <Button className="bttn btn-2g" onClick={this.submitSignUp} type="submit">
+                Create An Account
+              </Button>
+              </Row>
+            </Form>
+          }
+        </Col>
+        <Col md={4}>
+        </Col>
+      </Grid>
     )
   }
 };
