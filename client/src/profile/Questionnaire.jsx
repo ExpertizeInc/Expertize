@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import CircularProgressbar from 'react-circular-progressbar';
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, Label } from 'react-bootstrap';
 import TagDropdown from '../feed/TagDropdown.jsx';
 import { UPDATE_USER_INFO } from '../apollo/gql.js'; 
@@ -174,7 +173,7 @@ export default class Questionnaire extends Component {
           </Tab>
           <Tab eventKey={4} title="Expertize">
             <Col xsOffset={4} sm={4}>
-              <img src={image} alt="profile image" style={{ height: 70, width: 110 }}/>
+              <img src={image} alt="profile image" style={{ height: 90, width: 120 }}/>
               <h2>{username}</h2>
               <div>{description}</div>
               Select your experience:

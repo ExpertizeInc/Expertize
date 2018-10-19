@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import ChatLog from './ChatLog.jsx'
-class ChatBox extends Component {
+// import openSocket from 'socket.io-client';
+
+// const socket = openSocket('http://localhost:3001');
+
+// = ({messages, onChange, sendMessage, text}) => (
+export default class ChatBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,5 +40,3 @@ class ChatBox extends Component {
       )
   }
 }
- 
-export default ChatBox;

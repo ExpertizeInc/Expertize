@@ -176,7 +176,8 @@ export default class QuestionForm extends Component {
                       text: chat.includes('text'),
                       audio: chat.includes('audio'),
                       video: chat.includes('video'),
-                      duration}} 
+                      duration
+                    }} 
                       refetchQueries={() => [{ query: GET_USER_UID , variables: { uid: user.uid }} ]}
                       >
                     {createQuestion => {

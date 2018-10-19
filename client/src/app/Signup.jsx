@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Mutation } from 'react-apollo';
 import { Form, FormGroup, FormControl, Col, Row, Button, Panel, ControlLabel } from 'react-bootstrap'
-import { CREATE_USER } from '../apollo/gql.js';
 import LinkedInLogin from './LinkedInLogin.jsx';
 
 export default class Signup extends Component {

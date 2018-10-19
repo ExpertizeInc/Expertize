@@ -10,7 +10,7 @@ import { CREATE_MESSAGE } from '../apollo/gql.js';
 
 const socket = openSocket('https://f0f7b269.ngrok.io');
 
-class Chat extends Component {
+export default class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -121,5 +121,3 @@ class Chat extends Component {
     );
   }
 }
- 
-export default Chat;

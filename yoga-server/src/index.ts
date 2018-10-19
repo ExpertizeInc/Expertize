@@ -5,7 +5,7 @@ import 'dotenv/config';
 
 const resolvers = {
   Query: {
-    user: (parent, {uid}, ctx: {prisma: Prisma}, info) => {
+    user: (_, {uid}, ctx: {prisma: Prisma}, info) => {
       console.log(uid, 'asd')
       return ctx.prisma.query.user({ where: {uid} }, info);
     },
@@ -28,11 +28,9 @@ const resolvers = {
     questionsByUser: (_, {username}, ctx: {prisma: Prisma}, info) => {
       return ctx.prisma.query.questions({ where: { user: {username} }}, info);
     },
-    questionsByFilter: (_, { online, offline, sort, username, audio, video, text, after, before, tag}, ctx: {prisma: Prisma}, info) => {
+    questionsByFilter: (_, { online, offline, sort, username, audio, video, text, tag}, ctx: {prisma: Prisma}, info) => {
      let name = 'name'
-      if (tag === 'All') {
-        name = 'name_not'
-     }
+      if (tag === 'All') name = 'name_not';
       return ctx.prisma.query.questions({ 
         where: {
           answeredBy: null,
@@ -76,6 +74,12 @@ const resolvers = {
         data: { user, tag, description, coins, title, text, audio, video, duration }
       }, info);
     },
+    updateUserQuestion: (_, { description, title, text, audio, video, duration, id }, ctx: { prisma: Prisma}, info) => {
+      return ctx.prisma.mutation.updateQuestion({
+        data: { description, title, text, audio, video, duration },
+        where: { id }
+      }, info);
+    },
     updateUser: (_, { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, id, tag, username, image, linkedInProfile }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
         data: { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, tag, username, image, linkedInProfile },
@@ -97,9 +101,9 @@ const resolvers = {
         data: { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt }
       });
     },
-    updateSession: (_, { id, accepted, completed, startedAt, endedAt}, ctx, info) => {
+    updateSession: (_, { id, accepted, completed, startedAt, endedAt, type, duration, title}, ctx, info) => {
       return ctx.prisma.mutation.updateSession({
-        data: { accepted, completed, startedAt, endedAt },
+        data: { accepted, completed, startedAt, endedAt, type, duration, title },
         where: { id }
       }, info);
     },
@@ -119,7 +123,7 @@ const resolvers = {
 const prisma = new Prisma({
   endpoint: process.env.PRISMA_ENDPOINT,
   secret: process.env.PRISMA_SECRET,
-  debug: true
+  // debug: true
  })
 
 const server = new GraphQLServer({
@@ -132,17 +136,6 @@ const server = new GraphQLServer({
     };
   }
 });
-
-// const io = require('socket.io')(server)
-// io.on('connect', (socket) => {
-//   console.log('a user connected, id is:', socket.id);
-//   socket.on('message', (msg) => {
-//     console.log('received message:', msg);
-//     io.sockets.emit('outbound', msg);
-//   });
-//   socket.on('disconnect', () => console.log('user disconnected'));
-// });
-
 
 // server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));

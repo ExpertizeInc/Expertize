@@ -23,6 +23,7 @@ type Mutation {
    updateManyMessages: BatchPayload!
    login(email: String!, password: String!): LoginPayload!
    createQuestion(user: UserCreateOneInput, description: String!, tag: TagCreateOneInput, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
+   updateUserQuestion(id: ID!, title: String, description: String, text: Boolean, audio: Boolean, video: Boolean, duration: Int): Question
    createSession(type: String!, question: QuestionCreateOneInput, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    updateSession(id: String!, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
    addTag(name: String!): Tag
