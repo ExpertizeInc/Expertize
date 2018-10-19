@@ -118,9 +118,6 @@ export default class UserHome extends Component {
             </Query>
             <Grid style={{ display: 'block', padding: "60px" }}>
               <Row style={{ padding: "14px" }}>
-                <Col>
-
-                </Col>
               </Row>
               <Row>
                 <Col md={3}>
@@ -146,7 +143,7 @@ export default class UserHome extends Component {
                     <Route path={`${match.url}/profile`} render={(props) => <Profile {...props} user={user} />} />
                     <Route path={`${match.url}/inbox`} render={(props) => <Inbox {...props} user={user} />} />
                     <Route path={`${match.url}/discussion`} render={({ match }) => <Discussion user={user} match={match} />} />
-                    <QuestionFeed toggleBoth={this.togglePupilAndExpert} status={status} order={order} tag={tag} match={match} user={user} chat={chat} />
+                    <QuestionFeed toggleBoth={this.togglePupilAndExpert} status={status} order={order} tag={tag} match={match} user={user} chat={chat} client={client} />
                   </Switch>
                 </Col>
               </Row>

@@ -10,30 +10,51 @@ mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: Strin
     uid
     coins
   }
-}
-`;
+}`;
+
+export const UPDATE_USER_QUESTION = gql`
+  mutation updateUserQuestion($id: ID!, $description: String, $title: String, $text: Boolean, $audio: Boolean, $video: Boolean, $duration: Int) {
+    updateQuestion(id: $id, description: $description, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+      user {
+        username
+        online
+        description
+        linkedInProfile
+      }
+      id
+      description
+      coins
+      title
+      text
+      createdAt
+      audio
+      video
+      duration
+      id
+      createdAt
+    }
+}`;
 
 export const FINISH_SESSION = gql`
-mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $user: ID!, $expertUser: ID!, $answeredBy: UserCreateOneInput, $expertRating: Int, $pupilRating: Int, $expertCoins: Int, $pupilCoins: Int, $endedAt: DateTime) {
-  updateSession(id: $id, completed: $completed, endedAt: $endedAt) { 
-    id
-    completed
-    endedAt
-  } updateQuestion( id: $questionId, answeredBy: $answeredBy) {
-    id 
-    user{
-      username
-    }
-    answeredBy {
-      username
-    }
-  } pupil:updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
-    id
-  } expert:updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
-    id
-  }
-}
-`;
+  mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $user: ID!, $expertUser: ID!, $answeredBy: UserCreateOneInput, $expertRating: Int, $pupilRating: Int, $expertCoins: Int, $pupilCoins: Int, $endedAt: DateTime) {
+    updateSession(id: $id, completed: $completed, endedAt: $endedAt) { 
+      id
+      completed
+      endedAt
+    } updateQuestion( id: $questionId, answeredBy: $answeredBy) {
+      id 
+      user{
+        username
+      }
+      answeredBy {
+        username
+      }
+      } pupil:updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
+        id
+      } expert:updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
+        id
+      }
+}`;
 
 export const GET_QUESTIONS = gql`
   query {
@@ -57,9 +78,6 @@ export const GET_QUESTIONS = gql`
         name
       }
       id
-      sessions {
-        id
-      }
       createdAt
     }
   }
@@ -289,7 +307,7 @@ query sessionsWhereUnacceptedPupil($username: String) {
     }
     accepted
     completed
-    question{
+    question {
       duration
       id
       coins

@@ -7,7 +7,7 @@ import ChatLog from './ChatLog.jsx'
 // const socket = openSocket('http://localhost:3001');
 
 // = ({messages, onChange, sendMessage, text}) => (
-class ChatBox extends Component {
+export default class ChatBox extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -49,5 +49,3 @@ class ChatBox extends Component {
       )
   }
 }
- 
-export default ChatBox;
