@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Row, Panel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Col, Button, ControlLabel, Row, Panel, Grid } from 'react-bootstrap';
 import LinkedInLogin from './LinkedInLogin.jsx';
 
 export default class Signin extends Component {
@@ -17,50 +17,58 @@ export default class Signin extends Component {
   render() {
     const { fbSignIn, linkedInSignIn } = this.props;
     return (
-      <Panel>
-        <Panel.Body>
-        <Form className="form-panel-signup" horizontal>
-          <Row>
-          <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={5}>
-              Email
-            </Col>
-            <Col sm={3}>
-              <FormControl
-                onChange={e => this.onChange(e, 'email')}
-                type="email"
-                placeholder="Email"
-              />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="formHorizontalPassword">
-            <Col componentClass={ControlLabel} sm={5}>
-              Password
-            </Col>
-            <Col sm={3}>
-              <FormControl
-                onChange={e => this.onChange(e, 'password')}
-                type="password"
-                placeholder="Password"
-              />
-            </Col>
-          </FormGroup>
+      <Grid style={{ marginTop: 150 }}>
+        <Col md={4}>
+        </Col>
+        <Col style={{ backgroundColor: "#000", opacity: .9, borderRadius: 15, padding: 30 }} md={4}>
+          <Row className="center"><h3>Sign In</h3></Row>
+          <Form className="form-panel-signup" horizontal>
+            <Row >
+              <FormGroup controlId="formHorizontalEmail">
+                <Col componentClass={ControlLabel} md={3}>
+                  Email
+                </Col>
+                <Col md={9}>
+                  <FormControl className="white"
+                    onChange={e => this.onChange(e, 'email')}
+                    type="email"
+                  />
+                </Col>
+              </FormGroup>
             </Row>
-          <FormGroup>
             <Row>
-              <Col smOffset={6} sm={3}>
-                <Button onClick={(e) => {
-                  localStorage.setItem('fbOrLi', 'firebase');
-                  fbSignIn(e, this.state.email, this.state.password);
-                  }} 
-                  type="submit">Log In</Button>
-                <LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signIn"/>
-              </Col>
+              <FormGroup controlId="formHorizontalPassword">
+                <Col componentClass={ControlLabel} md={3}>
+                  Password
+            </Col>
+                <Col md={9}>
+                  <FormControl className="white"
+                    onChange={e => this.onChange(e, 'password')}
+                    type="password"/>
+                </Col>
+              </FormGroup>
             </Row>
-          </FormGroup>
-        </Form>
-        </Panel.Body>
-      </Panel>
+            <Row className="center">
+              <FormGroup>
+                <Col >
+                  <Button className="white btn-2g bttn" onClick={(e) => {
+                    localStorage.setItem('fbOrLi', 'firebase');
+                    fbSignIn(e, this.state.email, this.state.password);
+                  }}
+                    type="submit">Submit</Button>
+                </Col>
+              </FormGroup>
+            </Row>
+            <Row className="center" style={{ marginBottom: 20 }}>- OR -
+            </Row>
+            <Row className="center">
+              <LinkedInLogin linkedInSignIn={linkedInSignIn} signInType="signIn" />
+            </Row>
+          </Form>
+        </Col>
+        <Col md={4}>
+        </Col>
+      </Grid>
     );
   }
 }

@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, ...prop, client, history }) => {
       {prop.user && 
         <Query query={GET_USER_UID} variables={{ uid: prop.user.uid }}>
           {({loading, error, data}) => {
-            if(loading) return <div>LOADING</div>
+            if(loading) return <div><img src="https://cdn.dribbble.com/users/282075/screenshots/2562886/hamster.gif"></img></div>
             if(error) return <div>ERROR</div>
             return (
               <Route {...prop} render={({ match }) => (

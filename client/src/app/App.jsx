@@ -188,6 +188,7 @@ export default class App extends React.Component {
     }
   }
 
+
   render() {
     const { user, authenticated } = this.state;
     const { client } = this.props;

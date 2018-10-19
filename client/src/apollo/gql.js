@@ -153,6 +153,7 @@ export const GET_USER_QUESTIONS = gql`
     questionsByUser(username: $username) {
       title
       description
+      createdAt
     }
   }
 `;
@@ -388,9 +389,11 @@ export const GET_ALL_FINISHED_SESSIONS = gql`
     getAllFinishedSessions(id: $id) {
       pupil {
         username
+        image
       }
       expert {
         username
+        image
       }
       question{
         description

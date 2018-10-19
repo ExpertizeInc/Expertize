@@ -26,9 +26,12 @@ export default class extends Component {
     return (
       <React.Fragment>
         <Panel.Heading className="centered">
+<<<<<<< HEAD
         {/* {console.log('USER', this.props)} */}
+=======
+>>>>>>> dev
           <Panel.Title componentClass="h3" style={{ paddingTop: 10 }}>
-          <Image src={user.image || userImage} style={{ height: 100, width: 100}} onClick={() => this.setState({ showProfileEdit: true })}></Image>
+          <Image src={user.image || userImage} style={{ height: 100, width: 100, borderRadius: 400}} onClick={() => this.setState({ showProfileEdit: true })}></Image>
           {showProfileEdit
           ?
           < EditProfile user={user} show={showProfileEdit} toggle={this.toggleShow} client={client}/>
@@ -43,17 +46,17 @@ export default class extends Component {
             <Link to={`${match.url}`}>
               <Glyphicon glyph="home" />
             </Link>
-          </Button>
+          </Button>{' '}
           <Button className="round-btn">
             <Link to={`${match.url}/profile`}>
               <Glyphicon glyph="user" />
             </Link>
-          </Button>
+          </Button>{' '}
           <Button className="round-btn">
             <Link to={`${match.url}/create`}>
               <Glyphicon glyph="pencil" />
             </Link>
-          </Button>
+          </Button>{' '}
           <Button className="round-btn">
             <Link to={`${match.url}/inbox`}>
               <Glyphicon glyph="envelope" />
