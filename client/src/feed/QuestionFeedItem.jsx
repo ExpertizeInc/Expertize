@@ -53,7 +53,7 @@ export default class QuestionFeedItem extends Component {
                   </div>               
                 <div style={{ fontSize: '10px', color: 'grey' }}>Added <Moment fromNow>{(question.createdAt.toLocaleString()).toUpperCase()}</Moment></div>
                 </Col>
-                <Col md={8}>
+                <Col md={7}>
                 <div style={{paddingBottom: 20}}>
                   <span>{question.text ? <Button bsStyle="success" className="round-btn"><Glyphicon glyph="comment" /></Button>
                     : <Button id="disabled" className="round-btn"><Glyphicon glyph="comment" /></Button>
@@ -68,7 +68,7 @@ export default class QuestionFeedItem extends Component {
                 <div>{question.description}</div>
                 <Badge>{question.tag.name}</Badge>
                 </Col>
-                <Col className="center" md={1}>
+                <Col className="center" md={2}>
                   {question.user.username === user.username ? '' : <SessionModal question={question} user={user} /> }
                   {question.user.username === user.username ? <UpdateQuestionModal user={user} question={question} client={client} /> : ''}
                 </Col>
