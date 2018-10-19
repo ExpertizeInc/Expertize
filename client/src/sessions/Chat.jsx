@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Panel, Form, FormControl, Button, Well, Row, Col, Grid } from 'react-bootstrap';
+import { Panel, Button, Col, Grid } from 'react-bootstrap';
 import ChatBox from './ChatBox.jsx'
 import openSocket from 'socket.io-client';
 import Timer from './Timer.jsx'
 import MDSpinner from 'react-md-spinner'
-import ReactLoading from 'react-loading'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { Mutation } from 'react-apollo';
 import { CREATE_MESSAGE } from '../apollo/gql.js';
 
-const socket = openSocket('http://localhost:3001');
+const socket = openSocket('https://f0f7b269.ngrok.io');
 
 class Chat extends Component {
   constructor(props) {
@@ -29,7 +28,6 @@ class Chat extends Component {
 
   componentDidMount() {
     const { match, user } = this.props
-    console.log('session data',match.location.state.session)
     const expert = match.location.state.session.expert.username
     const pupil = match.location.state.session.pupil.username
     this.setState({userOne:user.username, target:user.username === expert ? pupil : expert}, () => console.log('the state of chat', this.state))
@@ -40,7 +38,6 @@ class Chat extends Component {
     })
     socket.on('usernames', (data) => {
       this.setState({online:data})
-      console.log('list of users',data)
     })
     socket.on('outbound', (message) => {
       if(this.state.target === message.from) {
@@ -52,7 +49,8 @@ class Chat extends Component {
     })
   }
 
-  sendMessage(target, text) {
+  sendMessage(target, text, e) {
+    e.preventDefault()
     var temp = [{from:this.state.userOne, msg:text}]
     this.setState(state => {
       return {messages: state.messages.concat(temp)}
@@ -66,7 +64,6 @@ class Chat extends Component {
     const { messages, userOne, target } = this.state
     const me = user.username === match.location.state.session.expert.username ? match.location.state.session.expert.username : match.location.state.session.pupil.username
     const opponent = user.username === match.location.state.session.expert.username ? match.location.state.session.pupil.username : match.location.state.session.expert.username
-    console.log('this.state in chat', this.state, 'this.props in chat', this.props)
     return (
       this.state.online.length === 2 ? 
       <div>

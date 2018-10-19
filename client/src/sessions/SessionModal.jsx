@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Modal, Glyphicon, Well, Grid, Row, Col } from 'react-bootstrap';
-import { Mutation, withApollo } from 'react-apollo';
+import { Button, Modal, Glyphicon } from 'react-bootstrap';
+import { Mutation } from 'react-apollo';
 import { CREATE_SESSION } from '../apollo/gql.js';
-import { connect } from 'tls';
 
 
 export default class SessionModal extends Component {
@@ -51,7 +50,7 @@ export default class SessionModal extends Component {
                   {createSession => (
                     <span>{question.text && <Button onClick={() => {
                       createSession()
-                      this.setState({ show: false }, () => console.log('session was created'))}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
+                      this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
                     }</span>
                   )}
                 </Mutation>

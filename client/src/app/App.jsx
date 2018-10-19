@@ -27,9 +27,9 @@ export default class App extends React.Component {
     var userId = localStorage.getItem('userId');
     var authType = localStorage.getItem('fbOrLi');
     var loginType = localStorage.getItem('loginType');
-    console.log('loginType', loginType);
-    console.log('userId', userId);
-    console.log('authType', authType)
+    // console.log('loginType', loginType);
+    // console.log('userId', userId);
+    // console.log('authType', authType)
     if (JSON.stringify(userId) !== 'null' || userId !== null || loginType != 'signUp') {
       this.checkIfUserIsInDB(userId);
     } else if (authType === 'firebase' && loginType != 'signUp') {
@@ -41,16 +41,16 @@ export default class App extends React.Component {
     } else if (authType === 'firebase' && loginType == 'signIn') {
       this.checkFirebaseUser();
     } else {
-      console.log('HERERERER')
+      // console.log('HERERERER')
     }
   }
 
   checkIfUserIsInDB(uid) {
-    console.log('XXX', uid)
+    // console.log('XXX', uid)
     const { client } = this.props; 
     client.query({ query: GET_USER_UID, variables: { uid } })
       .then(({ data }) => {
-        console.log('data', data)
+        // console.log('data', data)
         this.setState({ authenticated: true, user: data.user, uid }, () => {
           localStorage.setItem('userId', uid);
           localStorage.setItem('timestamp', Date.now());
@@ -156,7 +156,7 @@ export default class App extends React.Component {
     const { user } = this.state;
     const { client } = this.props;
     let authType = localStorage.getItem('fbOrLi');
-    console.log('LOCAL', localStorage.getItem('userId'))
+    // console.log('LOCAL', localStorage.getItem('userId'))
     if (authType === 'firebase') {
       firebase.auth().signOut();
       localStorage.clear();

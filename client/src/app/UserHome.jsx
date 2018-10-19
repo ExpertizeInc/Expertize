@@ -44,11 +44,11 @@ export default class UserHome extends Component {
   }
 
   togglePupil() {
-    this.setState({showPupil: false}, () => console.log('toggled pupil:', this.state))
+    this.setState({showPupil: false})
   }
 
   toggleExpert() {
-    this.setState({showExpert: false}, () => console.log('toggled expert', this.state))
+    this.setState({showExpert: false})
   }
 
   togglePupilAndExpert() {
@@ -104,7 +104,6 @@ export default class UserHome extends Component {
               {({ loading, error, data }) => {
                 if (loading) return <div></div>
                 if (error) return <div>{console.log(error)}</div>
-                if (true) console.log('get_expert_session', data)
                 if (this.state.showExpert && data.sessionsForExpert && data.sessionsForExpert.length > 0) {
                   if (data.sessionsForExpert[0].accepted === true) {
                     return <SessionAccepted toggleExpert={this.toggleExpert} session={data.sessionsForExpert[0]} user={user} match={match} />

@@ -18,15 +18,12 @@ export default class Profile extends Component {
 
   render() {
     const { user } = this.props;
-    console.log('profileeeeee', user)
     return (
       <div>
-        <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
+        <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }}>
           {({ loading, error, data }) => {
             if (loading) return <div>Loading...</div>
             if (error) return <div>Error</div>
-            if (true) console.log('data from get all finished sessions', data)
-            console.log('user ranking', user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length))
             return (
               <div>
                 <Row >
@@ -56,13 +53,12 @@ export default class Profile extends Component {
                       <Thumbnail className="centered">
                         <h3>Alt stats/graphs</h3>
                       <Rating readonly initialRating={data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length === 0 ? 0 : user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length)  } /> <br />
-                        <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
+                        <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} >
                           {({ loading, error, data }) => {
                             if (loading) return <div>Loading...</div>
                             if (error) return <div>Error</div>
                             return (
                               <div>
-                                {console.log('aaaaaaaaaa',data)}
                                 {data.questionsByUser.map((question, i) => <div key={i}>{i + 1} Title: {question.title} | Description: {question.description}</div>)}
                               </div>
                             )

@@ -131,7 +131,7 @@ export default class Questionnaire extends Component {
           <Tab eventKey={3} title="Set up profile">
             {/* // only show if user did not select linkedin oauth signup. maybe pick avatar here too */}
             <Col smOffset={4} sm={3}>
-            {console.log(localStorage.getItem('fbOrLi'))}
+            {/* {console.log(localStorage.getItem('fbOrLi'))} */}
               {localStorage.getItem('fbOrLi') === "linkedIn" 
                 ?
                 <div>

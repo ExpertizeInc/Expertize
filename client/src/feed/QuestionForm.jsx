@@ -55,7 +55,7 @@ export default class QuestionForm extends Component {
   }
 
   addTag(e) {
-    console.log('deeeeee', e)
+    // console.log('deeeeee', e)
     this.setState({ tag: e });
   }
   render() {

@@ -386,7 +386,7 @@ a:hover {
 	align-items: flex-start;
 }
 
-.chat-form textarea {
+.chat-form input {
 	background: #fbfbfb;
 	width: 75%;
 	height: 50px;
@@ -398,7 +398,7 @@ a:hover {
 	color: #333;
 }
 
-.chat-form textarea:focus {
+.chat-form input:focus {
 	background: #fff;
 }
 

@@ -26,7 +26,7 @@ export default class extends Component {
     return (
       <React.Fragment>
         <Panel.Heading className="centered">
-        {console.log('USER', this.props)}
+        {/* {console.log('USER', this.props)} */}
           <Panel.Title componentClass="h3" style={{ paddingTop: 10 }}>
           <Image src={user.image || userImage} style={{ height: 100, width: 100}} onClick={() => this.setState({ showProfileEdit: true })}></Image>
           {showProfileEdit

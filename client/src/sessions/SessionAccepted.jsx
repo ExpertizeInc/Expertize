@@ -5,7 +5,6 @@ import { UPDATE_SESSION } from '../apollo/gql.js';
 import { Link } from 'react-router-dom';
 
 const SessionAccepted = (props) => { 
-  console.log('props in sessionaccepted', props) 
   const { session, match } = props
   return (
   <div>

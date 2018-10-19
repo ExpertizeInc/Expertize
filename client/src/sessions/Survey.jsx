@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { FINISH_SESSION } from '../apollo/gql.js'
 import { Mutation } from 'react-apollo';
-import { Button, Modal, Glyphicon, Well, Grid, Row, Col } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import Rating from 'react-rating'
-
-import { Checkbox } from 'react-bootstrap'
 
 class Survey extends Component {
   constructor(props) {
@@ -15,13 +13,12 @@ class Survey extends Component {
   }
 
   handleRatingClick(value) {
-    this.setState({rating: value }, () => console.log('rating after click', this.state.rating))
+    this.setState({rating: value })
   }
 
   render() {
-    const { session, match } = this.props
+    const { session } = this.props
     const now = new Date().toISOString()
-    console.log('id', session.id, 'completed:', true, 'user:', session.pupil.id, 'answeredBy:', session.expert.username, 'question:', session.question.id, 'endedAt', new Date().toISOString(), 'expertCoins:', session.expert.coins + 2, 'pupilCoins:', session.pupil.coins - session.question.coins, 'expertRating', session.expert.ranking + this.state.rating, 'pupilRating:', session.pupil.ranking)
     return (
       <React.Fragment>
         <h1>rate your Expert!</h1>
