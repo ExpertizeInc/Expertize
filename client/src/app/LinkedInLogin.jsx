@@ -5,7 +5,7 @@ const LinkedInLogin = ({ linkedInSignIn, signInType }) => {
   if (signInType === 'signIn') {
     return (
       <div>
-        <a href="/auth/linkedin"><img src={linkedInButton} 
+        <a href="/auth/linkedin"><img style={{width: "50%"}}src={linkedInButton} 
         onClick={(e) => {
           {localStorage.setItem('fbOrLi', 'linkedIn')};
           {localStorage.setItem('loginType', 'signIn')}
