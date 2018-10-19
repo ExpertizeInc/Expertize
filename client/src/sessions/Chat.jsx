@@ -9,7 +9,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const socket = openSocket('http://localhost:3001');
 
-class Chat extends Component {
+export default class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,5 +87,3 @@ class Chat extends Component {
     );
   }
 }
- 
-export default Chat;

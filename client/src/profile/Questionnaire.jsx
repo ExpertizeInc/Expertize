@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import CircularProgressbar from 'react-circular-progressbar';
 import { Form, FormGroup, FormControl, ControlLabel, HelpBlock, Col, Tabs, Tab, Button, Label } from 'react-bootstrap';
 import TagDropdown from '../feed/TagDropdown.jsx';
 import { UPDATE_USER_INFO } from '../apollo/gql.js'; 

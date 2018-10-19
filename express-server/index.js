@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-require('dotenv'); 
+require('dotenv').config(); 
 const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -25,6 +25,7 @@ app.use(passport.session());
 app.use(authMiddleware);
 
 app.use(express.static(path.join(__dirname + '/../client/dist')));
+
 app.post('/shorten', (req, resp) => {
   let { image } = req.body;
   TinyURL.shorten(image, (res) => resp.send(res));
