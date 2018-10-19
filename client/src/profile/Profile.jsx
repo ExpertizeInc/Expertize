@@ -22,12 +22,8 @@ export default class Profile extends Component {
     const { user } = this.props;
     return (
       <div>
-<<<<<<< HEAD
-        <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }}>
-=======
         <Panel>
         <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
->>>>>>> dev
           {({ loading, error, data }) => {
             if (loading) return <div className="center"><MDSpinner className="centered" size="50" /></div>
             if (error) return <div>Error</div>
@@ -55,14 +51,6 @@ export default class Profile extends Component {
                       </Thumbnail>
                       </Col>
                     </Row>
-<<<<<<< HEAD
-
-                    <Row>
-                      <Thumbnail className="centered">
-                        <h3>Alt stats/graphs</h3>
-                      <Rating readonly initialRating={data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length === 0 ? 0 : user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length)  } /> <br />
-                        <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} >
-=======
                     <Row style={{ height: 400}}>
                     <Col md={6} style={{ padding: 0, height: 400}}>
                         <Panel className="centered">
@@ -74,17 +62,12 @@ export default class Profile extends Component {
                           </Panel.Heading>
                           <Panel.Body style={{height: 400}}>
                         <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
->>>>>>> dev
                           {({ loading, error, data }) => {
                             if (loading) return <div>Loading...</div>
                             if (error) return <div>Error</div>
                             return (
                               <div>
-<<<<<<< HEAD
-                                {data.questionsByUser.map((question, i) => <div key={i}>{i + 1} Title: {question.title} | Description: {question.description}</div>)}
-=======
                                 {data.questionsByUser.map((question, i) => <div key={i}><div><strong>{question.title}</strong></div><div>{question.description}</div></div>)}
->>>>>>> dev
                               </div>
                             )
                           }}
