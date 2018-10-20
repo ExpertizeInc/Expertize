@@ -48,7 +48,6 @@ export default class UpdateQuestionModal extends Component {
           <div>
             <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
               Update
-              {console.log('QUESTION IN MODAL', question)}
             </Button>
             <Modal
               show={this.state.show}

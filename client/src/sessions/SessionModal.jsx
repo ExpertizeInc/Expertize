@@ -39,7 +39,7 @@ export default class SessionModal extends Component {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Image src={user.image || userImage} alt="profile picture" />
+                <Image src={question.user.image || userImage} style={{ height: 100, width: 100, borderRadius: 400}} alt="profile picture" />
                 <p>{question.description}</p>
               </Modal.Body>
               <Modal.Footer className="centered ">
