@@ -9,8 +9,6 @@ type Query {
   questionsByFilter(online: Boolean, offline: Boolean, sort: String, username: String, audio: Boolean, video: Boolean, text: Boolean, after: String, before: String, tag: String, all: String): [Question]
   sessions: [Session!]!
   sessionsWhereUnacceptedPupil(username: String): [Session!]!
-  # sessionsWhereAcceptedExpert(username: String): [Session!]!
-  # sessionsWhereRejectedExpert(username: String): [Session!]!
   sessionsForExpert(username: String): [Session!]!
   getAllFinishedSessions(id: String): [Session!]!
 }
