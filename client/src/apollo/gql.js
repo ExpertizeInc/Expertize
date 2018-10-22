@@ -41,7 +41,7 @@ export const FINISH_SESSION = gql`
       id
       completed
       endedAt
-    } updateQuestion( id: $questionId, answeredBy: $answeredBy) {
+    } updateQuestion(id: $questionId, answeredBy: $answeredBy) {
       id 
       user{
         username

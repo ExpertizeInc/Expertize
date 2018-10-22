@@ -27,8 +27,8 @@ export default class Signup extends Component {
     const { email, password, username } = this.state;
     const { addFirebaseUser } = this.props;
     e.preventDefault();
-    localStorage.setItem('fbOrLi', 'firebase');
-    localStorage.setItem('loginType', 'signUp');
+    sessionStorage.setItem('fbOrLi', 'firebase');
+    sessionStorage.setItem('loginType', 'signUp');
     addFirebaseUser(e, email, password, username);
   }
 

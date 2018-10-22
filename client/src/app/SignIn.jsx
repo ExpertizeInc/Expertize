@@ -52,7 +52,8 @@ export default class Signin extends Component {
               <FormGroup>
                 <Col >
                   <Button className="white btn-2g bttn" onClick={(e) => {
-                    localStorage.setItem('fbOrLi', 'firebase');
+                    sessionStorage.setItem('fbOrLi', 'firebase');
+                    sessionStorage.setItem('loginType', 'signIn')
                     fbSignIn(e, this.state.email, this.state.password);
                   }}
                     type="submit">Submit</Button>

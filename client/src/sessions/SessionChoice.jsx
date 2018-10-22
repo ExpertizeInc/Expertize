@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom';
 export default class SessionChoice extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      toggle: true
-    }
+    this.state = { toggle: true };
   }
 
   render() {

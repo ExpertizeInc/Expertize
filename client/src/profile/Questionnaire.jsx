@@ -130,8 +130,8 @@ export default class Questionnaire extends Component {
           <Tab eventKey={3} title="Set up profile">
             {/* // only show if user did not select linkedin oauth signup. maybe pick avatar here too */}
             <Col smOffset={4} sm={3}>
-            {console.log(localStorage.getItem('fbOrLi'))}
-              {localStorage.getItem('fbOrLi') === "linkedIn" 
+            {console.log(sessionStorage.getItem('fbOrLi'))}
+              {sessionStorage.getItem('fbOrLi') === "linkedIn" 
                 ?
                 <div>
                   Would you like to use your linkedIn profile picture?<br/><br/>
@@ -160,6 +160,7 @@ export default class Questionnaire extends Component {
                   ? 
                   <FormGroup>
                     <FormControl onChange={(e) => this.setState({ image: e.target.value })} placeholder="Add a profile image"/><br/><br />
+                    <Button onClick={(e) => this.setState({ addPicture: false }, () => this.nextStep(e))}>Add Image</Button>
                   </FormGroup>
                   :
                   ''
