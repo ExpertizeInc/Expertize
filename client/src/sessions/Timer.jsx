@@ -51,7 +51,7 @@ export default class Timer extends Component {
       <React.Fragment>
         {user.username === session.pupil.username ? 
           time <= 0 || survey ?
-            <Survey session={session} /> :
+            <Survey session={session} user={user}/> :
             <div>
             <h3 style={{"font-family": 'Orbitron'}} >{min} : {sec} Remaining</h3>
             <Button bsStyle='primary' onClick={this.handleClick}>Finish Session</Button>

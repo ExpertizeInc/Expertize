@@ -128,7 +128,7 @@ export default class App extends React.Component {
                 console.log('USERRR', this.state.user)
                 .catch(e => history.push('/signin'))
           })
-          .catch(() => history.push('/signup'));
+          .catch((err) => console.error(err));
       } else {
         this.setState({ authenticated: false }, () => {
           localStorage.clear();

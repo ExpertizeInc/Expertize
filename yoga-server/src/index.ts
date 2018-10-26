@@ -101,9 +101,9 @@ const resolvers = {
         data: { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt }
       });
     },
-    updateSession: (_, { id, accepted, completed, startedAt, endedAt, type, duration, title}, ctx, info) => {
+    updateSession: (_, { id, accepted, completed, startedAt, endedAt, type, duration}, ctx, info) => {
       return ctx.prisma.mutation.updateSession({
-        data: { accepted, completed, startedAt, endedAt, type, duration, title },
+        data: { accepted, completed, startedAt, endedAt, type, duration},
         where: { id }
       }, info);
     },

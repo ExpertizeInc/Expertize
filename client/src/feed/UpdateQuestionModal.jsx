@@ -90,7 +90,6 @@ export default class UpdateQuestionModal extends Component {
                       video: video !== null ? video : question.video, 
                       title: title !== '' ? title : question.title,
                     }}
-                    refetchQueries={() => [{ query: GET_QUESTIONS , variables: { username: user.username }} ]}
                   >
                     {updateUserQuestion => (
                       <span>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FINISH_SESSION } from '../apollo/gql.js'
+import { FINISH_SESSION, GET_USER_UID } from '../apollo/gql.js'
 import { Mutation } from 'react-apollo';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
@@ -23,7 +23,10 @@ class Survey extends Component {
       <React.Fragment>
         <h1>rate your Expert!</h1>
         <Rating placeholderRating={this.state.rating} onClick={(value) => this.handleRatingClick(value)}/> <br/>
-        <Mutation mutation={FINISH_SESSION} variables={{ id: session.id, completed: true, user: session.pupil.id, answeredBy: { connect: { username: session.expert.username }}, questionId: session.question.id, endedAt: now, expertCoins: session.expert.coins + 2, pupilCoins: session.pupil.coins, expertUser: session.expert.id, expertRating: session.expert.ranking + this.state.rating, pupilRating: session.pupil.ranking}}> 
+        <Mutation mutation={FINISH_SESSION} 
+          variables={{ id: session.id, completed: true, user: session.pupil.id, answeredBy: { connect: { username: session.expert.username }}, questionId: session.question.id, endedAt: now, expertCoins: session.expert.coins + 2, pupilCoins: session.pupil.coins, expertUser: session.expert.id, expertRating: session.expert.ranking + this.state.rating, pupilRating: session.pupil.ranking}}
+          refetchQueries={() => [{ query: GET_USER_UID , variables: { uid: user.uid }} ]}
+          > 
         {updateSession => <Link to="/"><Button onClick={() => {updateSession()}}>Okay</Button></Link>}
         </Mutation>
       </React.Fragment>

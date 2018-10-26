@@ -18,8 +18,6 @@ export default class Discussion extends Component {
     return (
       <div className="centered">
       <Panel>
-        Testing :
-        asdfasdfdsa
         <div>
         <Switch>
           <Route path={`${match.url}/video`} render={(match) => <Video match={match} user={user} />} />

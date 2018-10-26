@@ -20,7 +20,7 @@ export default class QuickView extends Component {
         </Modal.Header>
         <Modal.Body className="centered">
             {/* add info description to sender and tags */}
-            <img src={question.user.image || userImage} style={{ height: 100, width: 100 }} onClick={() => this.toggleShow()} />
+            <img src={question.user.image || userImage} style={{ height: 100, width: 100, borderRadius:400 }} onClick={() => this.toggleShow()} />
 
           <Modal.Body>{question.user.description}</Modal.Body>
           <Link to="/home/inbox">

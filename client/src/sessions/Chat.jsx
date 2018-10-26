@@ -8,7 +8,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { Mutation } from 'react-apollo';
 import { CREATE_MESSAGE } from '../apollo/gql.js';
 
-const socket = openSocket('https://f0f7b269.ngrok.io');
+const socket = openSocket('http://localhost:3001');
 
 export default class Chat extends Component {
   constructor(props) {
