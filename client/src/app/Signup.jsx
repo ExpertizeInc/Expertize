@@ -40,7 +40,7 @@ export default class Signup extends Component {
       <Grid style={{ marginTop: 150 }}>
         <Col md={4}>
         </Col>
-        <Col style={{ backgroundColor: "#000", opacity: .9, borderRadius: 15, padding: 30 }} md={4}>
+        <Col style={{ backgroundColor: "#000", opacity: .95, borderRadius: 15, padding: 30 }} md={4}>
           <Row className="center" style={{ marginBottom: 15}}><h3>Sign Up</h3></Row>
           {signUpLinkedIn &&
             <Form className="form-panel-signup" horizontal>

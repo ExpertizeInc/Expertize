@@ -47,29 +47,32 @@ export default class SessionModal extends Component {
                   {createSession => (
                     <span>
                     {question.text && 
-                      <Button onClick={() => {
-                        createSession()
-                        this.setState({ show: false })
+                      <Button 
+                        style={{ borderRadius: 30 }} 
+                        onClick={() => {
+                          createSession()
+                          this.setState({ show: false })
                       }} 
                       bsStyle="success" >
                         <Glyphicon glyph="comment" /> 
-                        Send request to text chat
+                        &nbsp;Send request to text chat
                       </Button>
                     }</span>
                   )}
-                </Mutation>
+                </Mutation>&nbsp;
                 <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
                     <span>
                       {question.video && 
                         <Button 
+                          style={{ borderRadius: 30 }}
                           onClick={() => {
                             createSession()
                             this.setState({ show: false })}} 
                             bsStyle="success" 
                           >
                             <Glyphicon glyph="facetime-video" /> 
-                            Send request to video chat
+                            &nbsp;Send request to video chat
                         </Button>
                       }
                     </span>

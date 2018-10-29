@@ -10,7 +10,7 @@ html,body{
 
 .main {
   display: flex;
-  min-height: 100vh;
+  min-height: 94vh;
   flex-direction: column;
   z-index: 20;
   background-size: cover
@@ -33,7 +33,7 @@ html,body{
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 700px;
+  left: 780px;
   right: 0;
   width: 50%;
   height: 55%;
@@ -45,9 +45,9 @@ html,body{
   position: absolute;
   top: 100px;
   bottom: 0;
-  left: 840px;
+  left: 920px;
   right: 0;
-  width: 25%;
+  width: 20%;
   height: 53%;
   margin: auto;
   text-align: right;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, NavItem, Glyphicon } from 'react-bootstrap';
+import { Nav, Navbar, NavItem, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -13,7 +13,10 @@ export default class NavBar extends Component {
     return (
       <Navbar fluid>
         <Nav>
-          <NavItem componentClass='span' className="nav-item">
+          <NavItem className="vertical">
+            <img className="nav-logo vertical" src="../../images/logo.png" />
+            </NavItem>
+          <NavItem componentClass='span' className="nav-item" style={{ fontSize: 14}}>
             <Link to="/">Expertize</Link>
           </NavItem>
         </Nav>
