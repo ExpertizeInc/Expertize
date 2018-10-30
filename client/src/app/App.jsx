@@ -192,7 +192,7 @@ export default class App extends React.Component {
   render() {
     const { user, authenticated } = this.state;
     const { client } = this.props;
-    const styleSplash = { backgroundImage: "url('https://i.gifer.com/F1hh.gif')", opacity: .8, backgroundColor: "#000"}
+    const styleSplash = { backgroundImage: "url('https://i.gifer.com/F1hh.gif')", opacity: .9, backgroundColor: "#000"}
     const style = {backgroundColor: "#333"}
     return (
       <React.Fragment>
