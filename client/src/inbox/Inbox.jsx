@@ -35,7 +35,7 @@ export default class Inbox extends Component {
               if (loading)
                 return (
                   <div>
-                    <MDSpinner size="50" />
+                    <MDSpinner className="centered" size="50" />
                   </div>
                 );
               if (error) return <div> Error {console.log(error)} </div>;

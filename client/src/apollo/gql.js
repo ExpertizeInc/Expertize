@@ -3,37 +3,36 @@ import gql from 'graphql-tag';
 export const CREATE_QUESTION = gql`
 mutation createQuestion($id: ID!, $user: UserCreateOneInput, $description: String!, $userCoins: Int!, $coins: Int!, $debt: Int, $title: String!, $text: Boolean!, $audio: Boolean!, $video: Boolean!, $duration: Int!, $tag: TagCreateOneInput) {
   createQuestion(user: $user, description: $description, tag: $tag, coins: $coins, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
-    description
     title
   }
   updateUser(id: $id, coins: $userCoins, debt: $debt) {
     uid
     coins
   }
-}
-`;
+}`;
+
+export const UPDATE_USER_QUESTION = gql`
+  mutation updateUserQuestion($id: ID!, $description: String, $title: String, $text: Boolean, $audio: Boolean, $video: Boolean, $duration: Int) {
+    updateQuestion(id: $id, description: $description, title: $title, text: $text, audio: $audio, video: $video, duration: $duration) {
+      id
+  }
+}`;
 
 export const FINISH_SESSION = gql`
-mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $user: ID!, $expertUser: ID!, $answeredBy: UserCreateOneInput, $expertRating: Int, $pupilRating: Int, $expertCoins: Int, $pupilCoins: Int, $endedAt: DateTime) {
-  updateSession(id: $id, completed: $completed, endedAt: $endedAt) { 
-    id
-    completed
-    endedAt
-  } updateQuestion( id: $questionId, answeredBy: $answeredBy) {
-    id 
-    user{
-      username
-    }
-    answeredBy {
-      username
-    }
-  } pupil:updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
-    id
-  } expert:updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
-    id
-  }
-}
-`;
+  mutation updateSession($id: String!, $questionId: ID!, $completed: Boolean, $user: ID!, $expertUser: ID!, $answeredBy: UserCreateOneInput, $expertRating: Int, $pupilRating: Int, $expertCoins: Int, $pupilCoins: Int, $endedAt: DateTime) {
+    updateSession(id: $id, completed: $completed, endedAt: $endedAt) { 
+      id
+      completed
+      endedAt
+    } updateQuestion( id: $questionId, answeredBy: $answeredBy) {
+      id 
+
+      } pupil:updateUser(id: $user, coins: $pupilCoins, ranking: $pupilRating) {
+        id
+      } expert:updateUser(id: $expertUser, coins: $expertCoins, ranking: $expertRating) {
+        id
+      }
+}`;
 
 export const GET_QUESTIONS = gql`
   query {
@@ -41,6 +40,8 @@ export const GET_QUESTIONS = gql`
       user {
         username
         online
+        description
+        linkedInProfile
       }
       id
       description
@@ -55,6 +56,7 @@ export const GET_QUESTIONS = gql`
         name
       }
       id
+      createdAt
     }
   }
 `;
@@ -66,6 +68,8 @@ export const GET_FILTERED_QUESTIONS = gql`
         username
         online
         image
+        linkedInProfile
+        description
       }
       id
       description
@@ -94,7 +98,9 @@ export const GET_TAGS = gql`
 export const CREATE_MESSAGE = gql`
 mutation createMessage($title: String, $message: String, $sender: UserCreateOneInput, $recipient: UserCreateOneInput) {
   createMessage(title: $title, message: $message, sender: $sender, recipient: $recipient) {
+    id
     message
+    createdAt
   }
 }
 `
@@ -125,6 +131,7 @@ export const GET_USER_QUESTIONS = gql`
     questionsByUser(username: $username) {
       title
       description
+      createdAt
     }
   }
 `;
@@ -150,25 +157,6 @@ export const CREATE_USER = gql`
     createUser(username: $username, email: $email, uid: $uid) {
     id
     uid
-    tag {
-      name
-    }
-    image
-    description
-    coins
-    username
-    linkedInProfile
-    image
-    dailyClaimed
-    online
-    debt
-    inSession
-    questionsAsked {
-      title
-      answeredBy {
-        username
-      }
-    }  
     }
   }
 `;
@@ -177,27 +165,24 @@ export const GET_USER_UID = gql`
 query user($uid: String!) {
   user(uid: $uid) {
     id
+    username
+    email
     uid
     description
-    image
-    description
-    coins
-    username
+    inSession
     linkedInProfile
-    image
-    dailyClaimed
     online
+    dailyClaimed
     debt
-    tag {
-      name
-    }
-    questionsAsked {
-      title
-      answeredBy {
-        username
-      }
-    }
+    coins
     ranking
+    image
+    questionsAsked {
+        title
+        answeredBy {
+          username
+        }
+      }
   }
 }`;
 
@@ -206,26 +191,7 @@ mutation updateUser($id: ID!, $email: String, $uid: String, $description: String
     updateUser(id: $id, email: $email, uid: $uid, description: $description, coins: $coins, tag: $tag, username: $username, image: $image, dailyClaimed: $dailyClaimed, debt: $debt, online: $online, inSession: $inSession, linkedInProfile: $linkedInProfile) {
         id
         uid
-        description
-        image
-        description
-        coins
         username
-        linkedInProfile
-        tag {
-          name
-        }
-        image
-        dailyClaimed
-        online
-        debt
-        inSession
-        questionsAsked {
-        title
-        answeredBy {
-          username
-        }
-      }
     }
   }
 `;
@@ -270,19 +236,23 @@ query sessionsWhereUnacceptedPupil($username: String) {
       username
       coins
       ranking
+      image
     }
     pupil {
       id
       username
       coins
       ranking
+      image
     }
     accepted
     completed
-    question{
+    question {
       duration
       id
       coins
+      title
+      description
     }
   }
 }
@@ -298,12 +268,14 @@ query sessionsForExpert($username: String) {
       username
       coins
       ranking
+      image
     }
     pupil {
       id
       username
       coins
       ranking
+      image
     }
     accepted
     completed
@@ -311,41 +283,9 @@ query sessionsForExpert($username: String) {
       duration
       id
       coins
+      title
+      description
     }
-  }
-}
-`
-
-export const GET_ACCEPTED_SESSIONS = gql`
-query sessionsWhereAcceptedExpert($username: String) {
-  sessionsWhereAcceptedExpert(username: $username) {
-    id
-    type
-    expert {
-      username
-    }
-    pupil {
-      username
-    }
-    accepted
-    completed
-  }
-}
-`
-
-export const GET_REJECTED_SESSIONS = gql`
-query sessionsWhereRejectedExpert($username: String) {
-  sessionsWhereRejectedExpert(username: $username) {
-    id
-    type
-    expert {
-      username
-    }
-    pupil {
-      username
-    }
-    accepted
-    completed
   }
 }
 `
@@ -355,9 +295,11 @@ export const GET_ALL_FINISHED_SESSIONS = gql`
     getAllFinishedSessions(id: $id) {
       pupil {
         username
+        image
       }
       expert {
         username
+        image
       }
       question{
         description

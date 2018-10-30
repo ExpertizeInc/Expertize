@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, Navbar, NavItem, Glyphicon } from 'react-bootstrap';
+import { Nav, Navbar, NavItem, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,24 +9,18 @@ export default class NavBar extends Component {
   }
 
   render() {
-    const routes = ['Questionnaire'];
     const { authenticated, signOut } = this.props;
     return (
       <Navbar fluid>
         <Nav>
-          <NavItem componentClass='span' className="nav-item">
+          <NavItem className="vertical">
+            <img className="nav-logo vertical" src="../../images/logo.png" />
+            </NavItem>
+          <NavItem componentClass='span' className="nav-item" style={{ fontSize: 14}}>
             <Link to="/">Expertize</Link>
           </NavItem>
         </Nav>
         <Nav  pullRight>
-          {authenticated
-            ?
-            routes.map(route => (
-              <NavItem  key={route} componentClass='span' className="nav-item">
-                <Link to={`/${route.toLowerCase()}`}>{route}</Link>
-              </NavItem>
-            ))
-            : null}
           <NavItem  componentClass='span' className="nav-item">
             <Link to="/aboutus"> About Us</Link>
           </NavItem>

@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv').config();
+require('dotenv').config(); 
 const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const authMiddleware = require('./auth/authMiddleware.js');
 const passport = require('./auth/linkedInAuth.js');
 const compression = require('compression');
+const TinyURL = require('tinyurl');
 
 const app = express();
 app.use(compression());
@@ -16,14 +17,19 @@ app.use(session({
   secret: 'TQyMsJWbwxSuBpum',
   resave: false,
   saveUninitialized: false
-}))
+}));
+app.use(bodyParser.json())
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(authMiddleware);
 
 app.use(express.static(path.join(__dirname + '/../client/dist')));
 
-
+app.post('/shorten', (req, resp) => {
+  let { image } = req.body;
+  TinyURL.shorten(image, (res) => resp.send(res));
+})
 app.get('/auth/linkedin',passport.authenticate('linkedin'));
 app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {failureRedirect: '/' }), (req, res) => {
   res.redirect('/');

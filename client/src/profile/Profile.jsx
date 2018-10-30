@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Grid, Col, Row, PageHeader, Thumbnail, Label, Glyphicon, Button } from 'react-bootstrap'
+import { Grid, Col, Row, PageHeader, Thumbnail, Image, Panel } from 'react-bootstrap'
 import { Mutation, Query } from 'react-apollo';
 import { GET_USER_QUESTIONS, GET_ALL_FINISHED_SESSIONS } from '../apollo/gql.js';
+import Moment from 'react-moment';
 import Rating from 'react-rating';
+import MDSpinner from "react-md-spinner";
 
 
 export default class Profile extends Component {
@@ -18,92 +20,93 @@ export default class Profile extends Component {
 
   render() {
     const { user } = this.props;
-    console.log('profileeeeee', user)
     return (
       <div>
+        <Panel>
         <Query query={GET_ALL_FINISHED_SESSIONS} variables={{id: user.id }} onCompleted={(data) => console.log('data from querying session for all', data)}>
           {({ loading, error, data }) => {
-            if (loading) return <div>Loading...</div>
+            if (loading) return <div className="center"><MDSpinner className="centered" size="50" /></div>
             if (error) return <div>Error</div>
             if (true) console.log('data from get all finished sessions', data)
             console.log('user ranking', user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length))
             return (
-              <Grid>
-                <PageHeader style={{ display: 'flex', justifyContent: 'center' }}>Profile</PageHeader>
+              <div>
                 <Row >
-                  <Col xs={6} md={3} >
-                    <Thumbnail className="centered">
-                      <img src={user.image}/>
-                      <span><h2>{user.username}</h2></span>
-                      <Rating readonly initialRating={data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length === 0 ? 0 : user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length)  } /> <br />
-                      <div>{user.description}</div>
-                      {/* <div>{user.tags && user.tags.length > 1 ? user.tags.map(tag => <span><Label className="tags" bsStyle="default">{tag}</Label><div>{'\n'}</div></span>) : <Label className="tags" bsStyle="default">{user.tags}</Label>}</div> */}
-                    <Button><Glyphicon glyph="cog" /> Edit preferences</Button>
-                    </Thumbnail>
-                  </Col>
-                  
-                  <Col xs={18} md={9}>
+                  <Col md={12}>
                     <Row>
-                      <Col xs={6} md={4}>
-                        <Thumbnail className="centered">
+                      <Col xs={6} md={4} style={{ padding: 0}}>
+                        <Thumbnail className="centered" style={{margin: 0, padding: 0}}>
                           <h3>{data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length}</h3>
-                          Questions answered
+                          <div style={{ fontSize: "10px", color: "grey"}}>QUESTIONS ANSWERED</div>
                         </Thumbnail>
                       </Col>
-                      <Col xs={6} md={4}>
-                        <Thumbnail className="centered">
-                          <h3>{user.coins}</h3>
-                          Coins
-                        </Thumbnail>
+                      <Col xs={6} md={4} style={{ padding: 0}}>
+                        <Thumbnail className="centered" style={{margin: 0, padding: 0}}>
+                        <h5>Rating</h5>
+                        <Rating readonly initialRating={data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length === 0 ? 0 : user.ranking / (data.getAllFinishedSessions.filter(x => x.expert.username === user.username).length)  } /> <br />
+                      </Thumbnail>
                       </Col>
-                      <Col xs={6} md={4}>
-                        <Thumbnail className="centered">
+                      <Col xs={6} md={4} style={{ padding: 0}}>
+                        <Thumbnail className="centered" style={{margin: 0, padding: 0}}>
                         <h3>{user.questionsAsked.length}</h3>
-                        Questions asked
+                        <div style={{ fontSize: "10px", color: "grey"}}>QUESTIONS ASKED</div>
                       </Thumbnail>
                       </Col>
                     </Row>
-
-                    <Row>
-                      <Thumbnail className="centered">
-                        <h3>Alt stats/graphs</h3>
+                    <Row style={{ height: 400}}>
+                    <Col md={6} style={{ padding: 0, height: 400}}>
+                        <Panel className="centered">
+                        <Panel.Heading>
+                          <Panel.Title>
+                      
+                        <h3>Question History</h3>
+                        </Panel.Title>
+                          </Panel.Heading>
+                          <Panel.Body style={{height: 400}}>
                         <Query query={GET_USER_QUESTIONS} variables={{ username: user.username }} onCompleted={(data) => console.log(data)}>
                           {({ loading, error, data }) => {
                             if (loading) return <div>Loading...</div>
                             if (error) return <div>Error</div>
                             return (
                               <div>
-                                {console.log('aaaaaaaaaa',data)}
-                                {data.questionsByUser.map((question, i) => <div key={i}>{i + 1} Title: {question.title} | Description: {question.description}</div>)}
+                                {data.questionsByUser.map((question, i) => <div key={i}><div><strong>{question.title}</strong></div><div>{question.description}</div></div>)}
                               </div>
                             )
                           }}
                         </Query>
-                      </Thumbnail>
-                    </Row>
-
-                    <Row>
-                      <Col>
-                        <Thumbnail className="centered">
-                          <h3>Interaction History, etc</h3>
+                        </Panel.Body>
+                        </Panel>
+                      </Col>
+                
+                      <Col md={6} style={{ padding: 0, height: 400}}>
+                        <Panel className="centered">
+                        <Panel.Heading>
+                          <Panel.Title>
+                          <h3>Interaction History</h3>
+                          </Panel.Title>
+                          </Panel.Heading>
+                          <Panel.Body style={{height: 400}}>
                             <div>
-                              {data.getAllFinishedSessions.length > 0 ? data.getAllFinishedSessions.map((session, i) => 
-                              <div key={i}>{user.username === session.expert.username ? `You helped ${session.pupil.username} | +${session.question.coins} coins` : 
-                                `${session.expert.username} helped you | -${session.question.coins} coins`}</div>) :
-                                <div>Uh Oh, no sessions</div>
+                              {data.getAllFinishedSessions.length > 0 ? (data.getAllFinishedSessions.map((session, i) => 
+                              <div key={i}>
+                              {user.username === session.expert.username ? 
+                                <div><Image style={{width:20, borderRadius: 400}} src={user.image} /> You answered {session.pupil.username} and got {session.question.coins} coins</div> : 
+                              <div><Image style={{width:20, borderRadius: 400}} src={session.expert.image} /> {session.expert.username} answered your question that cost -{session.question.coins} coins</div>}
+                              </div>)) : <div>Uh Oh, no sessions</div>
                               }
                             </div>
-                        </Thumbnail>
+                            </Panel.Body>
+                        </Panel>
                       </Col>
                     </Row>
-
                   </Col>
-
                 </Row>
-              </Grid>
+              </div>
             )
           }}
         </Query>
+        </Panel>
+      
       </div>
     )
   }

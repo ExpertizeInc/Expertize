@@ -19,6 +19,10 @@
   border-radius: 20px !important; 
 }
 
+.modal-body {
+  color: black;
+}
+
 /* ======== BUTTONS ======= */
 
 
@@ -90,7 +94,7 @@
 .btn-online {
   border: none;
   color: white;
-  padding: 7px;
+  padding: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -141,6 +145,9 @@ input:focus, .btn:focus, .form-control:focus {
   width: 100% !important;
 }
 
+.white {
+  color:white
+}
 label {
   border-color: black;
 }
@@ -179,6 +186,12 @@ color: white;
 /* ===== OVERRIDE ====== */
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
   background-color: #13c8d9;
+}
+
+.nav-logo {
+  float: left !important;
+  margin-top: -12px !important;
+  width: 30px;
 }
 
 .panel {

@@ -1,21 +1,26 @@
 import { GraphQLServer } from 'graphql-yoga';
-import { Prisma } from '../prisma/generated';
+import { Prisma, User } from '../prisma/generated';
+import { createTextChangeRange } from 'typescript';
 import 'dotenv/config';
 
 const resolvers = {
   Query: {
-    user: (parent, {uid}, ctx, info) => {
+    user: (_, {uid}, ctx: {prisma: Prisma}, info) => {
       console.log(uid, 'asd')
       return ctx.prisma.query.user({ where: {uid} }, info);
     },
     users: (_, __, ctx, info) => {
       return ctx.prisma.query.users({}, info);
     },
-    messagesSent: (_, { username }, ctx, info) => {
-      return ctx.prisma.query.messages({ where: { sender: { username }, expired: false } }, info);
+    messagesSent: (_, { username }, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.messages({ 
+        where: { sender: { username }, expired: false },
+        orderBy: 'createdAt_DESC' }, info);
     },
-    messagesReceived: (_, { username }, ctx, info) => {
-      return ctx.prisma.query.messages({ where: { recipient: { username }, expired: false } }, info);
+    messagesReceived: (_, { username }, ctx: {prisma: Prisma}, info) => {
+      return ctx.prisma.query.messages({ 
+        where: { recipient: { username }, expired: false },
+        orderBy: 'createdAt_DESC' }, info);
     },
     questions: (_, __, ctx, info) => {
       return ctx.prisma.query.questions({where: {answeredBy: null}}, info);
@@ -23,11 +28,9 @@ const resolvers = {
     questionsByUser: (_, {username}, ctx, info) => {
       return ctx.prisma.query.questions({ where: { user: {username} }}, info);
     },
-    questionsByFilter: (_, { online, offline, sort, username, audio, video, text, after, before, tag}, ctx, info) => {
+    questionsByFilter: (_, { online, offline, sort, username, audio, video, text, tag}, ctx: {prisma: Prisma}, info) => {
      let name = 'name'
-      if (tag === 'All') {
-        name = 'name_not'
-     }
+      if (tag === 'All') name = 'name_not';
       return ctx.prisma.query.questions({ 
         where: {
           answeredBy: null,
@@ -65,7 +68,13 @@ const resolvers = {
         data: { user, tag, description, coins, title, text, audio, video, duration }
       }, info);
     },
-    updateUser: (_, { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, id, tag, username, image, linkedInProfile, imageFile }, ctx, info) => {
+    updateUserQuestion: (_, { description, title, text, audio, video, duration, id }, ctx: { prisma: Prisma}, info) => {
+      return ctx.prisma.mutation.updateQuestion({
+        data: { description, title, text, audio, video, duration },
+        where: { id }
+      }, info);
+    },
+    updateUser: (_, { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, id, tag, username, image, linkedInProfile }, ctx: { prisma: Prisma }, info) => {
       return ctx.prisma.mutation.updateUser({
         data: { email, uid, description, coins, ranking, inSession, dailyClaimed, debt, online, tag, username, image, linkedInProfile, imageFile },
         where: { id } 
@@ -86,9 +95,9 @@ const resolvers = {
         data: { type, question, expert, pupil, duration, accepted, completed, startedAt, endedAt }
       });
     },
-    updateSession: (_, { id, accepted, completed, startedAt, endedAt}, ctx, info) => {
+    updateSession: (_, { id, accepted, completed, startedAt, endedAt, type, duration}, ctx, info) => {
       return ctx.prisma.mutation.updateSession({
-        data: { accepted, completed, startedAt, endedAt },
+        data: { accepted, completed, startedAt, endedAt, type, duration},
         where: { id }
       }, info);
     },
@@ -108,13 +117,13 @@ const resolvers = {
 const prisma = new Prisma({
   endpoint: 'https://us1.prisma.sh/alon-bibring-d051d8/expertizedb/dev',
   secret: process.env.PRISMA_SECRET,
-  debug: true
+  // debug: true
  })
 
 const server = new GraphQLServer({
   typeDefs: 'yoga-server/src/schema.graphql',
   resolvers,
-  context: req => {
+  context:  req => {
     return {
       ...req,
       prisma
@@ -122,4 +131,5 @@ const server = new GraphQLServer({
   }
 });
 
+// server.express.use(express.static(path.join(__dirname + '/../../client/dist')));
 server.start(() => console.log(`GraphQL server is running on http://localhost:4000`));

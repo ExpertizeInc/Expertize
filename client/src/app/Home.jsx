@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Jumbotron, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 export default class Home extends Component {
   constructor(props) {
@@ -9,20 +9,15 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div>
-        <Jumbotron>
-          <h1>Welcome to Expertize!</h1>
-          <p>
-            Tutors exist, but young professionals are too busy. We bring
-            together people of various expertise to connect them for brief,
-            educational exchange. Ultimately the goal is to spread knowledge to
-            every person across many subjects.
-          </p>
-          <p>
-            <Button bsStyle="primary">Learn more</Button>
-          </p>
-        </Jumbotron>
-        {/* Code below went here */}
+      <div className="centered vertical">
+        <div className="splash-header">LEARN FROM EXPERTS</div>
+        <div className="splash-sub">
+          <p>{`Tutors exist, but young professionals lead busy lives. We bring
+          together people of various expertise to connect them for brief,
+          educational exchanges. The goal is to spread knowledge to
+          many people across many subjects.`}</p>
+          <div><Button style={{ marginTop: 10, borderRadius: 20, width: 150, height: 40 }} bsStyle="primary">LEARN MORE</Button></div>
+        </div>
       </div>
     );
   }

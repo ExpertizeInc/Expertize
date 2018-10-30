@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { GET_QUESTIONS, GET_FILTERED_QUESTIONS } from "../apollo/gql.js";
+import { GET_FILTERED_QUESTIONS } from "../apollo/gql.js";
 import QuestionFeedItem from "./QuestionFeedItem.jsx";
 import MDSpinner from "react-md-spinner";
 import { userInfo } from "os";

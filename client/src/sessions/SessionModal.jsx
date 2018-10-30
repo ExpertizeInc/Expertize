@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Modal, Glyphicon, Well, Grid, Row, Col } from 'react-bootstrap';
+import { Button, Modal, Glyphicon, Image } from 'react-bootstrap';
 import { Mutation, withApollo } from 'react-apollo';
 import { CREATE_SESSION } from '../apollo/gql.js';
 import { connect } from 'tls';
+import userImage from '../../dist/images/user.png';
 
 
 export default class SessionModal extends Component {
@@ -19,12 +20,12 @@ export default class SessionModal extends Component {
   render() { 
     const { user, question } = this.props;
     return (
-        <div>
+      <div>
         {user 
           ? 
           <div>
             <Button bsStyle="primary" onClick={() => this.setState({ show: true })}>
-              PICK ME
+              Answer
             </Button>
             <Modal
               show={this.state.show}
@@ -34,44 +35,56 @@ export default class SessionModal extends Component {
             >
               <Modal.Header closeButton>
                 <Modal.Title>
-                  Begin your discussion with {question.user ? question.user.username : ''} - SessionModal.jsx
+                  Begin your discussion with {question.user ? question.user.username : ''}
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <div className="hexagon centered" style={{ backgroundImage: "url('http://placecorgi.com/150')" }}>
-                  <div className="hexTop centered" />
-                  <div className="hexBottom centered" />
-                </div>
-                <div><h2></h2></div>
+                <Image src={question.user.image || userImage} style={{ height: 100, width: 100, borderRadius: 400}} alt="profile picture" />
                 <p>{question.description}</p>
               </Modal.Body>
               <Modal.Footer className="centered ">
-
                 <Mutation mutation={CREATE_SESSION} variables={{ type: 'text', question: { connect: { id: question.id }}, expert: {connect: { username: user.username }}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
-                    <span>{question.text && <Button onClick={() => {
-                      createSession()
-                      this.setState({ show: false }, () => console.log('session was created'))}} bsStyle="success" ><Glyphicon glyph="comment" /> Send request to text chat</Button>
+                    <span>
+                    {question.text && 
+                      <Button 
+                        style={{ borderRadius: 30 }} 
+                        onClick={() => {
+                          createSession()
+                          this.setState({ show: false })
+                      }} 
+                      bsStyle="success" >
+                        <Glyphicon glyph="comment" /> 
+                        &nbsp;Send request to text chat
+                      </Button>
                     }</span>
                   )}
-                </Mutation>
-                {' '}
+                </Mutation>&nbsp;
                 <Mutation mutation={CREATE_SESSION} variables={{ type: 'video', question: { connect: { id: question.id }}, expert: {connect: { username: user.username}}, pupil : { connect: { username: question.user.username }}}}>
                   {createSession => (
-                    <span>{question.video && <Button onClick={() => {
-                      createSession()
-                      this.setState({ show: false })}} bsStyle="success" ><Glyphicon glyph="facetime-video" />Send request to video chat</Button>
-                    }</span>
+                    <span>
+                      {question.video && 
+                        <Button 
+                          style={{ borderRadius: 30 }}
+                          onClick={() => {
+                            createSession()
+                            this.setState({ show: false })}} 
+                            bsStyle="success" 
+                          >
+                            <Glyphicon glyph="facetime-video" /> 
+                            &nbsp;Send request to video chat
+                        </Button>
+                      }
+                    </span>
                   )}
                 </Mutation>
               </Modal.Footer>
             </Modal>
           </div>
           :
-          <div></div>
+          <div />
           }
-          </div> 
-        
-    );
-  }
+        </div> 
+      );
+    }
 };

@@ -13,7 +13,7 @@ export default class SessionChoice extends Component {
   }
 
   render() {
-    const { session, match } = this.props
+    const { session, match, togglePupil } = this.props
     return (
       <div>
       {(session && session.pupil) && 
@@ -29,7 +29,7 @@ export default class SessionChoice extends Component {
           </Modal.Body>
           <Modal.Footer>
           <Mutation mutation={UPDATE_SESSION} variables={{ id: session.id, accepted: true }}>
-            {updateSession => <Link to={{pathname:`${match.url}/discussion/${session.type}`, state:{session}}}><Button onClick={() => {updateSession(); this.props.togglePupil()}}>Accept</Button></Link>}
+            {updateSession => <Link to={{pathname:`${match.url}/discussion/${session.type}`, state:{session}}}><Button onClick={() => {updateSession(); togglePupil()}}>Accept</Button></Link>}
             </Mutation>
             <Mutation mutation={UPDATE_SESSION} variables={{ id: session.id, accepted: false }}>
             {updateSession =>  <Link to={`${match.url}`}><Button onClick={() => {updateSession(); this.props.togglePupil()}}>Reject</Button></Link>}

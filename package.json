@@ -9,8 +9,7 @@
     "server-dev": "nodemon express-server/index.js",
     "worker-dev": "nodemon worker/worker.js",
     "start": "nodemon express-server/index.js webpack -d --watch",
-    "graphql-dev": "nodemon -e ts,graphql -x ts-node yoga-server/src/index.ts",
-    "dev": "npm-run-all --parallel start playground"
+    "graphql-dev": "nodemon -e ts,graphql -x ts-node yoga-server/src/index.ts"
   },
   "author": "Alon, Paul, Shirley",
   "license": "ISC",
@@ -20,7 +19,6 @@
     "apollo-link": "^1.2.3",
     "apollo-link-http": "^1.5.5",
     "apollo-link-ws": "^1.0.9",
-    "apollo-server": "^2.1.0",
     "apollo-utilities": "^1.0.21",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
@@ -53,10 +51,8 @@
     "react": "^16.5.2",
     "react-apollo": "^2.2.1",
     "react-bootstrap": "^0.32.4",
-    "react-circular-progressbar": "^1.0.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.5.2",
-    "react-loading": "^2.0.3",
     "react-md-spinner": "^0.3.0",
     "react-moment": "^0.8.1",
     "react-rating": "^1.4.0",
@@ -65,6 +61,7 @@
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "subscriptions-transport-ws": "^0.9.15",
+    "tinyurl": "^1.1.2",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.1",
     "url-loader": "^1.1.2"
@@ -80,8 +77,5 @@
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1"
-  },
-  "resolutions": {
-    "graphql": "^0.13.0"
   }
 }

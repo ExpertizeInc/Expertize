@@ -17,7 +17,6 @@ export default class Discussion extends Component {
       <Panel>
         Testing :
         asdfasdfdsa
-        <Link to={`${match.url}/chatbox`}>ToText</Link>
         <div>
         <Switch>
           <Route path={`${match.url}/video`} render={(match) => <Video match={match} user={user} />} />
