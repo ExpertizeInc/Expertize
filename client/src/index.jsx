@@ -1,18 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import ApolloClient from 'apollo-boost';
+import { Router } from 'react-router-dom';
+import history from './app/history.js';
+import App from './app/App.jsx';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      
-    }
-  }
-  render() {
-    return (
-      <div>Hello World</div>
-    )
-  }
-}
+const client = new ApolloClient({
+  uri: "http://localhost:4000"
+});
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+render(<Router history={history}><App client={client} /></Router>, document.getElementById('app'));

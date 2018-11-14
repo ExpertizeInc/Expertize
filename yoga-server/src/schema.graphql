@@ -1,0 +1,140 @@
+type Query {
+  user(uid: String!): User!
+  tags: [Tag!]!
+  users: [User]!
+  messagesSent(username: String!): [Message]
+  messagesReceived(username: String!): [Message]
+  questions: [Question]!
+  questionsByUser(username: String!): [Question]
+  questionsByFilter(online: Boolean, offline: Boolean, sort: String, username: String, audio: Boolean, video: Boolean, text: Boolean, after: String, before: String, tag: String, all: String): [Question]
+  sessions: [Session!]!
+  sessionsWhereUnacceptedPupil(username: String): [Session!]!
+  sessionsForExpert(username: String): [Session!]!
+  getAllFinishedSessions(id: String): [Session!]!
+}
+
+type Mutation {
+   createUser(email: String!, uid: String!, username: String!, linkedProfile: String): User
+   updateUser(id: ID!, email: String, uid: String, description: String, privacy: String, linkedInProfile: String, coins: Int, tag: TagCreateOneInput, username: String, image: String, dailyClaimed: Boolean, inSession: Boolean, online: Boolean, debt: Int, ranking: Int): User
+   updateManyUsers(dailyClaimed: Boolean): BatchPayload!
+   createMessage(title: String, sender: UserCreateOneInput, recipient: UserCreateOneInput, message: String): Message
+   updateManyMessages: BatchPayload!
+   login(email: String!, password: String!): LoginPayload!
+   createQuestion(user: UserCreateOneInput, description: String!, tag: TagCreateOneInput, coins: Int!, title: String!, text: Boolean!, audio: Boolean!, video: Boolean!, duration: Int!): Question
+   updateUserQuestion(id: ID!, title: String, description: String, text: Boolean, audio: Boolean, video: Boolean, duration: Int): Question
+   createSession(type: String!, question: QuestionCreateOneInput, expert: UserCreateOneInput, pupil: UserCreateOneInput, duration: Int, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
+   updateSession(id: String!, accepted: Boolean, completed: Boolean, startedAt: DateTime, endedAt: DateTime): Session
+   addTag(name: String!): Tag
+   updateQuestion(id: ID!, answeredBy: UserCreateOneInput, description: String, coins: Int, title: String, text: Boolean, audio: Boolean, video: Boolean, duration: Int): Question
+   deleteSession(id: ID!): Session
+}
+
+type BatchPayload {
+  count: Int
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  uid: String!
+  tag: Tag
+  description: String
+  inSession: Boolean
+  linkedInProfile: String
+  online: Boolean
+  dailyClaimed: Boolean
+  questionsAsked: [Question!]
+  debt: Int
+  coins: Int 
+  ranking: Int
+  image: String
+  session: [Session!]!
+}
+
+type Session {
+  id: ID!
+  question: Question
+  type: String!
+  expert: User
+  pupil: User
+  duration: Int
+  accepted: Boolean
+  completed: Boolean
+  startedAt: DateTime
+  endedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  questionId: String
+}
+
+
+type Tag {
+  id: ID!
+  name: String!
+}
+
+type Question {
+  id: ID!
+  user: User
+  description: String!
+  tag: Tag
+  coins: Int!
+  active: Boolean
+  title: String!
+  text: Boolean!
+  audio: Boolean!
+  video: Boolean!
+  duration: Int!
+  answeredBy: User
+  createdAt: DateTime!
+}
+
+type Message {
+  id: ID!
+  sender: User 
+  recipient: User
+  title: String
+  message: String
+  read: Boolean
+  createdAt: DateTime!
+}
+
+input UserCreateOneInput {
+  connect: UserInput
+}
+
+input UserInput {
+  username: String
+}
+
+input TagCreateOneInput {
+  connect: TagInput
+}
+
+input TagInput {
+  name: String
+}
+
+input QuestionCreateOneInput {
+  connect: QuestionInput
+}
+
+input QuestionInput {
+  id: String
+}
+
+scalar DateTime
+
+type Subscription {
+  subscribeToSessionAsExpert(username:String!): SessionSubscriptionPayload
+}
+
+type SessionSubscriptionPayload {
+  updatedFields: [String!]
+}
+
+type LoginPayload {
+  token: String
+  error: String
+}
